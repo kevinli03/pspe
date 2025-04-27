@@ -1,0 +1,87 @@
+---
+title: "Inverse Probability Weighting"
+---
+
+::: small
+See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
+:::
+
+Let us look at this example, with a confounder.
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 1.1
+digraph example2 {
+  // Nodes
+  D [shape=box, pos = "0,0!", label="Receiving Scholarship"]
+  X [shape=box, pos = "2,0!", label="Smartness (Confounder)"]
+  Y [shape=box, pos = "1,-1!", label="University Grades"]
+
+  // Edges
+  {rank=same; D -> Y [label="Causal Effect"]}
+  X -> D
+  X -> Y [dir=both]
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+Let's pretend there are only dumb and smart people (for simplicity). Our treated and control groups might be:
+
+|                                         |                                                   |
+|--------------------------------|----------------------------------------|
+| [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
+| Smart Students (x4)                     | Smart Students (x1)                               |
+| Dumb Students (x1)                      | Dumb Students (x4)                                |
+
+: {tbl-colwidths="\[50,50\]" .bordered}
+
+Our two groups have pre-existing differences. However, by emphasising certain individuals, we can make it seem like there are no more imbalances. For example, weighting might make our above table become:
+
+|                                         |                                                   |
+|--------------------------------|----------------------------------------|
+| [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
+| Smart Students (x4)                     | Smart Students (emphasise to x4)                  |
+| Dumb Students (emphasise to x4)         | Dumb Students (x4)                                |
+
+: {tbl-colwidths="\[50,50\]" .bordered}
+
+::: small
+See how the underrepresented individuals in each group (treated/untreated) were weighted upwards. More technically, inverse probability weighting emphasises/weights an individual by the inverse of their likelihood to receive treatment.
+:::
+
+We can see there is no more pre-existing differences after weighting. Thus, selection bias has been solved.
+
+<br />
+
+Before you inverse probability weighting, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd):
+
+We will need the **estimatr** package:
+
+```{r, warning = F, message = F}
+library(estimatr)
+```
+
+To estimate the propensity scores and weights, we can use the **glm()** command:
+
+```{r, eval = FALSE}
+propensity <- glm(D ~ X1 + X2,
+                  data = my_data,
+                  family = "binomial")
+my_data$pscore <- predict(propensity, type = "response")
+my_data$ipw <- ifelse(mydata$D == 1,
+                      1/my_data$pscore,
+                      1/(1-my_data$pscore))
+```
+
+Finally, we need to use the **lm_robust()** command to estimate our causal effects:
+
+```{r, eval = FALSE}
+ate <- estimatr::lm_robust(Y ~ D, data = my_data, weights = ipw)
+summary(ate)
+```
+
+The output will be the ATE - the average treatment effect for all units in the study.

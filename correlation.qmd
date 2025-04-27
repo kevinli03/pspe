@@ -1,0 +1,105 @@
+---
+title: "Basics of Causality"
+---
+
+::: small
+This page covers how confounders cause pre-existing differences between treated and untreated (selection bias), meaning correlation is not causation.
+:::
+
+Let us look at this causal question:
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 0.45
+digraph example1 {
+  // Nodes
+  D [shape=box, label="Going to the Hospital (D)"]
+  Y [shape=box, label="Health Outcomes (Y)"]
+
+  // Edges
+  D -> Y [label="Causal Effect"]
+
+  // Graph styling
+  rankdir=LR; // Left to right layout
+}
+```
+:::
+
+We have a treated group (went to hospital), and an untreated group. Using our potential outcomes framework, we can define the treatment effect of the treated group:
+
+$$
+\tau_\text{treated} = \textcolor{purple}{\mean Y_{\text{treated}}^{(1)}} - \textcolor{red}{\mean Y_{\text{treated}}^{(0)}}
+$$
+
+::: small
+In red is the counterfactual we do not observe.
+:::
+
+Now compare the treatment effects above to correlation, which is defined as the difference in observed outcomes:
+
+$$
+\begin{align}
+\text{correlation} & = \mean Y_\text{treated} - \mean Y_\text{untreated} \\
+& = \textcolor{purple}{\mean Y_{\text{treated}}^{(1)}} - \textcolor{purple}{\mean Y_\text{untreated}^{(0)}}
+\end{align}
+$$
+
+If we compare this correlation to our $\tau_\text{treated}$, we see:
+
+$$
+\text{if  } \textcolor{purple}{\mean Y_\text{untreated}^{(0)}} ≠ \textcolor{red}{\mean Y_\text{treated}^{(0)}}, \text{ then }  \tau_\text{treated} ≠ \text{correlation}
+$$
+
+::: small
+These two quantities are potential outcomes under control, or in another way to think of it, outcomes of the two groups prior to treatment happening.
+:::
+
+Thus, if there is a difference between the average outcomes between treated and untreated before treatment is administered, then correlation is not equal to causation. This is because we cannot tell if the difference between the groups is due to treatment, or [due to their pre-existing differences]{.mark}.
+
+<br />
+
+What causes pre-existing differences? Confounders. For example, in our hospital-health example, a confounder could be smoking.
+
+::: small
+Smoking is not the only possible confounder, we just use it as an example. Drinking, age, etc. are all other potential confounders.
+:::
+
+Smoking will worsen health outcomes. Someone who smokes is also more likely to visit the hospital with health complications. That means people who go to the hospital start out with (on average) worse health outcomes than people who did not go to the hospital.
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 1.1
+digraph example2 {
+  // Nodes
+  D [shape=box, pos = "0,0!", label="Going to the Hospital (D)"]
+  X [shape=box, pos = "2,0!", label="Smoking (Confounder)"]
+  Y [shape=box, pos = "1,-1!", label="Health Outcomes (Y)"]
+
+  // Edges
+  {rank=same; D -> Y [label="Causal Effect"]}
+  X -> D
+  X -> Y [dir=both]
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+::: {.callout-note appearance="simple"}
+A confounder is a third variable that has the following characteristics:
+
+1.  The confounder is correlated (positive or negative) with the outcome variable.
+2.  The confounder causes who gets and doesn't get the treatment.
+3.  The confounder is **not** itself caused by the treatment
+:::
+
+::: small
+Note requirement 3 - it is a common mistake. Any result of the treatment $D$ cannot be a confounder.
+:::
+
+[Confounders cause pre-existing differences]{.mark}, which cause correlation to not equal causation. We must account for confounders to uncover causal effects.
+
+<br />

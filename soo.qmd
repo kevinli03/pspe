@@ -1,0 +1,76 @@
+---
+title: "Selection on Observables"
+---
+
+Our issue in causal inference is that a confounder is causing pre-existing differences:
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 1.1
+digraph example2 {
+  // Nodes
+  D [shape=box, pos = "0,0!", label="Receiving Scholarship"]
+  X [shape=box, pos = "2,0!", label="Intellegence (Confounder)"]
+  Y [shape=box, pos = "1,-1!", label="University Grades"]
+
+  // Edges
+  {rank=same; D -> Y [label="Causal Effect"]}
+  X -> D
+  X -> Y [dir=both]
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+By definition, as the confounder **changes**, your likelihood of getting treatment changes. As the confounder **changes**, the outcome value will also change.
+
+These issues occur when the confounder **changes** in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.
+
+For example, let's assume that intellegence has two values: smart and dumb. Let us calculate the treatment effect within each level of intellegence:
+
+$$
+\tau_\text{smart} = \purple{\mean Y_\text{smart}^{(1)}} - \purple{\mean Y_\text{smart}^{(0)}}
+, \quad \tau_\text{dumb} = \purple{\mean Y_\text{dumb}^{(1)}} - \purple{\mean Y_\text{dumb}^{(0)}}
+$$
+
+The confounder is constant here, so no selection bias. Thus, within each category, correlation is equal to causation. Our overall causal effect will be a weighted average of the categories:
+
+$$
+\tau = \tau_\text{smart} Pr(\text{smart})  \ + \ \tau_\text{dumb} Pr(\text{dumb})
+$$
+
+::: small
+The weights of this weighted average are the probability/frequency of that value of the confounder.
+:::
+
+Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies. Given a set of confounders $\set X$, we first calculate the treatment effect within a specific vector of confounder values $\b x$:
+
+$$
+\tau(\b x) = (\T - \C)| \b x
+$$
+
+And then, we find the weighted average for the total effect, with the weights being the frequency of that specific vector of confounder values:
+
+$$
+\tau_{ATE} = \sum \tau(\b x) \cdot Pr(\b x)
+$$
+
+For selection on observables to work, we need to meet 3 assumptions:
+
+|                                                         |                                                                                                                                                           |
+|--------------------|----------------------------------------------------|
+| [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                                                 |
+| [Conditional Ignorability]{.mark}                       | This means that we must account for **all** possible confounders (cannot miss a single one).                                                              |
+| [Common Support]{.mark}                                 | This means no one can have a 100% chance of being in treatment or control. They always have a chance to be in either, no matter their confounding values. |
+| [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                                                  |
+
+: {tbl-colwidths="\[35,65\]" .bordered}
+
+<br />
+
+We have a wide choice of estimators that we can use. Use the sidebar or links in the table to access each estimator's page.
+
+<br />

@@ -1,0 +1,92 @@
+---
+title: "Genetic Matching"
+---
+
+::: small
+See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
+:::
+
+Mia is in our study and receives the treatment. Mia's causal effect is:
+
+$$
+\tau_{\text{Mia}} = \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
+$$
+
+We cannot observe Mia's counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia's counterfactual:
+
+$$
+\tau_{\text{Mia}} \approx \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{purple}{Y^{(0)}_\text{Matched individual}} 
+$$
+
+Like [distance matching](distance.qmd), genetic matching matches an individual that is treated (like Mia) with one that is not treated based on how **close** their confounding values are. However, genetic matching uses a slightly different variation of mahalanobis distance:
+
+$$
+\delta_{i, j}(\b W) = \sqrt{(\b x_i - \b x_j)' \ (\b\Sigma_x^{-\frac{1}{2}})' \ \b W \ \b\Sigma_x^{-\frac{1}{2}}  (\b x_i - \b x_j)}
+$$
+
+::: small
+Where $i$ and $j$ are two units we want to measure the distance between, $\b x$ are their confounder values, and $\b\Sigma_x$ is the covariance matrix of confounders. $\b W$ is a weights matrix.
+:::
+
+The weights $\b W$ are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. Then, matching is done with the units that have the smallest distance.
+
+<br />
+
+Before you start genetic matching, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd):
+
+We will need the **Matching** and **MatchIt** package.
+
+```{r, eval = FALSE}
+library(Matching)
+```
+
+First, we need to estimate the propensity scores with a logistic regression.
+
+::: small
+It is recommended to use the propensity score as one of the controls on which to genetic match on.
+:::
+
+```{r, eval = FALSE}
+propensity <- glm(D ~ X1 + X2,
+                  data = my_data,
+                  family = "binomial")
+my_data$pscore <- predict(propensity,
+                          type = "response")
+```
+
+Then, we use the **GenMatch()** function to estimate a weights matrix $\b W$:
+
+```{r, eval = FALSE}
+set.seed(333) #any number works
+gen <- GenMatch(Tr = my_data$D,
+                    X = my_data[,c("X1","X2","pscore")],
+                    BalanceMatrix = my_data[,c("X1","X2")],   
+                    estimand = "ATT",
+                    M = 2,
+                    replace = TRUE,
+                    ties = FALSE,
+                    distance.tolerance = 0,
+                    print.level = 0,
+                    pop.size = 200)
+```
+
+::: small
+You can increase pop.size to increase the accuracy - but it will increase the time and computational power needed.
+:::
+
+Now, let us conduct estimation with genetic matching:
+
+```{r, eval = FALSE}
+att <- Match(Y = my_data$Y,
+             Tr = my_data$D,
+             X = my_data[,c("X1","X2","pscore")],
+             estimand = "ATT",
+             M = 2,
+             replace = TRUE,
+             ties = FALSE,
+             distance.tolerance = 0,
+             Weight.matrix = gen$Weight.matrix,
+             Weight = 3)
+```
+
+Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.

@@ -1,0 +1,73 @@
+---
+title: "Propensity Score Matching"
+---
+
+::: small
+See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
+:::
+
+Mia is in our study and receives the treatment. Mia's causal effect is:
+
+$$
+\tau_{\text{Mia}} = \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
+$$
+
+We cannot observe Mia's counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia's counterfactual:
+
+$$
+\tau_{\text{Mia}} \approx \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{purple}{Y^{(0)}_\text{Matched individual}} 
+$$
+
+Propensity Score Matching matches an individual that is treated (like Mia) with one that is not treated based on how similar their likelihoods of treatment are.
+
+What is a likelihood of treatment? Well we know confounders cause people to get the treatment or not treatment. Thus, using an individual's confounder values, we can estimate their likelihood of getting treatment, called a propensity score.
+
+$$
+\text{propensity score } \pi =Pr(\text{you get treated}) 
+$$
+
+Propensity scores are typically estimated with a logistic regression:
+
+$$
+\log\left( \frac{\pi(\b X_i)}{1- \pi(\b X_i)}\right) = \alpha + \b X_i' \b\beta
+$$
+
+This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relatinoships between confounders and propensities, and only being unbiased in large sample sizes.
+
+<br />
+
+Before you implement propensity score matching, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd):
+
+We will need the **Matching** package.
+
+```{r, eval = FALSE}
+library(Matching)
+```
+
+First, we need to estimate the propensity scores with a logistic regression:
+
+```{r, eval = FALSE}
+propensity <- glm(D ~ X1 + X2,
+                  data = my_data,
+                  family = "binomial")
+my_data$pscore <- predict(propensity,
+                          type = "response")
+```
+
+::: small
+A random forest model is also possible, but less common.
+:::
+
+Now, we can implement the matching as follows.
+
+```{r, eval = FALSE}
+att <- Match(Y = my_data$Y,
+             Tr = my_data$D,
+             X = my_data[,"pscore"],
+             M = 1,
+             BiasAdjust = TRUE,
+             Weight = 2)
+summary(att)
+```
+
+Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.

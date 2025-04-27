@@ -1,0 +1,22 @@
+---
+title: "Resources on Causal Inference"
+subtitle: "Methodology for Political Science and Political Economy (PSPE)"
+---
+
+This repository contains resources on causal inference, and applying causal inference methods to political science and political economy.
+
+-   Use the top navigation bar to navigate between different methods.
+
+-   Use the side navigation bar to navigate within a method.
+
+-   R-code for implementation is included.
+
+-   I have tried to keep up with modern advancements, including the recent difference-in-differences rennaisance.
+
+These resources have been collected throughout my postgraduate degree at the London School of Economics. I hope these resources can be useful for my future self and others.
+
+I try to ensure everything in this repository is accurate. If there are any issues with the repository, let me know.
+
+For a collection of statistical resources, see <http://kevinli03.github.io/stats>
+
+For my personal website, see <http://kevinli03.github.io>

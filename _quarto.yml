@@ -1,0 +1,92 @@
+project:
+  type: website
+  output-dir: docs
+
+website:
+  title: "Causal Inference Resources"
+  search: false
+  navbar:
+      pinned: true
+      title: false
+      background: info
+      left:
+        - text: "Home"
+          href: index.qmd
+        - text: "Difference-in-Differences"
+        - text: "Regression Discontinuity"
+        - text: "Selection on Observables"
+          href: soo.qmd
+
+  sidebar:
+    - title: "Causal Inference Basics"
+      style: floating
+      logo: lse2.png
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Homepage"
+          href: index.qmd
+        - text: "Basics of Causality"
+          href: frameworks.qmd
+        - text: "Issue of Selection Bias"
+          href: correlation.qmd
+        - text: "Magic of Randomisation"
+          href: randomisation.qmd
+
+    - title: "Selection on Observables"
+      style: floating
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Selection on Observables"
+          href: soo.qmd
+        - text: "Choosing an Estimator"
+          href: soochoose.qmd
+        - text: "Linear Regression Estimator"
+          href: regress.qmd
+        - text: "Fully Interacted Estimator"
+          href: interact.qmd
+        - text: "Distance Matching"
+          href: distance.qmd
+        - text: "Propensity Score Matching"
+          href: pscore.qmd
+        - text: "Genetic Matching"
+          href: genetic.qmd
+        - text: "Inverse Probability Weighting"
+          href: ipw.qmd
+        
+  
+format:
+  html:
+    theme: cosmo
+    number-sections: false
+    fontsize: 12.5pt
+    mainfont: helvetica
+    fontcolor: "#3b4b57"
+    linkcolor: "#0969da"
+    css: styles.css
+    toc: true
+    toc-depth: 0
+    tbl-cap-location: bottom
+    reference-location: section
+    grid:
+      sidebar-width: 270px
+      body-width: 720px
+      margin-width: 50px
+      gutter-width: 1.5em
+    html-math-method: mathjax
+    crossref:
+      eq-prefix: eq.
+      def-prefix: definition
+      thm-prefix: theorem
+    include-in-header:
+      text: |
+        <script src="mathjax-config.js"></script>
+    include-after-body:
+      text: |
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+editor: visual
+

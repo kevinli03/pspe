@@ -1,0 +1,60 @@
+---
+title: "Fully Interacted Estimator"
+---
+
+::: small
+See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
+:::
+
+From [selection on observables](soo.qmd), we know that our causal effect is a weighted average:
+
+$$
+\tau_\text{ATE} = \sum\tau (\b x) Pr(\b x)
+$$
+
+Notice how the weights are the probability of the confounder values of $\b x$. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:
+
+$$
+\hat\beta_\text{OLS} = \sum \tau(\b x) \frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}
+$$
+
+::: small
+Where $\b x^c$ is the complement (not $\b x$).
+:::
+
+These weights are not equivalent to the selection on observables $\tau_{ATE}$. Thus, if not all $\tau(\b x)$ are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.
+
+Heterogeneity is present in almost all situations we are interested in. [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) proposes the **fully interacted estimator**, which allows for consistent estimation of the ATE even with heterogeneity:
+
+$$
+Y_i = \alpha + D_i \tau + (\b{X}_i - \mean{\b X})' \b\beta \ + D_i (\b X_i - \mean{\b X})' \b\gamma \  + \eps_i
+$$
+
+::: small
+$\mean{\b X}$ is a vector of the means of each confounder. $\tau$ is the estimate of the ATE. See [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) for proofs.
+:::
+
+The new OLS estimate of $\hat\tau$ in this estimator will technically still be a biased estimator of $\tau_{ATE}$, but the bias is negligible.
+
+<br />
+
+Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd).
+
+We will need the **estimatr** package:
+
+```{r, eval = FALSE}
+library(estimatr)
+```
+
+Then, we can use the **lm_lin()** function to estimate:
+
+```{r, eval = FALSE}
+ate <- estimatr::lm_lin(Y ~ D,
+                        covariates = ~ X1 + X2 + X3,
+                        data = my_data)
+summary(ate)
+```
+
+The output will be the ATE - the average treatment effect for all units in the study.
+
+<br />

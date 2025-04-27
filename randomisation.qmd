@@ -1,0 +1,109 @@
+---
+title: "The Magic of Randomisation"
+---
+
+::: small
+This chapter covers how randomisation solves the problem of selection bias, and why randomisation is considered the "gold standard" of causal inference.
+:::
+
+Let us say we are interested in this question:
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 0.42
+digraph example1 {
+  // Nodes
+  D [shape=box, label="Scholarship (D)"]
+  Y [shape=box, label="University Performance (Y)"]
+
+  // Edges
+  D -> Y [label="Causal Effect"]
+
+  // Graph styling
+  rankdir=LR; // Left to right layout
+}
+```
+:::
+
+Our concern is a confounder. For example, smartness of an individual could mean they are more likely to get a scholarship. Since smart people tend to perform well at university, that means the people who get treated are different from those who don't get treated.
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 1.1
+digraph example2 {
+  // Nodes
+  D [shape=box, pos = "0,0!", label="Scholarship (D)"]
+  X [shape=box, pos = "2,0!", label="Smartness (Confounder)"]
+  Y [shape=box, pos = "1,-1!", label="University Performance (Y)"]
+
+  // Edges
+  {rank=same; D -> Y [label="Causal Effect"]}
+  X -> D
+  X -> Y [dir=both]
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+::: small
+Smartness is not the only confounder. Other confounders could be family income, athletic ability, etc.
+:::
+
+But what if randomness (like flipping a coin) controls who gets the treatment or not. A coin will be flipped to decide if every person in our study will get the scholarship. This means that the randomness (the coin), and not the confounder, are causing selection into treatment:
+
+::: center-graph
+```{dot}
+//| fig-width: 4.2
+//| fig-height: 1.1
+digraph example2 {
+  // Nodes
+  D [shape=box, pos = "0,0!", label="Scholarship (D)"]
+  X [shape=box, pos = "2,0!", label="Smartness (Confounder)"]
+  Y [shape=box, pos = "1,-1!", label="University Performance (Y)"]
+  O [shape=circle, label = "Coin"]
+
+  // Edges
+  {rank=same; D -> Y [label="Causal Effect"]}
+  X -> Y [dir=both]
+  O -> D
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+Since the confounder is no longer causing who gets the treatment and who doesn't, that means there is no more concern of selection bias.
+
+<br />
+
+Randomisation also means that every individual has the same chance of being treated or untreated, so the two groups will, on average, the same as each other. That means:
+
+$$
+\textcolor{purple}{\mean Y_\text{untreated}^{(0)}} = \textcolor{red}{\mean Y_\text{treated}^{(0)}}, \text{ so correlation} = \text{causation}
+$$
+
+::: small
+This is established by the law of large numbers, but it is a little technical for here.
+:::
+
+So if our treatment is randomly assigned (individuals randomly assigned to treatment or control), correlation does equal causation.
+
+<br />
+
+Randomisation is the [**gold standard**]{.mark} of causal inference. There is no better method.
+
+-   Randomisation is possible if you are running your own experiment: you can use a random number generator to assign treatment.
+-   Randomisation is also possible if there is something that is being randomly assigned in the real world. For example, the US green card lottery randomly chooses who gets accepted.
+
+However, randomisation is not always possible to due to cost of running experiments, non-compliance of individuals within experiments, and impracticality.
+
+::: small
+Non-compliance is an issue that can be solved pretty easily with an instrumental variable, given a few assumptions about the non-compliance.
+:::
+
+<br />

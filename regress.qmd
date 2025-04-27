@@ -1,0 +1,65 @@
+---
+title: "Linear Regression Estimator"
+---
+
+::: small
+See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
+:::
+
+Selection on observables is about controlling for confounders. Linear regression is a very natural way to control for confounders.
+
+$$
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \eps_i
+$$
+
+We know that in the above equation, $\beta_1$ is the relationship between $X_i$ and $Y_i$, while controllling (holding constant) $X_2$.
+
+Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.
+
+$$
+Y_i = \alpha + D_i\tau + \b X_i' \b\beta + \eps_i
+$$
+
+::: small
+Where $\alpha$ is the intercept and $\b X_i$ is a vector of confounder values for individual $i$.
+:::
+
+Our ordinary least squares (OLS) estimate $\widehat\tau$ is an unbiased estimator of the true $\tau_{ATE}$ given three conditions are met:
+
+1.  We meet the selection on observables assumption of **conditional ignorability**. Conditional ignorability implies exogeneity, which means the estimate is unbiased.
+
+2.  The relationship between our continuous confounders and outcome variable is **linear**. This is because if the true relationship between these two is not linear, then our linear model is wrong, so it is not properly controlling for confounders.
+
+3.  There is **no heterogeneity** in treatment effects. Angrist (1998), Lin (2013), and Słoczyński (2022) have proven that when there is heterogeneity, OLS is estimating another quantity that is not the ATE.
+
+::: small
+**Heterogeneity** means that different individuals have different individual treament effects $\tau_i$. OLS only estimates the ATE if there is homogeneity - all $\tau_i$ are equal.
+:::
+
+<br />
+
+Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd).
+
+We will need the **fixest** package:
+
+```{r, eval = F}
+library(fixest)
+```
+
+To run a regression estimator, we do:
+
+```{r, eval = F}
+feols(Y ~ D + X1 + X2 + X3,
+      data = data,
+      se = "hetero")
+```
+
+::: small
+We typically assume heteroscedasticity, so we use heteroscedasticity-robust standard errors. If you can prove homoscedasticity, then you can use normal standard errors.
+:::
+
+The coefficient for the treatment variable will be the ATE - the average treatment effect for all units in the study.
+
+::: small
+Assuming you have met all the assumptions of selection on observables, and the special assumptions for the linear regression estimator shown above.
+:::

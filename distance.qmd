@@ -1,0 +1,59 @@
+---
+title: "Distance Matching"
+---
+
+::: small
+See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
+:::
+
+Mia is in our study and receives the treatment. Mia's causal effect is:
+
+$$
+\tau_{\text{Mia}} = \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
+$$
+
+We cannot observe Mia's counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia's counterfactual:
+
+$$
+\tau_{\text{Mia}} \approx \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{purple}{Y^{(0)}_\text{Matched individual}} 
+$$
+
+Distance matching matches an individual that is treated (like Mia) with one that is not treated based on how **close** their confounding values are. We define closeness by Mahalanobis distance:
+
+$$
+\delta_{i, j} = \sqrt{(\b x_i - \b x_j)' \ \b\Sigma_x^{-1} (\b x_i - \b x_j)}
+$$
+
+::: small
+Where $i$ and $j$ are two units we want to measure the distance between, $\b x$ is a vector of confounder values, and $\b\Sigma_x$ is the covariance matrix of confounders.
+:::
+
+Because distance matching depends on finding matches in a n-dimensional space, it is subject to the curse of dimensionality. This essentially means that the more confounders you have, the more dimensions you have to match over, and the harder it is to find good matches. So we typically do not use any more than 3-5 confounders with distance matching.
+
+::: small
+Bad matches means incorrectly using someone's counterfactual, resulting in bad estimates.
+:::
+
+<br />
+
+Before you implement distance matching, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd).
+
+We will need the **Matching** package.
+
+```{r, eval = FALSE}
+library(Matching)
+```
+
+Now, we can implement the matching as follows.
+
+```{r, eval = FALSE}
+att <- Match(Y = my_data$Y,
+             Tr = my_data$D,
+             X = my_data[,c("X1","X2", "X3")],
+             M = 1,
+             BiasAdjust = TRUE,
+             Weight = 2)
+summary(att)
+```
+
+Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
