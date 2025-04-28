@@ -27,6 +27,7 @@ website:
       contents:
         - text: "Homepage"
           href: index.qmd
+        - text: "---"
         - text: "Basics of Causality"
           href: frameworks.qmd
         - text: "Issue of Selection Bias"
@@ -44,6 +45,7 @@ website:
           href: soo.qmd
         - text: "Choosing an Estimator"
           href: soochoose.qmd
+        - text: "---"
         - text: "Linear Regression Estimator"
           href: regress.qmd
         - text: "Fully Interacted Estimator"
