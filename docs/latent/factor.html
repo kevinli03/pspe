@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Propensity Score Matching – Causal Inference Resources</title>
+<title>Factor Analysis Model – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -115,7 +115,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -130,7 +130,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -144,9 +144,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Selection on Observables</span>
-    </span>
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <span class="nav-link">
@@ -154,8 +153,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent.html"> 
-<span class="menu-text">Latent Models</span></a>
+    <a class="nav-link" href="../latent/latent.html"> 
+<span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -168,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./pscore.html">Propensity Score Matching</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/factor.html">Factor Analysis Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,61 +178,60 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Selection on Observables</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./soochoose.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Choosing an Estimator</span></a>
+  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regress.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Regression Estimator</span></a>
+  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Factor Analysis Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interact.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fully Interacted Estimator</span></a>
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reliability and Factor Scores</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./distance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Distance Matching</span></a>
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Latent Factors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pscore.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Propensity Score Matching</span></a>
+  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identification and Rotation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./genetic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
+ <span class="menu-text">Confirmatory Analysis</span>
+  </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
-  </div>
-</li>
+ <span class="menu-text">Inference and Model Fit</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Item Response Theory</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Latent Class Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Structural Equation Models</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -247,7 +245,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Propensity Score Matching</h1>
+<h1 class="title">Factor Analysis Model</h1>
 </div>
 
 
@@ -264,55 +262,140 @@ window.Quarto = {
 </header>
 
 
+<p>Factor analysis is a way to model a continuous latent variable, based on a bunch of continuous observed items.</p>
+<div class="center-graph">
+<div class="cell" data-fig-width="4" data-fig-height="1.4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="384" height="134" viewbox="0.00 0.00 326.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
+<title>example2</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-128.8 322.09,-128.8 322.09,4 -4,4"></polygon>
+<!-- F -->
+<g id="node1" class="node">
+<title>F</title>
+<polygon fill="none" stroke="black" points="214.68,-124.8 103.41,-124.8 103.41,-88.8 214.68,-88.8 214.68,-124.8"></polygon>
+<text text-anchor="middle" x="159.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F)</text>
+</g>
+<!-- X1 -->
+<g id="node2" class="node">
+<title>X1</title>
+<polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
+<text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
+</g>
+<!-- F&#45;&gt;X1 -->
+<g id="edge1" class="edge">
+<title>F-&gt;X1</title>
+<path fill="none" stroke="black" d="M135.73,-88.65C117.63,-75.34 92.35,-56.74 72.47,-42.11"></path>
+<polygon fill="black" stroke="black" points="74.44,-39.22 64.31,-36.11 70.29,-44.86 74.44,-39.22"></polygon>
+<text text-anchor="start" x="111.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X2 -->
+<g id="node3" class="node">
+<title>X2</title>
+<polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
+<text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
+</g>
+<!-- F&#45;&gt;X2 -->
+<g id="edge2" class="edge">
+<title>F-&gt;X2</title>
+<path fill="none" stroke="black" d="M159.04,-88.65C159.04,-76.52 159.04,-60.02 159.04,-46.12"></path>
+<polygon fill="black" stroke="black" points="162.55,-46.11 159.04,-36.11 155.55,-46.11 162.55,-46.11"></polygon>
+<text text-anchor="start" x="159.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X3 -->
+<g id="node4" class="node">
+<title>X3</title>
+<polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
+<text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
+</g>
+<!-- F&#45;&gt;X3 -->
+<g id="edge3" class="edge">
+<title>F-&gt;X3</title>
+<path fill="none" stroke="black" d="M182.36,-88.65C200.46,-75.34 225.74,-56.74 245.62,-42.11"></path>
+<polygon fill="black" stroke="black" points="247.8,-44.86 253.78,-36.11 243.65,-39.22 247.8,-44.86"></polygon>
+<text text-anchor="start" x="228.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<p>The factor (notated <span class="math inline">\(F\)</span> or <span class="math inline">\(\xi\)</span>), is the unobserved latent variable we want to measure. We assume that the factor <span class="math inline">\(F\)</span> is continuous, and normally distributed:</p>
+<p><span class="math display">\[
+F \sim \mathcal N(0, 1)
+\]</span></p>
 <div class="small">
-<p>See the pros and cons of this estimator in the <a href="./soochoose.html">choosing an estimator</a> page.</p>
+<p>Where <span class="math inline">\(\kappa = 0\)</span> is the mean of the factor, and <span class="math inline">\(\phi =1\)</span> is the variance of the factor. Technically, the factor only needs to be normally distributed - we can have different means and variances. However, for identification reasons, we typically fix the factor to a standard normal.</p>
 </div>
-<p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
+<p>The items, notated <span class="math inline">\(X_1, X_2, \dots, X_p\)</span>, are the variables we observe, that we believe are a measurement of the latent factor <span class="math inline">\(F\)</span>. Factor analysis assumes that each observed item is associated with the latent factor with a <strong>linear regression model</strong>:</p>
 <p><span class="math display">\[
-\tau_{\text{Mia}} = \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
+\begin{align}
+X_1 &amp; = \tau_1 + \lambda_1F + \delta_1 \\
+X_2 &amp; = \tau_2 + \lambda_2 F + \delta_2 \\
+&amp; \vdots \qquad \qquad \vdots \\
+X_p &amp; = \tau_p + \lambda_p F + \delta_p
+\end{align}
 \]</span></p>
-<p>We cannot observe Mia’s counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
-<p><span class="math display">\[
-\tau_{\text{Mia}} \approx \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{purple}{Y^{(0)}_\text{Matched individual}}
-\]</span></p>
-<p>Propensity Score Matching matches an individual that is treated (like Mia) with one that is not treated based on how similar their likelihoods of treatment are.</p>
-<p>What is a likelihood of treatment? Well we know confounders cause people to get the treatment or not treatment. Thus, using an individual’s confounder values, we can estimate their likelihood of getting treatment, called a propensity score.</p>
-<p><span class="math display">\[
-\text{propensity score } \pi =Pr(\text{you get treated})
-\]</span></p>
-<p>Propensity scores are typically estimated with a logistic regression:</p>
-<p><span class="math display">\[
-\log\left( \frac{\pi(\b X_i)}{1- \pi(\b X_i)}\right) = \alpha + \b X_i' \b\beta
-\]</span></p>
-<p>This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relatinoships between confounders and propensities, and only being unbiased in large sample sizes.</p>
-<p><br></p>
-<p>Before you implement propensity score matching, make sure you have reasons to believe you meet the neccessary assumptions for <a href="./soo.html">selection on observables</a>:</p>
-<p>We will need the <strong>Matching</strong> package.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>First, we need to estimate the propensity scores with a logistic regression:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(D <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> my_data,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>pscore <span class="ot">&lt;-</span> <span class="fu">predict</span>(propensity,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
 <div class="small">
-<p>A random forest model is also possible, but less common.</p>
+<p>We assume that the error terms are normally distributed <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_{ii})\)</span>, that the different error terms <span class="math inline">\(\delta_1, \dots, \delta_p\)</span> are uncorrelated with each other, and <span class="math inline">\(F\)</span> is uncorrelated with the errors (exogeneity).</p>
 </div>
-<p>Now, we can implement the matching as follows.</p>
+<ul>
+<li><span class="math inline">\(\tau_i\)</span> is the intercept of the model.</li>
+<li><span class="math inline">\(\lambda_i\)</span> is the coefficient that describes the relationship between any item <span class="math inline">\(X_i\)</span> and the factor <span class="math inline">\(F\)</span>. These are called <strong>factor loadings</strong>.</li>
+<li><span class="math inline">\(\delta_i\)</span> is the error term - the part of an item <span class="math inline">\(X_i\)</span> not explained by the factor <span class="math inline">\(F\)</span>. They are called the <strong>unique factors</strong>.</li>
+</ul>
+<p>The factor loadings <span class="math inline">\(\lambda_i\)</span> represent the relationship/<strong>covariance</strong> between any item <span class="math inline">\(X_i\)</span> and a factor <span class="math inline">\(F\)</span>. If the items <span class="math inline">\(X_i\)</span> have been standardised to a standard normal, then <span class="math inline">\(\lambda_i\)</span> is also the correlation coefficient between items and factor.</p>
+<div class="small">
+<p>Note: this isn’t entirely true for multiple factors, as we will discuss in a later page.</p>
+</div>
+<p>These factor loadings help us interpret our latent variable <span class="math inline">\(F\)</span>.</p>
+<ul>
+<li>The sign of the factor loading tells us the direction in which our latent variable is measuring. For example, if <span class="math inline">\(\lambda\)</span> is negative, that means as our item’s value increases, the latent variable decreases.</li>
+<li>The absolute size of the factor loading tells us how important that item is to the factor. For example, if we have one item with a large (negative or positive loading), and one item with a near-0 loading, that means the first item is more important to the latent variable.</li>
+</ul>
+<div class="small">
+<p>An example of interpretation is provided below the code.</p>
+</div>
+<p>To implement factor analysis, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>att <span class="ot">&lt;-</span> <span class="fu">Match</span>(<span class="at">Y =</span> my_data<span class="sc">$</span>Y,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">Tr =</span> my_data<span class="sc">$</span>D,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">X =</span> my_data[,<span class="st">"pscore"</span>],</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">M =</span> <span class="dv">1</span>,</span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">BiasAdjust =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">Weight =</span> <span class="dv">2</span>)</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(att)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
+<p>First, we should get rid of missing observations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For factor analysis with one factor, we use the syntax:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">1</span>, <span class="at">fm=</span><span class="st">"ml"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fa1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Interpretation Example
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>This is a typical output of factor anlaysis. ML1 and ML2 are the two factors (let us focus on just ML1), and the rows are items (which are trust in different institutions).</p>
+<p><img src="images/clipboard-3872288459.png" class="img-fluid" style="width:75.0%"></p>
+<p>For factor 1 (ML1), we can see that <em>pol_parties</em>, <em>politicians</em> have very large loadings. <em>EP, parliament, and UN</em> have moderate loadings. <em>Police</em> and <em>legal</em> have almost 0 loadings. Almost all loadings are positive.</p>
+<p>This tells us that factor 1 is a latent variable that measures mostly trust in politicians, rather than the legal/policing system. Since the loadings are almost all positive, we can conclude that higher values of factor 1 mean higher levels of trust in legal/policing systems.</p>
+</div>
+</div>
+</div>
 
 
 

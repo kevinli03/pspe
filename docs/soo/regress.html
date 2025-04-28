@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Distance Matching – Causal Inference Resources</title>
+<title>Linear Regression Estimator – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -115,7 +115,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -130,7 +130,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -144,9 +144,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Selection on Observables</span>
-    </span>
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <span class="nav-link">
@@ -154,8 +153,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent.html"> 
-<span class="menu-text">Latent Models</span></a>
+    <a class="nav-link" href="../latent/latent.html"> 
+<span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -168,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./distance.html">Distance Matching</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/regress.html">Linear Regression Estimator</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,58 +178,58 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soo.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Selection on Observables</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soochoose.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/soochoose.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Choosing an Estimator</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regress.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/regress.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Linear Regression Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interact.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./distance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pscore.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./genetic.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ipw.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
@@ -247,7 +246,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Distance Matching</h1>
+<h1 class="title">Linear Regression Estimator</h1>
 </div>
 
 
@@ -265,44 +264,48 @@ window.Quarto = {
 
 
 <div class="small">
-<p>See the pros and cons of this estimator in the <a href="./soochoose.html">choosing an estimator</a> page.</p>
+<p>See the pros and cons of this estimator in the <a href="../soo/soochoose.html">choosing an estimator</a> page.</p>
 </div>
-<p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
+<p>Selection on observables is about controlling for confounders. Linear regression is a very natural way to control for confounders.</p>
 <p><span class="math display">\[
-\tau_{\text{Mia}} = \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
+Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \eps_i
 \]</span></p>
-<p>We cannot observe Mia’s counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
+<p>We know that in the above equation, <span class="math inline">\(\beta_1\)</span> is the relationship between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span>, while controllling (holding constant) <span class="math inline">\(X_2\)</span>.</p>
+<p>Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.</p>
 <p><span class="math display">\[
-\tau_{\text{Mia}} \approx \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{purple}{Y^{(0)}_\text{Matched individual}}
-\]</span></p>
-<p>Distance matching matches an individual that is treated (like Mia) with one that is not treated based on how <strong>close</strong> their confounding values are. We define closeness by Mahalanobis distance:</p>
-<p><span class="math display">\[
-\delta_{i, j} = \sqrt{(\b x_i - \b x_j)' \ \b\Sigma_x^{-1} (\b x_i - \b x_j)}
+Y_i = \alpha + D_i\tau + \b X_i' \b\beta + \eps_i
 \]</span></p>
 <div class="small">
-<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> is a vector of confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders.</p>
+<p>Where <span class="math inline">\(\alpha\)</span> is the intercept and <span class="math inline">\(\b X_i\)</span> is a vector of confounder values for individual <span class="math inline">\(i\)</span>.</p>
 </div>
-<p>Because distance matching depends on finding matches in a n-dimensional space, it is subject to the curse of dimensionality. This essentially means that the more confounders you have, the more dimensions you have to match over, and the harder it is to find good matches. So we typically do not use any more than 3-5 confounders with distance matching.</p>
+<p>Our ordinary least squares (OLS) estimate <span class="math inline">\(\widehat\tau\)</span> is an unbiased estimator of the true <span class="math inline">\(\tau_{ATE}\)</span> given three conditions are met:</p>
+<ol type="1">
+<li><p>We meet the selection on observables assumption of <strong>conditional ignorability</strong>. Conditional ignorability implies exogeneity, which means the estimate is unbiased.</p></li>
+<li><p>The relationship between our continuous confounders and outcome variable is <strong>linear</strong>. This is because if the true relationship between these two is not linear, then our linear model is wrong, so it is not properly controlling for confounders.</p></li>
+<li><p>There is <strong>no heterogeneity</strong> in treatment effects. Angrist (1998), Lin (2013), and Słoczyński (2022) have proven that when there is heterogeneity, OLS is estimating another quantity that is not the ATE.</p></li>
+</ol>
 <div class="small">
-<p>Bad matches means incorrectly using someone’s counterfactual, resulting in bad estimates.</p>
+<p><strong>Heterogeneity</strong> means that different individuals have different individual treament effects <span class="math inline">\(\tau_i\)</span>. OLS only estimates the ATE if there is homogeneity - all <span class="math inline">\(\tau_i\)</span> are equal.</p>
 </div>
 <p><br></p>
-<p>Before you implement distance matching, make sure you have reasons to believe you meet the neccessary assumptions for <a href="./soo.html">selection on observables</a>.</p>
-<p>We will need the <strong>Matching</strong> package.</p>
+<p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>.</p>
+<p>We will need the <strong>fixest</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, we can implement the matching as follows.</p>
+<p>To run a regression estimator, we do:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>att <span class="ot">&lt;-</span> <span class="fu">Match</span>(<span class="at">Y =</span> my_data<span class="sc">$</span>Y,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">Tr =</span> my_data<span class="sc">$</span>D,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">X =</span> my_data[,<span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>, <span class="st">"X3"</span>)],</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">M =</span> <span class="dv">1</span>,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">BiasAdjust =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">Weight =</span> <span class="dv">2</span>)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(att)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(Y <span class="sc">~</span> D <span class="sc">+</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> data,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">se =</span> <span class="st">"hetero"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
+<div class="small">
+<p>We typically assume heteroscedasticity, so we use heteroscedasticity-robust standard errors. If you can prove homoscedasticity, then you can use normal standard errors.</p>
+</div>
+<p>The coefficient for the treatment variable will be the ATE - the average treatment effect for all units in the study.</p>
+<div class="small">
+<p>Assuming you have met all the assumptions of selection on observables, and the special assumptions for the linear regression estimator shown above.</p>
+</div>
 
 
 

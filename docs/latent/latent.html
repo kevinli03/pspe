@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fully Interacted Estimator – Causal Inference Resources</title>
+<title>Latent Variable Models – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,54 +20,20 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -115,7 +81,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -130,7 +96,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -144,9 +110,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Selection on Observables</span>
-    </span>
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <span class="nav-link">
@@ -154,8 +119,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent.html"> 
-<span class="menu-text">Latent Models</span></a>
+    <a class="nav-link" href="../latent/latent.html"> 
+<span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -168,7 +133,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./interact.html">Fully Interacted Estimator</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/latent.html">Latent Variable Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,61 +144,60 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Selection on Observables</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./soochoose.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Choosing an Estimator</span></a>
+  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regress.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Regression Estimator</span></a>
+  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factor Analysis Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interact.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Fully Interacted Estimator</span></a>
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reliability and Factor Scores</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./distance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Distance Matching</span></a>
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Latent Factors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Propensity Score Matching</span></a>
+  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identification and Rotation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./genetic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
+ <span class="menu-text">Confirmatory Analysis</span>
+  </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
-  </div>
-</li>
+ <span class="menu-text">Inference and Model Fit</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Item Response Theory</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Latent Class Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Structural Equation Models</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -247,7 +211,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fully Interacted Estimator</h1>
+<h1 class="title">Latent Variable Models</h1>
 </div>
 
 
@@ -264,44 +228,119 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>See the pros and cons of this estimator in the <a href="./soochoose.html">choosing an estimator</a> page.</p>
+<p>A latent variable model connects a unobserved variable (<strong>latent factor</strong>) with a few observed variables (<strong>items</strong>) that are considered imperfect measures of the latent factor.</p>
+<div class="center-graph">
+<div class="cell" data-fig-width="4" data-fig-height="1.4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="384" height="134" viewbox="0.00 0.00 326.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
+<title>example2</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-128.8 322.09,-128.8 322.09,4 -4,4"></polygon>
+<!-- F -->
+<g id="node1" class="node">
+<title>F</title>
+<polygon fill="none" stroke="black" points="214.68,-124.8 103.41,-124.8 103.41,-88.8 214.68,-88.8 214.68,-124.8"></polygon>
+<text text-anchor="middle" x="159.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F)</text>
+</g>
+<!-- X1 -->
+<g id="node2" class="node">
+<title>X1</title>
+<polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
+<text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
+</g>
+<!-- F&#45;&gt;X1 -->
+<g id="edge1" class="edge">
+<title>F-&gt;X1</title>
+<path fill="none" stroke="black" d="M135.73,-88.65C117.63,-75.34 92.35,-56.74 72.47,-42.11"></path>
+<polygon fill="black" stroke="black" points="74.44,-39.22 64.31,-36.11 70.29,-44.86 74.44,-39.22"></polygon>
+<text text-anchor="start" x="111.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X2 -->
+<g id="node3" class="node">
+<title>X2</title>
+<polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
+<text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
+</g>
+<!-- F&#45;&gt;X2 -->
+<g id="edge2" class="edge">
+<title>F-&gt;X2</title>
+<path fill="none" stroke="black" d="M159.04,-88.65C159.04,-76.52 159.04,-60.02 159.04,-46.12"></path>
+<polygon fill="black" stroke="black" points="162.55,-46.11 159.04,-36.11 155.55,-46.11 162.55,-46.11"></polygon>
+<text text-anchor="start" x="159.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X3 -->
+<g id="node4" class="node">
+<title>X3</title>
+<polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
+<text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
+</g>
+<!-- F&#45;&gt;X3 -->
+<g id="edge3" class="edge">
+<title>F-&gt;X3</title>
+<path fill="none" stroke="black" d="M182.36,-88.65C200.46,-75.34 225.74,-56.74 245.62,-42.11"></path>
+<polygon fill="black" stroke="black" points="247.8,-44.86 253.78,-36.11 243.65,-39.22 247.8,-44.86"></polygon>
+<text text-anchor="start" x="228.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+</g>
+</svg>
 </div>
-<p>From <a href="./soo.html">selection on observables</a>, we know that our causal effect is a weighted average:</p>
-<p><span class="math display">\[
-\tau_\text{ATE} = \sum\tau (\b x) Pr(\b x)
-\]</span></p>
-<p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:</p>
-<p><span class="math display">\[
-\hat\beta_\text{OLS} = \sum \tau(\b x) \frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}
-\]</span></p>
-<div class="small">
-<p>Where <span class="math inline">\(\b x^c\)</span> is the complement (not <span class="math inline">\(\b x\)</span>).</p>
+<p></p></figure><p></p>
 </div>
-<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\tau_{ATE}\)</span>. Thus, if not all <span class="math inline">\(\tau(\b x)\)</span> are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.</p>
-<p>Heterogeneity is present in almost all situations we are interested in. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
-<p><span class="math display">\[
-Y_i = \alpha + D_i \tau + (\b{X}_i - \mean{\b X})' \b\beta \ + D_i (\b X_i - \mean{\b X})' \b\gamma \  + \eps_i
-\]</span></p>
-<div class="small">
-<p><span class="math inline">\(\mean{\b X}\)</span> is a vector of the means of each confounder. <span class="math inline">\(\tau\)</span> is the estimate of the ATE. See <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> for proofs.</p>
 </div>
-<p>The new OLS estimate of <span class="math inline">\(\hat\tau\)</span> in this estimator will technically still be a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>, but the bias is negligible.</p>
+</div>
+</div>
+<div class="small">
+<p>For example, maybe we want to measure the political ideology of a senator. We cannot directly observe the political ideology (the latent factor), but we can observe how they vote on different bills (the items)</p>
+</div>
+<p>Latent variable models assume we can model the relationship between each observed item and the latent factor with some sort of regression model. The coefficient of each regression (often denoted <span class="math inline">\(\lambda\)</span>) is the relationship between each item and the factor.</p>
+<div class="small">
+<p>For example, in the figure above, each item (X1, X2, X3) is related to the factor (F) with by a <span class="math inline">\(\lambda\)</span> coefficient.</p>
+</div>
+<p>These <span class="math inline">\(\lambda\)</span> are called <strong>factor loadings</strong>. We can interpret the estimated factor loadings <span class="math inline">\(\widehat\lambda\)</span> to interpret what the unobserved factor actually is measuring.</p>
+<div class="small">
+<p>For example, if a factor has a strong relationship with one item, and a weaker relationship with another item, we might conclude that the factor measures the first item more than the second item.</p>
+</div>
+<p>We can also use latent variable models to create <strong>factor scores</strong> <span class="math inline">\(\widetilde F_i\)</span>, which are basically actual values of the latent variable for each individual <span class="math inline">\(i\)</span> in our data. This allows us to use the latent variable in other statistical models.</p>
+<p>The choice of latent variable model depends on the type of items/factors:</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 36%">
+<col style="width: 32%">
+<col style="width: 32%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Model</span></td>
+<td><span class="smallcaps">Factor Type</span></td>
+<td><span class="smallcaps">Item Type</span></td>
+</tr>
+<tr class="even">
+<td>Factor Analysis</td>
+<td>Continuous</td>
+<td>Continuous</td>
+</tr>
+<tr class="odd">
+<td>Item Response Theory</td>
+<td>Continous</td>
+<td>Categorical/Binary</td>
+</tr>
+<tr class="even">
+<td>Structural Class Models</td>
+<td>Categorical/Binary</td>
+<td>Categorical/Binary</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
-<p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="./soo.html">selection on observables</a>.</p>
-<p>We will need the <strong>estimatr</strong> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>So far, this introduction has assumed just one latent variable factor. However, all models allow for multiple factors as well. If we have many items, some items might only measure on factor, others both factors.</p>
+<p>Each latent model also has the ability to conduct <strong>confirmatory analysis</strong>. This is basically when we, based on theoretical reasons (such as reading the literature), impose certain restrictions on models, and test if this hypothesised model is good.</p>
+<div class="small">
+<p>This typically takes the form of setting certain factor loadings <span class="math inline">\(\lambda\)</span> to 0, meaning a certain item does not measure one of the factors.</p>
 </div>
-<p>Then, we can use the <strong>lm_lin()</strong> function to estimate:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">lm_lin</span>(Y <span class="sc">~</span> D,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">covariates =</span> <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> my_data)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The output will be the ATE - the average treatment effect for all units in the study.</p>
-<p><br></p>
+<p>We can also combine different structural models together to form <strong>structural equation models</strong> (see the structural equation models part).</p>
 
 
 

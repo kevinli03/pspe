@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Linear Regression Estimator – Causal Inference Resources</title>
+<title>Fully Interacted Estimator – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -115,7 +115,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -130,7 +130,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -144,9 +144,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Selection on Observables</span>
-    </span>
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <span class="nav-link">
@@ -154,8 +153,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent.html"> 
-<span class="menu-text">Latent Models</span></a>
+    <a class="nav-link" href="../latent/latent.html"> 
+<span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -168,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./regress.html">Linear Regression Estimator</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/interact.html">Fully Interacted Estimator</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,58 +178,58 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soo.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Selection on Observables</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soochoose.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/soochoose.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Choosing an Estimator</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regress.html" class="sidebar-item-text sidebar-link active">
+  <a href="../soo/regress.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Linear Regression Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interact.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./distance.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pscore.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./genetic.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./ipw.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
@@ -247,7 +246,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Linear Regression Estimator</h1>
+<h1 class="title">Fully Interacted Estimator</h1>
 </div>
 
 
@@ -265,48 +264,43 @@ window.Quarto = {
 
 
 <div class="small">
-<p>See the pros and cons of this estimator in the <a href="./soochoose.html">choosing an estimator</a> page.</p>
+<p>See the pros and cons of this estimator in the <a href="../soo/soochoose.html">choosing an estimator</a> page.</p>
 </div>
-<p>Selection on observables is about controlling for confounders. Linear regression is a very natural way to control for confounders.</p>
+<p>From <a href="../soo/soo.html">selection on observables</a>, we know that our causal effect is a weighted average:</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \eps_i
+\tau_\text{ATE} = \sum\tau (\b x) Pr(\b x)
 \]</span></p>
-<p>We know that in the above equation, <span class="math inline">\(\beta_1\)</span> is the relationship between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span>, while controllling (holding constant) <span class="math inline">\(X_2\)</span>.</p>
-<p>Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.</p>
+<p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:</p>
 <p><span class="math display">\[
-Y_i = \alpha + D_i\tau + \b X_i' \b\beta + \eps_i
+\hat\beta_\text{OLS} = \sum \tau(\b x) \frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}
 \]</span></p>
 <div class="small">
-<p>Where <span class="math inline">\(\alpha\)</span> is the intercept and <span class="math inline">\(\b X_i\)</span> is a vector of confounder values for individual <span class="math inline">\(i\)</span>.</p>
+<p>Where <span class="math inline">\(\b x^c\)</span> is the complement (not <span class="math inline">\(\b x\)</span>).</p>
 </div>
-<p>Our ordinary least squares (OLS) estimate <span class="math inline">\(\widehat\tau\)</span> is an unbiased estimator of the true <span class="math inline">\(\tau_{ATE}\)</span> given three conditions are met:</p>
-<ol type="1">
-<li><p>We meet the selection on observables assumption of <strong>conditional ignorability</strong>. Conditional ignorability implies exogeneity, which means the estimate is unbiased.</p></li>
-<li><p>The relationship between our continuous confounders and outcome variable is <strong>linear</strong>. This is because if the true relationship between these two is not linear, then our linear model is wrong, so it is not properly controlling for confounders.</p></li>
-<li><p>There is <strong>no heterogeneity</strong> in treatment effects. Angrist (1998), Lin (2013), and Słoczyński (2022) have proven that when there is heterogeneity, OLS is estimating another quantity that is not the ATE.</p></li>
-</ol>
+<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\tau_{ATE}\)</span>. Thus, if not all <span class="math inline">\(\tau(\b x)\)</span> are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.</p>
+<p>Heterogeneity is present in almost all situations we are interested in. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
+<p><span class="math display">\[
+Y_i = \alpha + D_i \tau + (\b{X}_i - \mean{\b X})' \b\beta \ + D_i (\b X_i - \mean{\b X})' \b\gamma \  + \eps_i
+\]</span></p>
 <div class="small">
-<p><strong>Heterogeneity</strong> means that different individuals have different individual treament effects <span class="math inline">\(\tau_i\)</span>. OLS only estimates the ATE if there is homogeneity - all <span class="math inline">\(\tau_i\)</span> are equal.</p>
+<p><span class="math inline">\(\mean{\b X}\)</span> is a vector of the means of each confounder. <span class="math inline">\(\tau\)</span> is the estimate of the ATE. See <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> for proofs.</p>
 </div>
+<p>The new OLS estimate of <span class="math inline">\(\hat\tau\)</span> in this estimator will technically still be a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>, but the bias is negligible.</p>
 <p><br></p>
-<p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="./soo.html">selection on observables</a>.</p>
-<p>We will need the <strong>fixest</strong> package:</p>
+<p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>.</p>
+<p>We will need the <strong>estimatr</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>To run a regression estimator, we do:</p>
+<p>Then, we can use the <strong>lm_lin()</strong> function to estimate:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(Y <span class="sc">~</span> D <span class="sc">+</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> data,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">se =</span> <span class="st">"hetero"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">lm_lin</span>(Y <span class="sc">~</span> D,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">covariates =</span> <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> my_data)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="small">
-<p>We typically assume heteroscedasticity, so we use heteroscedasticity-robust standard errors. If you can prove homoscedasticity, then you can use normal standard errors.</p>
-</div>
-<p>The coefficient for the treatment variable will be the ATE - the average treatment effect for all units in the study.</p>
-<div class="small">
-<p>Assuming you have met all the assumptions of selection on observables, and the special assumptions for the linear regression estimator shown above.</p>
-</div>
+<p>The output will be the ATE - the average treatment effect for all units in the study.</p>
+<p><br></p>
 
 
 

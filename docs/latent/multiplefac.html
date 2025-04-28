@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Genetic Matching – Causal Inference Resources</title>
+<title>Multiple Latent Factors – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -115,7 +115,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -130,7 +130,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -144,9 +144,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Selection on Observables</span>
-    </span>
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <span class="nav-link">
@@ -154,8 +153,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent.html"> 
-<span class="menu-text">Latent Models</span></a>
+    <a class="nav-link" href="../latent/latent.html"> 
+<span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -168,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./genetic.html">Genetic Matching</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/multiplefac.html">Multiple Latent Factors</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,61 +178,60 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Selection on Observables</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./soochoose.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Choosing an Estimator</span></a>
+  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regress.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Regression Estimator</span></a>
+  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factor Analysis Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interact.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fully Interacted Estimator</span></a>
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reliability and Factor Scores</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./distance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Distance Matching</span></a>
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Multiple Latent Factors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Propensity Score Matching</span></a>
+  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identification and Rotation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./genetic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
+ <span class="menu-text">Confirmatory Analysis</span>
+  </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
-  </div>
-</li>
+ <span class="menu-text">Inference and Model Fit</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Item Response Theory</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Latent Class Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Structural Equation Models</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -247,7 +245,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Genetic Matching</h1>
+<h1 class="title">Multiple Latent Factors</h1>
 </div>
 
 
@@ -265,72 +263,148 @@ window.Quarto = {
 
 
 <div class="small">
-<p>See the pros and cons of this estimator in the <a href="./soochoose.html">choosing an estimator</a> page.</p>
+<p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
 </div>
-<p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
+<p>So far, we have covered factor analysis for a single factor. However, factor analysis can work with multiple latent factors.</p>
+<div class="center-graph">
+<div class="cell" data-fig-width="5" data-fig-height="1.4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="480" height="134" viewbox="0.00 0.00 444.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
+<title>example2</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-128.8 440.09,-128.8 440.09,4 -4,4"></polygon>
+<!-- F1 -->
+<g id="node1" class="node">
+<title>F1</title>
+<polygon fill="none" stroke="black" points="199.18,-124.8 80.91,-124.8 80.91,-88.8 199.18,-88.8 199.18,-124.8"></polygon>
+<text text-anchor="middle" x="140.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F1)</text>
+</g>
+<!-- X1 -->
+<g id="node3" class="node">
+<title>X1</title>
+<polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
+<text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
+</g>
+<!-- F1&#45;&gt;X1 -->
+<g id="edge1" class="edge">
+<title>F1-&gt;X1</title>
+<path fill="none" stroke="black" d="M120.49,-88.65C105.57,-75.57 84.85,-57.4 68.3,-42.9"></path>
+<polygon fill="black" stroke="black" points="70.39,-40.07 60.56,-36.11 65.78,-45.34 70.39,-40.07"></polygon>
+<text text-anchor="start" x="100.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X2 -->
+<g id="node4" class="node">
+<title>X2</title>
+<polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
+<text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
+</g>
+<!-- F1&#45;&gt;X2 -->
+<g id="edge2" class="edge">
+<title>F1-&gt;X2</title>
+<path fill="none" stroke="black" d="M139.57,-88.77C139.66,-78.55 140.45,-65.37 143.27,-54 143.97,-51.15 144.9,-48.24 145.96,-45.38"></path>
+<polygon fill="black" stroke="black" points="149.25,-46.58 149.9,-36 142.8,-43.87 149.25,-46.58"></polygon>
+<text text-anchor="start" x="144.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X3 -->
+<g id="node5" class="node">
+<title>X3</title>
+<polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
+<text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
+</g>
+<!-- F1&#45;&gt;X3 -->
+<g id="edge3" class="edge">
+<title>F1-&gt;X3</title>
+<path fill="none" stroke="black" d="M156.73,-88.41C167.79,-77.55 183.03,-63.82 198.27,-54 207.04,-48.35 216.87,-43.18 226.54,-38.65"></path>
+<polygon fill="black" stroke="black" points="228.05,-41.81 235.72,-34.5 225.17,-35.43 228.05,-41.81"></polygon>
+<text text-anchor="start" x="199.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- F2 -->
+<g id="node2" class="node">
+<title>F2</title>
+<polygon fill="none" stroke="black" points="354.18,-124.8 235.91,-124.8 235.91,-88.8 354.18,-88.8 354.18,-124.8"></polygon>
+<text text-anchor="middle" x="295.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F2)</text>
+</g>
+<!-- F2&#45;&gt;X2 -->
+<g id="edge4" class="edge">
+<title>F2-&gt;X2</title>
+<path fill="none" stroke="black" d="M268.18,-88.65C247.03,-75.16 217.4,-56.24 194.34,-41.53"></path>
+<polygon fill="black" stroke="black" points="196.17,-38.54 185.86,-36.11 192.4,-44.44 196.17,-38.54"></polygon>
+<text text-anchor="start" x="240.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- F2&#45;&gt;X3 -->
+<g id="edge5" class="edge">
+<title>F2-&gt;X3</title>
+<path fill="none" stroke="black" d="M291.49,-88.65C288.97,-76.52 285.55,-60.02 282.67,-46.12"></path>
+<polygon fill="black" stroke="black" points="286.05,-45.19 280.59,-36.11 279.2,-46.62 286.05,-45.19"></polygon>
+<text text-anchor="start" x="287.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X4 -->
+<g id="node6" class="node">
+<title>X4</title>
+<polygon fill="none" stroke="black" points="436.13,-36 353.96,-36 353.96,0 436.13,0 436.13,-36"></polygon>
+<text text-anchor="middle" x="395.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 4 (X4)</text>
+</g>
+<!-- F2&#45;&gt;X4 -->
+<g id="edge6" class="edge">
+<title>F2-&gt;X4</title>
+<path fill="none" stroke="black" d="M314.8,-88.65C329.87,-75.57 350.8,-57.4 367.51,-42.9"></path>
+<polygon fill="black" stroke="black" points="370.07,-45.31 375.33,-36.11 365.48,-40.03 370.07,-45.31"></polygon>
+<text text-anchor="start" x="353.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<p>We can see in the above figure, an example of two latent factors. Each item can measure either only one or two of the factors. The factors can also both have the same items, but put emphasis on different items.</p>
+<p>Let us say we have multiple factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>. Let us use vector <span class="math inline">\(\b F\)</span> to reperesent the mall. We still assume the factors are normally distributed:</p>
 <p><span class="math display">\[
-\tau_{\text{Mia}} = \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
+\b F \sim \mathcal N(\b \kappa, \b\Phi)
 \]</span></p>
-<p>We cannot observe Mia’s counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
-<p><span class="math display">\[
-\tau_{\text{Mia}} \approx \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{purple}{Y^{(0)}_\text{Matched individual}}
-\]</span></p>
-<p>Like <a href="./distance.html">distance matching</a>, genetic matching matches an individual that is treated (like Mia) with one that is not treated based on how <strong>close</strong> their confounding values are. However, genetic matching uses a slightly different variation of mahalanobis distance:</p>
-<p><span class="math display">\[
-\delta_{i, j}(\b W) = \sqrt{(\b x_i - \b x_j)' \ (\b\Sigma_x^{-\frac{1}{2}})' \ \b W \ \b\Sigma_x^{-\frac{1}{2}}  (\b x_i - \b x_j)}
-\]</span></p>
+<p>Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal <span class="math inline">\(F \sim \mathcal N (0, 1)\)</span>. This implies that <span class="math inline">\(\b\kappa = 0\)</span>.</p>
+<p>Our variance matrix <span class="math inline">\(\b\Phi\)</span> is a little more complicated - the variances of each factor is 1 (as assumed in a standard normal), however, the matrix <span class="math inline">\(\b\Phi\)</span> also includes the covariances between factors. This is an additional thing that we will need to estimate that was not present in one-factor models.</p>
 <div class="small">
-<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> are their confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders. <span class="math inline">\(\b W\)</span> is a weights matrix.</p>
+<p>For example, factor <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span> might be correlated with each other, which is reflected in <span class="math inline">\(\b\Phi\)</span>.</p>
 </div>
-<p>The weights <span class="math inline">\(\b W\)</span> are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. Then, matching is done with the units that have the smallest distance.</p>
+<p>Now on to our measurement models. Just like in single factor anlaysis, we use a linear regression to express the relationship between any item <span class="math inline">\(X_i\)</span> and the factors. However, this time, each regression will relate each <span class="math inline">\(X_i\)</span> to all factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+X_1 &amp; = \tau_1 + \lambda_{11}F_1 + \lambda_{12}F_2 + \dots + \lambda_{1q}F_q + \delta_1 \\
+X_2 &amp; = \tau_2 + \lambda_{21} F_1 + \lambda_{22} F_2 + \dots + \lambda_{2q}F_q + \delta_2 \\
+&amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
+X_p &amp; = \tau_p + \lambda_{p1} F_1 + \lambda_{p2}F_2+ \dots + \lambda_{pq}F_1 + \delta_p
+\end{align}
+\]</span></p>
+<p>The factor loadings <span class="math inline">\(\lambda\)</span> are still the relationship between each factor and each item, and are interpreted in the same way as a 1-factor model. However, the the interpretation of communality and relaibility are no longer valid with more than 1-factor.</p>
+<div class="small">
+<p>When interpreting - do one factor at a time. Start with one, then go to the next. Interpreting each factor is the same as shown in the page on <a href="../latent/factor.html">factor analysis</a>.</p>
+</div>
 <p><br></p>
-<p>Before you start genetic matching, make sure you have reasons to believe you meet the neccessary assumptions for <a href="./soo.html">selection on observables</a>:</p>
-<p>We will need the <strong>Matching</strong> and <strong>MatchIt</strong> package.</p>
+<p>To implement multiple factor anlaysis, the procedure is quite similar to standard factor analysis. First, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, we need to estimate the propensity scores with a logistic regression.</p>
-<div class="small">
-<p>It is recommended to use the propensity score as one of the controls on which to genetic match on.</p>
-</div>
+<p>First, we should get rid of missing observations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(D <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> my_data,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>pscore <span class="ot">&lt;-</span> <span class="fu">predict</span>(propensity,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then, we use the <strong>GenMatch()</strong> function to estimate a weights matrix <span class="math inline">\(\b W\)</span>:</p>
+<p>For factor analysis with multiple factors, the notation is as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">333</span>) <span class="co">#any number works</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gen <span class="ot">&lt;-</span> <span class="fu">GenMatch</span>(<span class="at">Tr =</span> my_data<span class="sc">$</span>D,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">X =</span> my_data[,<span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>,<span class="st">"pscore"</span>)],</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">BalanceMatrix =</span> my_data[,<span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>)],   </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">estimand =</span> <span class="st">"ATT"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">M =</span> <span class="dv">2</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ties =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">distance.tolerance =</span> <span class="dv">0</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">print.level =</span> <span class="dv">0</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pop.size =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">2</span>, <span class="at">fm=</span><span class="st">"ml"</span>, <span class="at">rotate=</span><span class="st">"oblimin"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="small">
-<p>You can increase pop.size to increase the accuracy - but it will increase the time and computational power needed.</p>
+<p>Change nfactors=2 to however many factors you want. Note that you cannot have too many, this will be discussed in the next page on identification.</p>
+<p>This code also uses the “oblimin” rotation, which will be discussed in the next page on identification and rotation.</p>
 </div>
-<p>Now, let us conduct estimation with genetic matching:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>att <span class="ot">&lt;-</span> <span class="fu">Match</span>(<span class="at">Y =</span> my_data<span class="sc">$</span>Y,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">Tr =</span> my_data<span class="sc">$</span>D,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">X =</span> my_data[,<span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>,<span class="st">"pscore"</span>)],</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">estimand =</span> <span class="st">"ATT"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">M =</span> <span class="dv">2</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">ties =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">distance.tolerance =</span> <span class="dv">0</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">Weight.matrix =</span> gen<span class="sc">$</span>Weight.matrix,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">Weight =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
 
 
 

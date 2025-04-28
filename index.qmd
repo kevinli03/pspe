@@ -13,8 +13,8 @@ This repository contains resources on causal inference and social statistics, sp
 
 -   I have tried to keep up with modern advancements, including the recent difference-in-differences rennaisance.
 
-These resources have been collected throughout my postgraduate degree at the London School of Economics. I hope these resources can be useful for my future self and others.
+These resources have been collected throughout my postgraduate degree at the London School of Economics. I hope these resources can be useful for my future self and others. I try to ensure everything in this repository is accurate. If there are any issues with the repository, let me know.
 
-I try to ensure everything in this repository is accurate. If there are any issues with the repository, let me know.
+There are some stuff that doesn't fit into any category, which I have included in the home page sidebar.
 
 For my personal website, see <http://kevinli03.github.io>

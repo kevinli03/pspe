@@ -15,9 +15,10 @@ website:
         - text: "Difference-in-Differences"
         - text: "Regression Discontinuity"
         - text: "Selection on Observables"
+          href: soo/soo.qmd
         - text: "Regression Models"
-        - text: "Latent Models"
-          href: latent.qmd
+        - text: "Latent Variable Models"
+          href: latent/latent.qmd
 
   sidebar:
     - title: "Causal Inference Basics"
@@ -30,12 +31,18 @@ website:
         - text: "Homepage"
           href: index.qmd
         - text: "---"
+        - text: "CAUSAL BASICS"
         - text: "Basics of Causality"
           href: frameworks.qmd
         - text: "Issue of Selection Bias"
           href: correlation.qmd
         - text: "Magic of Randomisation"
           href: randomisation.qmd
+        - text: "---"
+        - text: "OTHER STATS"
+        - text: "Principle Components"
+        - text: "Cluster Analysis"
+        - text: "Random Forest"
 
     - title: "Selection on Observables"
       style: floating
@@ -44,22 +51,22 @@ website:
       foreground: "#36026b"
       contents:
         - text: "Selection on Observables"
-          href: soo.qmd
+          href: soo/soo.qmd
         - text: "Choosing an Estimator"
-          href: soochoose.qmd
+          href: soo/soochoose.qmd
         - text: "---"
         - text: "Linear Regression Estimator"
-          href: regress.qmd
+          href: soo/regress.qmd
         - text: "Fully Interacted Estimator"
-          href: interact.qmd
+          href: soo/interact.qmd
         - text: "Distance Matching"
-          href: distance.qmd
+          href: soo/distance.qmd
         - text: "Propensity Score Matching"
-          href: pscore.qmd
+          href: soo/pscore.qmd
         - text: "Genetic Matching"
-          href: genetic.qmd
+          href: soo/genetic.qmd
         - text: "Inverse Probability Weighting"
-          href: ipw.qmd
+          href: soo/ipw.qmd
         
     - title: "Latent Models"
       style: floating
@@ -68,16 +75,16 @@ website:
       foreground: "#36026b"
       contents:
         - text: "Latent Variable Models"
-          href: latent.qmd
+          href: latent/latent.qmd
         - text: "---"
         - text: "Factor Analysis Models"
-          href: factor.qmd
+          href: latent/factor.qmd
         - text: "Reliability and Factor Scores"
-          href: scores.qmd
+          href: latent/scores.qmd
         - text: "Multiple Latent Factors"
-          href: multiplefac.qmd
+          href: latent/multiplefac.qmd
         - text: "Identification and Rotation"
-          href: identify.qmd
+          href: latent/identify.qmd
         - text: "Confirmatory Analysis"
         - text: "Inference and Model Fit"
         - text: "---"

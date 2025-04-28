@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Reliability and Factor Scores – Causal Inference Resources</title>
+<title>Propensity Score Matching – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -115,7 +115,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -130,7 +130,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -144,9 +144,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Selection on Observables</span>
-    </span>
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <span class="nav-link">
@@ -154,8 +153,8 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent.html"> 
-<span class="menu-text">Latent Models</span></a>
+    <a class="nav-link" href="../latent/latent.html"> 
+<span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -168,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./scores.html">Reliability and Factor Scores</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/pscore.html">Propensity Score Matching</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -179,60 +178,61 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./latent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Latent Variable Models</span></a>
+  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selection on Observables</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/soochoose.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Choosing an Estimator</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./factor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Factor Analysis Models</span></a>
+  <a href="../soo/regress.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Linear Regression Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./scores.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Reliability and Factor Scores</span></a>
+  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./multiplefac.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Latent Factors</span></a>
+  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./identify.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Identification and Rotation</span></a>
+  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Confirmatory Analysis</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Matching</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">Inference and Model Fit</span>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Item Response Theory</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Latent Class Models</span>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Structural Equation Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -246,7 +246,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Reliability and Factor Scores</h1>
+<h1 class="title">Propensity Score Matching</h1>
 </div>
 
 
@@ -264,57 +264,54 @@ window.Quarto = {
 
 
 <div class="small">
-<p>Make sure you have read the previous page on <a href="./factor.html">factor analysis</a> before this.</p>
+<p>See the pros and cons of this estimator in the <a href="../soo/soochoose.html">choosing an estimator</a> page.</p>
 </div>
-<p>Recall our measurement models linking each item <span class="math inline">\(X_1, X_2, \dots, X_p\)</span> to our factor:</p>
+<p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
 <p><span class="math display">\[
-X_i = \tau_i + \lambda_i F + \delta_i
+\tau_{\text{Mia}} = \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
 \]</span></p>
-<p>One of the assumptions of this model is the the error term <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_i)\)</span>, or in other words, the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. Through some complex math, we can show that the variance of each item <span class="math inline">\(X_i\)</span> is as follows:</p>
+<p>We cannot observe Mia’s counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
 <p><span class="math display">\[
-Var(X_i) = \lambda_i^2 + \theta_i
+\tau_{\text{Mia}} \approx \textcolor{purple}{Y^{(1)}_\text{Mia}} - \textcolor{purple}{Y^{(0)}_\text{Matched individual}}
 \]</span></p>
-<p>Thus, this allows us to essentially “split” the variance in any item <span class="math inline">\(X_i\)</span> into two parts:</p>
-<ol type="1">
-<li><span class="math inline">\(\lambda_i^2\)</span> is the part of the variance in the item explained by the latent factor. We call this the <strong>communality</strong> of <span class="math inline">\(X_i\)</span>.</li>
-<li><span class="math inline">\(\theta_i\)</span> is the <strong>residual variance</strong>, the part of the variance <strong>not</strong> explained by our factor.</li>
-</ol>
-<p>We can also calculate the percentage/proportion of variance in <span class="math inline">\(X_i\)</span> that our factor explains, called the <strong>reliability</strong> of <span class="math inline">\(X_i\)</span>:</p>
+<p>Propensity Score Matching matches an individual that is treated (like Mia) with one that is not treated based on how similar their likelihoods of treatment are.</p>
+<p>What is a likelihood of treatment? Well we know confounders cause people to get the treatment or not treatment. Thus, using an individual’s confounder values, we can estimate their likelihood of getting treatment, called a propensity score.</p>
 <p><span class="math display">\[
-\text{Reliability} = \frac{\lambda_i^2}{Var(X_i)} = \frac{\lambda_i^2}{\lambda_i^2+\theta_i}
+\text{propensity score } \pi =Pr(\text{you get treated})
 \]</span></p>
-<div class="small">
-<p>If all items <span class="math inline">\(X_i\)</span> are standarised to a standard normal, then <span class="math inline">\(\lambda_i^2\)</span> is equal to the reliability.</p>
-</div>
-<p>Communality and relaibility is important for two reasons:</p>
-<ol type="1">
-<li>Items with higher reliability are considered more “accurate” measures of the latent variable <span class="math inline">\(F\)</span>. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.</li>
-<li>These allow us to calculate <strong>factor scores</strong>.</li>
-</ol>
-<p>Factor scores <span class="math inline">\(\widetilde F\)</span> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items <span class="math inline">\(X_i\)</span> to calculate the latent variable value that any individual should have, which we can then put into another statistical model.</p>
-<p>We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:</p>
+<p>Propensity scores are typically estimated with a logistic regression:</p>
 <p><span class="math display">\[
-\widetilde F = w_0 + w_1 X_1 + w_2X_2 + \dots
+\log\left( \frac{\pi(\b X_i)}{1- \pi(\b X_i)}\right) = \alpha + \b X_i' \b\beta
 \]</span></p>
-<p>The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.</p>
+<p>This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relatinoships between confounders and propensities, and only being unbiased in large sample sizes.</p>
 <p><br></p>
-<p>To calculate factor analysis, we have to first run a factor analysis model in the same way we did in the <a href="./factor.html">last page</a>.</p>
+<p>Before you implement propensity score matching, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>:</p>
+<p>We will need the <strong>Matching</strong> package.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># eliminate missing observations</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># factor model</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">1</span>, <span class="at">fm=</span><span class="st">"ml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>R will automatically calculate factor scores in the estimation process, so all we have to do is access it within our output object:</p>
+<p>First, we need to estimate the propensity scores with a logistic regression:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fa<span class="sc">$</span>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(D <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> my_data,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>pscore <span class="ot">&lt;-</span> <span class="fu">predict</span>(propensity,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can save this into your dataset, and use for other purposes.</p>
+<div class="small">
+<p>A random forest model is also possible, but less common.</p>
+</div>
+<p>Now, we can implement the matching as follows.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>att <span class="ot">&lt;-</span> <span class="fu">Match</span>(<span class="at">Y =</span> my_data<span class="sc">$</span>Y,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">Tr =</span> my_data<span class="sc">$</span>D,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">X =</span> my_data[,<span class="st">"pscore"</span>],</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">M =</span> <span class="dv">1</span>,</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">BiasAdjust =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">Weight =</span> <span class="dv">2</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(att)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
 
 
 
