@@ -1,0 +1,104 @@
+---
+title: "Factor Analysis Model"
+---
+
+Factor analysis is a way to model a continuous latent variable, based on a bunch of continuous observed items.
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 1.4
+digraph example2 {
+  // Nodes
+  F [shape=box, pos = "0,0!", label="Latent Factor (F)"]
+  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
+  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
+
+  // Edges
+  {F -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+The factor (notated $F$ or $\xi$), is the unobserved latent variable we want to measure. We assume that the factor $F$ is continuous, and normally distributed:
+
+$$
+F \sim \mathcal N(0, 1)
+$$
+
+::: small
+Where $\kappa = 0$ is the mean of the factor, and $\phi =1$ is the variance of the factor. Technically, the factor only needs to be normally distributed - we can have different means and variances. However, for identification reasons, we typically fix the factor to a standard normal.
+:::
+
+The items, notated $X_1, X_2, \dots, X_p$, are the variables we observe, that we believe are a measurement of the latent factor $F$. Factor analysis assumes that each observed item is associated with the latent factor with a **linear regression model**:
+
+$$
+\begin{align}
+X_1 & = \tau_1 + \lambda_1F + \delta_1 \\
+X_2 & = \tau_2 + \lambda_2 F + \delta_2 \\
+& \vdots \qquad \qquad \vdots \\
+X_p & = \tau_p + \lambda_p F + \delta_p
+\end{align}
+$$
+
+::: small
+We assume that the error terms are normally distributed $\delta_i \sim \mathcal N(0, \theta_{ii})$, that the different error terms $\delta_1, \dots, \delta_p$ are uncorrelated with each other, and $F$ is uncorrelated with the errors (exogeneity).
+:::
+
+-   $\tau_i$ is the intercept of the model.
+-   $\lambda_i$ is the coefficient that describes the relationship between any item $X_i$ and the factor $F$. These are called **factor loadings**.
+-   $\delta_i$ is the error term - the part of an item $X_i$ not explained by the factor $F$. They are called the **unique factors**.
+
+The factor loadings $\lambda_i$ represent the relationship/**covariance** between any item $X_i$ and a factor $F$. If the items $X_i$ have been standardised to a standard normal, then $\lambda_i$ is also the correlation coefficient between items and factor.
+
+::: small
+Note: this isn't entirely true for multiple factors, as we will discuss in a later page.
+:::
+
+These factor loadings help us interpret our latent variable $F$.
+
+-   The sign of the factor loading tells us the direction in which our latent variable is measuring. For example, if $\lambda$ is negative, that means as our item's value increases, the latent variable decreases.
+-   The absolute size of the factor loading tells us how important that item is to the factor. For example, if we have one item with a large (negative or positive loading), and one item with a near-0 loading, that means the first item is more important to the latent variable.
+
+::: small
+An example of interpretation is provided below the code.
+:::
+
+To implement factor analysis, we will need the **psych** and **GPArotation** package:
+
+```{r, eval = F}
+library(psych)
+library(GPArotation)
+```
+
+First, we should get rid of missing observations:
+
+```{r, eval = F}
+all.obs <- apply(my_data, 1, FUN=function(x){all(!is.na(x))})
+dta <- my_data[all.obs,]
+```
+
+For factor analysis with one factor, we use the syntax:
+
+```{r, eval = F}
+fa <- fa(data[,items], nfactors=1, fm="ml")
+print(fa1)
+```
+
+::: {.callout-note collapse="true" appearance="simple"}
+## Interpretation Example
+
+This is a typical output of factor anlaysis. ML1 and ML2 are the two factors (let us focus on just ML1), and the rows are items (which are trust in different institutions).
+
+![](images/clipboard-3872288459.png){width="75%"}
+
+For factor 1 (ML1), we can see that *pol_parties*, *politicians* have very large loadings. *EP, parliament, and UN* have moderate loadings. *Police* and *legal* have almost 0 loadings. Almost all loadings are positive.
+
+This tells us that factor 1 is a latent variable that measures mostly trust in politicians, rather than the legal/policing system. Since the loadings are almost all positive, we can conclude that higher values of factor 1 mean higher levels of trust in legal/policing systems.
+:::

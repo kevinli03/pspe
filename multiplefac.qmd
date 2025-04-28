@@ -1,0 +1,98 @@
+---
+title: "Multiple Latent Factors"
+---
+
+::: small
+Make sure you have read the previous page on [factor analysis](factor.qmd) before this.
+:::
+
+So far, we have covered factor analysis for a single factor. However, factor analysis can work with multiple latent factors.
+
+::: center-graph
+```{dot}
+//| fig-width: 5
+//| fig-height: 1.4
+digraph example2 {
+  // Nodes
+  F1 [shape=box, pos = "0,0!", label="Latent Factor (F1)"]
+  F2 [shape=box, pos = "0,0!", label="Latent Factor (F2)"]
+  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
+  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
+  X4 [shape=box, pos="1,0!", label="Item 4 (X4)"]
+
+  // Edges
+  {F1 -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F1 -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F1 -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F2 -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F2 -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F2 -> X4 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+We can see in the above figure, an example of two latent factors. Each item can measure either only one or two of the factors. The factors can also both have the same items, but put emphasis on different items.
+
+Let us say we have multiple factors $F_1, F_2, \dots, F_q$. Let us use vector $\b F$ to reperesent the mall. We still assume the factors are normally distributed:
+
+$$
+\b F \sim \mathcal N(\b \kappa, \b\Phi)
+$$
+
+Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal $F \sim \mathcal N (0, 1)$. This implies that $\b\kappa = 0$.
+
+Our variance matrix $\b\Phi$ is a little more complicated - the variances of each factor is 1 (as assumed in a standard normal), however, the matrix $\b\Phi$ also includes the covariances between factors. This is an additional thing that we will need to estimate that was not present in one-factor models.
+
+::: small
+For example, factor $F_1$ and $F_2$ might be correlated with each other, which is reflected in $\b\Phi$.
+:::
+
+Now on to our measurement models. Just like in single factor anlaysis, we use a linear regression to express the relationship between any item $X_i$ and the factors. However, this time, each regression will relate each $X_i$ to all factors $F_1, F_2, \dots, F_q$:
+
+$$
+\begin{align}
+X_1 & = \tau_1 + \lambda_{11}F_1 + \lambda_{12}F_2 + \dots + \lambda_{1q}F_q + \delta_1 \\
+X_2 & = \tau_2 + \lambda_{21} F_1 + \lambda_{22} F_2 + \dots + \lambda_{2q}F_q + \delta_2 \\
+& \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
+X_p & = \tau_p + \lambda_{p1} F_1 + \lambda_{p2}F_2+ \dots + \lambda_{pq}F_1 + \delta_p
+\end{align}
+$$
+
+The factor loadings $\lambda$ are still the relationship between each factor and each item, and are interpreted in the same way as a 1-factor model. However, the the interpretation of communality and relaibility are no longer valid with more than 1-factor.
+
+::: small
+When interpreting - do one factor at a time. Start with one, then go to the next. Interpreting each factor is the same as shown in the page on [factor analysis](factor.qmd).
+:::
+
+<br />
+
+To implement multiple factor anlaysis, the procedure is quite similar to standard factor analysis. First, we will need the **psych** and **GPArotation** package:
+
+```{r, eval = F}
+library(psych)
+library(GPArotation)
+```
+
+First, we should get rid of missing observations:
+
+```{r, eval = F}
+all.obs <- apply(my_data, 1, FUN=function(x){all(!is.na(x))})
+dta <- my_data[all.obs,]
+```
+
+For factor analysis with multiple factors, the notation is as follows:
+
+```{r, eval = F}
+fa <- fa(data[,items], nfactors=2, fm="ml", rotate="oblimin")
+print(fa)
+```
+
+::: small
+Change nfactors=2 to however many factors you want. Note that you cannot have too many, this will be discussed in the next page on identification.
+
+This code also uses the "oblimin" rotation, which will be discussed in the next page on identification and rotation.
+:::

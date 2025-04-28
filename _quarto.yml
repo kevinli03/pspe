@@ -15,7 +15,9 @@ website:
         - text: "Difference-in-Differences"
         - text: "Regression Discontinuity"
         - text: "Selection on Observables"
-          href: soo.qmd
+        - text: "Regression Models"
+        - text: "Latent Models"
+          href: latent.qmd
 
   sidebar:
     - title: "Causal Inference Basics"
@@ -59,6 +61,30 @@ website:
         - text: "Inverse Probability Weighting"
           href: ipw.qmd
         
+    - title: "Latent Models"
+      style: floating
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Latent Variable Models"
+          href: latent.qmd
+        - text: "---"
+        - text: "Factor Analysis Models"
+          href: factor.qmd
+        - text: "Reliability and Factor Scores"
+          href: scores.qmd
+        - text: "Multiple Latent Factors"
+          href: multiplefac.qmd
+        - text: "Identification and Rotation"
+          href: identify.qmd
+        - text: "Confirmatory Analysis"
+        - text: "Inference and Model Fit"
+        - text: "---"
+        - text: "Item Response Theory"
+        - text: "Latent Class Models"
+        - text: "---"
+        - text: "Structural Equation Models"
   
 format:
   html:

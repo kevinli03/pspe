@@ -1,9 +1,9 @@
 ---
-title: "Resources on Causal Inference"
+title: "Resources on Causal Inference and Social Science Statistics"
 subtitle: "Methodology for Political Science and Political Economy (PSPE)"
 ---
 
-This repository contains resources on causal inference, and applying causal inference methods to political science and political economy.
+This repository contains resources on causal inference and social statistics, specifically focused on applications to politics and economics.
 
 -   Use the top navigation bar to navigate between different methods.
 
@@ -16,7 +16,5 @@ This repository contains resources on causal inference, and applying causal infe
 These resources have been collected throughout my postgraduate degree at the London School of Economics. I hope these resources can be useful for my future self and others.
 
 I try to ensure everything in this repository is accurate. If there are any issues with the repository, let me know.
-
-For a collection of statistical resources, see <http://kevinli03.github.io/stats>
 
 For my personal website, see <http://kevinli03.github.io>

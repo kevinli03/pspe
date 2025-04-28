@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Fully Interacted Estimator – Causal Inference Resources</title>
+<title>Identification and Rotation – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -85,35 +51,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -168,7 +105,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./interact.html">Fully Interacted Estimator</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./identify.html">Identification and Rotation</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -187,53 +124,52 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./soo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Selection on Observables</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./soochoose.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Choosing an Estimator</span></a>
+  <a href="./latent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./regress.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Regression Estimator</span></a>
+  <a href="./factor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factor Analysis Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./interact.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Fully Interacted Estimator</span></a>
+  <a href="./scores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reliability and Factor Scores</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./distance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Distance Matching</span></a>
+  <a href="./multiplefac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Latent Factors</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./pscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Propensity Score Matching</span></a>
+  <a href="./identify.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Identification and Rotation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./genetic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
+ <span class="menu-text">Confirmatory Analysis</span>
+  </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
-  </div>
-</li>
+ <span class="menu-text">Inference and Model Fit</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Item Response Theory</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Latent Class Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Structural Equation Models</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -247,7 +183,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Fully Interacted Estimator</h1>
+<h1 class="title">Identification and Rotation</h1>
 </div>
 
 
@@ -265,43 +201,28 @@ window.Quarto = {
 
 
 <div class="small">
-<p>See the pros and cons of this estimator in the <a href="./soochoose.html">choosing an estimator</a> page.</p>
+<p>Make sure you have read all the previous pages on factor analysis before this.</p>
 </div>
-<p>From <a href="./soo.html">selection on observables</a>, we know that our causal effect is a weighted average:</p>
-<p><span class="math display">\[
-\tau_\text{ATE} = \sum\tau (\b x) Pr(\b x)
-\]</span></p>
-<p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:</p>
-<p><span class="math display">\[
-\hat\beta_\text{OLS} = \sum \tau(\b x) \frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}
-\]</span></p>
-<div class="small">
-<p>Where <span class="math inline">\(\b x^c\)</span> is the complement (not <span class="math inline">\(\b x\)</span>).</p>
+<p>When estimating factor analysis models, we encounter many identification issues. An identification issue is basically an inability to calculate a solution. There are two types of identification issues:</p>
+<ol type="1">
+<li>We have too many possible solutions, and we cannot determine which one (a unique identification issue).</li>
+<li>We don’t have enough data to compute any solutions.</li>
+</ol>
+<p>One identification issue is <strong>rotation</strong>. For example, imagine our latent variable is left-right political spectrum leaning. Our latent variable could use positive values for right-wing and negative values for left-wing. Or, it could do the opposite. There is no real substantive difference.</p>
+<p>Thus, in 1-factor models, most software will arbitrarily choose a rotation, as it does not really make a huge difference.</p>
+<p>In multiple factor models, rotation becomes more complex. Because of some linear algebra, you can have almost infinite rotations of factors that make no difference. Just like in the 1-factor model, software will arbitrarily choose one rotation.</p>
+<p>However, in multiple factor models, the chosen rotation can make a big difference in how easy it is to interpret our solutions.</p>
+<ul>
+<li>The default rotation is often an <strong>orthogonal rotation</strong>. This means the factors (if visualised in space) are perpendicular to each other, with zero correlation.</li>
+<li>An <strong>oblique rotation</strong> is one where the factors are allowed to be correlated with each other (non-perpindicular).</li>
+</ul>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3687574227.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
 </div>
-<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\tau_{ATE}\)</span>. Thus, if not all <span class="math inline">\(\tau(\b x)\)</span> are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.</p>
-<p>Heterogeneity is present in almost all situations we are interested in. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
-<p><span class="math display">\[
-Y_i = \alpha + D_i \tau + (\b{X}_i - \mean{\b X})' \b\beta \ + D_i (\b X_i - \mean{\b X})' \b\gamma \  + \eps_i
-\]</span></p>
-<div class="small">
-<p><span class="math inline">\(\mean{\b X}\)</span> is a vector of the means of each confounder. <span class="math inline">\(\tau\)</span> is the estimate of the ATE. See <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> for proofs.</p>
-</div>
-<p>The new OLS estimate of <span class="math inline">\(\hat\tau\)</span> in this estimator will technically still be a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>, but the bias is negligible.</p>
-<p><br></p>
-<p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="./soo.html">selection on observables</a>.</p>
-<p>We will need the <strong>estimatr</strong> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then, we can use the <strong>lm_lin()</strong> function to estimate:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">lm_lin</span>(Y <span class="sc">~</span> D,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">covariates =</span> <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> my_data)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The output will be the ATE - the average treatment effect for all units in the study.</p>
-<p><br></p>
+<p>The <strong>oblique rotations</strong> are generally easier to interpret. This is because they make some items have close to 0 factor loadings, which means we can easily say that factor is not measuring that specific item.</p>
+<p>Rotations are a unique identification issue. Factor analysis also has some lack-of-parameters identification issues that result in no possible solutions. To avoid this, we should generally have at least 3 items for a 1-factor model, and 2 items per factor for a multiple-factor model.</p>
 
 
 
