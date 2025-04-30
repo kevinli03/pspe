@@ -1,0 +1,115 @@
+---
+title: "Confirmatory Analysis"
+---
+
+::: small
+Make sure you have read the previous page on [factor analysis](factor.qmd) before this.
+:::
+
+In the past few chapters, we have focused on **exploratory analysis**, essentially allowing the data to "speak for itself" and estimate all of the model's parameters to measure the latent variable.
+
+However, what if we already have some ideas about our latent variables - some hypotheses on how different items are related to the latent variable. This is what we can **confirmatory analysis**, where we study how well a hypothesised model fits the data.
+
+The basic approach of confirmatory analysis is to set some factor loadings $\lambda$ for certain variables to 0. This essentially means that based on our preconceived theories, establish that some items do not measure a certain factor.
+
+::: small
+By setting enough loadings to 0, we no longer have to worry about rotation issues discussed previously.
+:::
+
+For example, perhaps theoretically we believe that items 1 and 2 only explain factor 1, and only items 3 and 4 explain latent factor 2. We can set the items we believe to not explain each factor to 0.
+
+::: center-graph
+```{dot}
+//| fig-width: 5
+//| fig-height: 1.4
+digraph example2 {
+  // Nodes
+  F1 [shape=box, pos = "0,0!", label="Latent Factor (F1)"]
+  F2 [shape=box, pos = "0,0!", label="Latent Factor (F2)"]
+  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
+  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
+  X4 [shape=box, pos="1,0!", label="Item 4 (X4)"]
+
+  // Edges
+  {F1 -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F1 -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F1 -> X3 [label=<<FONT FACE="Arial">0</FONT>>]}
+  {F2 -> X2 [label=<<FONT FACE="Arial">0</FONT>>]}
+  {F2 -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F2 -> X4 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+Another difference is in the assumptions we make on the actual latent variables. Recall that we previously assumed the latent factors are standardly normally distributed:
+
+$$
+F \sim \mathcal N(0, 1)
+$$
+
+In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distirbution to be estimated:
+
+$$
+F \sim \mathcal N(\kappa, \phi)
+$$
+
+Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item's intercept $\tau_i = 0$, and the same item's factor loading for that specific factor at $\lambda = 1$.
+
+The estimation and interpretation of confirmatory analysis are essentially identical to that of exploratory analysis we have previously looked at.
+
+There is a special set of tests to see if the parameters we set equal to 0 actually make sense. **Modification indicies** are a sort of hypothesis test for this - larger values indicate parameters that if were not 0, could improve the fit of the model.
+
+-   There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.
+
+<br />
+
+For confirmatory analysis, we will need the **lavaan** package:
+
+```{r, eval = FALSE}
+library(lavaan)
+```
+
+We fit a confirmatory model in the following way:
+
+```{r, eval = F}
+# specify formula
+formula <- '
+f1 =~ X1 + X2 + 0*X3 
+f2 =~ 0*X2 + X3 + X4
+'
+
+# estimate model
+model <- sem(formula,
+           data = my_data,
+           std.lv = TRUE,
+           missing = "fiml")
+summary(model)
+```
+
+::: small
+We put a 0\* before any item for that factor we want to set equal to 0. You can also use this command to estimate exploratory models.
+:::
+
+If we have theoretical reasons, we can also force different factor load gins to be equal by including the same labels before as follows:
+
+```{r, eval = F}
+# specify formula
+formula <- '
+f1 =~ c1*X1 + c1*X2 + X3 
+f2 =~ X2 + X3 + X4
+'
+```
+
+::: small
+Since label c1 appears before X1 and X2 for factor f1, that means their factor loadings will be forced to be equal. You can include more labels as well.
+:::
+
+To create factor scores, we simply use the predict function:
+
+```{r, eval = F}
+predict(model)
+```

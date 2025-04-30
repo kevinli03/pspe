@@ -86,7 +86,9 @@ website:
         - text: "Identification and Rotation"
           href: latent/identify.qmd
         - text: "Confirmatory Analysis"
+          href: latent/confirmatory.qmd
         - text: "Inference and Model Fit"
+          href: latent/testing.qmd
         - text: "---"
         - text: "Item Response Theory"
         - text: "Latent Class Models"

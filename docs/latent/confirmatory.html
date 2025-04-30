@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Multiple Latent Factors – Causal Inference Resources</title>
+<title>Confirmatory Analysis – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/multiplefac.html">Multiple Latent Factors</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/confirmatory.html">Confirmatory Analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -205,7 +205,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link active">
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Multiple Latent Factors</span></a>
   </div>
 </li>
@@ -217,7 +217,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link">
+  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Confirmatory Analysis</span></a>
   </div>
 </li>
@@ -251,7 +251,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multiple Latent Factors</h1>
+<h1 class="title">Confirmatory Analysis</h1>
 </div>
 
 
@@ -271,7 +271,13 @@ window.Quarto = {
 <div class="small">
 <p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
 </div>
-<p>So far, we have covered factor analysis for a single factor. However, factor analysis can work with multiple latent factors.</p>
+<p>In the past few chapters, we have focused on <strong>exploratory analysis</strong>, essentially allowing the data to “speak for itself” and estimate all of the model’s parameters to measure the latent variable.</p>
+<p>However, what if we already have some ideas about our latent variables - some hypotheses on how different items are related to the latent variable. This is what we can <strong>confirmatory analysis</strong>, where we study how well a hypothesised model fits the data.</p>
+<p>The basic approach of confirmatory analysis is to set some factor loadings <span class="math inline">\(\lambda\)</span> for certain variables to 0. This essentially means that based on our preconceived theories, establish that some items do not measure a certain factor.</p>
+<div class="small">
+<p>By setting enough loadings to 0, we no longer have to worry about rotation issues discussed previously.</p>
+</div>
+<p>For example, perhaps theoretically we believe that items 1 and 2 only explain factor 1, and only items 3 and 4 explain latent factor 2. We can set the items we believe to not explain each factor to 0.</p>
 <div class="center-graph">
 <div class="cell" data-fig-width="5" data-fig-height="1.4" data-layout-align="default">
 <div class="cell-output-display">
@@ -323,9 +329,9 @@ window.Quarto = {
 <!-- F1&#45;&gt;X3 -->
 <g id="edge3" class="edge">
 <title>F1-&gt;X3</title>
-<path fill="none" stroke="black" d="M156.73,-88.41C167.79,-77.55 183.03,-63.82 198.27,-54 207.04,-48.35 216.87,-43.18 226.54,-38.65"></path>
-<polygon fill="black" stroke="black" points="228.05,-41.81 235.72,-34.5 225.17,-35.43 228.05,-41.81"></polygon>
-<text text-anchor="start" x="199.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M156.73,-88.41C167.79,-77.55 183.02,-63.82 198.26,-54 207.03,-48.35 216.87,-43.18 226.54,-38.65"></path>
+<polygon fill="black" stroke="black" points="228.04,-41.81 235.72,-34.5 225.17,-35.42 228.04,-41.81"></polygon>
+<text text-anchor="start" x="199.04" y="-58.2" font-family="Arial" font-size="14.00">0</text>
 </g>
 <!-- F2 -->
 <g id="node2" class="node">
@@ -338,7 +344,7 @@ window.Quarto = {
 <title>F2-&gt;X2</title>
 <path fill="none" stroke="black" d="M268.18,-88.65C247.03,-75.16 217.4,-56.24 194.34,-41.53"></path>
 <polygon fill="black" stroke="black" points="196.17,-38.54 185.86,-36.11 192.4,-44.44 196.17,-38.54"></polygon>
-<text text-anchor="start" x="240.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<text text-anchor="start" x="240.04" y="-58.2" font-family="Arial" font-size="14.00">0</text>
 </g>
 <!-- F2&#45;&gt;X3 -->
 <g id="edge5" class="edge">
@@ -368,48 +374,57 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>We can see in the above figure, an example of two latent factors. Each item can measure either only one or two of the factors. The factors can also both have the same items, but put emphasis on different items.</p>
-<p>Let us say we have multiple factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>. Let us use vector <span class="math inline">\(\b F\)</span> to reperesent the mall. We still assume the factors are normally distributed:</p>
+<p>Another difference is in the assumptions we make on the actual latent variables. Recall that we previously assumed the latent factors are standardly normally distributed:</p>
 <p><span class="math display">\[
-\b F \sim \mathcal N(\b \kappa, \b\Phi)
+F \sim \mathcal N(0, 1)
 \]</span></p>
-<p>Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal <span class="math inline">\(F \sim \mathcal N (0, 1)\)</span>. This implies that <span class="math inline">\(\b\kappa = 0\)</span>.</p>
-<p>Our variance matrix <span class="math inline">\(\b\Phi\)</span> is a little more complicated - the variances of each factor is 1 (as assumed in a standard normal), however, the matrix <span class="math inline">\(\b\Phi\)</span> also includes the covariances between factors. This is an additional thing that we will need to estimate that was not present in one-factor models.</p>
-<div class="small">
-<p>For example, factor <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span> might be correlated with each other, which is reflected in <span class="math inline">\(\b\Phi\)</span>.</p>
-</div>
-<p>Now on to our measurement models. Just like in single factor anlaysis, we use a linear regression to express the relationship between any item <span class="math inline">\(X_i\)</span> and the factors. However, this time, each regression will relate each <span class="math inline">\(X_i\)</span> to all factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>:</p>
+<p>In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distirbution to be estimated:</p>
 <p><span class="math display">\[
-\begin{align}
-X_1 &amp; = \tau_1 + \lambda_{11}F_1 + \lambda_{12}F_2 + \dots + \lambda_{1q}F_q + \delta_1 \\
-X_2 &amp; = \tau_2 + \lambda_{21} F_1 + \lambda_{22} F_2 + \dots + \lambda_{2q}F_q + \delta_2 \\
-&amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
-X_p &amp; = \tau_p + \lambda_{p1} F_1 + \lambda_{p2}F_2+ \dots + \lambda_{pq}F_1 + \delta_p
-\end{align}
+F \sim \mathcal N(\kappa, \phi)
 \]</span></p>
-<p>The factor loadings <span class="math inline">\(\lambda\)</span> are still the relationship between each factor and each item, and are interpreted in the same way as a 1-factor model. However, the the interpretation of communality and relaibility are no longer valid with more than 1-factor.</p>
-<div class="small">
-<p>When interpreting - do one factor at a time. Start with one, then go to the next. Interpreting each factor is the same as shown in the page on <a href="../latent/factor.html">factor analysis</a>.</p>
-</div>
+<p>Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item’s intercept <span class="math inline">\(\tau_i = 0\)</span>, and the same item’s factor loading for that specific factor at <span class="math inline">\(\lambda = 1\)</span>.</p>
+<p>The estimation and interpretation of confirmatory analysis are essentially identical to that of exploratory analysis we have previously looked at.</p>
+<p>There is a special set of tests to see if the parameters we set equal to 0 actually make sense. <strong>Modification indicies</strong> are a sort of hypothesis test for this - larger values indicate parameters that if were not 0, could improve the fit of the model.</p>
+<ul>
+<li>There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.</li>
+</ul>
 <p><br></p>
-<p>To implement multiple factor anlaysis, the procedure is quite similar to standard factor analysis. First, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
+<p>For confirmatory analysis, we will need the <strong>lavaan</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, we should get rid of missing observations:</p>
+<p>We fit a confirmatory model in the following way:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>For factor analysis with multiple factors, the notation is as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">2</span>, <span class="at">fm=</span><span class="st">"ml"</span>, <span class="at">rotate=</span><span class="st">"oblimin"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify formula</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">f1 =~ X1 + X2 + 0*X3 </span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">f2 =~ 0*X2 + X3 + X4</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate model</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">sem</span>(formula,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> my_data,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">std.lv =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="small">
-<p>Change nfactors=2 to however many factors you want. Note that you cannot have too many, this will be discussed in the next page on identification.</p>
-<p>This code also uses the “oblimin” rotation, which will be discussed in the next page on identification and rotation.</p>
+<p>We put a 0* before any item for that factor we want to set equal to 0. You can also use this command to estimate exploratory models.</p>
+</div>
+<p>If we have theoretical reasons, we can also force different factor load gins to be equal by including the same labels before as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify formula</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">f1 =~ c1*X1 + c1*X2 + X3 </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">f2 =~ X2 + X3 + X4</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>Since label c1 appears before X1 and X2 for factor f1, that means their factor loadings will be forced to be equal. You can include more labels as well.</p>
+</div>
+<p>To create factor scores, we simply use the predict function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
