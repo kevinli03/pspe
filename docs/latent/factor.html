@@ -223,20 +223,23 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inference and Model Fit</span></a>
+  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Item Response Theory</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Item Response Theory</span>
-  </li>
         <li class="sidebar-item">
  <span class="menu-text">Latent Class Models</span>
   </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
  <span class="menu-text">Structural Equation Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Principle Components Analysis</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Cluster Analysis</span>
   </li>
     </ul>
     </div>
@@ -368,6 +371,8 @@ X_p &amp; = \tau_p + \lambda_p F + \delta_p
 <div class="small">
 <p>An example of interpretation is provided below the code.</p>
 </div>
+<p>We can conduct hypothesis testing with each factor loading <span class="math inline">\(\lambda\)</span> with a <strong>z-test</strong>. The null hypothesis is that <span class="math inline">\(\lambda = 0\)</span>, and the alternate hypothesis is that <span class="math inline">\(\lambda ≠ 0\)</span>. If the p-value is less than 0.05, we know that there is a relationship between that item and the factor.</p>
+<p><br></p>
 <p>To implement factor analysis, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>

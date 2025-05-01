@@ -31,18 +31,12 @@ website:
         - text: "Homepage"
           href: index.qmd
         - text: "---"
-        - text: "CAUSAL BASICS"
         - text: "Basics of Causality"
           href: frameworks.qmd
         - text: "Issue of Selection Bias"
           href: correlation.qmd
         - text: "Magic of Randomisation"
           href: randomisation.qmd
-        - text: "---"
-        - text: "OTHER STATS"
-        - text: "Principle Components"
-        - text: "Cluster Analysis"
-        - text: "Random Forest"
 
     - title: "Selection on Observables"
       style: floating
@@ -87,13 +81,14 @@ website:
           href: latent/identify.qmd
         - text: "Confirmatory Analysis"
           href: latent/confirmatory.qmd
-        - text: "Inference and Model Fit"
-          href: latent/testing.qmd
-        - text: "---"
         - text: "Item Response Theory"
+          href: latent/irt.qmd
         - text: "Latent Class Models"
         - text: "---"
         - text: "Structural Equation Models"
+        - text: "---"
+        - text: "Principle Components Analysis"
+        - text: "Cluster Analysis"
   
 format:
   html:

@@ -65,6 +65,10 @@ There is a special set of tests to see if the parameters we set equal to 0 actua
 
 -   There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.
 
+::: small
+Below in the R-code I providem more ways of choosing between confirmatory models and exploratory models (and really any factor models).
+:::
+
 <br />
 
 For confirmatory analysis, we will need the **lavaan** package:
@@ -113,3 +117,30 @@ To create factor scores, we simply use the predict function:
 ```{r, eval = F}
 predict(model)
 ```
+
+::: {.callout-note collapse="true" appearance="simple"}
+## More on Choosing Between Models
+
+To compare and choose between different models, we have a few ways.
+
+1.  We can use a likelihood ratio test for nested models (see the regression section for more details).
+
+```{r, eval = F}
+lavTestLRT(model1, model2)
+```
+
+2.  We can use a global goodness of fit test - essentially a likelihood ratio but with the full sample covariance matrix as the null model. We want to **fail to reject** the null, because we want our model to be as close to the sample covariance matrix as possible.
+
+```{r, eval = F}
+lavTestLRT(model)
+```
+
+3.  We can use AIC and BIC to compare models since factor models are estimated with MLE. These are included in the output.
+
+There are also a series of fit indicies made for factor analysis. These are included in the output.
+
+-   Root Mean Square Error of Approximation (RMSEA): 0 is a perfect fit, 0.05 or smaller is a good fit, and anything above 0.1 is a poor fit.
+-   Standard Root Mean Square Residual (SRMR): smaller values the better, anything below 0.08 is a good fit.
+-   Tucker and Lewis Index (TLI): 1 is the best fit, anything below 0.9 is a poor fit, and anything above 1 may indicate overfitting.
+-   Comparative Fit Index: values between 0 and 1, anything close to 1 is a good fit.
+:::

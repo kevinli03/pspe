@@ -1,0 +1,106 @@
+---
+title: "Item Response Theory"
+---
+
+Item Response Theory (IRT), also called Latent Trait Models, is an extension of factor anlaysis, that deals with cases with a continuous latent factor but a binary/categorical set of observed items.
+
+::: center-graph
+```{dot}
+//| fig-width: 4
+//| fig-height: 1.4
+digraph example2 {
+  // Nodes
+  F [shape=box, pos = "0,0!", label="Latent Factor (F)"]
+  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
+  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
+
+  // Edges
+  {F -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+The factor (notated $F$ or $\xi$), is the unobserved latent variable we want to measure. We assume that the factor $F$ is continuous, and normally distributed:
+
+$$
+F \sim \mathcal N(0, 1)
+$$
+
+We must have at least 3 observed items for estimation purposes. The items $X_1, \dots, X_p$ are associated with the latent factor with a **binomial logistic model**:
+
+$$
+\begin{align}
+\log \left( \frac{\pi_1}{1 - \pi_1}\right) & = \tau_1 + \lambda_1 F \\
+\log \left( \frac{\pi_2}{1 - \pi_2}\right) & = \tau_2 + \lambda_2 F \\
+\vdots \qquad & \qquad \vdots
+\end{align}
+$$
+
+::: small
+The parameter $\pi_i$ is defined as $Pr(X_i = 1 | F)$. For categorical items, we use a ordinal/multinomial logistic.
+:::
+
+-   $\tau_i$ is the intercept of the model, called the **difficulty**.
+-   $\lambda_i$ is the coefficeint that describes the relationship between any item $X_i$ and the factor $F$. These are called **factor loadings**. It is also called the **discrimination** parameter.
+
+These factor loadings are interepreted in a very similar way to factor analysis.
+
+-   The sign of the factor loading tells us the direction in which our latent variable is measuring. For example, if $\lambda$ is negative, that means as our item's value increases, the latent variable decreases.
+-   The absolute size of the factor loading tells us how important that item is to the factor. For example, if we have on item with a large (negative or positive loading), and one item with a near-0 loading, that means the first item is more important to the latent variable.
+
+The factor scores are also very similar to factor analysis - they are a linear combination, with weights determined by how large a loading is for a certain item.
+
+The models can also accommodate confirmatory analysis and multiple factors, just like factor analysis can.
+
+<br />
+
+To run an item response theory mode, we need the **mirt** package:
+
+```{r, eval = F}
+library(mirt)
+```
+
+Then, we run the model as follows (make sure to subset your data to only include the items).
+
+```{r, eval = F}
+model <- mirt(data = my_data, model = 1, SE = TRUE)
+coef(result)
+```
+
+::: small
+model = 1 indicates how many factors you want to include.
+:::
+
+To get factor scores, we do the following:
+
+```{r, eval = F}
+scores <- as.vector(fscores(model, method = "EAP"))
+```
+
+::: {.callout-note collapse="true" appearance="simple"}
+## More on Choosing Between Models
+
+To compare and choose between different models, we have a few ways.
+
+1.  We can use a likelihood ratio test for nested models (see the regression section for more details).
+
+```{r, eval = F}
+lavTestLRT(model1, model2)
+```
+
+2.  We can use a global goodness of fit test - essentially a likelihood ratio but with the full sample covariance matrix as the null model. We want to **fail to reject** the null, because we want our model to be as close to the sample covariance matrix as possible.
+
+```{r, eval = F}
+lavTestLRT(model)
+```
+
+3.  We can use AIC and BIC to compare models since factor models are estimated with MLE. These are included in the output.
+
+Unfortunately, fit indicies like RMSEA do not work on IRT models.
+:::

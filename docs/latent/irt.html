@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Inference and Model Fit – Causal Inference Resources</title>
+<title>Item Response Theory – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/testing.html">Inference and Model Fit</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/irt.html">Item Response Theory</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -223,20 +223,23 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/testing.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Inference and Model Fit</span></a>
+  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Item Response Theory</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Item Response Theory</span>
-  </li>
         <li class="sidebar-item">
  <span class="menu-text">Latent Class Models</span>
   </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
  <span class="menu-text">Structural Equation Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Principle Components Analysis</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Cluster Analysis</span>
   </li>
     </ul>
     </div>
@@ -251,7 +254,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Inference and Model Fit</h1>
+<h1 class="title">Item Response Theory</h1>
 </div>
 
 
@@ -268,55 +271,144 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
+<p>Item Response Theory (IRT), also called Latent Trait Models, is an extension of factor anlaysis, that deals with cases with a continuous latent factor but a binary/categorical set of observed items.</p>
+<div class="center-graph">
+<div class="cell" data-fig-width="4" data-fig-height="1.4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="384" height="134" viewbox="0.00 0.00 326.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
+<title>example2</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-128.8 322.09,-128.8 322.09,4 -4,4"></polygon>
+<!-- F -->
+<g id="node1" class="node">
+<title>F</title>
+<polygon fill="none" stroke="black" points="214.68,-124.8 103.41,-124.8 103.41,-88.8 214.68,-88.8 214.68,-124.8"></polygon>
+<text text-anchor="middle" x="159.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F)</text>
+</g>
+<!-- X1 -->
+<g id="node2" class="node">
+<title>X1</title>
+<polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
+<text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
+</g>
+<!-- F&#45;&gt;X1 -->
+<g id="edge1" class="edge">
+<title>F-&gt;X1</title>
+<path fill="none" stroke="black" d="M135.73,-88.65C117.63,-75.34 92.35,-56.74 72.47,-42.11"></path>
+<polygon fill="black" stroke="black" points="74.44,-39.22 64.31,-36.11 70.29,-44.86 74.44,-39.22"></polygon>
+<text text-anchor="start" x="111.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X2 -->
+<g id="node3" class="node">
+<title>X2</title>
+<polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
+<text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
+</g>
+<!-- F&#45;&gt;X2 -->
+<g id="edge2" class="edge">
+<title>F-&gt;X2</title>
+<path fill="none" stroke="black" d="M159.04,-88.65C159.04,-76.52 159.04,-60.02 159.04,-46.12"></path>
+<polygon fill="black" stroke="black" points="162.55,-46.11 159.04,-36.11 155.55,-46.11 162.55,-46.11"></polygon>
+<text text-anchor="start" x="159.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X3 -->
+<g id="node4" class="node">
+<title>X3</title>
+<polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
+<text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
+</g>
+<!-- F&#45;&gt;X3 -->
+<g id="edge3" class="edge">
+<title>F-&gt;X3</title>
+<path fill="none" stroke="black" d="M182.36,-88.65C200.46,-75.34 225.74,-56.74 245.62,-42.11"></path>
+<polygon fill="black" stroke="black" points="247.8,-44.86 253.78,-36.11 243.65,-39.22 247.8,-44.86"></polygon>
+<text text-anchor="start" x="228.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+</g>
+</svg>
 </div>
-<p>Each factor loading and other parameter estimated in a factor analysis model has significance tests. As factor analysis models are estimated with maximum likelihood estimation, we use <strong>z-tests</strong> to test each parameter.</p>
-<ul>
-<li>The most common test is to see if a factor loading <span class="math inline">\(\lambda\)</span> between an item and factor is statistically significant. If a loading is not significant, it may make sense to fix it to zero in a confirmatory analysis or drop it.</li>
-<li>We can also test if there is any non-zero covariances between factors, and many other parameters.</li>
-</ul>
-<p>Let us say we have fit multiple factor analysis models, with different numbers of items and factors. Which one should we choose? Since factor analysis models are estimated with maximum likelihood estimation, we can use a <strong>likelihood ratio test</strong> between two models to see which is better.</p>
-<ul>
-<li>The likelihood ratio test compares the likelihood <span class="math inline">\(L\)</span> between two models. One model is “smaller” (in parameters) compared to the other model. We want a higher likelihood, which indicates a better model.</li>
-<li>The null hypothesis is that there is no difference between our two models. The alternate hypothesis is that there is a difference between our two models.</li>
-<li>If our test is statistically significant, we can conclude one model is better than another.</li>
-</ul>
-<div class="small">
-<p>For a likelihood ratio test to work, the models need to be nested - the null model must be smaller than the alternate. For example, you can compare a 1-factor model (null) to a 3-factor model.</p>
+<p></p></figure><p></p>
 </div>
-<p>Another way to decide is with <strong>global goodness of fit tests</strong>, which is a variation of the likelihood ratio test, but with the saturated “full” model as one of the models. This allows us to compare non-nested models.</p>
+</div>
+</div>
+</div>
+<p>The factor (notated <span class="math inline">\(F\)</span> or <span class="math inline">\(\xi\)</span>), is the unobserved latent variable we want to measure. We assume that the factor <span class="math inline">\(F\)</span> is continuous, and normally distributed:</p>
+<p><span class="math display">\[
+F \sim \mathcal N(0, 1)
+\]</span></p>
+<p>We must have at least 3 observed items for estimation purposes. The items <span class="math inline">\(X_1, \dots, X_p\)</span> are associated with the latent factor with a <strong>binomial logistic model</strong>:</p>
+<p><span class="math display">\[
+\begin{align}
+\log \left( \frac{\pi_1}{1 - \pi_1}\right) &amp; = \tau_1 + \lambda_1 F \\
+\log \left( \frac{\pi_2}{1 - \pi_2}\right) &amp; = \tau_2 + \lambda_2 F \\
+\vdots \qquad &amp; \qquad \vdots
+\end{align}
+\]</span></p>
+<div class="small">
+<p>The parameter <span class="math inline">\(\pi_i\)</span> is defined as <span class="math inline">\(Pr(X_i = 1 | F)\)</span>. For categorical items, we use a ordinal/multinomial logistic.</p>
+</div>
 <ul>
-<li>Our null hypothesis is the “full model” that is the exact sample covariance matrix <span class="math inline">\(\b S\)</span>.</li>
-<li>Our alternate hypothesis is our fitted model with a covariance matrix of <span class="math inline">\(\hat{\b\Sigma}\)</span>.</li>
-<li>We can run a likelihood ratio test to compare the two models. We want to <strong>fail to reject</strong> the null hypothesis (so p&gt;0.05), because the null hypothesis is that the full model and our fitted model are no different. Since the “full model” is the best model, we do not want to reject the null.</li>
+<li><span class="math inline">\(\tau_i\)</span> is the intercept of the model, called the <strong>difficulty</strong>.</li>
+<li><span class="math inline">\(\lambda_i\)</span> is the coefficeint that describes the relationship between any item <span class="math inline">\(X_i\)</span> and the factor <span class="math inline">\(F\)</span>. These are called <strong>factor loadings</strong>. It is also called the <strong>discrimination</strong> parameter.</li>
 </ul>
-<p>However, all likelihood ratio tests have an issue - larger sample sizes tend to reject the null more often. This is not great - because this doesn’t actually tell us objectively how good our model is.</p>
-<p>Thus, a solution to these are <strong>information crieterion</strong> statistics, and <strong>fit indicies</strong>. These allow us to compare any two models. There are a large number of these, and it is often standard to just report them all.</p>
+<p>These factor loadings are interepreted in a very similar way to factor analysis.</p>
 <ul>
-<li>Akaike’s Information Criterion (AIC): lower values are better.</li>
-<li>Bayesian Information Criterion (BIC): lower values are better.</li>
-<li>Root Mean Square Error of Approximation (RMSEA): 0 is a perfect fit, 0.05 or smaller is a good fit, and anything above 0.1 is a poor fit.</li>
-<li>Standard Root Mean Square Residual (SRMR): smaller values the better, anything below 0.08 is a good fit.</li>
-<li>Tucker and Lewis Index (TLI): 1 is the best fit, anything below 0.9 is a poor fit, and anything above 1 may indicate overfitting.</li>
-<li>Comparative Fit Index: values between 0 and 1, anything close to 1 is a good fit.</li>
+<li>The sign of the factor loading tells us the direction in which our latent variable is measuring. For example, if <span class="math inline">\(\lambda\)</span> is negative, that means as our item’s value increases, the latent variable decreases.</li>
+<li>The absolute size of the factor loading tells us how important that item is to the factor. For example, if we have on item with a large (negative or positive loading), and one item with a near-0 loading, that means the first item is more important to the latent variable.</li>
 </ul>
+<p>The factor scores are also very similar to factor analysis - they are a linear combination, with weights determined by how large a loading is for a certain item.</p>
+<p>The models can also accommodate confirmatory analysis and multiple factors, just like factor analysis can.</p>
 <p><br></p>
-<p>To implement these tests in R, we will need the <strong>lavaan</strong> package:</p>
+<p>To run an item response theory mode, we need the <strong>mirt</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mirt)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For an overall goodness of fit test, we use the command:</p>
+<p>Then, we run the model as follows (make sure to subset your data to only include the items).</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">mirt</span>(<span class="at">data =</span> my_data, <span class="at">model =</span> <span class="dv">1</span>, <span class="at">SE =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For a likelihood ratio test of nested models, we do:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model1, model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p>model = 1 indicates how many factors you want to include.</p>
 </div>
-<p>For goodness of fit statistics, we do:</p>
+<p>To get factor scores, we do the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model, <span class="at">fit.measures=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>scores <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(<span class="fu">fscores</span>(model, <span class="at">method =</span> <span class="st">"EAP"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More on Choosing Between Models
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To compare and choose between different models, we have a few ways.</p>
+<ol type="1">
+<li>We can use a likelihood ratio test for nested models (see the regression section for more details).</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model1, model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>We can use a global goodness of fit test - essentially a likelihood ratio but with the full sample covariance matrix as the null model. We want to <strong>fail to reject</strong> the null, because we want our model to be as close to the sample covariance matrix as possible.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>We can use AIC and BIC to compare models since factor models are estimated with MLE. These are included in the output.</li>
+</ol>
+<p>Unfortunately, fit indicies like RMSEA do not work on IRT models.</p>
+</div>
+</div>
 </div>
 
 

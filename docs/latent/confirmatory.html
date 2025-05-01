@@ -223,20 +223,23 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/testing.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inference and Model Fit</span></a>
+  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Item Response Theory</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Item Response Theory</span>
-  </li>
         <li class="sidebar-item">
  <span class="menu-text">Latent Class Models</span>
   </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
  <span class="menu-text">Structural Equation Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Principle Components Analysis</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Cluster Analysis</span>
   </li>
     </ul>
     </div>
@@ -388,6 +391,9 @@ F \sim \mathcal N(\kappa, \phi)
 <ul>
 <li>There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.</li>
 </ul>
+<div class="small">
+<p>Below in the R-code I providem more ways of choosing between confirmatory models and exploratory models (and really any factor models).</p>
+</div>
 <p><br></p>
 <p>For confirmatory analysis, we will need the <strong>lavaan</strong> package:</p>
 <div class="cell">
@@ -425,6 +431,44 @@ F \sim \mathcal N(\kappa, \phi)
 <p>To create factor scores, we simply use the predict function:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+More on Choosing Between Models
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>To compare and choose between different models, we have a few ways.</p>
+<ol type="1">
+<li>We can use a likelihood ratio test for nested models (see the regression section for more details).</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model1, model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="2" type="1">
+<li>We can use a global goodness of fit test - essentially a likelihood ratio but with the full sample covariance matrix as the null model. We want to <strong>fail to reject</strong> the null, because we want our model to be as close to the sample covariance matrix as possible.</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<ol start="3" type="1">
+<li>We can use AIC and BIC to compare models since factor models are estimated with MLE. These are included in the output.</li>
+</ol>
+<p>There are also a series of fit indicies made for factor analysis. These are included in the output.</p>
+<ul>
+<li>Root Mean Square Error of Approximation (RMSEA): 0 is a perfect fit, 0.05 or smaller is a good fit, and anything above 0.1 is a poor fit.</li>
+<li>Standard Root Mean Square Residual (SRMR): smaller values the better, anything below 0.08 is a good fit.</li>
+<li>Tucker and Lewis Index (TLI): 1 is the best fit, anything below 0.9 is a poor fit, and anything above 1 may indicate overfitting.</li>
+<li>Comparative Fit Index: values between 0 and 1, anything close to 1 is a good fit.</li>
+</ul>
+</div>
+</div>
 </div>
 
 

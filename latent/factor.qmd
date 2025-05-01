@@ -70,6 +70,10 @@ These factor loadings help us interpret our latent variable $F$.
 An example of interpretation is provided below the code.
 :::
 
+We can conduct hypothesis testing with each factor loading $\lambda$ with a **z-test**. The null hypothesis is that $\lambda = 0$, and the alternate hypothesis is that $\lambda ≠ 0$. If the p-value is less than 0.05, we know that there is a relationship between that item and the factor.
+
+<br />
+
 To implement factor analysis, we will need the **psych** and **GPArotation** package:
 
 ```{r, eval = F}
