@@ -228,11 +228,20 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Latent Class Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Class Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
  <span class="menu-text">Structural Equation Models</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Longitudinal Models</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Clustered Models</span>
   </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
@@ -363,31 +372,7 @@ X_p &amp; = \tau_p + \lambda_p F + \delta_p
 <div class="small">
 <p>Note: this isn’t entirely true for multiple factors, as we will discuss in a later page.</p>
 </div>
-<p>These factor loadings help us interpret our latent variable <span class="math inline">\(F\)</span>.</p>
-<ul>
-<li>The sign of the factor loading tells us the direction in which our latent variable is measuring. For example, if <span class="math inline">\(\lambda\)</span> is negative, that means as our item’s value increases, the latent variable decreases.</li>
-<li>The absolute size of the factor loading tells us how important that item is to the factor. For example, if we have one item with a large (negative or positive loading), and one item with a near-0 loading, that means the first item is more important to the latent variable.</li>
-</ul>
-<div class="small">
-<p>An example of interpretation is provided below the code.</p>
-</div>
-<p>We can conduct hypothesis testing with each factor loading <span class="math inline">\(\lambda\)</span> with a <strong>z-test</strong>. The null hypothesis is that <span class="math inline">\(\lambda = 0\)</span>, and the alternate hypothesis is that <span class="math inline">\(\lambda ≠ 0\)</span>. If the p-value is less than 0.05, we know that there is a relationship between that item and the factor.</p>
-<p><br></p>
-<p>To implement factor analysis, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>First, we should get rid of missing observations:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>For factor analysis with one factor, we use the syntax:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">1</span>, <span class="at">fm=</span><span class="st">"ml"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fa1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
+<p>These factor loadings help us interpret our latent variable <span class="math inline">\(F\)</span>. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
@@ -406,6 +391,23 @@ Interpretation Example
 <p>This tells us that factor 1 is a latent variable that measures mostly trust in politicians, rather than the legal/policing system. Since the loadings are almost all positive, we can conclude that higher values of factor 1 mean higher levels of trust in legal/policing systems.</p>
 </div>
 </div>
+</div>
+<p>We can conduct hypothesis testing with each factor loading <span class="math inline">\(\lambda\)</span> with a <strong>z-test</strong>. The null hypothesis is that <span class="math inline">\(\lambda = 0\)</span>, and the alternate hypothesis is that <span class="math inline">\(\lambda ≠ 0\)</span>. If the p-value is less than 0.05, we know that there is a relationship between that item and the factor.</p>
+<p><br></p>
+<p>To implement factor analysis, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>First, we should get rid of missing observations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For factor analysis with one factor, we use the syntax:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">1</span>, <span class="at">fm=</span><span class="st">"ml"</span>)</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fa1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 

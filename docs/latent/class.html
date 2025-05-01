@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Reliability and Factor Scores – Causal Inference Resources</title>
+<title>Latent Class Model – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/scores.html">Reliability and Factor Scores</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/class.html">Latent Class Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -199,7 +199,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link active">
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reliability and Factor Scores</span></a>
   </div>
 </li>
@@ -229,7 +229,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
+  <a href="../latent/class.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Latent Class Models</span></a>
   </div>
 </li>
@@ -263,7 +263,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Reliability and Factor Scores</h1>
+<h1 class="title">Latent Class Model</h1>
 </div>
 
 
@@ -280,58 +280,166 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
+<p>Latent class models are an extension of factor analysis, that deals with cases of a categorical latent variable with categorical/binary observed items.</p>
+<div class="center-graph">
+<div class="cell" data-fig-width="4" data-fig-height="1.4" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="384" height="134" viewbox="0.00 0.00 326.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
+<title>example2</title>
+<polygon fill="white" stroke="transparent" points="-4,4 -4,-128.8 322.09,-128.8 322.09,4 -4,4"></polygon>
+<!-- F -->
+<g id="node1" class="node">
+<title>F</title>
+<polygon fill="none" stroke="black" points="214.68,-124.8 103.41,-124.8 103.41,-88.8 214.68,-88.8 214.68,-124.8"></polygon>
+<text text-anchor="middle" x="159.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F)</text>
+</g>
+<!-- X1 -->
+<g id="node2" class="node">
+<title>X1</title>
+<polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
+<text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
+</g>
+<!-- F&#45;&gt;X1 -->
+<g id="edge1" class="edge">
+<title>F-&gt;X1</title>
+<path fill="none" stroke="black" d="M135.73,-88.65C117.63,-75.34 92.35,-56.74 72.47,-42.11"></path>
+<polygon fill="black" stroke="black" points="74.44,-39.22 64.31,-36.11 70.29,-44.86 74.44,-39.22"></polygon>
+<text text-anchor="start" x="111.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X2 -->
+<g id="node3" class="node">
+<title>X2</title>
+<polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
+<text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
+</g>
+<!-- F&#45;&gt;X2 -->
+<g id="edge2" class="edge">
+<title>F-&gt;X2</title>
+<path fill="none" stroke="black" d="M159.04,-88.65C159.04,-76.52 159.04,-60.02 159.04,-46.12"></path>
+<polygon fill="black" stroke="black" points="162.55,-46.11 159.04,-36.11 155.55,-46.11 162.55,-46.11"></polygon>
+<text text-anchor="start" x="159.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X3 -->
+<g id="node4" class="node">
+<title>X3</title>
+<polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
+<text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
+</g>
+<!-- F&#45;&gt;X3 -->
+<g id="edge3" class="edge">
+<title>F-&gt;X3</title>
+<path fill="none" stroke="black" d="M182.36,-88.65C200.46,-75.34 225.74,-56.74 245.62,-42.11"></path>
+<polygon fill="black" stroke="black" points="247.8,-44.86 253.78,-36.11 243.65,-39.22 247.8,-44.86"></polygon>
+<text text-anchor="start" x="228.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+</g>
+</svg>
 </div>
-<p>Recall our measurement models linking each item <span class="math inline">\(X_1, X_2, \dots, X_p\)</span> to our factor:</p>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<p>The factor <span class="math inline">\(F\)</span> is a categorical variable with <span class="math inline">\(C\)</span> number of categories, which are also called <strong>latent classes</strong>. These categories are treated as if they have no inherent order, and we can choose the number of categories.</p>
+<p>We also have categorical observed items <span class="math inline">\(X_1, X_2, \dots, X_p\)</span>, with each item <span class="math inline">\(X_i\)</span> having <span class="math inline">\(K_i\)</span> number of categories. The latent class models connects each item with a factor through a <strong>item response probability</strong>:</p>
 <p><span class="math display">\[
-X_i = \tau_i + \lambda_i F + \delta_i
-\]</span></p>
-<p>One of the assumptions of this model is the the error term <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_i)\)</span>, or in other words, the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. Through some complex math, we can show that the variance of each item <span class="math inline">\(X_i\)</span> is as follows:</p>
-<p><span class="math display">\[
-Var(X_i) = \lambda_i^2 + \theta_i
-\]</span></p>
-<p>Thus, this allows us to essentially “split” the variance in any item <span class="math inline">\(X_i\)</span> into two parts:</p>
-<ol type="1">
-<li><span class="math inline">\(\lambda_i^2\)</span> is the part of the variance in the item explained by the latent factor. We call this the <strong>communality</strong> of <span class="math inline">\(X_i\)</span>.</li>
-<li><span class="math inline">\(\theta_i\)</span> is the <strong>residual variance</strong>, the part of the variance <strong>not</strong> explained by our factor.</li>
-</ol>
-<p>We can also calculate the percentage/proportion of variance in <span class="math inline">\(X_i\)</span> that our factor explains, called the <strong>reliability</strong> of <span class="math inline">\(X_i\)</span>:</p>
-<p><span class="math display">\[
-\text{Reliability} = \frac{\lambda_i^2}{Var(X_i)} = \frac{\lambda_i^2}{\lambda_i^2+\theta_i}
+\begin{align}
+Pr(X_1 = k \ | \ F = c) &amp; = \pi_{1,kc} \\
+Pr(X_2 = k \ | \ F = c) &amp; = \pi_{2,kc} \\
+\vdots \qquad \qquad  \vdots \qquad &amp; \qquad \vdots \\
+Pr(X_p = k \ | \ F = c) &amp; = \pi_{p,kc} \\
+\end{align}
 \]</span></p>
 <div class="small">
-<p>If all items <span class="math inline">\(X_i\)</span> are standarised to a standard normal, then <span class="math inline">\(\lambda_i^2\)</span> is equal to the reliability.</p>
+<p>Each <span class="math inline">\(\pi_{i, kc}\)</span> is the probability of any item <span class="math inline">\(X_i\)</span> being in category <span class="math inline">\(k\)</span>, given the factor <span class="math inline">\(F\)</span> is category <span class="math inline">\(c\)</span>.</p>
 </div>
-<p>Communality and relaibility is important for two reasons:</p>
-<ol type="1">
-<li>Items with higher reliability are considered more “accurate” measures of the latent variable <span class="math inline">\(F\)</span>. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.</li>
-<li>These allow us to calculate <strong>factor scores</strong>.</li>
-</ol>
-<p>Factor scores <span class="math inline">\(\widetilde F\)</span> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items <span class="math inline">\(X_i\)</span> to calculate the latent variable value that any individual should have, which we can then put into another statistical model.</p>
-<p>We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:</p>
+<p>We also have another part of the measurement mode, the <strong>structural model</strong>, which determines the probability of each category in the factor:</p>
 <p><span class="math display">\[
-\widetilde F = w_0 + w_1 X_1 + w_2X_2 + \dots
+\alpha_c = Pr(F=c)
 \]</span></p>
-<p>The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.</p>
+<p>Interpretation of the latent factor <span class="math inline">\(F\)</span> depends on these item response probabilities <span class="math inline">\(\pi_{i, kc}\)</span>. An example is provided below, because it can be a little confusing.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example of Interpretation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Below, the columns are the different classes/categories of the factors, and the big rows are each item.</p>
+<p><img src="images/clipboard-3462056940.png" class="img-fluid"></p>
+<p>The first class (the first column) has the highest probabilities if individuals <em>never worry</em> about crime, <em>no real effect</em> on quality of life, <em>never</em> worry about burglary, and <em>no real effect</em> on quality of life. Thus, we can conclude this first category of the latent variable is something like - <em>not worried about crime</em>.</p>
+<p>The second class (the 2nd column), where the top responses have the highest probabilities except for the frequency of worry about burglaries - where the probabilities are highest for <em>some of the time</em> and <em>just occasionally</em>. This suggests that this second category is measuring something like - only worried about burglary, and no other crime.</p>
+</div>
+</div>
+</div>
+<p>We can also create factor scores - which is a little different, because now we are basically assigning every unit in our data to a category of the latent factor. This is done by calculating the posterior probability of being in each class:</p>
+<p><span class="math display">\[
+\widehat{Pr}(F = c | X_1 = k_1, X_2 = k_2, \dots ) \quad \text{for all }c
+\]</span></p>
+<p>Whichever category <span class="math inline">\(c\)</span> of the latent variable has the highest probability, is the category a unit is assigned to.</p>
+<div class="small">
+<p>This can be considered quite similar to that of cluster analysis, which will be introduced later.</p>
+</div>
 <p><br></p>
-<p>To calculate factor analysis, we have to first run a factor analysis model in the same way we did in the <a href="../latent/factor.html">last page</a>.</p>
+<p>To implement latent class models, we will need the <strong>polLCA</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># eliminate missing observations</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># factor model</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">1</span>, <span class="at">fm=</span><span class="st">"ml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(poLCA)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>R will automatically calculate factor scores in the estimation process, so all we have to do is access it within our output object:</p>
+<p>This package requires that our categories of items are labelled starting with 1. This means if you have a binary variable of 0 and 1, you will need to change it to 1 and 2.</p>
+<p>To begin, we will first need to create a vector of our item names:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fa<span class="sc">$</span>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>,<span class="st">"X3"</span>,<span class="st">"X4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can save this into your dataset, and use for other purposes.</p>
+<p>Then, let us fit our model as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X1, X2, X3, X4) <span class="sc">~</span><span class="dv">1</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">poLCA</span>(form,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              my_data[,vars],</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">nclass=</span><span class="dv">2</span>, <span class="co">#number of categories for factor</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">na.rm=</span>F,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrep=</span><span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>na.rm = F means to include missing values when estimating (which is recommended). nrep = 10 indicates how many times to run the gradient descent algorithm - more is better, but will take longer.</p>
+</div>
+<p>The traditional output is hard to read, so we will use a function:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># function</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>LCA.probs <span class="ot">&lt;-</span> <span class="cf">function</span>(res){</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  probs <span class="ot">&lt;-</span> res<span class="sc">$</span>probs</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  item.p <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span>(i <span class="cf">in</span> <span class="fu">seq_along</span>(probs)){</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        m.tmp <span class="ot">&lt;-</span> <span class="fu">t</span>(probs[[i]])</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="fu">rownames</span>(m.tmp) <span class="ot">&lt;-</span> <span class="fu">paste</span>(<span class="fu">names</span>(probs)[i],<span class="fu">colnames</span>(probs[[i]]),<span class="at">sep=</span><span class="st">"."</span>)</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        item.p <span class="ot">&lt;-</span> <span class="fu">rbind</span>(item.p,m.tmp)</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  item.p <span class="ot">&lt;-</span> <span class="fu">round</span>(item.p,<span class="dv">3</span>)</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  class.p <span class="ot">&lt;-</span> res<span class="sc">$</span>P</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(class.p) <span class="ot">&lt;-</span> <span class="fu">colnames</span>(item.p)</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">item.probabilities=</span>item.p,<span class="at">class.probabilities=</span>class.p)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># output results</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a><span class="fu">LCA.probs</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can calculate factor scores/classification as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>predclass</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can choose our model based on the AIC or BIC score.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>aic</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>model<span class="sc">$</span>bic</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 

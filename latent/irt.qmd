@@ -36,23 +36,41 @@ We must have at least 3 observed items for estimation purposes. The items $X_1, 
 
 $$
 \begin{align}
-\log \left( \frac{\pi_1}{1 - \pi_1}\right) & = \tau_1 + \lambda_1 F \\
-\log \left( \frac{\pi_2}{1 - \pi_2}\right) & = \tau_2 + \lambda_2 F \\
-\vdots \qquad & \qquad \vdots
+\log \left( \frac{Pr(X_1 =1|F)}{1 - Pr(X_1 =1|F)}\right) & = \tau_1 + \lambda_1 F \\
+\log \left( \frac{Pr(X_2 =1|F)}{1 - Pr(X_2 =1|F)}\right) & = \tau_2 + \lambda_2 F \\
+\vdots \qquad \qquad \vdots \qquad & \qquad \vdots \\
+\log \left( \frac{Pr(X_p =1|F)}{1 - Pr(X_p=1|F)}\right) & = \tau_p + \lambda_p F \\
 \end{align}
 $$
 
 ::: small
-The parameter $\pi_i$ is defined as $Pr(X_i = 1 | F)$. For categorical items, we use a ordinal/multinomial logistic.
+For categorical (more than 2 categories) items, a multinomial or ordinal logistic model is used. But this is pretty rare for someone to actually fit a model of this type.
 :::
 
--   $\tau_i$ is the intercept of the model, called the **difficulty**.
--   $\lambda_i$ is the coefficeint that describes the relationship between any item $X_i$ and the factor $F$. These are called **factor loadings**. It is also called the **discrimination** parameter.
+$\tau_i$ is the intercept of the model, called the **difficulty**. $\lambda_i$ is the coefficeint that describes the relationship between any item $X_i$ and the factor $F$. These are called **factor loadings**. It is also called the **discrimination** parameter.
 
-These factor loadings are interepreted in a very similar way to factor analysis.
+These factor loadings are interepreted in a very similar way to factor analysis. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
 
--   The sign of the factor loading tells us the direction in which our latent variable is measuring. For example, if $\lambda$ is negative, that means as our item's value increases, the latent variable decreases.
--   The absolute size of the factor loading tells us how important that item is to the factor. For example, if we have on item with a large (negative or positive loading), and one item with a near-0 loading, that means the first item is more important to the latent variable.
+The intercepts $\tau_i$ also tell us how "common" a value of 1 for the item is.
+
+::: {.callout-note collapse="true" appearance="simple"}
+## Example of Interpretation
+
+Below is a example of an interpretation - the items are binary (things that politicians want/don't want).
+
+![](images/clipboard-4283525368.png){width="75%"}
+
+We can first look at the signs:
+
+-   The latent factor increases with agreeing (a value of 1) with PartialBirth, CapitalGains, and CAFTA.
+-   The latent factor decreases with agreeing (a value of 1) with StemCell, IraqWithdraw, Immigration, and Minimum Wage.
+
+From this, we can kind of get a sense that latent variable is measuring right-left political affiliation, with higher values indicating right-wing, since agreeing left wing policies like IraqWithdraw, Immigration, and Minimum Wage are negative.
+
+The absolute size of the factor loadings are quite similar - we can see that CAFTA is the least important to the factor.
+
+The $d$ (which in this output are the intercepts) show the average agreement with each item - we see the most people agree with MinimumWage and StemCell, and the least people agree with CAFTA and Immigration.
+:::
 
 The factor scores are also very similar to factor analysis - they are a linear combination, with weights determined by how large a loading is for a certain item.
 

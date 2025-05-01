@@ -84,8 +84,11 @@ website:
         - text: "Item Response Theory"
           href: latent/irt.qmd
         - text: "Latent Class Models"
+          href: latent/class.qmd
         - text: "---"
         - text: "Structural Equation Models"
+        - text: "Longitudinal Models"
+        - text: "Clustered Models"
         - text: "---"
         - text: "Principle Components Analysis"
         - text: "Cluster Analysis"

@@ -61,13 +61,18 @@ The factor loadings $\lambda_i$ represent the relationship/**covariance** betwee
 Note: this isn't entirely true for multiple factors, as we will discuss in a later page.
 :::
 
-These factor loadings help us interpret our latent variable $F$.
+These factor loadings help us interpret our latent variable $F$. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
 
--   The sign of the factor loading tells us the direction in which our latent variable is measuring. For example, if $\lambda$ is negative, that means as our item's value increases, the latent variable decreases.
--   The absolute size of the factor loading tells us how important that item is to the factor. For example, if we have one item with a large (negative or positive loading), and one item with a near-0 loading, that means the first item is more important to the latent variable.
+::: {.callout-note collapse="true" appearance="simple"}
+## Interpretation Example
 
-::: small
-An example of interpretation is provided below the code.
+This is a typical output of factor anlaysis. ML1 and ML2 are the two factors (let us focus on just ML1), and the rows are items (which are trust in different institutions).
+
+![](images/clipboard-3872288459.png){width="75%"}
+
+For factor 1 (ML1), we can see that *pol_parties*, *politicians* have very large loadings. *EP, parliament, and UN* have moderate loadings. *Police* and *legal* have almost 0 loadings. Almost all loadings are positive.
+
+This tells us that factor 1 is a latent variable that measures mostly trust in politicians, rather than the legal/policing system. Since the loadings are almost all positive, we can conclude that higher values of factor 1 mean higher levels of trust in legal/policing systems.
 :::
 
 We can conduct hypothesis testing with each factor loading $\lambda$ with a **z-test**. The null hypothesis is that $\lambda = 0$, and the alternate hypothesis is that $\lambda ≠ 0$. If the p-value is less than 0.05, we know that there is a relationship between that item and the factor.
@@ -94,15 +99,3 @@ For factor analysis with one factor, we use the syntax:
 fa <- fa(data[,items], nfactors=1, fm="ml")
 print(fa1)
 ```
-
-::: {.callout-note collapse="true" appearance="simple"}
-## Interpretation Example
-
-This is a typical output of factor anlaysis. ML1 and ML2 are the two factors (let us focus on just ML1), and the rows are items (which are trust in different institutions).
-
-![](images/clipboard-3872288459.png){width="75%"}
-
-For factor 1 (ML1), we can see that *pol_parties*, *politicians* have very large loadings. *EP, parliament, and UN* have moderate loadings. *Police* and *legal* have almost 0 loadings. Almost all loadings are positive.
-
-This tells us that factor 1 is a latent variable that measures mostly trust in politicians, rather than the legal/policing system. Since the loadings are almost all positive, we can conclude that higher values of factor 1 mean higher levels of trust in legal/policing systems.
-:::
