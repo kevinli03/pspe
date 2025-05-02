@@ -91,6 +91,7 @@ website:
         - text: "Clustered Models"
         - text: "---"
         - text: "Principle Components Analysis"
+          href: latent/pca.qmd
         - text: "Cluster Analysis"
   
 format:

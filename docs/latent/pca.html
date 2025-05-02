@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Reliability and Factor Scores – Causal Inference Resources</title>
+<title>Principle Components Analysis – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -167,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/scores.html">Reliability and Factor Scores</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/pca.html">Principle Components Analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -199,7 +199,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link active">
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Reliability and Factor Scores</span></a>
   </div>
 </li>
@@ -246,7 +246,7 @@ window.Quarto = {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link">
+  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Principle Components Analysis</span></a>
   </div>
 </li>
@@ -266,7 +266,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Reliability and Factor Scores</h1>
+<h1 class="title">Principle Components Analysis</h1>
 </div>
 
 
@@ -284,57 +284,94 @@ window.Quarto = {
 
 
 <div class="small">
-<p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
+<p>Note: PCA is not a latent variable model itself, but can be used to approximate a latent variable model.</p>
 </div>
-<p>Recall our measurement models linking each item <span class="math inline">\(X_1, X_2, \dots, X_p\)</span> to our factor:</p>
+<p>Principle components analysis (PCA) takes a set of observed variables <span class="math inline">\(X_1, X_2, \dots, X_p\)</span> (called <strong>features</strong>), and change them into a set of new variables <span class="math inline">\(Y_1, Y_2, \dots Y_p\)</span> called <strong>principle components</strong> (PC), without losing any variance/information.</p>
+<div class="small">
+<p>Without losing information/variance means the total variance of features equals total variance of PCs</p>
+</div>
+<p>Essentially, what PCA does is it takes our features, and finds the “axis” in which there is the most variation, and makes that the 1st PC. Then it finds the “axis” with the 2nd most variation, and makes that the 2nd PC, and so on.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1131163029.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+</figure>
+</div>
+<div class="small">
+<p>Note that each principle component is orthogonal/uncorrelated with each other by design.</p>
+</div>
+<p>The 1st PC explains the most variance in our features, then the 2nd PC, and so on.</p>
 <p><span class="math display">\[
-X_i = \tau_i + \lambda_i F + \delta_i
+Var(Y_1) ≥ Var(Y_2) ≥ \dots &gt; Var(Y_p)
 \]</span></p>
-<p>One of the assumptions of this model is the the error term <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_i)\)</span>, or in other words, the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. Through some complex math, we can show that the variance of each item <span class="math inline">\(X_i\)</span> is as follows:</p>
+<p>Each new principle component is a weighted average of the observed variables:</p>
 <p><span class="math display">\[
-Var(X_i) = \lambda_i^2 + \theta_i
+\begin{align}
+Y_1 &amp; = a_{11}X_1 + a_{21} X_2 + \dots + a_{p1}X_p \\
+Y_2 &amp; = a_{12}X_1 + a_{22} X_2 + \dots + a_{p2}X_p \\
+&amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
+Y_p &amp; = a_{1p}X_1 + a_{2p} X_2 + \dots + a_{pp}X_p \\
+\end{align}
 \]</span></p>
-<p>Thus, this allows us to essentially “split” the variance in any item <span class="math inline">\(X_i\)</span> into two parts:</p>
-<ol type="1">
-<li><span class="math inline">\(\lambda_i^2\)</span> is the part of the variance in the item explained by the latent factor. We call this the <strong>communality</strong> of <span class="math inline">\(X_i\)</span>.</li>
-<li><span class="math inline">\(\theta_i\)</span> is the <strong>residual variance</strong>, the part of the variance <strong>not</strong> explained by our factor.</li>
-</ol>
-<p>We can also calculate the percentage/proportion of variance in <span class="math inline">\(X_i\)</span> that our factor explains, called the <strong>reliability</strong> of <span class="math inline">\(X_i\)</span>:</p>
+<p>The <span class="math inline">\(a\)</span>’s are the weights of each observed feature in creating a principle component, and are determined by the correlation matrix of the observed features. For interpreting a principle component, we often “normalise” the weights <span class="math inline">\(a\)</span> to get the correlation between a observed feature and a principle component:</p>
 <p><span class="math display">\[
-\text{Reliability} = \frac{\lambda_i^2}{Var(X_i)} = \frac{\lambda_i^2}{\lambda_i^2+\theta_i}
+Corr(X_i, Y_j) = \sqrt{Var(Y_j)} \cdot a_{ij}
 \]</span></p>
 <div class="small">
-<p>If all items <span class="math inline">\(X_i\)</span> are standarised to a standard normal, then <span class="math inline">\(\lambda_i^2\)</span> is equal to the reliability.</p>
+<p>This value is also called a <strong>component loading</strong>. Note that the right side is only equal to the correlation given we perform PCA on the correlation matrix (which is standard, but you can use a covariance matrix).</p>
 </div>
-<p>Communality and relaibility is important for two reasons:</p>
-<ol type="1">
-<li>Items with higher reliability are considered more “accurate” measures of the latent variable <span class="math inline">\(F\)</span>. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.</li>
-<li>These allow us to calculate <strong>factor scores</strong>.</li>
-</ol>
-<p>Factor scores <span class="math inline">\(\widetilde F\)</span> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items <span class="math inline">\(X_i\)</span> to calculate the latent variable value that any individual should have, which we can then put into another statistical model.</p>
-<p>We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:</p>
-<p><span class="math display">\[
-\widetilde F = w_0 + w_1 X_1 + w_2X_2 + \dots
-\]</span></p>
-<p>The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.</p>
+<p>Interpreting the principle components is identical to that of <a href="../latent/factor.html">factor analysis</a> - just using these correlations rather than factor loadings. Just like factor analysis, we can also calculate <strong>principle component scores,</strong> which are the individual values of each principle component for each individual in our data.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Example of Interpretation
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>Below, the rows are observed features describing how much an individual trusts different institutions on a scale of 1-10. The columns are the principle components.</p>
+<p><img src="images/clipboard-8264992.png" class="img-fluid"></p>
+<p>In component 1, we see that the correlation is pretty high for all of the variables, and positive. We might conclude component 1 measures general trust in institutions.</p>
+<p>In component 2, we can see that the loadgins for <em>legal</em> and <em>police</em> are the highest (in absolute terms) and negative. Meanwhile, <em>politicians, pol_parties</em>, and <em>EP</em> are positive and still not too small. The other loadings are quite small. We might interpret this component as sort of a tradeoff between political trust and legal/law enforcement trust, with higher values indicating more political trust, and lower values indicating more trust in legal/police.</p>
+<p>In component 3, we see positive loadings for everything but <em>EP</em> and <em>UN</em>. This might measure the tradeoff between trust in national and international institutions, with higher values for trust in national institutions, and lower values indicating more trust in international institutions.</p>
+</div>
+</div>
+</div>
 <p><br></p>
-<p>To calculate factor analysis, we have to first run a factor analysis model in the same way we did in the <a href="../latent/factor.html">last page</a>.</p>
+<p>To implement principle components analysis, we do the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># eliminate missing observations</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># factor model</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">1</span>, <span class="at">fm=</span><span class="st">"ml"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>pca <span class="ot">&lt;-</span> <span class="fu">princomp</span>(<span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>                <span class="at">data =</span> my_data,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>                <span class="at">cor =</span> <span class="cn">TRUE</span>, <span class="co">#use correlation matrix</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>                <span class="at">scores =</span> <span class="cn">TRUE</span>, <span class="co">#calculate pc scores</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>                <span class="at">na.action=</span>na.exclude)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(pca)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>R will automatically calculate factor scores in the estimation process, so all we have to do is access it within our output object:</p>
+<p>Now, to get the component loadings/corelation, we do the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>fa<span class="sc">$</span>scores</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the weights</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>weights <span class="ot">&lt;-</span> <span class="fu">loadings</span>(pca)</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># grab the sqrt of variance</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>sqrt.var <span class="ot">&lt;-</span> pca<span class="sc">$</span>sdev</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate component loadings/correlation</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(<span class="fu">t</span>(<span class="fu">t</span>(weights)<span class="sc">*</span>sqrt.var), <span class="at">cutoff =</span> <span class="dv">0</span>, <span class="at">digits=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>You can save this into your dataset, and use for other purposes.</p>
+<p>To access principle component scores, we do:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>pca<span class="sc">$</span>score</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>If we are performing other statistical analysis, we might want to choose how many of the new principle components we want to use. A scree-plot shows the percentage of variance each component explains.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">screeplot</span>(pca, <span class="at">type=</span><span class="st">'l'</span>, <span class="at">main=</span><span class="st">""</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>To choose the amount of components to use, we look for the “elbow” in the plot - basically when adding another additional PC does not really increase the amount of variance explained significantly anymore.</p>
+</div>
 
 
 

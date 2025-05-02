@@ -1,0 +1,106 @@
+---
+title: "Principle Components Analysis"
+---
+
+::: small
+Note: PCA is not a latent variable model itself, but can be used to approximate a latent variable model.
+:::
+
+Principle components analysis (PCA) takes a set of observed variables $X_1, X_2, \dots, X_p$ (called **features**), and change them into a set of new variables $Y_1, Y_2, \dots Y_p$ called **principle components** (PC), without losing any variance/information.
+
+::: small
+Without losing information/variance means the total variance of features equals total variance of PCs
+:::
+
+Essentially, what PCA does is it takes our features, and finds the "axis" in which there is the most variation, and makes that the 1st PC. Then it finds the "axis" with the 2nd most variation, and makes that the 2nd PC, and so on.
+
+![](images/clipboard-1131163029.png){fig-align="center" width="65%"}
+
+::: small
+Note that each principle component is orthogonal/uncorrelated with each other by design.
+:::
+
+The 1st PC explains the most variance in our features, then the 2nd PC, and so on.
+
+$$
+Var(Y_1) ≥ Var(Y_2) ≥ \dots > Var(Y_p)
+$$
+
+Each new principle component is a weighted average of the observed variables:
+
+$$
+\begin{align}
+Y_1 & = a_{11}X_1 + a_{21} X_2 + \dots + a_{p1}X_p \\
+Y_2 & = a_{12}X_1 + a_{22} X_2 + \dots + a_{p2}X_p \\
+& \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
+Y_p & = a_{1p}X_1 + a_{2p} X_2 + \dots + a_{pp}X_p \\
+\end{align}
+$$
+
+The $a$'s are the weights of each observed feature in creating a principle component, and are determined by the correlation matrix of the observed features. For interpreting a principle component, we often "normalise" the weights $a$ to get the correlation between a observed feature and a principle component:
+
+$$
+Corr(X_i, Y_j) = \sqrt{Var(Y_j)} \cdot a_{ij}
+$$
+
+::: small
+This value is also called a **component loading**. Note that the right side is only equal to the correlation given we perform PCA on the correlation matrix (which is standard, but you can use a covariance matrix).
+:::
+
+Interpreting the principle components is identical to that of [factor analysis](factor.qmd) - just using these correlations rather than factor loadings. Just like factor analysis, we can also calculate **principle component scores,** which are the individual values of each principle component for each individual in our data.
+
+::: {.callout-note collapse="true" appearance="simple"}
+## Example of Interpretation
+
+Below, the rows are observed features describing how much an individual trusts different institutions on a scale of 1-10. The columns are the principle components.
+
+![](images/clipboard-8264992.png)
+
+In component 1, we see that the correlation is pretty high for all of the variables, and positive. We might conclude component 1 measures general trust in institutions.
+
+In component 2, we can see that the loadgins for *legal* and *police* are the highest (in absolute terms) and negative. Meanwhile, *politicians, pol_parties*, and *EP* are positive and still not too small. The other loadings are quite small. We might interpret this component as sort of a tradeoff between political trust and legal/law enforcement trust, with higher values indicating more political trust, and lower values indicating more trust in legal/police.
+
+In component 3, we see positive loadings for everything but *EP* and *UN*. This might measure the tradeoff between trust in national and international institutions, with higher values for trust in national institutions, and lower values indicating more trust in international institutions.
+:::
+
+<br />
+
+To implement principle components analysis, we do the following:
+
+```{r, eval = F}
+pca <- princomp(~ X1 + X2 + X3,
+                data = my_data,
+                cor = TRUE, #use correlation matrix
+                scores = TRUE, #calculate pc scores
+                na.action=na.exclude)
+summary(pca)
+```
+
+Now, to get the component loadings/corelation, we do the following:
+
+```{r, eval = F}
+# grab the weights
+weights <- loadings(pca)
+
+# grab the sqrt of variance
+sqrt.var <- pca$sdev
+
+# calculate component loadings/correlation
+print(t(t(weights)*sqrt.var), cutoff = 0, digits=4)
+```
+
+To access principle component scores, we do:
+
+```{r, eval = F}
+pca$score
+```
+
+If we are performing other statistical analysis, we might want to choose how many of the new principle components we want to use. A scree-plot shows the percentage of variance each component explains.
+
+```{r, eval = F}
+screeplot(pca, type='l', main="")
+```
+
+::: small
+To choose the amount of components to use, we look for the "elbow" in the plot - basically when adding another additional PC does not really increase the amount of variance explained significantly anymore.
+:::
