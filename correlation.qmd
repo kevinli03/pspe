@@ -13,6 +13,7 @@ Let us look at this causal question:
 //| fig-width: 4
 //| fig-height: 0.45
 digraph example1 {
+  bgcolor="transparent";
   // Nodes
   D [shape=box, label="Going to the Hospital (D)"]
   Y [shape=box, label="Health Outcomes (Y)"]
@@ -72,6 +73,7 @@ Smoking will worsen health outcomes. Someone who smokes is also more likely to v
 //| fig-width: 4
 //| fig-height: 1.1
 digraph example2 {
+  bgcolor="transparent";
   // Nodes
   D [shape=box, pos = "0,0!", label="Going to the Hospital (D)"]
   X [shape=box, pos = "2,0!", label="Smoking (Confounder)"]

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Basics of Causality – Causal Inference Resources</title>
+<title>Cluster Analysis – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,20 +20,54 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -81,7 +115,7 @@ window.Quarto = {
 };
 </script>
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -96,7 +130,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -110,7 +144,7 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./soo/soo.html"> 
+    <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
@@ -119,7 +153,7 @@ window.Quarto = {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent/latent.html"> 
+    <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
@@ -133,7 +167,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./correlation.html">Issue of Selection Bias</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/cluster.html">Cluster Analysis</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -144,35 +178,82 @@ window.Quarto = {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Homepage</span></a>
+  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./frameworks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basics of Causality</span></a>
+  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factor Analysis Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./correlation.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Issue of Selection Bias</span></a>
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reliability and Factor Scores</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./randomisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Magic of Randomisation</span></a>
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Latent Factors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identification and Rotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Confirmatory Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Item Response Theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Class Models</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Structural Equation Models</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Longitudinal Models</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Clustered Models</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Principle Components Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/cluster.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Cluster Analysis</span></a>
   </div>
 </li>
     </ul>
@@ -188,7 +269,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Basics of Causality</h1>
+<h1 class="title">Cluster Analysis</h1>
 </div>
 
 
@@ -205,149 +286,92 @@ window.Quarto = {
 </header>
 
 
+<p>Cluster analysis is a method of finding groups/clusters of similar individuals in our dataset, based on a set of variables. We choose the number of clusters we want to divide our data into, and each individual will be assigned to a specific cluster.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-1857153783.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+</figure>
+</div>
 <div class="small">
-<p>This page covers how confounders cause pre-existing differences between treated and untreated (selection bias), meaning correlation is not causation.</p>
+<p>Above is an example of a cluster anlaysis with 2 clusters. Latent Class Models can also be considered to be a form of cluster analysis.</p>
 </div>
-<p>Let us look at this causal question:</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="4" data-fig-height="0.45" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="384" height="43" viewbox="0.00 0.00 416.18 44.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
-<title>example1</title>
-<!-- D -->
-<g id="node1" class="node">
-<title>D</title>
-<polygon fill="none" stroke="black" points="159.8,-36 0.07,-36 0.07,0 159.8,0 159.8,-36"></polygon>
-<text text-anchor="middle" x="79.93" y="-13.8" font-family="Times,serif" font-size="14.00">Going to the Hospital (D)</text>
-</g>
-<!-- Y -->
-<g id="node2" class="node">
-<title>Y</title>
-<polygon fill="none" stroke="black" points="407.94,-36 271.91,-36 271.91,0 407.94,0 407.94,-36"></polygon>
-<text text-anchor="middle" x="339.92" y="-13.8" font-family="Times,serif" font-size="14.00">Health Outcomes (Y)</text>
-</g>
-<!-- D&#45;&gt;Y -->
-<g id="edge1" class="edge">
-<title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M160.09,-18C192.3,-18 229.41,-18 261.45,-18"></path>
-<polygon fill="black" stroke="black" points="261.66,-21.5 271.66,-18 261.66,-14.5 261.66,-21.5"></polygon>
-<text text-anchor="middle" x="215.77" y="-22.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
-</g>
-</g>
-</svg>
+<p>The primary way in which cluster anlaysis is conducted is by <strong>K-means clustering</strong>. This form of clustering focuses on the distance between different individuals in our dataset. The idea is that a good clustering will have as small within-cluster variation as possible.</p>
+<div class="small">
+<p>In other words, you want individuals in the same cluster to be similar.</p>
 </div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
-<p>We have a treated group (went to hospital), and an untreated group. Using our potential outcomes framework, we can define the treatment effect of the treated group:</p>
+<p>Thus, K-means clustering tries to minimise the squared euclidean distance between all the points within a cluster and the centroid (“center”) of the cluster:</p>
 <p><span class="math display">\[
-\tau_\text{treated} = \textcolor{purple}{\mean Y_{\text{treated}}^{(1)}} - \textcolor{red}{\mean Y_{\text{treated}}^{(0)}}
+\delta (C_k) = \sum\limits_{i \in C_k} || \b x_i - \mean{\b x}_k||^2
 \]</span></p>
 <div class="small">
-<p>In red is the counterfactual we do not observe.</p>
+<p>Where <span class="math inline">\(\b x_i\)</span> is the vector of variable values of any specific unit within a cluster <span class="math inline">\(k\)</span>, <span class="math inline">\(\mean{\b x}_k\)</span> is a vector of the mean variable values for all units in cluster <span class="math inline">\(k\)</span>, and the two vertical bars indicate the euclidean distance. We generally want to standardise all of our variables before starting to avoid measurement scale issues.</p>
 </div>
-<p>Now compare the treatment effects above to correlation, which is defined as the difference in observed outcomes:</p>
-<p><span class="math display">\[
-\begin{align}
-\text{correlation} &amp; = \mean Y_\text{treated} - \mean Y_\text{untreated} \\
-&amp; = \textcolor{purple}{\mean Y_{\text{treated}}^{(1)}} - \textcolor{purple}{\mean Y_\text{untreated}^{(0)}}
-\end{align}
-\]</span></p>
-<p>If we compare this correlation to our <span class="math inline">\(\tau_\text{treated}\)</span>, we see:</p>
-<p><span class="math display">\[
-\text{if  } \textcolor{purple}{\mean Y_\text{untreated}^{(0)}} ≠ \textcolor{red}{\mean Y_\text{treated}^{(0)}}, \text{ then }  \tau_\text{treated} ≠ \text{correlation}
-\]</span></p>
+<p>How do we minimise <span class="math inline">\(\delta(C_k)\)</span>? The typical K-means clustering algorithm works as follows:</p>
+<ol type="1">
+<li>Choose how many total clusters we want.</li>
+<li>Randomly assign each unit to one of the clusters.</li>
+<li>Calculate the centroids of each cluster.</li>
+<li>Re-assign each individual to the cluster whose centroid is closest to that individual.</li>
+<li>Keep repeating steps 3 to 4 until all units are in the cluster whose centroid is closest to that individual.</li>
+<li>Repeat the whole process a few times to find the global optimum.</li>
+</ol>
 <div class="small">
-<p>These two quantities are potential outcomes under control, or in another way to think of it, outcomes of the two groups prior to treatment happening.</p>
+<p>K-means clustering is algorithmic, not model based (unlike the very similar Latent Class models). This means that K-means does not have model summary statistics like AIC, or significance tests.</p>
 </div>
-<p>Thus, if there is a difference between the average outcomes between treated and untreated before treatment is administered, then correlation is not equal to causation. This is because we cannot tell if the difference between the groups is due to treatment, or <mark>due to their pre-existing differences</mark>.</p>
-<p><br></p>
-<p>What causes pre-existing differences? Confounders. For example, in our hospital-health example, a confounder could be smoking.</p>
-<div class="small">
-<p>Smoking is not the only possible confounder, we just use it as an example. Drinking, age, etc. are all other potential confounders.</p>
-</div>
-<p>Smoking will worsen health outcomes. Someone who smokes is also more likely to visit the hospital with health complications. That means people who go to the hospital start out with (on average) worse health outcomes than people who did not go to the hospital.</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="4" data-fig-height="1.1" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="384" height="106" viewbox="0.00 0.00 416.19 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
-<title>example2</title>
-<!-- D -->
-<g id="node1" class="node">
-<title>D</title>
-<polygon fill="none" stroke="black" points="159.8,-36 0.07,-36 0.07,0 159.8,0 159.8,-36"></polygon>
-<text text-anchor="middle" x="79.93" y="-13.8" font-family="Times,serif" font-size="14.00">Going to the Hospital (D)</text>
-</g>
-<!-- Y -->
-<g id="node3" class="node">
-<title>Y</title>
-<polygon fill="none" stroke="black" points="407.95,-36 271.92,-36 271.92,0 407.95,0 407.95,-36"></polygon>
-<text text-anchor="middle" x="339.93" y="-13.8" font-family="Times,serif" font-size="14.00">Health Outcomes (Y)</text>
-</g>
-<!-- D&#45;&gt;Y -->
-<g id="edge1" class="edge">
-<title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M160.06,-18C192.38,-18 229.54,-18 261.66,-18"></path>
-<polygon fill="black" stroke="black" points="261.9,-21.5 271.9,-18 261.9,-14.5 261.9,-21.5"></polygon>
-<text text-anchor="middle" x="215.77" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
-</g>
-<!-- X -->
-<g id="node2" class="node">
-<title>X</title>
-<polygon fill="none" stroke="black" points="282.2,-109 135.67,-109 135.67,-73 282.2,-73 282.2,-109"></polygon>
-<text text-anchor="middle" x="208.93" y="-86.8" font-family="Times,serif" font-size="14.00">Smoking (Confounder)</text>
-</g>
-<!-- X&#45;&gt;D -->
-<g id="edge2" class="edge">
-<title>X-&gt;D</title>
-<path fill="none" stroke="black" d="M178.04,-72.99C160.61,-63.4 138.65,-51.32 119.93,-41.01"></path>
-<polygon fill="black" stroke="black" points="121.48,-37.87 111.03,-36.11 118.1,-44 121.48,-37.87"></polygon>
-</g>
-<!-- X&#45;&gt;Y -->
-<g id="edge3" class="edge">
-<title>X-&gt;Y</title>
-<path fill="none" stroke="black" d="M249.33,-68.1C265.21,-59.5 283.4,-49.64 299.3,-41.02"></path>
-<polygon fill="black" stroke="black" points="247.44,-65.15 240.31,-72.99 250.77,-71.31 247.44,-65.15"></polygon>
-<polygon fill="black" stroke="black" points="301.23,-43.96 308.36,-36.11 297.9,-37.8 301.23,-43.96"></polygon>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
-<div class="callout callout-style-simple callout-note">
-<div class="callout-body d-flex">
+<p>To interpret the clusters, we have to use our own field expertise. We look at the individuals in each cluster, as well as their mean variable values, and try to assign meaning to them.</p>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
-<div class="callout-body-container">
-<p>A confounder is a third variable that has the following characteristics:</p>
+<div class="callout-title-container flex-fill">
+Other Clustering Methods
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>K-means is the most common, but not the only way to cluster. Other methods include:</p>
 <ol type="1">
-<li>The confounder is correlated (positive or negative) with the outcome variable.</li>
-<li>The confounder causes who gets and doesn’t get the treatment.</li>
-<li>The confounder is <strong>not</strong> itself caused by the treatment</li>
+<li>Latent Class Models, which we covered <a href="../latent/class.html">previously</a>. They technically count as cluster analysis, since we are assinging individuals to a category of a latent variable. This is a model-based method.</li>
+<li>Gaussian Mixture Modelling: this is a variation of latent class models that deals with continuous observed items, but categorical variables.</li>
+<li>Hierarchical Cluster Anlaysis: This basically starts with each unit in its own cluster, before merging clusters that are similar. Then it repeats that continuously. We can choose to analyse any specific cluster set within this process.</li>
 </ol>
 </div>
 </div>
 </div>
-<div class="small">
-<p>Note requirement 3 - it is a common mistake. Any result of the treatment <span class="math inline">\(D\)</span> cannot be a confounder.</p>
-</div>
-<p><mark>Confounders cause pre-existing differences</mark>, which cause correlation to not equal causation. We must account for confounders to uncover causal effects.</p>
 <p><br></p>
+<p>To implement cluster anlaysis, we should first start by standardising our variables.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"X3"</span>) <span class="co">#names of variables to cluster by</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise function</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>standard <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  (x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># apply standardisation</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>my_data.z <span class="ot">&lt;-</span> global[,<span class="fu">c</span>(<span class="st">"Unit Names Variable"</span>, vars)]</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>my_data.z[,vars] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(my_data.z[,vars], standard)</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(my_data.z)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> vars.z</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">merge</span>(my_data, my_data.z, <span class="at">by=</span><span class="st">"Unit Names Variable"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Then, we can implement cluster anlaysis:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1236</span>) <span class="co">#set seed</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(dta[,varsz],</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">4</span>, <span class="co">#change to number of clusters</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nstart =</span> <span class="dv">10</span>) <span class="co">#number of times to run algorithm</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We can access each individual’s assigned cluster with the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>cluster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>You can save this vector back into your original dataset for further anlaysis.</p>
+</div>
 
 
 

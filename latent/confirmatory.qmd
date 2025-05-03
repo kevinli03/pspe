@@ -23,6 +23,7 @@ For example, perhaps theoretically we believe that items 1 and 2 only explain fa
 //| fig-width: 5
 //| fig-height: 1.4
 digraph example2 {
+  bgcolor="transparent";
   // Nodes
   F1 [shape=box, pos = "0,0!", label="Latent Factor (F1)"]
   F2 [shape=box, pos = "0,0!", label="Latent Factor (F2)"]

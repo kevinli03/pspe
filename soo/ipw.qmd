@@ -13,6 +13,7 @@ Let us look at this example, with a confounder.
 //| fig-width: 4
 //| fig-height: 1.1
 digraph example2 {
+  bgcolor="transparent";
   // Nodes
   D [shape=box, pos = "0,0!", label="Receiving Scholarship"]
   X [shape=box, pos = "2,0!", label="Smartness (Confounder)"]
@@ -32,7 +33,7 @@ digraph example2 {
 Let's pretend there are only dumb and smart people (for simplicity). Our treated and control groups might be:
 
 |                                         |                                                   |
-|-----------------------------------------|---------------------------------------------------|
+|--------------------------------|----------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
 | Smart Students (x4)                     | Smart Students (x1)                               |
 | Dumb Students (x1)                      | Dumb Students (x4)                                |
@@ -42,7 +43,7 @@ Let's pretend there are only dumb and smart people (for simplicity). Our treated
 Our two groups have pre-existing differences. However, by emphasising certain individuals, we can make it seem like there are no more imbalances. For example, weighting might make our above table become:
 
 |                                         |                                                   |
-|-----------------------------------------|---------------------------------------------------|
+|--------------------------------|----------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
 | Smart Students (x4)                     | Smart Students (emphasise to x4)                  |
 | Dumb Students (emphasise to x4)         | Dumb Students (x4)                                |

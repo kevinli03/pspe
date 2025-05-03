@@ -1,0 +1,92 @@
+---
+title: "Cluster Analysis"
+---
+
+Cluster analysis is a method of finding groups/clusters of similar individuals in our dataset, based on a set of variables. We choose the number of clusters we want to divide our data into, and each individual will be assigned to a specific cluster.
+
+![](images/clipboard-1857153783.png){fig-align="center" width="65%"}
+
+::: small
+Above is an example of a cluster anlaysis with 2 clusters. Latent Class Models can also be considered to be a form of cluster analysis.
+:::
+
+The primary way in which cluster anlaysis is conducted is by **K-means clustering**. This form of clustering focuses on the distance between different individuals in our dataset. The idea is that a good clustering will have as small within-cluster variation as possible.
+
+::: small
+In other words, you want individuals in the same cluster to be similar.
+:::
+
+Thus, K-means clustering tries to minimise the squared euclidean distance between all the points within a cluster and the centroid ("center") of the cluster:
+
+$$
+\delta (C_k) = \sum\limits_{i \in C_k} || \b x_i - \mean{\b x}_k||^2
+$$
+
+::: small
+Where $\b x_i$ is the vector of variable values of any specific unit within a cluster $k$, $\mean{\b x}_k$ is a vector of the mean variable values for all units in cluster $k$, and the two vertical bars indicate the euclidean distance. We generally want to standardise all of our variables before starting to avoid measurement scale issues.
+:::
+
+How do we minimise $\delta(C_k)$? The typical K-means clustering algorithm works as follows:
+
+1.  Choose how many total clusters we want.
+2.  Randomly assign each unit to one of the clusters.
+3.  Calculate the centroids of each cluster.
+4.  Re-assign each individual to the cluster whose centroid is closest to that individual.
+5.  Keep repeating steps 3 to 4 until all units are in the cluster whose centroid is closest to that individual.
+6.  Repeat the whole process a few times to find the global optimum.
+
+::: small
+K-means clustering is algorithmic, not model based (unlike the very similar Latent Class models). This means that K-means does not have model summary statistics like AIC, or significance tests.
+:::
+
+To interpret the clusters, we have to use our own field expertise. We look at the individuals in each cluster, as well as their mean variable values, and try to assign meaning to them.
+
+::: {.callout-note collapse="true" appearance="simple"}
+## Other Clustering Methods
+
+K-means is the most common, but not the only way to cluster. Other methods include:
+
+1.  Latent Class Models, which we covered [previously](class.qmd). They technically count as cluster analysis, since we are assinging individuals to a category of a latent variable. This is a model-based method.
+2.  Gaussian Mixture Modelling: this is a variation of latent class models that deals with continuous observed items, but categorical variables.
+3.  Hierarchical Cluster Anlaysis: This basically starts with each unit in its own cluster, before merging clusters that are similar. Then it repeats that continuously. We can choose to analyse any specific cluster set within this process.
+:::
+
+<br />
+
+To implement cluster anlaysis, we should first start by standardising our variables.
+
+```{r, eval = F}
+vars <- c("X1", "X2", "X3") #names of variables to cluster by
+
+# Standardise function
+standard <- function(x){
+  (x-mean(x))/sd(x)
+}
+
+# apply standardisation
+my_data.z <- global[,c("Unit Names Variable", vars)]
+my_data.z[,vars] <- sapply(my_data.z[,vars], standard)
+colnames(my_data.z)[-1] <- vars.z
+dta <- merge(my_data, my_data.z, by="Unit Names Variable")
+```
+
+Then, we can implement cluster anlaysis:
+
+```{r, eval = F}
+set.seed(1236) #set seed
+
+res <- kmeans(dta[,varsz],
+                  4, #change to number of clusters
+                  nstart = 10) #number of times to run algorithm
+print(res)
+```
+
+We can access each individual's assigned cluster with the following:
+
+```{r, eval = F}
+res$cluster
+```
+
+::: small
+You can save this vector back into your original dataset for further anlaysis.
+:::
