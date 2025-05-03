@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Confirmatory Analysis – Causal Inference Resources</title>
+<title>Difference-in-Differences – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -166,7 +132,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/confirmatory.html">Confirmatory Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/did.html">Difference-in-Differences</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -185,76 +151,42 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Latent Variable Models</span></a>
+  <a href="../did/did.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Factor Analysis Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Reliability and Factor Scores</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Latent Factors</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Identification and Rotation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Confirmatory Analysis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Item Response Theory</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Latent Class Models</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Structural Equation Models</span>
+ <span class="menu-text">Classic DiD Design</span>
   </li>
         <li class="sidebar-item">
- <span class="menu-text">Longitudinal Models</span>
+ <span class="menu-text">Two-way Fixed Effects</span>
   </li>
         <li class="sidebar-item">
- <span class="menu-text">Clustered Models</span>
+ <span class="menu-text">Repeated Cross Sections</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Dynamic Treatment Effects</span>
   </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Principle Components Analysis</span></a>
-  </div>
-</li>
+ <span class="menu-text">Staggered DiD Design</span>
+  </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/cluster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cluster Analysis</span></a>
-  </div>
-</li>
+ <span class="menu-text">Issues with TWFE</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Sun and Abraham (2021)</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Callaway and Sant'Anna (2021)</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Gardner (2021) 2-stage DiD</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Liu et al (2022) Counterfactual</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -268,7 +200,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Confirmatory Analysis</h1>
+<h1 class="title">Difference-in-Differences</h1>
 </div>
 
 
@@ -285,204 +217,105 @@ window.Quarto = {
 </header>
 
 
+<p>In April 1992, New Jersey increased its minimum wage. We want to know how this affected employment rates. We have data from before and after the change:</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Mar 1992 (Before)</span></td>
+<td><span class="smallcaps">Dec 1992 (After)</span></td>
+</tr>
+<tr class="even">
+<td>20.44</td>
+<td>21.03</td>
+</tr>
+</tbody>
+</table>
 <div class="small">
-<p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
+<p>Specifically, these are average employment numbers in fast-food restaurants.</p>
 </div>
-<p>In the past few chapters, we have focused on <strong>exploratory analysis</strong>, essentially allowing the data to “speak for itself” and estimate all of the model’s parameters to measure the latent variable.</p>
-<p>However, what if we already have some ideas about our latent variables - some hypotheses on how different items are related to the latent variable. This is what we can <strong>confirmatory analysis</strong>, where we study how well a hypothesised model fits the data.</p>
-<p>The basic approach of confirmatory analysis is to set some factor loadings <span class="math inline">\(\lambda\)</span> for certain variables to 0. This essentially means that based on our preconceived theories, establish that some items do not measure a certain factor.</p>
-<div class="small">
-<p>By setting enough loadings to 0, we no longer have to worry about rotation issues discussed previously.</p>
-</div>
-<p>For example, perhaps theoretically we believe that items 1 and 2 only explain factor 1, and only items 3 and 4 explain latent factor 2. We can set the items we believe to not explain each factor to 0.</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="5" data-fig-height="1.4" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="480" height="134" viewbox="0.00 0.00 444.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
-<title>example2</title>
-<!-- F1 -->
-<g id="node1" class="node">
-<title>F1</title>
-<polygon fill="none" stroke="black" points="199.18,-124.8 80.91,-124.8 80.91,-88.8 199.18,-88.8 199.18,-124.8"></polygon>
-<text text-anchor="middle" x="140.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F1)</text>
-</g>
-<!-- X1 -->
-<g id="node3" class="node">
-<title>X1</title>
-<polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
-<text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
-</g>
-<!-- F1&#45;&gt;X1 -->
-<g id="edge1" class="edge">
-<title>F1-&gt;X1</title>
-<path fill="none" stroke="black" d="M120.49,-88.65C105.57,-75.57 84.85,-57.4 68.3,-42.9"></path>
-<polygon fill="black" stroke="black" points="70.39,-40.07 60.56,-36.11 65.78,-45.34 70.39,-40.07"></polygon>
-<text text-anchor="start" x="100.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
-</g>
-<!-- X2 -->
-<g id="node4" class="node">
-<title>X2</title>
-<polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
-<text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
-</g>
-<!-- F1&#45;&gt;X2 -->
-<g id="edge2" class="edge">
-<title>F1-&gt;X2</title>
-<path fill="none" stroke="black" d="M139.57,-88.77C139.66,-78.55 140.45,-65.37 143.27,-54 143.97,-51.15 144.9,-48.24 145.96,-45.38"></path>
-<polygon fill="black" stroke="black" points="149.25,-46.58 149.9,-36 142.8,-43.87 149.25,-46.58"></polygon>
-<text text-anchor="start" x="144.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
-</g>
-<!-- X3 -->
-<g id="node5" class="node">
-<title>X3</title>
-<polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
-<text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
-</g>
-<!-- F1&#45;&gt;X3 -->
-<g id="edge3" class="edge">
-<title>F1-&gt;X3</title>
-<path fill="none" stroke="black" d="M156.73,-88.41C167.79,-77.55 183.02,-63.82 198.26,-54 207.03,-48.35 216.87,-43.18 226.54,-38.65"></path>
-<polygon fill="black" stroke="black" points="228.04,-41.81 235.72,-34.5 225.17,-35.42 228.04,-41.81"></polygon>
-<text text-anchor="start" x="199.04" y="-58.2" font-family="Arial" font-size="14.00">0</text>
-</g>
-<!-- F2 -->
-<g id="node2" class="node">
-<title>F2</title>
-<polygon fill="none" stroke="black" points="354.18,-124.8 235.91,-124.8 235.91,-88.8 354.18,-88.8 354.18,-124.8"></polygon>
-<text text-anchor="middle" x="295.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F2)</text>
-</g>
-<!-- F2&#45;&gt;X2 -->
-<g id="edge4" class="edge">
-<title>F2-&gt;X2</title>
-<path fill="none" stroke="black" d="M268.18,-88.65C247.03,-75.16 217.4,-56.24 194.34,-41.53"></path>
-<polygon fill="black" stroke="black" points="196.17,-38.54 185.86,-36.11 192.4,-44.44 196.17,-38.54"></polygon>
-<text text-anchor="start" x="240.04" y="-58.2" font-family="Arial" font-size="14.00">0</text>
-</g>
-<!-- F2&#45;&gt;X3 -->
-<g id="edge5" class="edge">
-<title>F2-&gt;X3</title>
-<path fill="none" stroke="black" d="M291.49,-88.65C288.97,-76.52 285.55,-60.02 282.67,-46.12"></path>
-<polygon fill="black" stroke="black" points="286.05,-45.19 280.59,-36.11 279.2,-46.62 286.05,-45.19"></polygon>
-<text text-anchor="start" x="287.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
-</g>
-<!-- X4 -->
-<g id="node6" class="node">
-<title>X4</title>
-<polygon fill="none" stroke="black" points="436.13,-36 353.96,-36 353.96,0 436.13,0 436.13,-36"></polygon>
-<text text-anchor="middle" x="395.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 4 (X4)</text>
-</g>
-<!-- F2&#45;&gt;X4 -->
-<g id="edge6" class="edge">
-<title>F2-&gt;X4</title>
-<path fill="none" stroke="black" d="M314.8,-88.65C329.87,-75.57 350.8,-57.4 367.51,-42.9"></path>
-<polygon fill="black" stroke="black" points="370.07,-45.31 375.33,-36.11 365.48,-40.03 370.07,-45.31"></polygon>
-<text text-anchor="start" x="353.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
-<p>Another difference is in the assumptions we make on the actual latent variables. Recall that we previously assumed the latent factors are standardly normally distributed:</p>
+<p>With this data, we <strong>cannot</strong> find the causal effect. Why? Well recall our definition of the causal effect - our treatment effect after the treatment in December 1992 would be:</p>
 <p><span class="math display">\[
-F \sim \mathcal N(0, 1)
+\tau_\text{Dec92} = \purple{Y^{(1)}_\text{Dec92}} - \red{Y^{(0)}_\text{Dec92}}
 \]</span></p>
-<p>In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distirbution to be estimated:</p>
-<p><span class="math display">\[
-F \sim \mathcal N(\kappa, \phi)
-\]</span></p>
-<p>Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item’s intercept <span class="math inline">\(\tau_i = 0\)</span>, and the same item’s factor loading for that specific factor at <span class="math inline">\(\lambda = 1\)</span>.</p>
-<p>The estimation and interpretation of confirmatory analysis are essentially identical to that of exploratory analysis we have previously looked at.</p>
-<p>There is a special set of tests to see if the parameters we set equal to 0 actually make sense. <strong>Modification indicies</strong> are a sort of hypothesis test for this - larger values indicate parameters that if were not 0, could improve the fit of the model.</p>
-<ul>
-<li>There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.</li>
-</ul>
+<p>We don’t observe the counterfactual in December 1992 without the minimum wage increase. We need some way to estimate this.</p>
+<p>Why can’t we pretend that the numbers from March 1992 are our counterfactual, since the treatment hadn’t occurred yet? Well, there could have been something that happened between these two times that changes the <strong>trend</strong> in employment (like a recession).</p>
+<p><strong>Difference-in-differences</strong> estimates the trend by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Mar 1992 (Pennsylvania)</span></td>
+<td><span class="smallcaps">Dec 1992 (Pennsylvania)</span></td>
+</tr>
+<tr class="even">
+<td>23.33</td>
+<td>21.17</td>
+</tr>
+</tbody>
+</table>
 <div class="small">
-<p>Below in the R-code I providem more ways of choosing between confirmatory models and exploratory models (and really any factor models).</p>
+<p>These are employment values in Pennsylvania, where no mininum wage changes occured.</p>
 </div>
+<p>Pennsylvania tells us the <strong>trend</strong> in employment without a change in minimum wage (-2.16). <u>This trend tells us that if New Jersey hadn’t received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.</u></p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 40%">
+<col style="width: 60%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Mar 92 (NJ, Not Treated)</span></td>
+<td><span class="smallcaps">Dec 92 (NJ, Hypothetical Not Treated)</span></td>
+</tr>
+<tr class="even">
+<td>20.44</td>
+<td>20.44 - 2.16</td>
+</tr>
+</tbody>
+</table>
+<div class="small">
+<p>The March 1992 value is copied from the first table.</p>
+</div>
+<p>Now, we have an approximation of New Jersey’s missing counterfactual, so we can now estimate the causal effect:</p>
+<p><span class="math display">\[
+\begin{align}
+\tau_\text{Dec92} &amp;  = \purple{Y^{(1)}_\text{Dec92}} - \red{Y^{(0)}_\text{Dec92}} \\
+&amp; \approx \purple{Y^{(1)}_\text{Dec92}} - \left( \purple{Y^{(0)}_\text{Mar92}}  - 2.16\right)
+\end{align}
+\]</span></p>
+<p>This entire idea of using another group’s trend to estimate counterfactuals depends on two assumptions:</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 35%">
+<col style="width: 65%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Assumption</span></td>
+<td><span class="smallcaps">Description</span></td>
+</tr>
+<tr class="even">
+<td><mark>Parallel Trends</mark></td>
+<td>This means that had the treated group not received treatment, they would have followed the same trend as the control group.</td>
+</tr>
+<tr class="odd">
+<td><mark>Stable Unit Treatment Value Assumption (SUTVA)</mark></td>
+<td>This means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).</td>
+</tr>
+</tbody>
+</table>
+<div class="small">
+<p>I will show how to test for parallel trends later in Dynamic treatment effects.</p>
+</div>
+<p>There are two types of difference-in-differences designs - classical and staggered, which we will cover in the next few pages.</p>
 <p><br></p>
-<p>For confirmatory analysis, we will need the <strong>lavaan</strong> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We fit a confirmatory model in the following way:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify formula</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">f1 =~ X1 + X2 + 0*X3 </span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">f2 =~ 0*X2 + X3 + X4</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate model</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">sem</span>(formula,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> my_data,</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>           <span class="at">std.lv =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>           <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="small">
-<p>We put a 0* before any item for that factor we want to set equal to 0. You can also use this command to estimate exploratory models.</p>
-</div>
-<p>If we have theoretical reasons, we can also force different factor load gins to be equal by including the same labels before as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># specify formula</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">f1 =~ c1*X1 + c1*X2 + X3 </span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">f2 =~ X2 + X3 + X4</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="small">
-<p>Since label c1 appears before X1 and X2 for factor f1, that means their factor loadings will be forced to be equal. You can include more labels as well.</p>
-</div>
-<p>To create factor scores, we simply use the predict function:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-More on Choosing Between Models
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>To compare and choose between different models, we have a few ways.</p>
-<ol type="1">
-<li>We can use a likelihood ratio test for nested models (see the regression section for more details).</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model1, model2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="2" type="1">
-<li>We can use a global goodness of fit test - essentially a likelihood ratio but with the full sample covariance matrix as the null model. We want to <strong>fail to reject</strong> the null, because we want our model to be as close to the sample covariance matrix as possible.</li>
-</ol>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lavTestLRT</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<ol start="3" type="1">
-<li>We can use AIC and BIC to compare models since factor models are estimated with MLE. These are included in the output.</li>
-</ol>
-<p>There are also a series of fit indicies made for factor analysis. These are included in the output.</p>
-<ul>
-<li>Root Mean Square Error of Approximation (RMSEA): 0 is a perfect fit, 0.05 or smaller is a good fit, and anything above 0.1 is a poor fit.</li>
-<li>Standard Root Mean Square Residual (SRMR): smaller values the better, anything below 0.08 is a good fit.</li>
-<li>Tucker and Lewis Index (TLI): 1 is the best fit, anything below 0.9 is a poor fit, and anything above 1 may indicate overfitting.</li>
-<li>Comparative Fit Index: values between 0 and 1, anything close to 1 is a good fit.</li>
-</ul>
-</div>
-</div>
-</div>
 
 
 

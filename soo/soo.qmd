@@ -62,7 +62,7 @@ $$
 For selection on observables to work, we need to meet 3 assumptions:
 
 |                                                         |                                                                                                                                                           |
-|---------------------|---------------------------------------------------|
+|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                                                 |
 | [Conditional Ignorability]{.mark}                       | This means that we must account for **all** possible confounders (cannot miss a single one).                                                              |
 | [Common Support]{.mark}                                 | This means no one can have a 100% chance of being in treatment or control. They always have a chance to be in either, no matter their confounding values. |

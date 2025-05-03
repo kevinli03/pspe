@@ -13,6 +13,7 @@ website:
         - text: "Home"
           href: index.qmd
         - text: "Difference-in-Differences"
+          href: did/did.qmd
         - text: "Regression Discontinuity"
         - text: "Selection on Observables"
           href: soo/soo.qmd
@@ -37,6 +38,31 @@ website:
           href: correlation.qmd
         - text: "Magic of Randomisation"
           href: randomisation.qmd
+        - text: "Estimators and Inference"
+        - text: "Instrumental Variables"
+
+    - title: "Difference-in-Differences"
+      style: floating
+      logo: lse2.png
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Difference-in-Differences"
+          href: did/did.qmd
+        - text: "---"
+        - text: "Classic DiD Design"
+        - text: "Two-way Fixed Effects"
+        - text: "Repeated Cross Sections"
+        - text: "Dynamic Treatment Effects"
+        - text: "---"
+        - text: "Staggered DiD Design"
+        - text: "Issues with TWFE"
+        - text: "Sun and Abraham (2021)"
+        - text: "Callaway and Sant'Anna (2021)"
+        - text: "Gardner (2021) 2-stage DiD"
+        - text: "Liu et al (2022) Counterfactual"
+        
 
     - title: "Selection on Observables"
       style: floating

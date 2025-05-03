@@ -120,6 +120,16 @@
     ]
   },
   {
+    "objectID": "did/did.html",
+    "href": "did/did.html",
+    "title": "Difference-in-Differences",
+    "section": "",
+    "text": "In April 1992, New Jersey increased its minimum wage. We want to know how this affected employment rates. We have data from before and after the change:\n\n\n\n\n\n\n\nMar 1992 (Before)\nDec 1992 (After)\n\n\n20.44\n21.03\n\n\n\n\nSpecifically, these are average employment numbers in fast-food restaurants.\n\nWith this data, we cannot find the causal effect. Why? Well recall our definition of the causal effect - our treatment effect after the treatment in December 1992 would be:\n\\[\n\\tau_\\text{Dec92} = \\purple{Y^{(1)}_\\text{Dec92}} - \\red{Y^{(0)}_\\text{Dec92}}\n\\]\nWe don’t observe the counterfactual in December 1992 without the minimum wage increase. We need some way to estimate this.\nWhy can’t we pretend that the numbers from March 1992 are our counterfactual, since the treatment hadn’t occurred yet? Well, there could have been something that happened between these two times that changes the trend in employment (like a recession).\nDifference-in-differences estimates the trend by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:\n\n\n\n\n\n\n\nMar 1992 (Pennsylvania)\nDec 1992 (Pennsylvania)\n\n\n23.33\n21.17\n\n\n\n\nThese are employment values in Pennsylvania, where no mininum wage changes occured.\n\nPennsylvania tells us the trend in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn’t received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.\n\n\n\n\n\n\n\nMar 92 (NJ, Not Treated)\nDec 92 (NJ, Hypothetical Not Treated)\n\n\n20.44\n20.44 - 2.16\n\n\n\n\nThe March 1992 value is copied from the first table.\n\nNow, we have an approximation of New Jersey’s missing counterfactual, so we can now estimate the causal effect:\n\\[\n\\begin{align}\n\\tau_\\text{Dec92} &  = \\purple{Y^{(1)}_\\text{Dec92}} - \\red{Y^{(0)}_\\text{Dec92}} \\\\\n& \\approx \\purple{Y^{(1)}_\\text{Dec92}} - \\left( \\purple{Y^{(0)}_\\text{Mar92}}  - 2.16\\right)\n\\end{align}\n\\]\nThis entire idea of using another group’s trend to estimate counterfactuals depends on two assumptions:\n\n\n\n\n\n\n\nAssumption\nDescription\n\n\nParallel Trends\nThis means that had the treated group not received treatment, they would have followed the same trend as the control group.\n\n\nStable Unit Treatment Value Assumption (SUTVA)\nThis means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).\n\n\n\n\nI will show how to test for parallel trends later in Dynamic treatment effects.\n\nThere are two types of difference-in-differences designs - classical and staggered, which we will cover in the next few pages.",
+    "crumbs": [
+      "Difference-in-Differences"
+    ]
+  },
+  {
     "objectID": "frameworks.html",
     "href": "frameworks.html",
     "title": "Basics of Causality",

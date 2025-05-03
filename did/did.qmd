@@ -1,0 +1,79 @@
+---
+title: "Difference-in-Differences"
+---
+
+In April 1992, New Jersey increased its minimum wage. We want to know how this affected employment rates. We have data from before and after the change:
+
+|                                 |                                |
+|---------------------------------|--------------------------------|
+| [Mar 1992 (Before)]{.smallcaps} | [Dec 1992 (After)]{.smallcaps} |
+| 20.44                           | 21.03                          |
+
+: {tbl-colwidths="\[40,60\]" .bordered}
+
+::: small
+Specifically, these are average employment numbers in fast-food restaurants.
+:::
+
+With this data, we **cannot** find the causal effect. Why? Well recall our definition of the causal effect - our treatment effect after the treatment in December 1992 would be:
+
+$$
+\tau_\text{Dec92} = \purple{Y^{(1)}_\text{Dec92}} - \red{Y^{(0)}_\text{Dec92}}
+$$
+
+We don't observe the counterfactual in December 1992 without the minimum wage increase. We need some way to estimate this.
+
+Why can't we pretend that the numbers from March 1992 are our counterfactual, since the treatment hadn't occurred yet? Well, there could have been something that happened between these two times that changes the **trend** in employment (like a recession).
+
+**Difference-in-differences** estimates the trend by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:
+
+|                                       |                                       |
+|---------------------------------------|---------------------------------------|
+| [Mar 1992 (Pennsylvania)]{.smallcaps} | [Dec 1992 (Pennsylvania)]{.smallcaps} |
+| 23.33                                 | 21.17                                 |
+
+: {tbl-colwidths="\[40,60\]" .bordered}
+
+::: small
+These are employment values in Pennsylvania, where no mininum wage changes occured.
+:::
+
+Pennsylvania tells us the **trend** in employment without a change in minimum wage (-2.16). [This trend tells us that if New Jersey hadn't received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.]{.underline}
+
+|                                        |                                                     |
+|----------------------------------------|-----------------------------------------------------|
+| [Mar 92 (NJ, Not Treated)]{.smallcaps} | [Dec 92 (NJ, Hypothetical Not Treated)]{.smallcaps} |
+| 20.44                                  | 20.44 - 2.16                                        |
+
+: {tbl-colwidths="\[40,60\]" .bordered}
+
+::: small
+The March 1992 value is copied from the first table.
+:::
+
+Now, we have an approximation of New Jersey's missing counterfactual, so we can now estimate the causal effect:
+
+$$
+\begin{align}
+\tau_\text{Dec92} &  = \purple{Y^{(1)}_\text{Dec92}} - \red{Y^{(0)}_\text{Dec92}} \\
+& \approx \purple{Y^{(1)}_\text{Dec92}} - \left( \purple{Y^{(0)}_\text{Mar92}}  - 2.16\right)
+\end{align}
+$$
+
+This entire idea of using another group's trend to estimate counterfactuals depends on two assumptions:
+
+|                                                         |                                                                                                                             |
+|----------------------|--------------------------------------------------|
+| [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
+| [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
+| [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                    |
+
+: {tbl-colwidths="\[35,65\]" .bordered}
+
+::: small
+I will show how to test for parallel trends later in Dynamic treatment effects.
+:::
+
+There are two types of difference-in-differences designs - classical and staggered, which we will cover in the next few pages.
+
+<br />
