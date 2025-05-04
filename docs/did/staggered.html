@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Resources on Causal Inference and Social Science Statistics – Causal Inference Resources</title>
+<title>Stagged Difference-in-Differences – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -23,17 +23,17 @@ ul.task-list li input[type="checkbox"] {
 </style>
 
 
-<script src="site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="site_libs/clipboard/clipboard.min.js"></script>
-<script src="site_libs/quarto-html/quarto.js"></script>
-<script src="site_libs/quarto-html/popper.min.js"></script>
-<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="site_libs/quarto-html/anchor.min.js"></script>
-<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -52,7 +52,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="mathjax-config.js"></script>
 
 
-<link rel="stylesheet" href="styles.css">
+<link rel="stylesheet" href="../styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -67,11 +67,11 @@ ul.task-list li input[type="checkbox"] {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./did/did.html"> 
+    <a class="nav-link" href="../did/did.html"> 
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
@@ -80,7 +80,7 @@ ul.task-list li input[type="checkbox"] {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./soo/soo.html"> 
+    <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
@@ -89,7 +89,7 @@ ul.task-list li input[type="checkbox"] {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./latent/latent.html"> 
+    <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
@@ -103,7 +103,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./index.html">Homepage</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/staggered.html">Staggered DiD Design</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -114,48 +114,55 @@ ul.task-list li input[type="checkbox"] {
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="./index.html" class="sidebar-logo-link">
-      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Homepage</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./resources.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Additional Resources</span></a>
+  <a href="../did/did.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./frameworks.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Basics of Causality</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./correlation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Issue of Selection Bias</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./randomisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Magic of Randomisation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
- <span class="menu-text">Estimators and Inference</span>
+ <span class="menu-text">Classic DiD Design</span>
   </li>
         <li class="sidebar-item">
- <span class="menu-text">Instrumental Variables</span>
+ <span class="menu-text">Two-way Fixed Effects</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Repeated Cross Sections</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Dynamic Treatment Effects</span>
+  </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Staggered DiD Design</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/twfestaggered.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Issues with TWFE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">Sun and Abraham (2021)</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Callaway and Sant'Anna (2021)</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Gardner (2021) 2-stage DiD</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Liu et al (2022) Counterfactual</span>
   </li>
     </ul>
     </div>
@@ -170,8 +177,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Resources on Causal Inference and Social Science Statistics</h1>
-<p class="subtitle lead">Methodology for Political Science and Political Economy (PSPE)</p>
+<h1 class="title">Stagged Difference-in-Differences</h1>
 </div>
 
 
@@ -188,16 +194,45 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>This repository contains resources on causal inference and social statistics, specifically focused on applications to politics and economics.</p>
+<div class="small">
+<p>Ensure you understand the classical difference-in-differences design before starting this.</p>
+</div>
+<p>In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time.</p>
+<p>However, in reality, this is not that common. It is very common that some units receive treatment before others. For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core cirriculum.</p>
+<p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment.</p>
+<p>Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.</p>
 <ul>
-<li><p>Use the top navigation bar to navigate between different methods.</p></li>
-<li><p>Use the side navigation bar to navigate within a method.</p></li>
-<li><p>R-code for implementation is included.</p></li>
-<li><p>I have tried to keep up with modern advancements, including the recent difference-in-differences rennaisance.</p></li>
+<li>For example, consider that we have 4 groups. Group 1 receives the treatment in period 1, group 2 receives the treatment in period 2, and group 3 receives the treatment in period 3. Group 4 never receives the treatment.</li>
+<li>In this scenario, we essentially have 3 smaller classical difference-in-differences combined into one larger study: one for group 1, one for group 2, and one for group 3.</li>
 </ul>
-<p>These resources have been collected throughout my postgraduate degree at the London School of Economics. I hope these resources can be useful for my future self and others. I try to ensure everything in this repository is accurate. If there are any issues with the repository, let me know.</p>
-<p>There are some stuff that doesn’t fit into any category, which I have included in the home page sidebar.</p>
-<p>For my personal website, see <a href="http://kevinli03.github.io" class="uri">http://kevinli03.github.io</a></p>
+<p>Just like in the classical design, the staggered design can acommodate panel data (more common) or repeated cross-sections. Unlike the classical design however, there are far more estimators to choose from.</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><p>Two-Way Fixed Effects Estimator</p>
+<p>The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined here, that make it more dubious.</p></td>
+</tr>
+<tr class="even">
+<td><p>Sun and Abraham (2021)</p>
+<p>This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Callaway and Sant’Anna (2021)</p>
+<p>This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.</p></td>
+</tr>
+<tr class="even">
+<td><p>Gardner (2021) 2-Stage DiD</p>
+<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible, but it is quite simple.</p></td>
+</tr>
+<tr class="odd">
+<td><p>Liu et al (2022) Counterfactual</p>
+<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain.</p></td>
+</tr>
+</tbody>
+</table>
 
 
 

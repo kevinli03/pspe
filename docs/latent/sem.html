@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Multiple Latent Factors – Causal Inference Resources</title>
+<title>Structural Equation Models – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -166,7 +166,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/multiplefac.html">Multiple Latent Factors</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/sem.html">Structural Equation Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -204,7 +204,7 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link active">
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Multiple Latent Factors</span></a>
   </div>
 </li>
@@ -235,7 +235,7 @@ window.Quarto = {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/sem.html" class="sidebar-item-text sidebar-link">
+  <a href="../latent/sem.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Structural Equation Models</span></a>
   </div>
 </li>
@@ -271,7 +271,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Multiple Latent Factors</h1>
+<h1 class="title">Structural Equation Models</h1>
 </div>
 
 
@@ -288,27 +288,24 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
-</div>
-<p>So far, we have covered factor analysis for a single factor. However, factor analysis can work with multiple latent factors.</p>
+<p>Structural Equation Models (SEM) allow us to combine measurement models (ex. factor anlaysis) with Linear regression models between the latent variables.</p>
 <div class="center-graph">
-<div class="cell" data-fig-width="5" data-fig-height="1.4" data-layout-align="default">
+<div class="cell" data-fig-width="6" data-fig-height="1.2" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="480" height="134" viewbox="0.00 0.00 444.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="576" height="115" viewbox="0.00 0.00 649.84 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
 <title>example2</title>
 <!-- F1 -->
 <g id="node1" class="node">
 <title>F1</title>
-<polygon fill="none" stroke="black" points="199.18,-124.8 80.91,-124.8 80.91,-88.8 199.18,-88.8 199.18,-124.8"></polygon>
-<text text-anchor="middle" x="140.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F1)</text>
+<polygon fill="none" stroke="black" points="261.19,-124.8 84.9,-124.8 84.9,-88.8 261.19,-88.8 261.19,-124.8"></polygon>
+<text text-anchor="middle" x="173.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Independent Variable</text>
 </g>
 <!-- X1 -->
-<g id="node3" class="node">
+<g id="node2" class="node">
 <title>X1</title>
 <polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
 <text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
@@ -316,12 +313,12 @@ window.Quarto = {
 <!-- F1&#45;&gt;X1 -->
 <g id="edge1" class="edge">
 <title>F1-&gt;X1</title>
-<path fill="none" stroke="black" d="M120.49,-88.65C105.57,-75.57 84.85,-57.4 68.3,-42.9"></path>
-<polygon fill="black" stroke="black" points="70.39,-40.07 60.56,-36.11 65.78,-45.34 70.39,-40.07"></polygon>
-<text text-anchor="start" x="100.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M146.97,-88.65C126.54,-75.22 97.93,-56.41 75.6,-41.72"></path>
+<polygon fill="black" stroke="black" points="77.35,-38.68 67.07,-36.11 73.5,-44.53 77.35,-38.68"></polygon>
+<text text-anchor="start" x="119.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 <!-- X2 -->
-<g id="node4" class="node">
+<g id="node3" class="node">
 <title>X2</title>
 <polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
 <text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
@@ -329,12 +326,12 @@ window.Quarto = {
 <!-- F1&#45;&gt;X2 -->
 <g id="edge2" class="edge">
 <title>F1-&gt;X2</title>
-<path fill="none" stroke="black" d="M139.57,-88.77C139.66,-78.55 140.45,-65.37 143.27,-54 143.97,-51.15 144.9,-48.24 145.96,-45.38"></path>
-<polygon fill="black" stroke="black" points="149.25,-46.58 149.9,-36 142.8,-43.87 149.25,-46.58"></polygon>
-<text text-anchor="start" x="144.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M170.28,-88.65C168.32,-76.52 165.66,-60.02 163.42,-46.12"></path>
+<polygon fill="black" stroke="black" points="166.85,-45.43 161.81,-36.11 159.94,-46.54 166.85,-45.43"></polygon>
+<text text-anchor="start" x="168.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 <!-- X3 -->
-<g id="node5" class="node">
+<g id="node4" class="node">
 <title>X3</title>
 <polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
 <text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
@@ -342,42 +339,61 @@ window.Quarto = {
 <!-- F1&#45;&gt;X3 -->
 <g id="edge3" class="edge">
 <title>F1-&gt;X3</title>
-<path fill="none" stroke="black" d="M156.73,-88.41C167.79,-77.55 183.03,-63.82 198.27,-54 207.04,-48.35 216.87,-43.18 226.54,-38.65"></path>
-<polygon fill="black" stroke="black" points="228.05,-41.81 235.72,-34.5 225.17,-35.43 228.05,-41.81"></polygon>
-<text text-anchor="start" x="199.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M193.59,-88.65C209.26,-75.57 231.03,-57.4 248.41,-42.9"></path>
+<polygon fill="black" stroke="black" points="251.11,-45.21 256.54,-36.11 246.62,-39.83 251.11,-45.21"></polygon>
+<text text-anchor="start" x="235.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 <!-- F2 -->
-<g id="node2" class="node">
+<g id="node5" class="node">
 <title>F2</title>
-<polygon fill="none" stroke="black" points="354.18,-124.8 235.91,-124.8 235.91,-88.8 354.18,-88.8 354.18,-124.8"></polygon>
-<text text-anchor="middle" x="295.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F2)</text>
+<polygon fill="none" stroke="black" points="567.64,-124.8 400.45,-124.8 400.45,-88.8 567.64,-88.8 567.64,-124.8"></polygon>
+<text text-anchor="middle" x="484.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Dependent Variable</text>
 </g>
-<!-- F2&#45;&gt;X2 -->
-<g id="edge4" class="edge">
-<title>F2-&gt;X2</title>
-<path fill="none" stroke="black" d="M268.18,-88.65C247.03,-75.16 217.4,-56.24 194.34,-41.53"></path>
-<polygon fill="black" stroke="black" points="196.17,-38.54 185.86,-36.11 192.4,-44.44 196.17,-38.54"></polygon>
-<text text-anchor="start" x="240.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
-</g>
-<!-- F2&#45;&gt;X3 -->
-<g id="edge5" class="edge">
-<title>F2-&gt;X3</title>
-<path fill="none" stroke="black" d="M291.49,-88.65C288.97,-76.52 285.55,-60.02 282.67,-46.12"></path>
-<polygon fill="black" stroke="black" points="286.05,-45.19 280.59,-36.11 279.2,-46.62 286.05,-45.19"></polygon>
-<text text-anchor="start" x="287.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<!-- F1&#45;&gt;F2 -->
+<g id="edge7" class="edge">
+<title>F1-&gt;F2</title>
+<path fill="none" stroke="black" d="M261.33,-106.8C301.56,-106.8 349.22,-106.8 390.11,-106.8"></path>
+<polygon fill="black" stroke="black" points="390.35,-110.3 400.35,-106.8 390.35,-103.3 390.35,-110.3"></polygon>
+<text text-anchor="middle" x="330.68" y="-114" font-family="Times,serif" font-size="14.00">Linear Model</text>
 </g>
 <!-- X4 -->
 <g id="node6" class="node">
 <title>X4</title>
-<polygon fill="none" stroke="black" points="436.13,-36 353.96,-36 353.96,0 436.13,0 436.13,-36"></polygon>
-<text text-anchor="middle" x="395.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 4 (X4)</text>
+<polygon fill="none" stroke="black" points="425.64,-36 354.45,-36 354.45,0 425.64,0 425.64,-36"></polygon>
+<text text-anchor="middle" x="390.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item (Y1)</text>
 </g>
 <!-- F2&#45;&gt;X4 -->
-<g id="edge6" class="edge">
+<g id="edge4" class="edge">
 <title>F2-&gt;X4</title>
-<path fill="none" stroke="black" d="M314.8,-88.65C329.87,-75.57 350.8,-57.4 367.51,-42.9"></path>
-<polygon fill="black" stroke="black" points="370.07,-45.31 375.33,-36.11 365.48,-40.03 370.07,-45.31"></polygon>
-<text text-anchor="start" x="353.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M465.47,-88.65C451.31,-75.57 431.63,-57.4 415.93,-42.9"></path>
+<polygon fill="black" stroke="black" points="418.3,-40.33 408.58,-36.11 413.55,-45.47 418.3,-40.33"></polygon>
+<text text-anchor="start" x="446.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X5 -->
+<g id="node7" class="node">
+<title>X5</title>
+<polygon fill="none" stroke="black" points="533.64,-36 462.45,-36 462.45,0 533.64,0 533.64,-36"></polygon>
+<text text-anchor="middle" x="498.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item (Y2)</text>
+</g>
+<!-- F2&#45;&gt;X5 -->
+<g id="edge5" class="edge">
+<title>F2-&gt;X5</title>
+<path fill="none" stroke="black" d="M486.81,-88.65C488.77,-76.52 491.43,-60.02 493.67,-46.12"></path>
+<polygon fill="black" stroke="black" points="497.15,-46.54 495.28,-36.11 490.24,-45.43 497.15,-46.54"></polygon>
+<text text-anchor="start" x="493.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+</g>
+<!-- X6 -->
+<g id="node8" class="node">
+<title>X6</title>
+<polygon fill="none" stroke="black" points="641.64,-36 570.45,-36 570.45,0 641.64,0 641.64,-36"></polygon>
+<text text-anchor="middle" x="606.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item (Y3)</text>
+</g>
+<!-- F2&#45;&gt;X6 -->
+<g id="edge6" class="edge">
+<title>F2-&gt;X6</title>
+<path fill="none" stroke="black" d="M508.15,-88.65C526.95,-75.28 553.23,-56.57 573.83,-41.92"></path>
+<polygon fill="black" stroke="black" points="575.87,-44.76 581.99,-36.11 571.81,-39.06 575.87,-44.76"></polygon>
+<text text-anchor="start" x="556.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 </g>
 </svg>
@@ -387,48 +403,161 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>We can see in the above figure, an example of two latent factors. Each item can measure either only one or two of the factors. The factors can also both have the same items, but put emphasis on different items.</p>
-<p>Let us say we have multiple factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>. Let us use vector <span class="math inline">\(\b F\)</span> to reperesent the mall. We still assume the factors are normally distributed:</p>
-<p><span class="math display">\[
-\b F \sim \mathcal N(\b \kappa, \b\Phi)
-\]</span></p>
-<p>Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal <span class="math inline">\(F \sim \mathcal N (0, 1)\)</span>. This implies that <span class="math inline">\(\b\kappa = 0\)</span>.</p>
-<p>Our variance matrix <span class="math inline">\(\b\Phi\)</span> is a little more complicated - the variances of each factor is 1 (as assumed in a standard normal), however, the matrix <span class="math inline">\(\b\Phi\)</span> also includes the covariances between factors. This is an additional thing that we will need to estimate that was not present in one-factor models.</p>
 <div class="small">
-<p>For example, factor <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span> might be correlated with each other, which is reflected in <span class="math inline">\(\b\Phi\)</span>.</p>
+<p>This is an example of a very simple structural equation model.</p>
 </div>
-<p>Now on to our measurement models. Just like in single factor anlaysis, we use a linear regression to express the relationship between any item <span class="math inline">\(X_i\)</span> and the factors. However, this time, each regression will relate each <span class="math inline">\(X_i\)</span> to all factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>:</p>
+<p>This structural equation model contains a linear regression between the independent latent variable (typically labelled <span class="math inline">\(\xi\)</span>) explaining the dependent latent variable (typically labelled <span class="math inline">\(\eta\)</span>).</p>
+<p><span class="math display">\[
+\eta = \alpha +  \xi\beta + \eps
+\]</span></p>
+<p>The independent latent variable <span class="math inline">\(\xi\)</span> and dependent variable <span class="math inline">\(\eta\)</span> explained by measurement models (typically a factor analysis model):</p>
 <p><span class="math display">\[
 \begin{align}
-X_1 &amp; = \tau_1 + \lambda_{11}F_1 + \lambda_{12}F_2 + \dots + \lambda_{1q}F_q + \delta_1 \\
-X_2 &amp; = \tau_2 + \lambda_{21} F_1 + \lambda_{22} F_2 + \dots + \lambda_{2q}F_q + \delta_2 \\
-&amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
-X_p &amp; = \tau_p + \lambda_{p1} F_1 + \lambda_{p2}F_2+ \dots + \lambda_{pq}F_1 + \delta_p
+\b X &amp; = \b\tau_x + \b\lambda_x \xi + \b\delta \\
+\b Y &amp; = \b\tau_y + \b\lambda_y \eta + \b\eps
 \end{align}
 \]</span></p>
-<p>The factor loadings <span class="math inline">\(\lambda\)</span> are still the relationship between each factor and each item, and are interpreted in the same way as a 1-factor model. However, the the interpretation of communality and relaibility are no longer valid with more than 1-factor.</p>
 <div class="small">
-<p>When interpreting - do one factor at a time. Start with one, then go to the next. Interpreting each factor is the same as shown in the page on <a href="../latent/factor.html">factor analysis</a>.</p>
+<p>Where <span class="math inline">\(\b X\)</span>, <span class="math inline">\(\b\tau_x\)</span>, <span class="math inline">\(\b\lambda_x\)</span> and <span class="math inline">\(\b\delta\)</span> are vectors for the measurement models of each item <span class="math inline">\(X_1, \dots, X_p\)</span>. Same for <span class="math inline">\(\b Y\)</span>.</p>
+</div>
+<p>The interpretations of the model are quite straight forward - the measurment models are interpreted in the same way as factor analysis, and the linear model between latent variable is interpreted the same way as a linear model between any other variables.</p>
+<div class="small">
+<p>For example, the linear model says that as <span class="math inline">\(\xi\)</span> increases by 1, <span class="math inline">\(\eta\)</span> increases by an expected <span class="math inline">\(\beta\)</span> units.</p>
+</div>
+<p>Structural models don’t have to have just one dependent and independent latent variable. We can have multiple dependent and independent variables, multiple linear models, and also measure correlations within the dependent and independent variables:</p>
+<div class="center-graph">
+<div class="cell" data-fig-width="5" data-fig-height="1.3" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="480" height="125" viewbox="0.00 0.00 445.37 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
+<title>example2</title>
+<!-- X1 -->
+<g id="node1" class="node">
+<title>X1</title>
+<polygon fill="none" stroke="black" points="186.47,-124.8 0.18,-124.8 0.18,-88.8 186.47,-88.8 186.47,-124.8"></polygon>
+<text text-anchor="middle" x="93.32" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Independent Variable 1</text>
+</g>
+<!-- X2 -->
+<g id="node2" class="node">
+<title>X2</title>
+<polygon fill="none" stroke="black" points="186.47,-36 0.18,-36 0.18,0 186.47,0 186.47,-36"></polygon>
+<text text-anchor="middle" x="93.32" y="-13.8" font-family="Times,serif" font-size="14.00">Latent Independent Variable 2</text>
+</g>
+<!-- X1&#45;&gt;X2 -->
+<g id="edge5" class="edge">
+<title>X1-&gt;X2</title>
+<path fill="none" stroke="black" d="M87.54,-78.57C87.15,-75.96 86.81,-73.33 86.56,-70.8 85.85,-63.37 85.85,-61.43 86.56,-54 86.81,-51.47 87.15,-48.84 87.54,-46.23"></path>
+<polygon fill="black" stroke="black" points="84.1,-79.21 89.29,-88.45 90.99,-77.99 84.1,-79.21"></polygon>
+<polygon fill="black" stroke="black" points="90.99,-46.81 89.29,-36.35 84.1,-45.59 90.99,-46.81"></polygon>
+<text text-anchor="middle" x="119.2" y="-58.2" font-family="Times,serif" font-size="14.00">Correlation</text>
+</g>
+<!-- Y1 -->
+<g id="node3" class="node">
+<title>Y1</title>
+<polygon fill="none" stroke="black" points="437.42,-124.8 259.23,-124.8 259.23,-88.8 437.42,-88.8 437.42,-124.8"></polygon>
+<text text-anchor="middle" x="348.32" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Dependent Variable 1</text>
+</g>
+<!-- X1&#45;&gt;Y1 -->
+<g id="edge1" class="edge">
+<title>X1-&gt;Y1</title>
+<path fill="none" stroke="black" d="M186.83,-106.8C207.01,-106.8 228.42,-106.8 248.83,-106.8"></path>
+<polygon fill="black" stroke="black" points="249.07,-110.3 259.07,-106.8 249.07,-103.3 249.07,-110.3"></polygon>
+<text text-anchor="middle" x="222.96" y="-114" font-family="Times,serif" font-size="14.00">Model</text>
+</g>
+<!-- Y2 -->
+<g id="node4" class="node">
+<title>Y2</title>
+<polygon fill="none" stroke="black" points="437.42,-36 259.23,-36 259.23,0 437.42,0 437.42,-36"></polygon>
+<text text-anchor="middle" x="348.32" y="-13.8" font-family="Times,serif" font-size="14.00">Latent Dependent Variable 2</text>
+</g>
+<!-- X1&#45;&gt;Y2 -->
+<g id="edge3" class="edge">
+<title>X1-&gt;Y2</title>
+<path fill="none" stroke="black" d="M123.94,-88.55C147.55,-75.47 178.36,-58.93 191.77,-54 209.91,-47.33 229.72,-41.71 248.97,-37.05"></path>
+<polygon fill="black" stroke="black" points="250.03,-40.4 258.97,-34.7 248.43,-33.58 250.03,-40.4"></polygon>
+<text text-anchor="middle" x="210.6" y="-58.2" font-family="Times,serif" font-size="14.00">Model</text>
+</g>
+<!-- X2&#45;&gt;Y1 -->
+<g id="edge4" class="edge">
+<title>X2-&gt;Y1</title>
+<path fill="none" stroke="black" d="M171.8,-36.01C192.06,-41.1 213.68,-47.18 233.32,-54 257.83,-62.51 284.28,-74.23 305.63,-84.38"></path>
+<polygon fill="black" stroke="black" points="304.22,-87.58 314.75,-88.76 307.26,-81.27 304.22,-87.58"></polygon>
+<text text-anchor="middle" x="293.6" y="-58.2" font-family="Times,serif" font-size="14.00">Model</text>
+</g>
+<!-- X2&#45;&gt;Y2 -->
+<g id="edge2" class="edge">
+<title>X2-&gt;Y2</title>
+<path fill="none" stroke="black" d="M186.83,-18C207.01,-18 228.42,-18 248.83,-18"></path>
+<polygon fill="black" stroke="black" points="249.07,-21.5 259.07,-18 249.07,-14.5 249.07,-21.5"></polygon>
+<text text-anchor="middle" x="222.96" y="-25.2" font-family="Times,serif" font-size="14.00">Model</text>
+</g>
+<!-- Y1&#45;&gt;Y2 -->
+<g id="edge6" class="edge">
+<title>Y1-&gt;Y2</title>
+<path fill="none" stroke="black" d="M348.32,-78.64C348.32,-68.32 348.32,-56.57 348.32,-46.24"></path>
+<polygon fill="black" stroke="black" points="344.82,-78.65 348.32,-88.65 351.82,-78.65 344.82,-78.65"></polygon>
+<polygon fill="black" stroke="black" points="351.82,-46.11 348.32,-36.11 344.82,-46.11 351.82,-46.11"></polygon>
+<text text-anchor="middle" x="380.2" y="-58.2" font-family="Times,serif" font-size="14.00">Correlation</text>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<div class="small">
+<p>Note: we cannot have linear models between two independent, or two dependent variables. They have to be seperate - within each group, only correlations are possible.</p>
+</div>
+<p>In this example, we are measuring the correlation between the independent variables, the correlation between the dependent variables, and we have two regression models:</p>
+<p><span class="math display">\[
+\begin{align}
+\eta_1 &amp; = \beta_0 + \beta_1\xi _1 + \beta_2 \xi_2 + \eps \\
+\eta_2 &amp; = \gamma_0 + \gamma_1\xi _1 + \gamma_2 \xi_2 + \eps \\
+\end{align}
+\]</span></p>
+<div class="small">
+<p>And each <span class="math inline">\(\eta_1, \eta_2, \xi_1, \xi_2\)</span> all have their own measurement models.</p>
 </div>
 <p><br></p>
-<p>To implement multiple factor anlaysis, the procedure is quite similar to standard factor analysis. First, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
+<p>To implement structural equation models, we use the <strong>lavaan</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, we should get rid of missing observations:</p>
+<p>Then, we have to specify the relationships between variables we want to fit in our structural model - including measurement models, regression models, and correlations:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>For factor analysis with multiple factors, the notation is as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">2</span>, <span class="at">fm=</span><span class="st">"ml"</span>, <span class="at">rotate=</span><span class="st">"oblimin"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fa)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Measurement models </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  F1 =~ NA*X1 + X2 + X3</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">  F2 =~ NA*X4 + X5 + X6</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">    F3 =~ Y1 + Y2 + Y3</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st"># Regressions</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">  F3 ~ F1 + F2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="st"># Covariances</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st">  F1 ~~ F2</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st"># Fixing the variances of independent variables at 1</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st">  F1~~1*F1</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">  F2~~1*D2</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="small">
-<p>Change nfactors=2 to however many factors you want. Note that you cannot have too many, this will be discussed in the next page on identification.</p>
-<p>This code also uses the “oblimin” rotation, which will be discussed in the next page on identification and rotation.</p>
+<p>Note how F3 does not have NA*, and F3 doesn’t have its variance fixed at 1 at the end. Meanwhile, F1 and F2 do. This is standard to fix independent variables with a variance of 1, and dependent variables are allowed to be “free”.</p>
+</div>
+<p>Now, we estimate our specified model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> my_data,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">missing=</span><span class="st">"FIML"</span>)</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>The missing argument tells the software to keep observations with missing values (this is typically a good thing). But it can take longer, so you can delete this argument for it to use only complete observations.</p>
 </div>
 
 

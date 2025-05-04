@@ -31,6 +31,8 @@ website:
       contents:
         - text: "Homepage"
           href: index.qmd
+        - text: "Additional Resources"
+          href: resources.qmd
         - text: "---"
         - text: "Basics of Causality"
           href: frameworks.qmd
@@ -57,7 +59,9 @@ website:
         - text: "Dynamic Treatment Effects"
         - text: "---"
         - text: "Staggered DiD Design"
+          href: did/staggered.qmd
         - text: "Issues with TWFE"
+          href: did/twfestaggered.qmd
         - text: "Sun and Abraham (2021)"
         - text: "Callaway and Sant'Anna (2021)"
         - text: "Gardner (2021) 2-stage DiD"
@@ -113,6 +117,7 @@ website:
           href: latent/class.qmd
         - text: "---"
         - text: "Structural Equation Models"
+          href: latent/sem.qmd
         - text: "Longitudinal Models"
         - text: "Clustered Models"
         - text: "---"

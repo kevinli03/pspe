@@ -1,0 +1,19 @@
+---
+title: "Additional Resources"
+---
+
+Here are a list of additional resources that are useful for causal inference and social science statistics.
+
+-   Dr. Asjad Naqvi has a [repository](https://asjadnaqvi.github.io/DiD/) of the modern advancements going on in the recent difference-in-differences revolution.
+
+-   [Causal Inference: The Mixtape](https://mixtape.scunning.com) as a great resource for details on causal inference methodology.
+
+-   [Causal Inference for the Brave and True](https://matheusfacure.github.io/python-causality-handbook/landing-page.html) is another great resource of causal inference, with application in Python.
+
+-   [Fixest](https://lrberge.github.io/fixest/) (an R package used for causal inference and regression) is a very useful thing to be familiar with.
+
+-   [Ben Lambert](https://www.youtube.com/channel/UC3tFZR3eL1bDY8CqZDOQh-w) is a terrific resource for econometrics. He also has a lot of resources on general statistics, including factor analysis and bayesian statistics.
+
+-   Great textbooks for causal inference: Angrist and Pischke have two books - *Mostly Harmless Econometrics* (more advanced) and *Mastering Metrics* (more simple). A very technical book is Imbens and Rubin's *Causal Inference for Statistics, Social, and Biomedical Sciences*.
+
+-   Great textbooks for more theoretical econometrics/statistics include Wooldridge's *Introductory Econometrics*.

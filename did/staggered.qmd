@@ -1,0 +1,44 @@
+---
+title: "Stagged Difference-in-Differences"
+---
+
+::: small
+Ensure you understand the classical difference-in-differences design before starting this.
+:::
+
+In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time.
+
+However, in reality, this is not that common. It is very common that some units receive treatment before others. For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core cirriculum.
+
+The **staggered difference-in-differences** design is an extension on the classical design, which allows for staggered implementation of treatment.
+
+Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.
+
+-   For example, consider that we have 4 groups. Group 1 receives the treatment in period 1, group 2 receives the treatment in period 2, and group 3 receives the treatment in period 3. Group 4 never receives the treatment.
+-   In this scenario, we essentially have 3 smaller classical difference-in-differences combined into one larger study: one for group 1, one for group 2, and one for group 3.
+
+Just like in the classical design, the staggered design can acommodate panel data (more common) or repeated cross-sections. Unlike the classical design however, there are far more estimators to choose from.
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Two-Way Fixed Effects Estimator                                                                                                                                                                 |
+|                                                                                                                                                                                                 |
+| The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined here, that make it more dubious.       |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Sun and Abraham (2021)                                                                                                                                                                          |
+|                                                                                                                                                                                                 |
+| This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.                                                                                 |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Callaway and Sant'Anna (2021)                                                                                                                                                                   |
+|                                                                                                                                                                                                 |
+| This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.                                                       |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Gardner (2021) 2-Stage DiD                                                                                                                                                                      |
+|                                                                                                                                                                                                 |
+| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible, but it is quite simple.                       |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Liu et al (2022) Counterfactual                                                                                                                                                                 |
+|                                                                                                                                                                                                 |
+| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain. |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: {.bordered}

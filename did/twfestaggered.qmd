@@ -1,0 +1,48 @@
+---
+title: "Issues with Two Way Fixed Effects in Staggered DiD"
+---
+
+The two-way fixed effects estimator is possible with staggered difference-in-differences:
+
+$$
+Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}'\b\beta + \eps_{it}
+$$
+
+::: small
+For more info on two-way fixed effects, see the previous page in classical DiD.
+:::
+
+But what is two-way fixed effects estimating in a staggered difference-in-differences setting? Goodman-Bacon decompose the estimate of TWFE in a staggered setting. Let us assume we have 3 groups - a group treated early, a group that was treated late, and a untreated group.
+
+![](images/clipboard-3888126795.png){fig-align="center" width="65%"}
+
+Two-way fixed effects essentially estimates 4 different differences, shown below:
+
+![](images/clipboard-2200187195.png){fig-align="center" width="80%"}
+
+The actual TWFE result is a weighted average of these differences. The weights are a function of three things:
+
+1.  The sample size of each comparison. The higher sample size, the more weight.
+2.  The ratio of treated to control - the closer the ratio to 0.5, the higher weight.
+3.  Relative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.
+
+![](images/clipboard-3589189122.png){fig-align="center" width="65%"}
+
+There are two problems with these comparison conducted by TWFE:
+
+1.  Some of these comparison (see comparison D above) may be "forbidden" - such that already-treated units are used as controls after they are treated.
+2.  Weighting (from point 3) can result in weird weights - sometimes some groups treated early/late might receive negative weights.
+
+::: small
+[This site](https://asjadnaqvi.github.io/DiD/docs/code_r/06_bacon_r/) shows how you can explore the comparison and weighting issue in R.
+:::
+
+These problems with TWFE mean that TWFE is **biased** in estimating the ATT in staggered difference-in-differences when there is heterogenous treatment effects.
+
+::: small
+TWFE is unbiased with homogeneity, but homogeneity is quite rare in scenarios we typically research.
+:::
+
+Thus, researchers have tried to solve these issues by either removing forbidden comparisons, or fixing the weighting (or both). This research took a huge leap since 2020 during the **difference-in-differences revolution**, which has lead to a series of new estimators that solve these issues.
+
+<br />

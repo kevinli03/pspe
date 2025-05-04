@@ -63,7 +63,7 @@ $$
 This entire idea of using another group's trend to estimate counterfactuals depends on two assumptions:
 
 |                                                         |                                                                                                                             |
-|----------------------|--------------------------------------------------|
+|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
 | [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
 | [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                    |
