@@ -35,7 +35,7 @@ The actual TWFE result is a weighted average of these differences. The weights a
 There are two problems with these comparison conducted by TWFE:
 
 1.  Some of these comparison (see comparison D above) may be "forbidden" - such that already-treated units are used as controls after they are treated.
-2.  Weighting (from point 3) can result in weird weights - sometimes some groups treated early/late might receive negative weights.
+2.  Weighting can result in weird weights - sometimes some groups treated early/late might receive negative weights (see figure above).
 
 ::: small
 [This site](https://asjadnaqvi.github.io/DiD/docs/code_r/06_bacon_r/) shows how you can explore the comparison and weighting issue in R.

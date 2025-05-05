@@ -65,6 +65,8 @@ website:
           href: did/twfestaggered.qmd
         - text: "Gardner (2021) 2-stage DiD"
           href: did/did2s.qmd
+        - text: "Wooldridge (2021) ETWFE"
+          href: did/etwfe.qmd
         - text: "Sun and Abraham (2021)"
           href: did/sunab.qmd
         - text: "Callaway and Sant'Anna (2021)"

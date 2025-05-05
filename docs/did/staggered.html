@@ -163,6 +163,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sun and Abraham (2021)</span></a>
   </div>
@@ -209,8 +215,10 @@ ul.task-list li input[type="checkbox"] {
 <div class="small">
 <p>Ensure you understand the classical difference-in-differences design before starting this.</p>
 </div>
-<p>In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time.</p>
-<p>However, in reality, this is not that common. It is very common that some units receive treatment before others. For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core cirriculum.</p>
+<p>In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time. However, in reality, this is not that common. It is very common that some units receive treatment before others.</p>
+<div class="small">
+<p>For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core curriculum.</p>
+</div>
 <p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment.</p>
 <p>Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.</p>
 <ul>
@@ -226,19 +234,38 @@ ul.task-list li input[type="checkbox"] {
 </tr>
 <tr class="even">
 <td><p><a href="../did/did2s.html">Gardner (2021) 2-Stage DiD</a></p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible or robust compared to the later methods, but it is quite simple.</p></td>
+<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect.</p>
+<div class="small">
+<p>Kevin’s Notes: very simple and intuitive, however, not very flexible or robust. If you are interested in a better counterfactual estimator, use Liu et al (2024).</p>
+</div></td>
 </tr>
 <tr class="odd">
-<td><p>Sun and Abraham (2021)</p>
-<p>This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.</p></td>
+<td><p><a href="../did/etwfe.html">Wooldridge (2021) Extended Two-Way Fixed Effects</a></p>
+<p>This estimator accounts for the issues with TWFE by adding interaction terms to model heterogeneity.</p>
+<div class="small">
+<p>Kevin’s Notes: Can handle non-linear models like poisson and logistic. Very similar to Sun and Abraham. It handles conditional parallel trends more flexibly than Sun and Abraham. However, it cannot estimate pre-treatment dynamic effects, so if you need to test parallel trends use Sun and Abraham.</p>
+</div></td>
 </tr>
 <tr class="even">
-<td><p>Callaway and Sant’Anna (2021)</p>
-<p>This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.</p></td>
+<td><p><a href="../did/sunab.html">Sun and Abraham (2021)</a></p>
+<p>This estimator accounts for the issues with TWFE by adding interaction terms to model heterogeneity.</p>
+<div class="small">
+<p>Kevin’s Notes: Very similar to Wooldridge. It can estimate pre-treatment dynamic treatment effects when Wooldridge cannot. However, it is less flexible and robust when dealing with conditional parallel trends.</p>
+</div></td>
 </tr>
 <tr class="odd">
+<td><p><a href="../did/cs.html">Callaway and Sant’Anna (2021)</a></p>
+<p>This estimator accounts for the issues with TWFE through matching and reweighting.</p>
+<div class="small">
+<p>Kevin’s Notes: Probably the most well regarded in econometrics. Intuitively, it might be the simplest, however, technically, it is very complex. It is semi-parametric, making it more flexible than regression based methods.</p>
+</div></td>
+</tr>
+<tr class="even">
 <td><p>Liu et al (2022) Counterfactual</p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain.</p></td>
+<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect.</p>
+<div class="small">
+<p>Kevin’s Notes: This is a more complex estimator that (debatedly) might not even be a difference-in-differences estimator, as it draws a lot from synthetic controls. It is quite flexible and preferable to Gardner (2021), but is more complex and hard to explain.</p>
+</div></td>
 </tr>
 </tbody>
 </table>

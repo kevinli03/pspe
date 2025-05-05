@@ -1,0 +1,77 @@
+---
+title: "Wooldridge (2021) Extended Two-Way Fixed Effects"
+---
+
+We previously established the [issues with the two-way fixed effects estimator](twfestaggered.qmd). Wooldridge (2021, 2023) proposes a new variation on the estimator that solves the issues.
+
+When there is treatment heterogeneity in staggered difference-in-differences, this typically means units that start treatment in different time periods have different effects. Furthermore, as we mentioned in dynamic treatment effects, the effects of treatment might be different based on how long ago treatment started.
+
+Thus, Wooldridge focuses on finding each **group-time ATT** - basically the ATT at a specific time periods, for a specific group of units that were treated in the same year. We notate this group-time ATT as $\tau_{g,t}^\text{ATT}$, where $g$ stands for the initial year of treatment for the group, and $t$ stands for the time periods of the ATT in question.
+
+::: small
+This same group-time ATT is used by many other difference-in-differences estimators.
+:::
+
+The idea is to first estimate all of these group-time ATT's (which are "correct comparisons"), and then properly weight them together, solving both the "forbidden comparisons" issue and "weighting" issue of TWFE.
+
+Wooldridge proposes to estimate all of the group-time ATTs by including interaction terms for each initial treatment period grouping and time period in a regression model. Wooldridge also includes interactions with covariates to allow for more flexiblility:
+
+$$
+Y_{it} = \alpha_i  + \gamma_t + \underbrace{\sum\limits_g \sum\limits_t \tau_{g,t}^\text{ATT} I\{i \in g, t ≥ g\}}_{\text{group-time ATT's}} + \underbrace{\sum\limits_g \sum\limits_t \b X_{it}'\beta_{g,t}  I\{i \in g,\}}_{\text{interactions with covariates}} + \eps_{it}
+$$
+
+::: small
+The summations basically mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $I\{\}$ is an indicator function, that takes the value of 1 if unit $i$ is in group $g$, and is treated (so $t$ time period is greater/after initial treatment year $g$).
+:::
+
+This model will produce many coefficients $\tau_{g, t}^\text{ATT}$ (in fact, one for each post-treatment time period for each initial treatment year group). To obtain a single ATT, we will want to aggregate them together in a weighted average.
+
+We can also aggregate them in terms of relative years to initial treatment, which will allow us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects, which means a parallel trends test is hard to conduct here.
+
+::: small
+For parallel trends tests, Sun and Abraham's very similar approach is recommended.
+:::
+
+Wooldridge's 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.
+
+Wooldridge's extended two-way fixed effects estimator is very similar to [Sun and Abraham's](sunab.qmd) estimator. The three main differences are:
+
+1.  Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge's can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.
+2.  Sun and Abraham is more strict with covariates for parallel trends, while Wooldridge's allows for more flexibility and robustness to violations of parallel trends. This is because Wooldridge's estimator contains far more interactions with covariates.
+3.  Wooldridge's estimator allows for non-linear models (poisson, logistic, etc.).
+
+<br />
+
+To implement extended two-way fixed effects, we will need the **etwfe** package:
+
+```{r, eval = F}
+library(etwfe)
+```
+
+To estimate all the group-time ATTs, we do the following:
+
+```{r, eval = F}
+model <- etwfe(fml = Y ~ X1 + X2 + X3, #if no controls, put 0 after ~
+              tvar = period, #time period variable
+              gvar = initial_treat, #initial period of treatment for unit
+              data = my_data,
+              vcov = ~unit, # cluster se by unit
+              family = NULL) 
+```
+
+::: small
+You can delete the family argument if you are just using a standard linear model. You can also replace NULL with "logit", "poisson", and "negbin".
+:::
+
+We can then aggregate our group-time ATT's. To obtain one single ATT, we can use the following code:
+
+```{r, eval = F}
+emfx(model)
+```
+
+We can also get dynamic ATT's for post-treatment periods:
+
+```{r, eval = F}
+dynamic <- emfx(model, type = "event")
+plot(dynamic)
+```

@@ -192,6 +192,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sun and Abraham (2021)</span></a>
   </div>
@@ -271,7 +277,7 @@ Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}'\b\beta + \eps_{it}
 <p>There are two problems with these comparison conducted by TWFE:</p>
 <ol type="1">
 <li>Some of these comparison (see comparison D above) may be “forbidden” - such that already-treated units are used as controls after they are treated.</li>
-<li>Weighting (from point 3) can result in weird weights - sometimes some groups treated early/late might receive negative weights.</li>
+<li>Weighting can result in weird weights - sometimes some groups treated early/late might receive negative weights (see figure above).</li>
 </ol>
 <div class="small">
 <p><a href="https://asjadnaqvi.github.io/DiD/docs/code_r/06_bacon_r/">This site</a> shows how you can explore the comparison and weighting issue in R.</p>
