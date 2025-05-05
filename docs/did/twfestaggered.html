@@ -160,8 +160,11 @@ window.Quarto = {
  <span class="menu-text">Classic DiD Design</span>
   </li>
         <li class="sidebar-item">
- <span class="menu-text">Two-way Fixed Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-way Fixed Effects</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
  <span class="menu-text">Repeated Cross Sections</span>
   </li>
@@ -182,14 +185,23 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Sun and Abraham (2021)</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">Callaway and Sant'Anna (2021)</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sun and Abraham (2021)</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">Gardner (2021) 2-stage DiD</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
  <span class="menu-text">Liu et al (2022) Counterfactual</span>
   </li>
@@ -223,6 +235,9 @@ window.Quarto = {
 </header>
 
 
+<div class="small">
+<p>See <a href="https://www.sciencedirect.com/science/article/abs/pii/S0304407621001445">Goodman-Bacon (2021)</a> for a more technical overview of TWFE decomposition.</p>
+</div>
 <p>The two-way fixed effects estimator is possible with staggered difference-in-differences:</p>
 <p><span class="math display">\[
 Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}'\b\beta + \eps_{it}

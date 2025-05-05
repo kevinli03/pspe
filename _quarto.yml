@@ -55,6 +55,7 @@ website:
         - text: "---"
         - text: "Classic DiD Design"
         - text: "Two-way Fixed Effects"
+          href: did/twfe.qmd
         - text: "Repeated Cross Sections"
         - text: "Dynamic Treatment Effects"
         - text: "---"
@@ -62,9 +63,12 @@ website:
           href: did/staggered.qmd
         - text: "Issues with TWFE"
           href: did/twfestaggered.qmd
-        - text: "Sun and Abraham (2021)"
-        - text: "Callaway and Sant'Anna (2021)"
         - text: "Gardner (2021) 2-stage DiD"
+          href: did/did2s.qmd
+        - text: "Sun and Abraham (2021)"
+          href: did/sunab.qmd
+        - text: "Callaway and Sant'Anna (2021)"
+          href: did/cs.qmd
         - text: "Liu et al (2022) Counterfactual"
         
 
@@ -118,7 +122,8 @@ website:
         - text: "---"
         - text: "Structural Equation Models"
           href: latent/sem.qmd
-        - text: "Longitudinal Models"
+        - text: "Lagged Response Models"
+          href: latent/longitudinal.qmd
         - text: "Clustered Models"
         - text: "---"
         - text: "Principle Components Analysis"

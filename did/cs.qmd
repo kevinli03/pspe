@@ -1,0 +1,3 @@
+---
+title: "Callaway and Sant'Anna Flexible Matching and Reweighting Estimator"
+---

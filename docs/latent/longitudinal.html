@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Stagged Difference-in-Differences – Causal Inference Resources</title>
+<title>Lagged Response Models – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -51,6 +85,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -103,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/staggered.html">Staggered DiD Design</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/longitudinal.html">Lagged Response Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -122,60 +185,82 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Difference-in-Differences</span></a>
+  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
-        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-way Fixed Effects</span></a>
+  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factor Analysis Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reliability and Factor Scores</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Latent Factors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identification and Rotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Confirmatory Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Item Response Theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Class Models</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structural Equation Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/longitudinal.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Lagged Response Models</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">Clustered Models</span>
   </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Staggered DiD Design</span></a>
+  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Principle Components Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/twfestaggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Issues with TWFE</span></a>
+  <a href="../latent/cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cluster Analysis</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sun and Abraham (2021)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
- <span class="menu-text">Liu et al (2022) Counterfactual</span>
-  </li>
     </ul>
     </div>
 </nav>
@@ -189,7 +274,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stagged Difference-in-Differences</h1>
+<h1 class="title">Lagged Response Models</h1>
 </div>
 
 
@@ -206,42 +291,98 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<div class="small">
-<p>Ensure you understand the classical difference-in-differences design before starting this.</p>
-</div>
-<p>In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time.</p>
-<p>However, in reality, this is not that common. It is very common that some units receive treatment before others. For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core cirriculum.</p>
-<p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment.</p>
-<p>Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.</p>
+<p>Longitudinal data (also called panel data) is when we have the same variables observed over several time points for the same units. Structural equation models can accommodate panel data as well.</p>
+<p>Let us say we have some latent response variable <span class="math inline">\(\eta_{it}\)</span>, which is measured by observed indicators <span class="math inline">\(Y_{it1}, Y_{it2}, \dots, Y_{itp}\)</span>. We also have a few explanatory variables:</p>
 <ul>
-<li>For example, consider that we have 4 groups. Group 1 receives the treatment in period 1, group 2 receives the treatment in period 2, and group 3 receives the treatment in period 3. Group 4 never receives the treatment.</li>
-<li>In this scenario, we essentially have 3 smaller classical difference-in-differences combined into one larger study: one for group 1, one for group 2, and one for group 3.</li>
+<li><span class="math inline">\(Z_i\)</span> is a explanatory variable that determines characteristics of units, that does not change over time.</li>
+<li><span class="math inline">\(X_{it}\)</span> are time-varying explanatory variables.</li>
 </ul>
-<p>Just like in the classical design, the staggered design can acommodate panel data (more common) or repeated cross-sections. Unlike the classical design however, there are far more estimators to choose from.</p>
-<table class="table-bordered table">
-<tbody>
-<tr class="odd">
-<td><p><a href="../did/twfe.html">Two-Way Fixed Effects Estimator</a></p>
-<p>The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined <a href="../did/twfestaggered.html">here</a>, that make it more dubious.</p></td>
-</tr>
-<tr class="even">
-<td><p><a href="../did/did2s.html">Gardner (2021) 2-Stage DiD</a></p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible or robust compared to the later methods, but it is quite simple.</p></td>
-</tr>
-<tr class="odd">
-<td><p>Sun and Abraham (2021)</p>
-<p>This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.</p></td>
-</tr>
-<tr class="even">
-<td><p>Callaway and Sant’Anna (2021)</p>
-<p>This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.</p></td>
-</tr>
-<tr class="odd">
-<td><p>Liu et al (2022) Counterfactual</p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain.</p></td>
-</tr>
-</tbody>
-</table>
+<p>A <strong>lagged response model</strong> is a regression model that says that the response variable <span class="math inline">\(\eta_{it}\)</span> not only depends on the explanatory variables <span class="math inline">\(Z_i\)</span> and <span class="math inline">\(X_{it}\)</span>, but also previous values of <span class="math inline">\(\eta_{it}\)</span>.</p>
+<p><span class="math display">\[
+\eta_{it} = \beta_0 + \beta_xX_{it} + \beta_zZ_i + \underbrace{\beta_\eta \eta_{i, t-1}}_{\text{lagged}} + \eps_{it}
+\]</span></p>
+<p>In a diagram, this model can be modelled as:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3334687245.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
+</figure>
+</div>
+<div class="small">
+<p>Note how <span class="math inline">\(\eta\)</span> in <span class="math inline">\(t=3\)</span> depends on both <span class="math inline">\(X_{it}\)</span>, <span class="math inline">\(Z_t\)</span>, and <span class="math inline">\(\eta\)</span> from <span class="math inline">\(t=2\)</span>.</p>
+</div>
+<p>Recall the response variable <span class="math inline">\(\eta\)</span> is itself a latent variable, measured with indicators <span class="math inline">\(Y_{it1}, Y_{it2}, \dots, Y_{itp}\)</span>. This also implies a measurement model relating latent <span class="math inline">\(\eta_{it}\)</span> with each observed item:</p>
+<p><span class="math display">\[
+\b Y_{it} = \b\tau_t + \b\lambda_t \b\eta_{it} + \b\eps_{it}
+\]</span></p>
+<div class="small">
+<p>Where all are vectors encompassing measurement models for all items <span class="math inline">\(Y_{it1}, Y_{it2}, \dots, Y_{itp}\)</span>. Note how the parameters have the subscript <span class="math inline">\(t\)</span> - this implies a different measurement model for each item, at each time period.</p>
+</div>
+<p>However, because each item <span class="math inline">\(Y_p\)</span> is observed over time, it is likely that <span class="math inline">\(Y_p\)</span> from <span class="math inline">\(t=1\)</span> is correlated with <span class="math inline">\(Y_p\)</span> from <span class="math inline">\(t=2\)</span> ( autocorrelation). We have to take this into account in one of two ways:</p>
+<ol type="1">
+<li>We could <strong>constrain</strong> the model, assuming that the measurement model is identical throughout different time periods. That means <span class="math inline">\(\tau_t\)</span> and <span class="math inline">\(\lambda_t\)</span> will now no longer depend on the time period (the same for all time periods).</li>
+<li>Or we could complicate the model, by including correlation between the error terms <span class="math inline">\(\eps\)</span> for the same item.</li>
+</ol>
+<p><br></p>
+<p>To implement lagged response models, we need the <strong>lavaan</strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For a constrained two-period model, the estimation is as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st"># explanatory variables Measurement models </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  explanatory1 =~ NA*X1 + X2 + X3</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">  explanatory2 =~ NA*Z1 + Z2 + Z3</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st"># response variables for time = 1 and time = 2</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">    response1 =~ la*Y1t1 + lb*Y2t1 + lc*Y3t1</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">    response2 =~ la*Y1t2 + lb*Y2t2 + lc*Y3t2</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st"># time = 1 model</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">  response1 ~ explanatory1 + explanatory2</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st"># time = 2 model with lagged time = 1</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">  response2 ~ explanatory1 + explanatory2 + response1</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st"># Fixing the variances of the exogenous latent variables LR and AL  </span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">  LR~~1*LR</span></span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="st">  AL~~1*AL</span></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">data =</span> my_data, <span class="at">missing=</span><span class="st">"FIML"</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>The labels la*, lb*, and lc* indicate to R to make all factor loadings with the same labels equivalent to each other. Notice how we put the same labels on the different time period measurement models.</p>
+</div>
+<p>For a unconstrained model, the code is as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="st"># explanatory variables Measurement models </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="st">  explanatory1 =~ NA*X1 + X2 + X3</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="st">  explanatory2 =~ NA*Z1 + Z2 + Z3</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="st"># response variables for time = 1 and time = 2</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="st">    response1 =~ Y1t1 + Y2t1 + Y3t1</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="st">    response2 =~ Y1t2 + Y2t2 + Y3t2</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="st">## Error covariance in the measurement model</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="st">  Y3t1 ~~ Y3t2</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="st"># time = 1 model</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="st">  response1 ~ explanatory1 + explanatory2</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="st"># time = 2 model with lagged time = 1</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="st">  response2 ~ explanatory1 + explanatory2 + response1</span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="st"># Fixing the variances of the exogenous latent variables LR and AL  </span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="st">  LR~~1*LR</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="st">  AL~~1*AL</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model, <span class="at">data =</span> my_data, <span class="at">missing=</span><span class="st">"FIML"</span>)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 

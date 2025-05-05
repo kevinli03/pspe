@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Stagged Difference-in-Differences – Causal Inference Resources</title>
+<title>Gardner (2021) Two-Stage Difference-in-Differences – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -51,6 +85,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -103,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/staggered.html">Staggered DiD Design</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/did2s.html">Gardner (2021) 2-stage DiD</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -145,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link active">
+  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Staggered DiD Design</span></a>
   </div>
 </li>
@@ -157,7 +220,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
   </div>
 </li>
@@ -189,7 +252,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stagged Difference-in-Differences</h1>
+<h1 class="title">Gardner (2021) Two-Stage Difference-in-Differences</h1>
 </div>
 
 
@@ -207,41 +270,86 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="small">
-<p>Ensure you understand the classical difference-in-differences design before starting this.</p>
+<p>See <a href="https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html">Kyle Butts’</a> github page for more info on this estimator. <a href="https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/">Asjad Naqvi</a> also has a helpful page.</p>
 </div>
-<p>In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time.</p>
-<p>However, in reality, this is not that common. It is very common that some units receive treatment before others. For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core cirriculum.</p>
-<p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment.</p>
-<p>Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.</p>
+<p>Recall our two-way fixed effects model:</p>
+<p><span class="math display">\[
+Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
+\]</span></p>
+<p>This also implies a model for the potential outcomes - the potential outcome under control is when <span class="math inline">\(D=0\)</span>, and the potential outcome under treatment is <span class="math inline">\(D=1\)</span>:</p>
+<p><span class="math display">\[
+\begin{align}
+\purple{Y_{it}^{(1)}} &amp; = \alpha_i + \gamma_t + \blue\tau + \b X_{it}' \b\beta + \eps_{it} \\
+\purple{Y_{it}^{(0)}} &amp; = \alpha_i + \gamma_t  + \b X_{it}' \b\beta + \eps_{it}
+\end{align}
+\]</span></p>
+<div class="small">
+<p>These are obtained by simply plugging in <span class="math inline">\(D=0,1\)</span> into the TWFE equation.</p>
+</div>
+<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> regarding “forbidden comparisons” and “weighting” problems by simply estimating the counterfactuals <span class="math inline">\(\red{Y_{it}^{(0)}}\)</span> for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.</p>
+<p><span class="math display">\[
+\tau_\text{ATT} \approx \E \left[Y_{it} - \blue{\widehat Y_{it}^{(0)}} \biggr| D_{it} = 1 \right]
+\]</span></p>
+<p>To estimate the counterfactuals, we first run a regression with <strong>only untreated/not-yet treated observations</strong> <span class="math inline">\(D=0\)</span>:</p>
+<p><span class="math display">\[
+Y_{it|D=0} = \alpha_i + \gamma_t + \b X_{it}' \b\beta + \eps_{it}
+\]</span></p>
+<p>This regression will provide estimates for <span class="math inline">\(\widehat\alpha_i\)</span>, <span class="math inline">\(\widehat\gamma_t\)</span>, and <span class="math inline">\(\widehat{\b\beta}\)</span> using only untreated data. This will allow us to estimate the <span class="math inline">\(Y_{it}^{(0)}\)</span> potential outcomes for all units, including the counterfactuals for the treated units.</p>
+<p><span class="math display">\[
+\blue{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
+\]</span></p>
+<p>Now, let us find the difference between our observed <span class="math inline">\(Y_{it}\)</span> values in our dataset and our estimated <span class="math inline">\(Y_{it}^{(0)}\)</span> potential outcomes:</p>
+<p><span class="math display">\[
+\begin{align}
+\widetilde Y_{it} &amp; = Y_{it} - \blue{\widehat Y_{it}^{(0)}} \\
+&amp; = Y_{it} - \left(\widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta} \right)
+\end{align}
+\]</span></p>
 <ul>
-<li>For example, consider that we have 4 groups. Group 1 receives the treatment in period 1, group 2 receives the treatment in period 2, and group 3 receives the treatment in period 3. Group 4 never receives the treatment.</li>
-<li>In this scenario, we essentially have 3 smaller classical difference-in-differences combined into one larger study: one for group 1, one for group 2, and one for group 3.</li>
+<li>For untreated units <span class="math inline">\(D=0\)</span>, their observed <span class="math inline">\(Y_{it}\)</span> is <span class="math inline">\(\purple{Y_{it}^{(0)}}\)</span>, so <span class="math inline">\(\widetilde Y_{it}\)</span> is essentially measuring <span class="math inline">\(\purple{Y_{it}^{(0)}}- \purple{Y_{it}^{(0)}}\)</span>. This should be approximately 0.</li>
+<li>For treated units <span class="math inline">\(D = 1\)</span>, their observed <span class="math inline">\(Y_{it}\)</span> is <span class="math inline">\(\purple{Y_{it}^{(1)}}\)</span>, so <span class="math inline">\(\widetilde Y_{it}\)</span> is essentially measuring <span class="math inline">\(\purple{Y_{it}^{(1)}}- \red{Y_{it}^{(0)}}\)</span>, or the individual causal effect.</li>
 </ul>
-<p>Just like in the classical design, the staggered design can acommodate panel data (more common) or repeated cross-sections. Unlike the classical design however, there are far more estimators to choose from.</p>
-<table class="table-bordered table">
-<tbody>
-<tr class="odd">
-<td><p><a href="../did/twfe.html">Two-Way Fixed Effects Estimator</a></p>
-<p>The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined <a href="../did/twfestaggered.html">here</a>, that make it more dubious.</p></td>
-</tr>
-<tr class="even">
-<td><p><a href="../did/did2s.html">Gardner (2021) 2-Stage DiD</a></p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible or robust compared to the later methods, but it is quite simple.</p></td>
-</tr>
-<tr class="odd">
-<td><p>Sun and Abraham (2021)</p>
-<p>This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.</p></td>
-</tr>
-<tr class="even">
-<td><p>Callaway and Sant’Anna (2021)</p>
-<p>This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.</p></td>
-</tr>
-<tr class="odd">
-<td><p>Liu et al (2022) Counterfactual</p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain.</p></td>
-</tr>
-</tbody>
-</table>
+<p>Thus, with the full dataset, we run the following regression to obtain the causal effect:</p>
+<p><span class="math display">\[
+\widetilde Y_{it} = \delta + D_{it}\tau + \epsilon_{it}
+\]</span></p>
+<div class="small">
+<p>This model implies that for <span class="math inline">\(D = 0\)</span> units, <span class="math inline">\(\widetilde Y_{it} = \delta \approx 0\)</span>. For <span class="math inline">\(D = 1\)</span>, then <span class="math inline">\(\widetilde Y_{it} = \tau\)</span>. Thus, with our intuition of <span class="math inline">\(\widetilde Y_{it}\)</span> from above, we can see that <span class="math inline">\(\tau\)</span> is measuring the average difference <span class="math inline">\(\purple{Y_{it}^{(1)}}- \red{Y_{it}^{(0)}}\)</span> for treated units.</p>
+</div>
+<p>The estimated <span class="math inline">\(\widehat\tau\)</span> is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.</p>
+<div class="small">
+<p>The standard errors will be incorrect, so Gardner (2021) uses a generalised method of moments estimator to correct the standard errors.</p>
+</div>
+<p>The 2-stage difference-in-differences estimator is the most simple adjustment on TWFE, since it relies on a regression framework, and is relatively intuitive. However, the flexibility and robustness of this estimator is likely worse than many of the alternatives (such as Sun and Abraham, Callaway and Sant’Anna, and Liu et al), which will be covered later.</p>
+<p><br></p>
+<p>To implement 2-stage difference-in-differences, we need the <strong>did2s</strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(did2s)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For the estimation of the ATT, we do the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">did2s</span>(<span class="at">data =</span> my_data,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">yname =</span> <span class="st">"Y"</span>,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">first_stage =</span> <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">|</span> unit <span class="sc">+</span> period, <span class="co">#if no covariates, put "0"</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">second_stage =</span> <span class="sc">~</span><span class="fu">i</span>(D), <span class="co">#i() makes it a factor variable</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">treatment =</span> <span class="st">"D"</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">cluster_var =</span> <span class="st">"unit"</span>)</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>model</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>For estimation of dynamic treatment effects (and testing of parallel trends), we do the following:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">did2s</span>(<span class="at">data =</span> my_data,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">yname =</span> <span class="st">"Y"</span>,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">first_stage =</span> <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">|</span> unit <span class="sc">+</span> period, <span class="co">#if no covariates, put "0"</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>               <span class="at">second_stage =</span> <span class="sc">~</span><span class="fu">i</span>(time_to_treat, <span class="at">ref =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="cn">Inf</span>)),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>               <span class="at">treatment =</span> <span class="st">"D"</span>,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>               <span class="at">cluster_var =</span> <span class="st">"unit"</span>)</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>model</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(model) <span class="co">#to view dynamic treatment effects plot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>Note: the <strong>inf</strong> is the reference for the never-treated control group, for the variable time_to_treat. If it is NA’s, then you do not need to include it, just put ref = -1.</p>
+</div>
 
 
 

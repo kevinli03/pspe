@@ -48,7 +48,7 @@ We can also use latent variable models to create **factor scores** $\widetilde F
 The choice of latent variable model depends on the type of items/factors:
 
 |                         |                           |                         |
-|------------------------|-------------------------|------------------------|
+|-------------------------|---------------------------|-------------------------|
 | [Model]{.smallcaps}     | [Factor Type]{.smallcaps} | [Item Type]{.smallcaps} |
 | Factor Analysis         | Continuous                | Continuous              |
 | Item Response Theory    | Continous                 | Categorical/Binary      |

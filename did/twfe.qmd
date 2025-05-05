@@ -1,0 +1,82 @@
+---
+title: "Two-Way Fixed Effects Estimator"
+---
+
+::: small
+Note: if you have staggered treatment implementation, [TWFE can produce incorrect results](twfestaggered.qmd).
+:::
+
+The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences. The estimator is a linear regression model specified as following:
+
+$$
+Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
+$$
+
+::: small
+$\alpha_i$ and $\gamma_t$ are country and year fixed effects, $\b X_{it}$ is a vector of covariates for conditional parallel trends.
+:::
+
+What are fixed effects, and what do they do? Let us take a look at this example:
+
+::: center-graph
+```{dot}
+//| fig-width: 4.5
+//| fig-height: 1.2
+digraph example2 {
+  bgcolor="transparent";
+  // Nodes
+  D [shape=box, pos = "0,0!", label="Raising Minimum Wage in a State"]
+  X [shape=box, pos = "2,0!", label="State"]
+  Y [shape=box, pos = "1,-1!", label="Unemployment in a State"]
+  Q [shape=box, pos = "2,0!", label="Year"]
+
+  // Edges
+  {rank=same; D -> Y [label="Causal Effect"]}
+  X -> D
+  X -> Y [dir=both]
+  Q -> D
+  Q -> Y [dir=both]
+  
+  graph [nodesep=0.5, ranksep=0.5]
+
+}
+```
+:::
+
+As we can see in this diagram, we have two potential confounders:
+
+1.  States have systematic differences between them. These differences between states may change the likelihood of adopting a minimum wage increase, and may be linked with unemployment.
+2.  Years have differences between them. Some years have recessions, which might affect both the likelihood of a minimum wage increase, and may be linked with unemployment.
+
+Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects $\alpha_i$ and $\gamma_t$ get rid of these two potential sources of confounding.
+
+::: small
+You can also think of fixed effects as essentially de-meaning observations by group. For example, it calculates the average unemployment in every state over time, and subtracts that for each observation within that state. This "subtracts" away the differences between states.
+:::
+
+The estimated $\widehat\tau$ of the two-way fixed effects estimator is the ATT estimate of difference-in-differences. This estimate is unbiased, assuming our assumptions (most importantly, parallel trends) are met.
+
+The reason why two-way fixed effects works lies in the mechanics of the Ordinary Least Squares (OLS) estimator. Under the condition of strict exogeneity, OLS is an unbiased estimator. Or in other words, if all confounders are controlled for, OLS is unbiased.
+
+The unit fixed effects $\alpha_i$ control for between-unit differences. The time fixed effects $\gamma_t$ control for between-period differences. Thus, the only remaining "confounders" are the difference in trends over time. If parallel trends assumption is met, then we have no "confounders", and thus, we have strict exogneity and a unbiased estimate.
+
+Two additional notes regarding fixed effects:
+
+1.  We should cluster standard errors by unit.
+2.  For staggered treatment (see later pages), [TWFE is flawed](twfestaggered.qmd).
+
+<br />
+
+To implement two-way fixed effects, we need the **fixest** package:
+
+```{r, eval = F}
+library(fixest)
+```
+
+We implement two-way fixed effects as follows:
+
+```{r, eval = F}
+model <- feols(Y ~ D + X1 + X2 + X3 | unit + period,
+               data = my_data,
+               se = "cluster")
+```

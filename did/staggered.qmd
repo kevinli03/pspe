@@ -19,26 +19,26 @@ Essentially, this design is a combination of a bunch of smaller classical differ
 
 Just like in the classical design, the staggered design can acommodate panel data (more common) or repeated cross-sections. Unlike the classical design however, there are far more estimators to choose from.
 
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Two-Way Fixed Effects Estimator                                                                                                                                                                 |
-|                                                                                                                                                                                                 |
-| The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined here, that make it more dubious.       |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Sun and Abraham (2021)                                                                                                                                                                          |
-|                                                                                                                                                                                                 |
-| This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.                                                                                 |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Callaway and Sant'Anna (2021)                                                                                                                                                                   |
-|                                                                                                                                                                                                 |
-| This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.                                                       |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Gardner (2021) 2-Stage DiD                                                                                                                                                                      |
-|                                                                                                                                                                                                 |
-| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible, but it is quite simple.                       |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Liu et al (2022) Counterfactual                                                                                                                                                                 |
-|                                                                                                                                                                                                 |
-| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain. |
-+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Two-Way Fixed Effects Estimator](twfe.qmd)                                                                                                                                                                       |
+|                                                                                                                                                                                                                   |
+| The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined [here](twfestaggered.qmd), that make it more dubious.    |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Gardner (2021) 2-Stage DiD](did2s.qmd)                                                                                                                                                                           |
+|                                                                                                                                                                                                                   |
+| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible or robust compared to the later methods, but it is quite simple. |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Sun and Abraham (2021)                                                                                                                                                                                            |
+|                                                                                                                                                                                                                   |
+| This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.                                                                                                   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Callaway and Sant'Anna (2021)                                                                                                                                                                                     |
+|                                                                                                                                                                                                                   |
+| This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.                                                                         |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Liu et al (2022) Counterfactual                                                                                                                                                                                   |
+|                                                                                                                                                                                                                   |
+| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain.                   |
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
 
 : {.bordered}

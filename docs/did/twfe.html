@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Stagged Difference-in-Differences – Causal Inference Resources</title>
+<title>Two-Way Fixed Effects Estimator – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -51,6 +85,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -103,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/staggered.html">Staggered DiD Design</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/twfe.html">Two-way Fixed Effects</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -132,7 +195,7 @@ ul.task-list li input[type="checkbox"] {
   </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
+  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Two-way Fixed Effects</span></a>
   </div>
 </li>
@@ -145,7 +208,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link active">
+  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Staggered DiD Design</span></a>
   </div>
 </li>
@@ -189,7 +252,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stagged Difference-in-Differences</h1>
+<h1 class="title">Two-Way Fixed Effects Estimator</h1>
 </div>
 
 
@@ -207,41 +270,118 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="small">
-<p>Ensure you understand the classical difference-in-differences design before starting this.</p>
+<p>Note: if you have staggered treatment implementation, <a href="../did/twfestaggered.html">TWFE can produce incorrect results</a>.</p>
 </div>
-<p>In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time.</p>
-<p>However, in reality, this is not that common. It is very common that some units receive treatment before others. For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core cirriculum.</p>
-<p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment.</p>
-<p>Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.</p>
-<ul>
-<li>For example, consider that we have 4 groups. Group 1 receives the treatment in period 1, group 2 receives the treatment in period 2, and group 3 receives the treatment in period 3. Group 4 never receives the treatment.</li>
-<li>In this scenario, we essentially have 3 smaller classical difference-in-differences combined into one larger study: one for group 1, one for group 2, and one for group 3.</li>
-</ul>
-<p>Just like in the classical design, the staggered design can acommodate panel data (more common) or repeated cross-sections. Unlike the classical design however, there are far more estimators to choose from.</p>
-<table class="table-bordered table">
-<tbody>
-<tr class="odd">
-<td><p><a href="../did/twfe.html">Two-Way Fixed Effects Estimator</a></p>
-<p>The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined <a href="../did/twfestaggered.html">here</a>, that make it more dubious.</p></td>
-</tr>
-<tr class="even">
-<td><p><a href="../did/did2s.html">Gardner (2021) 2-Stage DiD</a></p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. It is not very flexible or robust compared to the later methods, but it is quite simple.</p></td>
-</tr>
-<tr class="odd">
-<td><p>Sun and Abraham (2021)</p>
-<p>This estimator accounts for the issues with TWFE. It is mainly focused on estimating dynamic treatment effects.</p></td>
-</tr>
-<tr class="even">
-<td><p>Callaway and Sant’Anna (2021)</p>
-<p>This estimator accounts for the issues with TWFE by only comparing units that should be compared. It is the most popular design nowadays.</p></td>
-</tr>
-<tr class="odd">
-<td><p>Liu et al (2022) Counterfactual</p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect. This estimator is quite flexible, but can be quite complex to explain.</p></td>
-</tr>
-</tbody>
-</table>
+<p>The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences. The estimator is a linear regression model specified as following:</p>
+<p><span class="math display">\[
+Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
+\]</span></p>
+<div class="small">
+<p><span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are country and year fixed effects, <span class="math inline">\(\b X_{it}\)</span> is a vector of covariates for conditional parallel trends.</p>
+</div>
+<p>What are fixed effects, and what do they do? Let us take a look at this example:</p>
+<div class="center-graph">
+<div class="cell" data-fig-width="4.5" data-fig-height="1.2" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="432" height="115" viewbox="0.00 0.00 488.36 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
+<title>example2</title>
+<!-- D -->
+<g id="node1" class="node">
+<title>D</title>
+<polygon fill="none" stroke="black" points="210.04,-36 -0.01,-36 -0.01,0 210.04,0 210.04,-36"></polygon>
+<text text-anchor="middle" x="105.01" y="-13.8" font-family="Times,serif" font-size="14.00">Raising Minimum Wage in a State</text>
+</g>
+<!-- Y -->
+<g id="node3" class="node">
+<title>Y</title>
+<polygon fill="none" stroke="black" points="480.21,-36 321.82,-36 321.82,0 480.21,0 480.21,-36"></polygon>
+<text text-anchor="middle" x="401.01" y="-13.8" font-family="Times,serif" font-size="14.00">Unemployment in a State</text>
+</g>
+<!-- D&#45;&gt;Y -->
+<g id="edge1" class="edge">
+<title>D-&gt;Y</title>
+<path fill="none" stroke="black" d="M210.2,-18C243.34,-18 279.61,-18 311.55,-18"></path>
+<polygon fill="black" stroke="black" points="311.75,-21.5 321.75,-18 311.75,-14.5 311.75,-21.5"></polygon>
+<text text-anchor="middle" x="265.84" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
+</g>
+<!-- X -->
+<g id="node2" class="node">
+<title>X</title>
+<polygon fill="none" stroke="black" points="234.01,-109 180.01,-109 180.01,-73 234.01,-73 234.01,-109"></polygon>
+<text text-anchor="middle" x="207.01" y="-86.8" font-family="Times,serif" font-size="14.00">State</text>
+</g>
+<!-- X&#45;&gt;D -->
+<g id="edge2" class="edge">
+<title>X-&gt;D</title>
+<path fill="none" stroke="black" d="M182.58,-72.99C169.18,-63.67 152.38,-51.97 137.85,-41.86"></path>
+<polygon fill="black" stroke="black" points="139.8,-38.95 129.6,-36.11 135.81,-44.7 139.8,-38.95"></polygon>
+</g>
+<!-- X&#45;&gt;Y -->
+<g id="edge3" class="edge">
+<title>X-&gt;Y</title>
+<path fill="none" stroke="black" d="M244.06,-76.44C272.48,-66.04 312.18,-51.51 344.55,-39.67"></path>
+<polygon fill="black" stroke="black" points="242.58,-73.25 234.4,-79.98 244.99,-79.83 242.58,-73.25"></polygon>
+<polygon fill="black" stroke="black" points="346.15,-42.81 354.33,-36.08 343.74,-36.23 346.15,-42.81"></polygon>
+</g>
+<!-- Q -->
+<g id="node4" class="node">
+<title>Q</title>
+<polygon fill="none" stroke="black" points="334.01,-109 280.01,-109 280.01,-73 334.01,-73 334.01,-109"></polygon>
+<text text-anchor="middle" x="307.01" y="-86.8" font-family="Times,serif" font-size="14.00">Year</text>
+</g>
+<!-- Q&#45;&gt;D -->
+<g id="edge4" class="edge">
+<title>Q-&gt;D</title>
+<path fill="none" stroke="black" d="M279.77,-80.42C249.99,-69.96 201.39,-52.88 162.99,-39.38"></path>
+<polygon fill="black" stroke="black" points="164.06,-36.05 153.47,-36.03 161.74,-42.65 164.06,-36.05"></polygon>
+</g>
+<!-- Q&#45;&gt;Y -->
+<g id="edge5" class="edge">
+<title>Q-&gt;Y</title>
+<path fill="none" stroke="black" d="M338.11,-66.51C348.51,-58.65 360.1,-49.9 370.46,-42.07"></path>
+<polygon fill="black" stroke="black" points="335.64,-63.99 329.77,-72.81 339.86,-69.58 335.64,-63.99"></polygon>
+<polygon fill="black" stroke="black" points="372.6,-44.85 378.47,-36.03 368.38,-39.26 372.6,-44.85"></polygon>
+</g>
+</g>
+</svg>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+</div>
+<p>As we can see in this diagram, we have two potential confounders:</p>
+<ol type="1">
+<li>States have systematic differences between them. These differences between states may change the likelihood of adopting a minimum wage increase, and may be linked with unemployment.</li>
+<li>Years have differences between them. Some years have recessions, which might affect both the likelihood of a minimum wage increase, and may be linked with unemployment.</li>
+</ol>
+<p>Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> get rid of these two potential sources of confounding.</p>
+<div class="small">
+<p>You can also think of fixed effects as essentially de-meaning observations by group. For example, it calculates the average unemployment in every state over time, and subtracts that for each observation within that state. This “subtracts” away the differences between states.</p>
+</div>
+<p>The estimated <span class="math inline">\(\widehat\tau\)</span> of the two-way fixed effects estimator is the ATT estimate of difference-in-differences. This estimate is unbiased, assuming our assumptions (most importantly, parallel trends) are met.</p>
+<p>The reason why two-way fixed effects works lies in the mechanics of the Ordinary Least Squares (OLS) estimator. Under the condition of strict exogeneity, OLS is an unbiased estimator. Or in other words, if all confounders are controlled for, OLS is unbiased.</p>
+<p>The unit fixed effects <span class="math inline">\(\alpha_i\)</span> control for between-unit differences. The time fixed effects <span class="math inline">\(\gamma_t\)</span> control for between-period differences. Thus, the only remaining “confounders” are the difference in trends over time. If parallel trends assumption is met, then we have no “confounders”, and thus, we have strict exogneity and a unbiased estimate.</p>
+<p>Two additional notes regarding fixed effects:</p>
+<ol type="1">
+<li>We should cluster standard errors by unit.</li>
+<li>For staggered treatment (see later pages), <a href="../did/twfestaggered.html">TWFE is flawed</a>.</li>
+</ol>
+<p><br></p>
+<p>To implement two-way fixed effects, we need the <strong>fixest</strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>We implement two-way fixed effects as follows:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(Y <span class="sc">~</span> D <span class="sc">+</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3 <span class="sc">|</span> unit <span class="sc">+</span> period,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> my_data,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"cluster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 
 
 

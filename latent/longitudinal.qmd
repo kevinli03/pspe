@@ -1,0 +1,108 @@
+---
+title: "Lagged Response Models"
+---
+
+Longitudinal data (also called panel data) is when we have the same variables observed over several time points for the same units. Structural equation models can accommodate panel data as well.
+
+Let us say we have some latent response variable $\eta_{it}$, which is measured by observed indicators $Y_{it1}, Y_{it2}, \dots, Y_{itp}$. We also have a few explanatory variables:
+
+-   $Z_i$ is a explanatory variable that determines characteristics of units, that does not change over time.
+-   $X_{it}$ are time-varying explanatory variables.
+
+A **lagged response model** is a regression model that says that the response variable $\eta_{it}$ not only depends on the explanatory variables $Z_i$ and $X_{it}$, but also previous values of $\eta_{it}$.
+
+$$
+\eta_{it} = \beta_0 + \beta_xX_{it} + \beta_zZ_i + \underbrace{\beta_\eta \eta_{i, t-1}}_{\text{lagged}} + \eps_{it}
+$$
+
+In a diagram, this model can be modelled as:
+
+![](images/clipboard-3334687245.png){fig-align="center" width="40%"}
+
+::: small
+Note how $\eta$ in $t=3$ depends on both $X_{it}$, $Z_t$, and $\eta$ from $t=2$.
+:::
+
+Recall the response variable $\eta$ is itself a latent variable, measured with indicators $Y_{it1}, Y_{it2}, \dots, Y_{itp}$. This also implies a measurement model relating latent $\eta_{it}$ with each observed item:
+
+$$
+\b Y_{it} = \b\tau_t + \b\lambda_t \b\eta_{it} + \b\eps_{it}
+$$
+
+::: small
+Where all are vectors encompassing measurement models for all items $Y_{it1}, Y_{it2}, \dots, Y_{itp}$. Note how the parameters have the subscript $t$ - this implies a different measurement model for each item, at each time period.
+:::
+
+However, because each item $Y_p$ is observed over time, it is likely that $Y_p$ from $t=1$ is correlated with $Y_p$ from $t=2$ ( autocorrelation). We have to take this into account in one of two ways:
+
+1.  We could **constrain** the model, assuming that the measurement model is identical throughout different time periods. That means $\tau_t$ and $\lambda_t$ will now no longer depend on the time period (the same for all time periods).
+2.  Or we could complicate the model, by including correlation between the error terms $\eps$ for the same item.
+
+<br />
+
+To implement lagged response models, we need the **lavaan** package:
+
+```{r, eval = F}
+library(lavaan)
+```
+
+For a constrained two-period model, the estimation is as follows:
+
+```{r, eval = F}
+model <- '
+# explanatory variables Measurement models 
+  explanatory1 =~ NA*X1 + X2 + X3
+  explanatory2 =~ NA*Z1 + Z2 + Z3
+
+# response variables for time = 1 and time = 2
+	response1 =~ la*Y1t1 + lb*Y2t1 + lc*Y3t1
+	response2 =~ la*Y1t2 + lb*Y2t2 + lc*Y3t2
+
+# time = 1 model
+  response1 ~ explanatory1 + explanatory2
+  
+# time = 2 model with lagged time = 1
+  response2 ~ explanatory1 + explanatory2 + response1
+
+# Fixing the variances of the exogenous latent variables LR and AL  
+  LR~~1*LR
+  AL~~1*AL
+'
+
+sem <- sem(model, data = my_data, missing="FIML")
+summary(sem)
+```
+
+::: small
+The labels la\*, lb\*, and lc\* indicate to R to make all factor loadings with the same labels equivalent to each other. Notice how we put the same labels on the different time period measurement models.
+:::
+
+For a unconstrained model, the code is as follows:
+
+```{r, eval = F}
+model <- '
+# explanatory variables Measurement models 
+  explanatory1 =~ NA*X1 + X2 + X3
+  explanatory2 =~ NA*Z1 + Z2 + Z3
+
+# response variables for time = 1 and time = 2
+	response1 =~ Y1t1 + Y2t1 + Y3t1
+	response2 =~ Y1t2 + Y2t2 + Y3t2
+
+## Error covariance in the measurement model
+  Y3t1 ~~ Y3t2
+
+# time = 1 model
+  response1 ~ explanatory1 + explanatory2
+  
+# time = 2 model with lagged time = 1
+  response2 ~ explanatory1 + explanatory2 + response1
+
+# Fixing the variances of the exogenous latent variables LR and AL  
+  LR~~1*LR
+  AL~~1*AL
+'
+
+sem <- sem(model, data = my_data, missing="FIML")
+summary(sem)
+```

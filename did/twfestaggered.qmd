@@ -2,6 +2,10 @@
 title: "Issues with Two Way Fixed Effects in Staggered DiD"
 ---
 
+::: small
+See [Goodman-Bacon (2021)](https://www.sciencedirect.com/science/article/abs/pii/S0304407621001445) for a more technical overview of TWFE decomposition.
+:::
+
 The two-way fixed effects estimator is possible with staggered difference-in-differences:
 
 $$

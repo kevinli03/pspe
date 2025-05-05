@@ -15,7 +15,7 @@ $$
 Notice how the weights are the probability of the confounder values of $\b x$. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:
 
 $$
-\hat\beta_\text{OLS} = \sum \tau(\b x) \frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}
+\hat\beta_\text{OLS} = \sum \tau(\b x) \underbrace{\frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}}_{\text{weight}}
 $$
 
 ::: small
@@ -27,7 +27,7 @@ These weights are not equivalent to the selection on observables $\tau_{ATE}$. T
 Heterogeneity is present in almost all situations we are interested in. [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) proposes the **fully interacted estimator**, which allows for consistent estimation of the ATE even with heterogeneity:
 
 $$
-Y_i = \alpha + D_i \tau + (\b{X}_i - \mean{\b X})' \b\beta \ + D_i (\b X_i - \mean{\b X})' \b\gamma \  + \eps_i
+Y_i = \alpha + D_i \tau + \underbrace{(\b{X}_i - \mean{\b X})' \b\beta}_{\text{confounders}} \ + \underbrace{D_i (\b X_i - \mean{\b X})' \b\gamma}_{\text{interaction}} \  + \eps_i
 $$
 
 ::: small

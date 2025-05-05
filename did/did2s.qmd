@@ -1,0 +1,111 @@
+---
+title: "Gardner (2021) Two-Stage Difference-in-Differences"
+---
+
+::: small
+See [Kyle Butts'](https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html) github page for more info on this estimator. [Asjad Naqvi](https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/) also has a helpful page.
+:::
+
+Recall our two-way fixed effects model:
+
+$$
+Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
+$$
+
+This also implies a model for the potential outcomes - the potential outcome under control is when $D=0$, and the potential outcome under treatment is $D=1$:
+
+$$
+\begin{align}
+\purple{Y_{it}^{(1)}} & = \alpha_i + \gamma_t + \blue\tau + \b X_{it}' \b\beta + \eps_{it} \\
+\purple{Y_{it}^{(0)}} & = \alpha_i + \gamma_t  + \b X_{it}' \b\beta + \eps_{it}
+\end{align}
+$$
+
+::: small
+These are obtained by simply plugging in $D=0,1$ into the TWFE equation.
+:::
+
+Gardner (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) regarding "forbidden comparisons" and "weighting" problems by simply estimating the counterfactuals $\red{Y_{it}^{(0)}}$ for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.
+
+$$
+\tau_\text{ATT} \approx \E \left[Y_{it} - \blue{\widehat Y_{it}^{(0)}} \biggr| D_{it} = 1 \right]
+$$
+
+To estimate the counterfactuals, we first run a regression with **only untreated/not-yet treated observations** $D=0$:
+
+$$
+Y_{it|D=0} = \alpha_i + \gamma_t + \b X_{it}' \b\beta + \eps_{it}
+$$
+
+This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\b\beta}$ using only untreated data. This will allow us to estimate the $Y_{it}^{(0)}$ potential outcomes for all units, including the counterfactuals for the treated units.
+
+$$
+\blue{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
+$$
+
+Now, let us find the difference between our observed $Y_{it}$ values in our dataset and our estimated $Y_{it}^{(0)}$ potential outcomes:
+
+$$
+\begin{align}
+\widetilde Y_{it} & = Y_{it} - \blue{\widehat Y_{it}^{(0)}} \\
+& = Y_{it} - \left(\widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta} \right)
+\end{align}
+$$
+
+-   For untreated units $D=0$, their observed $Y_{it}$ is $\purple{Y_{it}^{(0)}}$, so $\widetilde Y_{it}$ is essentially measuring $\purple{Y_{it}^{(0)}}- \purple{Y_{it}^{(0)}}$. This should be approximately 0.
+-   For treated units $D = 1$, their observed $Y_{it}$ is $\purple{Y_{it}^{(1)}}$, so $\widetilde Y_{it}$ is essentially measuring $\purple{Y_{it}^{(1)}}- \red{Y_{it}^{(0)}}$, or the individual causal effect.
+
+Thus, with the full dataset, we run the following regression to obtain the causal effect:
+
+$$
+\widetilde Y_{it} = \delta + D_{it}\tau + \epsilon_{it}
+$$
+
+::: small
+This model implies that for $D = 0$ units, $\widetilde Y_{it} = \delta \approx 0$. For $D = 1$, then $\widetilde Y_{it} = \tau$. Thus, with our intuition of $\widetilde Y_{it}$ from above, we can see that $\tau$ is measuring the average difference $\purple{Y_{it}^{(1)}}- \red{Y_{it}^{(0)}}$ for treated units.
+:::
+
+The estimated $\widehat\tau$ is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.
+
+::: small
+The standard errors will be incorrect, so Gardner (2021) uses a generalised method of moments estimator to correct the standard errors.
+:::
+
+The 2-stage difference-in-differences estimator is the most simple adjustment on TWFE, since it relies on a regression framework, and is relatively intuitive. However, the flexibility and robustness of this estimator is likely worse than many of the alternatives (such as Sun and Abraham, Callaway and Sant'Anna, and Liu et al), which will be covered later.
+
+<br />
+
+To implement 2-stage difference-in-differences, we need the **did2s** package:
+
+```{r, eval = F}
+library(did2s)
+```
+
+For the estimation of the ATT, we do the following:
+
+```{r, eval = F}
+model <- did2s(data = my_data,
+               yname = "Y",
+               first_stage = ~ X1 + X2 | unit + period, #if no covariates, put "0"
+               second_stage = ~i(D), #i() makes it a factor variable
+               treatment = "D",
+               cluster_var = "unit")
+model
+```
+
+For estimation of dynamic treatment effects (and testing of parallel trends), we do the following:
+
+```{r, eval = F}
+model <- did2s(data = my_data,
+               yname = "Y",
+               first_stage = ~ X1 + X2 | unit + period, #if no covariates, put "0"
+               second_stage = ~i(time_to_treat, ref = c(-1, Inf)),
+               treatment = "D",
+               cluster_var = "unit")
+model
+iplot(model) #to view dynamic treatment effects plot
+```
+
+::: small
+Note: the **inf** is the reference for the never-treated control group, for the variable time_to_treat. If it is NA's, then you do not need to include it, just put ref = -1.
+:::
