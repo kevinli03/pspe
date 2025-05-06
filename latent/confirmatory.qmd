@@ -49,13 +49,13 @@ digraph example2 {
 Another difference is in the assumptions we make on the actual latent variables. Recall that we previously assumed the latent factors are standardly normally distributed:
 
 $$
-F \sim \mathcal N(0, 1)
+\text{factor} \sim \mathcal N(0, 1)
 $$
 
 In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distirbution to be estimated:
 
 $$
-F \sim \mathcal N(\kappa, \phi)
+\text{factor} \sim \mathcal N(\kappa, \phi)
 $$
 
 Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item's intercept $\tau_i = 0$, and the same item's factor loading for that specific factor at $\lambda = 1$.

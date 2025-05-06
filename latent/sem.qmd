@@ -11,11 +11,11 @@ Structural Equation Models (SEM) allow us to combine measurement models (ex. fac
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F1 [shape=box, pos = "0,0!", label="Latent Independent Variable"]
+  F1 [shape=box, pos = "0,0!", label="Latent Explanatory Variable"]
   X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
   X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
   X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
-  F2 [shape=box, pos = "0,0!", label="Latent Dependent Variable"]
+  F2 [shape=box, pos = "0,0!", label="Latent Response Variable"]
   X4 [shape=box, pos = "2,0!", label="Item (Y1)"]
   X5 [shape=box, pos = "1,-2!", label="Item (Y2)"]
   X6 [shape=box, pos="1,0!", label="Item (Y3)"]
@@ -39,29 +39,29 @@ digraph example2 {
 This is an example of a very simple structural equation model.
 :::
 
-This structural equation model contains a linear regression between the independent latent variable (typically labelled $\xi$) explaining the dependent latent variable (typically labelled $\eta$).
+This structural equation model contains a linear regression between the independent latent variable explaining the dependent latent variable.
 
 $$
-\eta = \alpha +  \xi\beta + \eps
+\text{response} = \alpha +  \beta\ \text{explanatory} + \eps
 $$
 
 The independent latent variable $\xi$ and dependent variable $\eta$ explained by measurement models (typically a factor analysis model):
 
 $$
 \begin{align}
-\b X & = \b\tau_x + \b\lambda_x \xi + \b\delta \\
-\b Y & = \b\tau_y + \b\lambda_y \eta + \b\eps
+\b{\text{items}}_x & = \b\tau_x + \b\lambda_x \ \text{explanatory} + \b\eps_x \\
+\b{\text{items}}_y & = \b\tau_y + \b\lambda_y \ \text{response} + \b\eps_y
 \end{align}
 $$
 
 ::: small
-Where $\b X$, $\b\tau_x$, $\b\lambda_x$ and $\b\delta$ are vectors for the measurement models of each item $X_1, \dots, X_p$. Same for $\b Y$.
+Where $\b{\text{items}}_x$ are a vector of items the are observed for the latent explanatory variable, and $\b{\text{items}}_x$ are a vector of items the are observed for the latent response variable. Vectors $\b\tau$ and $\b\lambda_x$ are the coefficients for each item's latent measurement model.
 :::
 
 The interpretations of the model are quite straight forward - the measurment models are interpreted in the same way as factor analysis, and the linear model between latent variable is interpreted the same way as a linear model between any other variables.
 
 ::: small
-For example, the linear model says that as $\xi$ increases by 1, $\eta$ increases by an expected $\beta$ units.
+For example, the linear model says that as explanatory increases by 1, response increases by an expected $\beta$ units.
 :::
 
 Structural models don't have to have just one dependent and independent latent variable. We can have multiple dependent and independent variables, multiple linear models, and also measure correlations within the dependent and independent variables:
@@ -100,13 +100,13 @@ In this example, we are measuring the correlation between the independent variab
 
 $$
 \begin{align}
-\eta_1 & = \beta_0 + \beta_1\xi _1 + \beta_2 \xi_2 + \eps \\
-\eta_2 & = \gamma_0 + \gamma_1\xi _1 + \gamma_2 \xi_2 + \eps \\
+\text{response}_1 & = \beta_0 + \beta_1\ \text{explanatory}_1 + \beta_2\ \text{explanatory}_2 + \eps_1 \\
+\text{response}_2 & = \gamma_0 + \gamma_1\ \text{explanatory}_1 + \gamma_2\ \text{explanatory}_2 + \eps_2 \\
 \end{align}
 $$
 
 ::: small
-And each $\eta_1, \eta_2, \xi_1, \xi_2$ all have their own measurement models.
+And each response and latent variable all have their own measurement models.
 :::
 
 <br />

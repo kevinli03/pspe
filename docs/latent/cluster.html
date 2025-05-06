@@ -306,12 +306,12 @@ window.Quarto = {
 </div>
 <p>Thus, K-means clustering tries to minimise the squared euclidean distance between all the points within a cluster and the centroid (“center”) of the cluster:</p>
 <p><span class="math display">\[
-\delta (C_k) = \sum\limits_{i \in C_k} || \b x_i - \mean{\b x}_k||^2
+\text{distance} (\text{cluster}_k) = \sum\limits_{i \in \text{cluster}_k} || \b x_i - \mean{\b x}_k||^2
 \]</span></p>
 <div class="small">
 <p>Where <span class="math inline">\(\b x_i\)</span> is the vector of variable values of any specific unit within a cluster <span class="math inline">\(k\)</span>, <span class="math inline">\(\mean{\b x}_k\)</span> is a vector of the mean variable values for all units in cluster <span class="math inline">\(k\)</span>, and the two vertical bars indicate the euclidean distance. We generally want to standardise all of our variables before starting to avoid measurement scale issues.</p>
 </div>
-<p>How do we minimise <span class="math inline">\(\delta(C_k)\)</span>? The typical K-means clustering algorithm works as follows:</p>
+<p>How do we minimise <span class="math inline">\(\text{distance}(\text{cluster}_k)\)</span>? The K-means clustering algorithm works like this:</p>
 <ol type="1">
 <li>Choose how many total clusters we want.</li>
 <li>Randomly assign each unit to one of the clusters.</li>

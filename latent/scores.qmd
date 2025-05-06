@@ -6,44 +6,44 @@ title: "Reliability and Factor Scores"
 Make sure you have read the previous page on [factor analysis](factor.qmd) before this.
 :::
 
-Recall our measurement models linking each item $X_1, X_2, \dots, X_p$ to our factor:
+Recall our measurement models linking each item $i$ to our factor:
 
 $$
-X_i = \tau_i + \lambda_i F + \delta_i
+\text{item}_i = \tau_i + \lambda_i \ \text{factor} + \delta_i
 $$
 
 One of the assumptions of this model is the the error term $\delta_i \sim \mathcal N(0, \theta_i)$, or in other words, the error term has a mean of 0 and a variance of $\theta_i$. Through some complex math, we can show that the variance of each item $X_i$ is as follows:
 
 $$
-Var(X_i) = \lambda_i^2 + \theta_i
+Var(\text{item}_i) = \lambda_i^2 + \theta_i
 $$
 
 Thus, this allows us to essentially "split" the variance in any item $X_i$ into two parts:
 
-1.  $\lambda_i^2$ is the part of the variance in the item explained by the latent factor. We call this the **communality** of $X_i$.
+1.  $\lambda_i^2$ is the part of the variance in the item explained by the latent factor. We call this the **communality** of the item $i$.
 2.  $\theta_i$ is the **residual variance**, the part of the variance **not** explained by our factor.
 
-We can also calculate the percentage/proportion of variance in $X_i$ that our factor explains, called the **reliability** of $X_i$:
+We can also calculate the percentage/proportion of variance in item $i$ that our factor explains, called the **reliability**:
 
 $$
-\text{Reliability} = \frac{\lambda_i^2}{Var(X_i)} = \frac{\lambda_i^2}{\lambda_i^2+\theta_i}
+\text{Reliability} = \frac{\lambda_i^2}{Var(\text{item}_i)} = \frac{\lambda_i^2}{\lambda_i^2+\theta_i}
 $$
 
 ::: small
-If all items $X_i$ are standarised to a standard normal, then $\lambda_i^2$ is equal to the reliability.
+If all items are standarised to a standard normal, then $\lambda_i^2$ is equal to the reliability.
 :::
 
 Communality and relaibility is important for two reasons:
 
-1.  Items with higher reliability are considered more "accurate" measures of the latent variable $F$. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.
+1.  Items with higher reliability are considered more "accurate" measures of the latent variable factor. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.
 2.  These allow us to calculate **factor scores**.
 
-Factor scores $\widetilde F$ are essentially values of the latent variable for individuals in our study. This allows us to use our observed items $X_i$ to calculate the latent variable value that any individual should have, which we can then put into another statistical model.
+**Factor scores** are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model.
 
 We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:
 
 $$
-\widetilde F = w_0 + w_1 X_1 + w_2X_2 + \dots
+\text{factor scores} = w_0 + w_1 \ \text{item}_1 + w_2 \  \text{item}_2 + \dots
 $$
 
 The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.

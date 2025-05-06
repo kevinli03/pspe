@@ -354,35 +354,35 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>The factor (notated <span class="math inline">\(F\)</span> or <span class="math inline">\(\xi\)</span>), is the unobserved latent variable we want to measure. We assume that the factor <span class="math inline">\(F\)</span> is continuous, and normally distributed:</p>
+<p>The factor is the unobserved latent variable we want to measure. We assume that the factor is continuous, and normally distributed:</p>
 <p><span class="math display">\[
-F \sim \mathcal N(0, 1)
+\text{factor} \sim \mathcal N(0, 1)
 \]</span></p>
 <div class="small">
 <p>Where <span class="math inline">\(\kappa = 0\)</span> is the mean of the factor, and <span class="math inline">\(\phi =1\)</span> is the variance of the factor. Technically, the factor only needs to be normally distributed - we can have different means and variances. However, for identification reasons, we typically fix the factor to a standard normal.</p>
 </div>
-<p>The items, notated <span class="math inline">\(X_1, X_2, \dots, X_p\)</span>, are the variables we observe, that we believe are a measurement of the latent factor <span class="math inline">\(F\)</span>. Factor analysis assumes that each observed item is associated with the latent factor with a <strong>linear regression model</strong>:</p>
+<p>The <span class="math inline">\(p\)</span> number of items are the variables we observe, that we believe are a measurement of the latent factor. Factor analysis assumes that each observed item is associated with the latent factor with a <strong>linear regression model</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
-X_1 &amp; = \tau_1 + \lambda_1F + \delta_1 \\
-X_2 &amp; = \tau_2 + \lambda_2 F + \delta_2 \\
+\text{item}_1 &amp; = \tau_1 + \lambda_1 \ \text{factor} + \delta_1 \\
+\text{item}_2 &amp; = \tau_2 + \lambda_2 \ \text{factor} + \delta_2 \\
 &amp; \vdots \qquad \qquad \vdots \\
-X_p &amp; = \tau_p + \lambda_p F + \delta_p
+\text{item}_p &amp; = \tau_p + \lambda_p \ \text{factor} + \delta_p
 \end{align}
 \]</span></p>
-<div class="small">
-<p>We assume that the error terms are normally distributed <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_{ii})\)</span>, that the different error terms <span class="math inline">\(\delta_1, \dots, \delta_p\)</span> are uncorrelated with each other, and <span class="math inline">\(F\)</span> is uncorrelated with the errors (exogeneity).</p>
-</div>
 <ul>
 <li><span class="math inline">\(\tau_i\)</span> is the intercept of the model.</li>
-<li><span class="math inline">\(\lambda_i\)</span> is the coefficient that describes the relationship between any item <span class="math inline">\(X_i\)</span> and the factor <span class="math inline">\(F\)</span>. These are called <strong>factor loadings</strong>.</li>
-<li><span class="math inline">\(\delta_i\)</span> is the error term - the part of an item <span class="math inline">\(X_i\)</span> not explained by the factor <span class="math inline">\(F\)</span>. They are called the <strong>unique factors</strong>.</li>
+<li><span class="math inline">\(\lambda_i\)</span> is the coefficient that describes the relationship between any item and the factor. These are called <strong>factor loadings</strong>.</li>
+<li><span class="math inline">\(\delta_i\)</span> is the error term - the part of an item not explained by the factor. They are called the <strong>unique factors</strong>.</li>
 </ul>
-<p>The factor loadings <span class="math inline">\(\lambda_i\)</span> represent the relationship/<strong>covariance</strong> between any item <span class="math inline">\(X_i\)</span> and a factor <span class="math inline">\(F\)</span>. If the items <span class="math inline">\(X_i\)</span> have been standardised to a standard normal, then <span class="math inline">\(\lambda_i\)</span> is also the correlation coefficient between items and factor.</p>
+<div class="small">
+<p>We assume that the error terms are normally distributed <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_{ii})\)</span>, that the different error terms <span class="math inline">\(\delta_1, \dots, \delta_p\)</span> are uncorrelated with each other, and factor is uncorrelated with the errors (exogeneity).</p>
+</div>
+<p>The factor loadings <span class="math inline">\(\lambda_i\)</span> represent the relationship/<strong>covariance</strong> between any item and a factor. If the items have been standardised to a standard normal, then <span class="math inline">\(\lambda_i\)</span> is also the correlation coefficient between items and factor.</p>
 <div class="small">
 <p>Note: this isn’t entirely true for multiple factors, as we will discuss in a later page.</p>
 </div>
-<p>These factor loadings help us interpret our latent variable <span class="math inline">\(F\)</span>. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.</p>
+<p>These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">

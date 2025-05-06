@@ -27,42 +27,42 @@ digraph example2 {
 ```
 :::
 
-The factor (notated $F$ or $\xi$), is the unobserved latent variable we want to measure. We assume that the factor $F$ is continuous, and normally distributed:
+The factor is the unobserved latent variable we want to measure. We assume that the factor is continuous, and normally distributed:
 
 $$
-F \sim \mathcal N(0, 1)
+\text{factor} \sim \mathcal N(0, 1)
 $$
 
 ::: small
 Where $\kappa = 0$ is the mean of the factor, and $\phi =1$ is the variance of the factor. Technically, the factor only needs to be normally distributed - we can have different means and variances. However, for identification reasons, we typically fix the factor to a standard normal.
 :::
 
-The items, notated $X_1, X_2, \dots, X_p$, are the variables we observe, that we believe are a measurement of the latent factor $F$. Factor analysis assumes that each observed item is associated with the latent factor with a **linear regression model**:
+The $p$ number of items are the variables we observe, that we believe are a measurement of the latent factor. Factor analysis assumes that each observed item is associated with the latent factor with a **linear regression model**:
 
 $$
 \begin{align}
-X_1 & = \tau_1 + \lambda_1F + \delta_1 \\
-X_2 & = \tau_2 + \lambda_2 F + \delta_2 \\
+\text{item}_1 & = \tau_1 + \lambda_1 \ \text{factor} + \delta_1 \\
+\text{item}_2 & = \tau_2 + \lambda_2 \ \text{factor} + \delta_2 \\
 & \vdots \qquad \qquad \vdots \\
-X_p & = \tau_p + \lambda_p F + \delta_p
+\text{item}_p & = \tau_p + \lambda_p \ \text{factor} + \delta_p
 \end{align}
 $$
 
+-   $\tau_i$ is the intercept of the model.
+-   $\lambda_i$ is the coefficient that describes the relationship between any item and the factor. These are called **factor loadings**.
+-   $\delta_i$ is the error term - the part of an item not explained by the factor. They are called the **unique factors**.
+
 ::: small
-We assume that the error terms are normally distributed $\delta_i \sim \mathcal N(0, \theta_{ii})$, that the different error terms $\delta_1, \dots, \delta_p$ are uncorrelated with each other, and $F$ is uncorrelated with the errors (exogeneity).
+We assume that the error terms are normally distributed $\delta_i \sim \mathcal N(0, \theta_{ii})$, that the different error terms $\delta_1, \dots, \delta_p$ are uncorrelated with each other, and factor is uncorrelated with the errors (exogeneity).
 :::
 
--   $\tau_i$ is the intercept of the model.
--   $\lambda_i$ is the coefficient that describes the relationship between any item $X_i$ and the factor $F$. These are called **factor loadings**.
--   $\delta_i$ is the error term - the part of an item $X_i$ not explained by the factor $F$. They are called the **unique factors**.
-
-The factor loadings $\lambda_i$ represent the relationship/**covariance** between any item $X_i$ and a factor $F$. If the items $X_i$ have been standardised to a standard normal, then $\lambda_i$ is also the correlation coefficient between items and factor.
+The factor loadings $\lambda_i$ represent the relationship/**covariance** between any item and a factor. If the items have been standardised to a standard normal, then $\lambda_i$ is also the correlation coefficient between items and factor.
 
 ::: small
 Note: this isn't entirely true for multiple factors, as we will discuss in a later page.
 :::
 
-These factor loadings help us interpret our latent variable $F$. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
+These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
 
 ::: {.callout-note collapse="true" appearance="simple"}
 ## Interpretation Example

@@ -294,7 +294,7 @@ window.Quarto = {
 <div class="small">
 <p>Note: PCA is not a latent variable model itself, but can be used to approximate a latent variable model.</p>
 </div>
-<p>Principle components analysis (PCA) takes a set of observed variables <span class="math inline">\(X_1, X_2, \dots, X_p\)</span> (called <strong>features</strong>), and change them into a set of new variables <span class="math inline">\(Y_1, Y_2, \dots Y_p\)</span> called <strong>principle components</strong> (PC), without losing any variance/information.</p>
+<p>Principle components analysis (PCA) takes <span class="math inline">\(p\)</span> number of observed variables (called <strong>features</strong>), and change them into a <span class="math inline">\(p\)</span> number of new variables called <strong>principle components</strong> (PC), without losing any variance/information.</p>
 <div class="small">
 <p>Without losing information/variance means the total variance of features equals total variance of PCs</p>
 </div>
@@ -309,20 +309,20 @@ window.Quarto = {
 </div>
 <p>The 1st PC explains the most variance in our features, then the 2nd PC, and so on.</p>
 <p><span class="math display">\[
-Var(Y_1) ≥ Var(Y_2) ≥ \dots &gt; Var(Y_p)
+Var(\text{PC}_1) ≥ Var(\text{PC}_2) ≥ \dots &gt; Var(\text{PC}_p)
 \]</span></p>
 <p>Each new principle component is a weighted average of the observed variables:</p>
 <p><span class="math display">\[
 \begin{align}
-Y_1 &amp; = a_{11}X_1 + a_{21} X_2 + \dots + a_{p1}X_p \\
-Y_2 &amp; = a_{12}X_1 + a_{22} X_2 + \dots + a_{p2}X_p \\
-&amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
-Y_p &amp; = a_{1p}X_1 + a_{2p} X_2 + \dots + a_{pp}X_p \\
+\text{PC}_1 &amp; = a_{11}\text{feature}_1 + a_{21}\text{feature}_2 + \dots + a_{p1}\text{feature}_p \\
+\text{PC}_2 &amp; = a_{12}\text{feature}_1 + a_{22} \text{feature}_2 + \dots + a_{p2}\text{feature}_p \\
+&amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots\\
+\text{PC}_p &amp; = a_{1p}\text{feature}_1 + a_{2p} \text{feature}_2 + \dots + a_{pp}\text{feature}_p \\
 \end{align}
 \]</span></p>
 <p>The <span class="math inline">\(a\)</span>’s are the weights of each observed feature in creating a principle component, and are determined by the correlation matrix of the observed features. For interpreting a principle component, we often “normalise” the weights <span class="math inline">\(a\)</span> to get the correlation between a observed feature and a principle component:</p>
 <p><span class="math display">\[
-Corr(X_i, Y_j) = \sqrt{Var(Y_j)} \cdot a_{ij}
+Corr(\text{feature}_i, \text{PC}_j) = \sqrt{Var(\text{PC}_j)} \cdot a_{ij}
 \]</span></p>
 <div class="small">
 <p>This value is also called a <strong>component loading</strong>. Note that the right side is only equal to the correlation given we perform PCA on the correlation matrix (which is standard, but you can use a covariance matrix).</p>

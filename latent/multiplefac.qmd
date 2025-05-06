@@ -38,28 +38,32 @@ digraph example2 {
 
 We can see in the above figure, an example of two latent factors. Each item can measure either only one or two of the factors. The factors can also both have the same items, but put emphasis on different items.
 
-Let us say we have multiple factors $F_1, F_2, \dots, F_q$. Let us use vector $\b F$ to reperesent the mall. We still assume the factors are normally distributed:
+Let us say we have multiple factors. We still assume the factors are normally distributed:
 
 $$
-\b F \sim \mathcal N(\b \kappa, \b\Phi)
+\text{factors} \sim \mathcal N(\b \kappa, \b\Phi)
 $$
 
-Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal $F \sim \mathcal N (0, 1)$. This implies that $\b\kappa = 0$.
+::: small
+Where $\b\kappa$ is a vector of all the means of each factor, and $\b\Phi$ is a variance-covariance matrix of all the factors.
+:::
+
+Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal $\mathcal N (0, 1)$. This implies that $\b\kappa = 0$.
 
 Our variance matrix $\b\Phi$ is a little more complicated - the variances of each factor is 1 (as assumed in a standard normal), however, the matrix $\b\Phi$ also includes the covariances between factors. This is an additional thing that we will need to estimate that was not present in one-factor models.
 
 ::: small
-For example, factor $F_1$ and $F_2$ might be correlated with each other, which is reflected in $\b\Phi$.
+For example, factor 1 and 2 might be correlated with each other, which is reflected in $\b\Phi$.
 :::
 
-Now on to our measurement models. Just like in single factor anlaysis, we use a linear regression to express the relationship between any item $X_i$ and the factors. However, this time, each regression will relate each $X_i$ to all factors $F_1, F_2, \dots, F_q$:
+Now on to our measurement models. Just like in single factor analysis, we use a linear regression to express the relationship between any item $i$ and the factors. However, this time, each regression will relate each item to all factors:
 
 $$
 \begin{align}
-X_1 & = \tau_1 + \lambda_{11}F_1 + \lambda_{12}F_2 + \dots + \lambda_{1q}F_q + \delta_1 \\
-X_2 & = \tau_2 + \lambda_{21} F_1 + \lambda_{22} F_2 + \dots + \lambda_{2q}F_q + \delta_2 \\
+\text{item}_1 & = \tau_1 + \lambda_{11}\ \text{factor}_1 + \lambda_{12}\ \text{factor}_2 + \dots + \delta_1 \\
+\text{item}_2 & = \tau_2 + \lambda_{21}\ \text{factor}_1 + \lambda_{22}\ \text{factor}_2 + \dots + \delta_2 \\
 & \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
-X_p & = \tau_p + \lambda_{p1} F_1 + \lambda_{p2}F_2+ \dots + \lambda_{pq}F_1 + \delta_p
+\text{item}_p & = \tau_p + \lambda_{p1}\ \text{factor}_1 + \lambda_{p2}\ \text{factor}_2+ \dots + \delta_p
 \end{align}
 $$
 

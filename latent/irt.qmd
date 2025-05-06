@@ -27,28 +27,28 @@ digraph example2 {
 ```
 :::
 
-The factor (notated $F$ or $\xi$), is the unobserved latent variable we want to measure. We assume that the factor $F$ is continuous, and normally distributed:
+The factor is the unobserved latent variable we want to measure. We assume that the factor is continuous, and normally distributed:
 
 $$
-F \sim \mathcal N(0, 1)
+\text{factor} \sim \mathcal N(0, 1)
 $$
 
-We must have at least 3 observed items for estimation purposes. The items $X_1, \dots, X_p$ are associated with the latent factor with a **binomial logistic model**:
+We must have at least 3 observed items for estimation purposes. The items are associated with the latent factor with a **binomial logistic model**:
 
 $$
 \begin{align}
-\log \left( \frac{Pr(X_1 =1|F)}{1 - Pr(X_1 =1|F)}\right) & = \tau_1 + \lambda_1 F \\
-\log \left( \frac{Pr(X_2 =1|F)}{1 - Pr(X_2 =1|F)}\right) & = \tau_2 + \lambda_2 F \\
-\vdots \qquad \qquad \vdots \qquad & \qquad \vdots \\
-\log \left( \frac{Pr(X_p =1|F)}{1 - Pr(X_p=1|F)}\right) & = \tau_p + \lambda_p F \\
+\text{logit}[Pr(\text{item}_1 = 1 \ | \ \text{factor})] & = \tau_1 + \lambda_1 \ \text{factor} \\
+\text{logit}[Pr(\text{item}_2 = 2 \ | \ \text{factor})] & = \tau_2 + \lambda_2 \ \text{factor} \\
+\vdots \qquad \qquad \vdots \qquad \qquad \vdots & \qquad \qquad \vdots \\
+\text{logit}[Pr(\text{item}_p = 1 \ | \ \text{factor})] & = \tau_p + \lambda_p \ \text{factor} \\
 \end{align}
 $$
 
 ::: small
-For categorical (more than 2 categories) items, a multinomial or ordinal logistic model is used. But this is pretty rare for someone to actually fit a model of this type.
+The logit link function is defined as $x/1-x$. For categorical (more than 2 categories) items, a multinomial or ordinal logistic model is used. But this is pretty rare for someone to actually fit a model of this type.
 :::
 
-$\tau_i$ is the intercept of the model, called the **difficulty**. $\lambda_i$ is the coefficeint that describes the relationship between any item $X_i$ and the factor $F$. These are called **factor loadings**. It is also called the **discrimination** parameter.
+$\tau_i$ is the intercept of the model, called the **difficulty**. $\lambda_i$ is the coefficeint that describes the relationship between any item $X_i$ and the factor. These are called **factor loadings**. It is also called the **discrimination** parameter.
 
 These factor loadings are interepreted in a very similar way to factor analysis. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
 

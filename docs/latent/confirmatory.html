@@ -398,11 +398,11 @@ window.Quarto = {
 </div>
 <p>Another difference is in the assumptions we make on the actual latent variables. Recall that we previously assumed the latent factors are standardly normally distributed:</p>
 <p><span class="math display">\[
-F \sim \mathcal N(0, 1)
+\text{factor} \sim \mathcal N(0, 1)
 \]</span></p>
 <p>In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distirbution to be estimated:</p>
 <p><span class="math display">\[
-F \sim \mathcal N(\kappa, \phi)
+\text{factor} \sim \mathcal N(\kappa, \phi)
 \]</span></p>
 <p>Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item’s intercept <span class="math inline">\(\tau_i = 0\)</span>, and the same item’s factor loading for that specific factor at <span class="math inline">\(\lambda = 1\)</span>.</p>
 <p>The estimation and interpretation of confirmatory analysis are essentially identical to that of exploratory analysis we have previously looked at.</p>

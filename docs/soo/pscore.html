@@ -278,11 +278,7 @@ window.Quarto = {
 <p><span class="math display">\[
 \text{propensity score } \pi =Pr(\text{you get treated})
 \]</span></p>
-<p>Propensity scores are typically estimated with a logistic regression:</p>
-<p><span class="math display">\[
-\log\left( \frac{\pi(\b X_i)}{1- \pi(\b X_i)}\right) = \alpha + \b X_i' \b\beta
-\]</span></p>
-<p>This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relatinoships between confounders and propensities, and only being unbiased in large sample sizes.</p>
+<p>Propensity scores are typically estimated with a logistic regression. This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relatinoships between confounders and propensities, and only being unbiased in large sample sizes.</p>
 <p><br></p>
 <p>Before you implement propensity score matching, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>:</p>
 <p>We will need the <strong>Matching</strong> package.</p>

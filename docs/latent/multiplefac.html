@@ -391,22 +391,25 @@ window.Quarto = {
 </div>
 </div>
 <p>We can see in the above figure, an example of two latent factors. Each item can measure either only one or two of the factors. The factors can also both have the same items, but put emphasis on different items.</p>
-<p>Let us say we have multiple factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>. Let us use vector <span class="math inline">\(\b F\)</span> to reperesent the mall. We still assume the factors are normally distributed:</p>
+<p>Let us say we have multiple factors. We still assume the factors are normally distributed:</p>
 <p><span class="math display">\[
-\b F \sim \mathcal N(\b \kappa, \b\Phi)
+\text{factors} \sim \mathcal N(\b \kappa, \b\Phi)
 \]</span></p>
-<p>Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal <span class="math inline">\(F \sim \mathcal N (0, 1)\)</span>. This implies that <span class="math inline">\(\b\kappa = 0\)</span>.</p>
+<div class="small">
+<p>Where <span class="math inline">\(\b\kappa\)</span> is a vector of all the means of each factor, and <span class="math inline">\(\b\Phi\)</span> is a variance-covariance matrix of all the factors.</p>
+</div>
+<p>Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal <span class="math inline">\(\mathcal N (0, 1)\)</span>. This implies that <span class="math inline">\(\b\kappa = 0\)</span>.</p>
 <p>Our variance matrix <span class="math inline">\(\b\Phi\)</span> is a little more complicated - the variances of each factor is 1 (as assumed in a standard normal), however, the matrix <span class="math inline">\(\b\Phi\)</span> also includes the covariances between factors. This is an additional thing that we will need to estimate that was not present in one-factor models.</p>
 <div class="small">
-<p>For example, factor <span class="math inline">\(F_1\)</span> and <span class="math inline">\(F_2\)</span> might be correlated with each other, which is reflected in <span class="math inline">\(\b\Phi\)</span>.</p>
+<p>For example, factor 1 and 2 might be correlated with each other, which is reflected in <span class="math inline">\(\b\Phi\)</span>.</p>
 </div>
-<p>Now on to our measurement models. Just like in single factor anlaysis, we use a linear regression to express the relationship between any item <span class="math inline">\(X_i\)</span> and the factors. However, this time, each regression will relate each <span class="math inline">\(X_i\)</span> to all factors <span class="math inline">\(F_1, F_2, \dots, F_q\)</span>:</p>
+<p>Now on to our measurement models. Just like in single factor analysis, we use a linear regression to express the relationship between any item <span class="math inline">\(i\)</span> and the factors. However, this time, each regression will relate each item to all factors:</p>
 <p><span class="math display">\[
 \begin{align}
-X_1 &amp; = \tau_1 + \lambda_{11}F_1 + \lambda_{12}F_2 + \dots + \lambda_{1q}F_q + \delta_1 \\
-X_2 &amp; = \tau_2 + \lambda_{21} F_1 + \lambda_{22} F_2 + \dots + \lambda_{2q}F_q + \delta_2 \\
+\text{item}_1 &amp; = \tau_1 + \lambda_{11}\ \text{factor}_1 + \lambda_{12}\ \text{factor}_2 + \dots + \delta_1 \\
+\text{item}_2 &amp; = \tau_2 + \lambda_{21}\ \text{factor}_1 + \lambda_{22}\ \text{factor}_2 + \dots + \delta_2 \\
 &amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
-X_p &amp; = \tau_p + \lambda_{p1} F_1 + \lambda_{p2}F_2+ \dots + \lambda_{pq}F_1 + \delta_p
+\text{item}_p &amp; = \tau_p + \lambda_{p1}\ \text{factor}_1 + \lambda_{p2}\ \text{factor}_2+ \dots + \delta_p
 \end{align}
 \]</span></p>
 <p>The factor loadings <span class="math inline">\(\lambda\)</span> are still the relationship between each factor and each item, and are interpreted in the same way as a 1-factor model. However, the the interpretation of communality and relaibility are no longer valid with more than 1-factor.</p>

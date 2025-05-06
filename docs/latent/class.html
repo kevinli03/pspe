@@ -354,22 +354,22 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>The factor <span class="math inline">\(F\)</span> is a categorical variable with <span class="math inline">\(C\)</span> number of categories, which are also called <strong>latent classes</strong>. These categories are treated as if they have no inherent order, and we can choose the number of categories.</p>
-<p>We also have categorical observed items <span class="math inline">\(X_1, X_2, \dots, X_p\)</span>, with each item <span class="math inline">\(X_i\)</span> having <span class="math inline">\(K_i\)</span> number of categories. The latent class models connects each item with a factor through a <strong>item response probability</strong>:</p>
+<p>The factor s a categorical variable with <span class="math inline">\(C\)</span> number of categories, which are also called <strong>latent classes</strong>. These categories are treated as if they have no inherent order, and we can choose the number of categories.</p>
+<p>We also have categorical observed items with each item <span class="math inline">\(i\)</span> having <span class="math inline">\(K_i\)</span> number of categories. The latent class models connects each item with a factor through a <strong>item response probability</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
-Pr(X_1 = k \ | \ F = c) &amp; = \pi_{1,kc} \\
-Pr(X_2 = k \ | \ F = c) &amp; = \pi_{2,kc} \\
-\vdots \qquad \qquad  \vdots \qquad &amp; \qquad \vdots \\
-Pr(X_p = k \ | \ F = c) &amp; = \pi_{p,kc} \\
+Pr(\text{item}_1 = k \ | \ \text{factor} = c) &amp; = \pi_{1, kc} \\
+Pr(\text{item}_2 = k \ | \ \text{factor} = c) &amp; = \pi_{2, kc} \\
+\vdots \qquad \qquad \vdots \qquad \qquad &amp; \vdots \\
+Pr(\text{item}_p = k \ | \ \text{factor} = c) &amp; = \pi_{p, kc} \\
 \end{align}
 \]</span></p>
 <div class="small">
-<p>Each <span class="math inline">\(\pi_{i, kc}\)</span> is the probability of any item <span class="math inline">\(X_i\)</span> being in category <span class="math inline">\(k\)</span>, given the factor <span class="math inline">\(F\)</span> is category <span class="math inline">\(c\)</span>.</p>
+<p>Each <span class="math inline">\(\pi_{i, kc}\)</span> is the probability of any item item being in category <span class="math inline">\(k\)</span>, given the factor is category <span class="math inline">\(c\)</span>.</p>
 </div>
 <p>We also have another part of the measurement mode, the <strong>structural model</strong>, which determines the probability of each category in the factor:</p>
 <p><span class="math display">\[
-\alpha_c = Pr(F=c)
+\alpha_c = Pr(\text{factor}=c)
 \]</span></p>
 <p>Interpretation of the latent factor <span class="math inline">\(F\)</span> depends on these item response probabilities <span class="math inline">\(\pi_{i, kc}\)</span>. An example is provided below, because it can be a little confusing.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
@@ -393,9 +393,9 @@ Example of Interpretation
 </div>
 <p>We can also create factor scores - which is a little different, because now we are basically assigning every unit in our data to a category of the latent factor. This is done by calculating the posterior probability of being in each class:</p>
 <p><span class="math display">\[
-\widehat{Pr}(F = c | X_1 = k_1, X_2 = k_2, \dots ) \quad \text{for all }c
+\widehat{Pr}(\text{factor} = c \ | \ \text{item}_1 = k_1, \text{item}_2 = k_2, \dots )
 \]</span></p>
-<p>Whichever category <span class="math inline">\(c\)</span> of the latent variable has the highest probability, is the category a unit is assigned to.</p>
+<p>We calcaulte this probability for all categories <span class="math inline">\(c\)</span> in the factor. Whichever category <span class="math inline">\(c\)</span> of the latent variable has the highest probability, is the category a unit is assigned to.</p>
 <div class="small">
 <p>This can be considered quite similar to that of cluster analysis, which will be introduced later.</p>
 </div>
