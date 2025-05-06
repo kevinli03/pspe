@@ -275,25 +275,24 @@ window.Quarto = {
 </header>
 
 
-<p>We previously established the <a href="../did/twfestaggered.html">issues with the two-way fixed effects estimator</a>. Wooldridge (2021, 2023) proposes a new variation on the estimator that solves the issues.</p>
-<p>When there is treatment heterogeneity in staggered difference-in-differences, this typically means units that start treatment in different time periods have different effects. Furthermore, as we mentioned in dynamic treatment effects, the effects of treatment might be different based on how long ago treatment started.</p>
-<p>Thus, Wooldridge focuses on finding each <strong>group-time ATT</strong> - basically the ATT at a specific time periods, for a specific group of units that were treated in the same year. We notate this group-time ATT as <span class="math inline">\(\tau_{g,t}^\text{ATT}\)</span>, where <span class="math inline">\(g\)</span> stands for the initial year of treatment for the group, and <span class="math inline">\(t\)</span> stands for the time periods of the ATT in question.</p>
-<div class="small">
-<p>This same group-time ATT is used by many other difference-in-differences estimators.</p>
-</div>
-<p>The idea is to first estimate all of these group-time ATT’s (which are “correct comparisons”), and then properly weight them together, solving both the “forbidden comparisons” issue and “weighting” issue of TWFE.</p>
-<p>Wooldridge proposes to estimate all of the group-time ATTs by including interaction terms for each initial treatment period grouping and time period in a regression model. Wooldridge also includes interactions with covariates to allow for more flexiblility:</p>
+<p>There are two <a href="../did/twfestaggered.html">issues with the two-way fixed effects estimator</a>: forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes a new estimator, the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues.</p>
+<ul>
+<li>First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem.</li>
+<li>Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample.</li>
+</ul>
+<p>Wooldridge proposes to estimate all of the possible heterogenous treatment effects by simply adding a ton of interaction terms to the TWFE estimator to account for every possible heterogeneity. The two main forms of heterogeneity are heterogeneity between different initial treatment years, and heterogeneity between different levels of confounders.</p>
 <p><span class="math display">\[
-Y_{it} = \alpha_i  + \gamma_t + \underbrace{\sum\limits_g \sum\limits_t \tau_{g,t}^\text{ATT} I\{i \in g, t ≥ g\}}_{\text{group-time ATT's}} + \underbrace{\sum\limits_g \sum\limits_t \b X_{it}'\beta_{g,t}  I\{i \in g,\}}_{\text{interactions with covariates}} + \eps_{it}
+\begin{align}
+Y_{it} = \alpha_i &amp; + \gamma_t + \b X_{it}'\b\beta &amp;&amp; \text{fixed effects and covariates}\\
+&amp; + \sum\limits_{g}\sum\limits_t \tau_{g,t} \cdot 1\{i \in g\} \cdot 1\{t ≥ g\} &amp;&amp; \text{interactions with intial treat year} \\
+&amp; + \sum\limits_g \sum\limits_t \tau_{g,t,j} \cdot 1\{i \in g\}  \cdot X_{j, it} + \eps_{it} &amp;&amp; \text{interact with covariates}
+\end{align}
 \]</span></p>
 <div class="small">
-<p>The summations basically mean include one interaction for each <span class="math inline">\(g\)</span> (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each <span class="math inline">\(g\)</span>. The <span class="math inline">\(I\{\}\)</span> is an indicator function, that takes the value of 1 if unit <span class="math inline">\(i\)</span> is in group <span class="math inline">\(g\)</span>, and is treated (so <span class="math inline">\(t\)</span> time period is greater/after initial treatment year <span class="math inline">\(g\)</span>).</p>
+<p>The summations basically mean include one interaction for each <span class="math inline">\(g\)</span> (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each <span class="math inline">\(g\)</span>. The <span class="math inline">\(1\{\}\)</span> are indicator functions that output a value of 1 if true, and value of 0 if not true. <span class="math inline">\(i \in g\)</span> means unit <span class="math inline">\(i\)</span> is in the initial treatment year group of <span class="math inline">\(g\)</span>.</p>
 </div>
-<p>This model will produce many coefficients <span class="math inline">\(\tau_{g, t}^\text{ATT}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). To obtain a single ATT, we will want to aggregate them together in a weighted average.</p>
-<p>We can also aggregate them in terms of relative years to initial treatment, which will allow us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects, which means a parallel trends test is hard to conduct here.</p>
-<div class="small">
-<p>For parallel trends tests, Sun and Abraham’s very similar approach is recommended.</p>
-</div>
+<p>This model will produce many coefficients <span class="math inline">\(\tau_{g, t}\)</span> and <span class="math inline">\(\tau_{g, t, j}\)</span> that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.</p>
+<p>We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.</p>
 <p>Wooldridge’s 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.</p>
 <p>Wooldridge’s extended two-way fixed effects estimator is very similar to <a href="../did/sunab.html">Sun and Abraham’s</a> estimator. The three main differences are:</p>
 <ol type="1">

@@ -2,31 +2,25 @@
 title: "Sun and Abraham (2021) Estimator"
 ---
 
-Sun and Abraham (2021) propose a difference-in-differences estimator that solves the [issues with two-way fixed effects](twfestaggered.qmd).
+There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator that solves both of these issues.
 
-When there is treatment heterogeneity in staggered difference-in-differences, this typically means units that start treatment in different time periods have different effect sizes. Furthermore, as we mentioned in dynamic treatment effects, the effects of treatment might be different based on how long ago treatment started.
+-   First, the estimator divides all units into groups based on their initial treatment implementation.
+-   Then, the estimator calculates dynamic ATT's separately for group. This captures heterogeneity of treatment between different initial treatment periods.
+-   Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each initial treatment period group appears in our sample.
 
-Thus, Sun and Abraham focuses on finding each **group-time ATT** - basically the ATT at a specific time periods, for a specific group of units that were treated in the same year. We notate this group-time ATT as $\tau_{g,t}^\text{ATT}$, where $g$ stands for the initial year of treatment for the group, and $t$ stands for the time periods of the ATT in question.
-
-::: small
-This same group-time ATT is used by many other difference-in-differences estimators.
-:::
-
-The idea is to first estimate all of these group-time ATT's (which are "correct comparisons"), and then properly weight them together, solving both the "forbidden comparisons" issue and "weighting" issue of TWFE.
-
-Sun and Abraham propose to estimate all of the group-time ATTs by including interaction terms for each initial treatment period grouping and time period in a regression model.
+Sun and Abraham estimate dynamic ATT's for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.
 
 $$
-Y_{it} = \alpha_i + \gamma_t + \b X_{it}'\b\beta + \underbrace{\sum\limits_g \sum\limits_{k ≠ -1} \tau_{g, k} \cdot I\{i \in g\} \cdot I\{t-g=k\}}_{\text{interactions for group-time ATT}} + \eps_{it}
+Y_{it} = \alpha_i + \gamma_t + \b X_{it}'\b\beta + \underbrace{\sum\limits_g \sum\limits_{k ≠ -1} \tau_{g, k} \cdot 1\{i \in g\} \cdot 1\{t-g=k\}}_{\text{interactions for group-time ATT}} + \eps_{it}
 $$
 
 ::: small
-The summations mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $I\{\}$ is an indicator function. The first $I$ equals 1 if unit $i$ is in initial treatment year group $g$. The second 1 equals 1 if unit $i$'s relative treatment period (time period $t$ minus initial treatment $g$) equals $k$.
+The summations mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $1\{\}$ is an indicator function that takes a value of 1 if true, and 0 if false. $i \in g$ means unit $i$ initially recieved treatment in period $g$. $t-g$ represents the relative year of treatment, with the year treatment initiates is year 0.
 :::
 
 The reason for $k ≠ -1$ is because time period -1 relative to treatment (so the year before treatment occurs) is set as the reference category. This is similar to dynamic treatment effects we saw previously.
 
-This model will produce many coefficients $\tau_{g, t}^\text{ATT}$ (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.
+This model will produce many coefficients $\tau_{g, t}$ (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.
 
 Sun and Abraham's estimator is very similar to Wooldridge's [extended two-way fixed effects](etwfe.qmd) estimator. The three main differences are:
 

@@ -2,35 +2,28 @@
 title: "Wooldridge (2021) Extended Two-Way Fixed Effects"
 ---
 
-We previously established the [issues with the two-way fixed effects estimator](twfestaggered.qmd). Wooldridge (2021, 2023) proposes a new variation on the estimator that solves the issues.
+There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes a new estimator, the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues.
 
-When there is treatment heterogeneity in staggered difference-in-differences, this typically means units that start treatment in different time periods have different effects. Furthermore, as we mentioned in dynamic treatment effects, the effects of treatment might be different based on how long ago treatment started.
+-   First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem.
+-   Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample.
 
-Thus, Wooldridge focuses on finding each **group-time ATT** - basically the ATT at a specific time periods, for a specific group of units that were treated in the same year. We notate this group-time ATT as $\tau_{g,t}^\text{ATT}$, where $g$ stands for the initial year of treatment for the group, and $t$ stands for the time periods of the ATT in question.
-
-::: small
-This same group-time ATT is used by many other difference-in-differences estimators.
-:::
-
-The idea is to first estimate all of these group-time ATT's (which are "correct comparisons"), and then properly weight them together, solving both the "forbidden comparisons" issue and "weighting" issue of TWFE.
-
-Wooldridge proposes to estimate all of the group-time ATTs by including interaction terms for each initial treatment period grouping and time period in a regression model. Wooldridge also includes interactions with covariates to allow for more flexiblility:
+Wooldridge proposes to estimate all of the possible heterogenous treatment effects by simply adding a ton of interaction terms to the TWFE estimator to account for every possible heterogeneity. The two main forms of heterogeneity are heterogeneity between different initial treatment years, and heterogeneity between different levels of confounders.
 
 $$
-Y_{it} = \alpha_i  + \gamma_t + \underbrace{\sum\limits_g \sum\limits_t \tau_{g,t}^\text{ATT} I\{i \in g, t ≥ g\}}_{\text{group-time ATT's}} + \underbrace{\sum\limits_g \sum\limits_t \b X_{it}'\beta_{g,t}  I\{i \in g,\}}_{\text{interactions with covariates}} + \eps_{it}
+\begin{align}
+Y_{it} = \alpha_i & + \gamma_t + \b X_{it}'\b\beta && \text{fixed effects and covariates}\\
+& + \sum\limits_{g}\sum\limits_t \tau_{g,t} \cdot 1\{i \in g\} \cdot 1\{t ≥ g\} && \text{interactions with intial treat year} \\
+& + \sum\limits_g \sum\limits_t \tau_{g,t,j} \cdot 1\{i \in g\}  \cdot X_{j, it} + \eps_{it} && \text{interact with covariates}
+\end{align}
 $$
 
 ::: small
-The summations basically mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $I\{\}$ is an indicator function, that takes the value of 1 if unit $i$ is in group $g$, and is treated (so $t$ time period is greater/after initial treatment year $g$).
+The summations basically mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $1\{\}$ are indicator functions that output a value of 1 if true, and value of 0 if not true. $i \in g$ means unit $i$ is in the initial treatment year group of $g$.
 :::
 
-This model will produce many coefficients $\tau_{g, t}^\text{ATT}$ (in fact, one for each post-treatment time period for each initial treatment year group). To obtain a single ATT, we will want to aggregate them together in a weighted average.
+This model will produce many coefficients $\tau_{g, t}$ and $\tau_{g, t, j}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
 
-We can also aggregate them in terms of relative years to initial treatment, which will allow us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects, which means a parallel trends test is hard to conduct here.
-
-::: small
-For parallel trends tests, Sun and Abraham's very similar approach is recommended.
-:::
+We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.
 
 Wooldridge's 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.
 

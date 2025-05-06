@@ -275,22 +275,21 @@ window.Quarto = {
 </header>
 
 
-<p>Sun and Abraham (2021) propose a difference-in-differences estimator that solves the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a>.</p>
-<p>When there is treatment heterogeneity in staggered difference-in-differences, this typically means units that start treatment in different time periods have different effect sizes. Furthermore, as we mentioned in dynamic treatment effects, the effects of treatment might be different based on how long ago treatment started.</p>
-<p>Thus, Sun and Abraham focuses on finding each <strong>group-time ATT</strong> - basically the ATT at a specific time periods, for a specific group of units that were treated in the same year. We notate this group-time ATT as <span class="math inline">\(\tau_{g,t}^\text{ATT}\)</span>, where <span class="math inline">\(g\)</span> stands for the initial year of treatment for the group, and <span class="math inline">\(t\)</span> stands for the time periods of the ATT in question.</p>
-<div class="small">
-<p>This same group-time ATT is used by many other difference-in-differences estimators.</p>
-</div>
-<p>The idea is to first estimate all of these group-time ATT’s (which are “correct comparisons”), and then properly weight them together, solving both the “forbidden comparisons” issue and “weighting” issue of TWFE.</p>
-<p>Sun and Abraham propose to estimate all of the group-time ATTs by including interaction terms for each initial treatment period grouping and time period in a regression model.</p>
+<p>There are two <a href="../did/twfestaggered.html">issues with the two-way fixed effects estimator</a>: forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator that solves both of these issues.</p>
+<ul>
+<li>First, the estimator divides all units into groups based on their initial treatment implementation.</li>
+<li>Then, the estimator calculates dynamic ATT’s separately for group. This captures heterogeneity of treatment between different initial treatment periods.</li>
+<li>Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each initial treatment period group appears in our sample.</li>
+</ul>
+<p>Sun and Abraham estimate dynamic ATT’s for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.</p>
 <p><span class="math display">\[
-Y_{it} = \alpha_i + \gamma_t + \b X_{it}'\b\beta + \underbrace{\sum\limits_g \sum\limits_{k ≠ -1} \tau_{g, k} \cdot I\{i \in g\} \cdot I\{t-g=k\}}_{\text{interactions for group-time ATT}} + \eps_{it}
+Y_{it} = \alpha_i + \gamma_t + \b X_{it}'\b\beta + \underbrace{\sum\limits_g \sum\limits_{k ≠ -1} \tau_{g, k} \cdot 1\{i \in g\} \cdot 1\{t-g=k\}}_{\text{interactions for group-time ATT}} + \eps_{it}
 \]</span></p>
 <div class="small">
-<p>The summations mean include one interaction for each <span class="math inline">\(g\)</span> (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each <span class="math inline">\(g\)</span>. The <span class="math inline">\(I\{\}\)</span> is an indicator function. The first <span class="math inline">\(I\)</span> equals 1 if unit <span class="math inline">\(i\)</span> is in initial treatment year group <span class="math inline">\(g\)</span>. The second 1 equals 1 if unit <span class="math inline">\(i\)</span>’s relative treatment period (time period <span class="math inline">\(t\)</span> minus initial treatment <span class="math inline">\(g\)</span>) equals <span class="math inline">\(k\)</span>.</p>
+<p>The summations mean include one interaction for each <span class="math inline">\(g\)</span> (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each <span class="math inline">\(g\)</span>. The <span class="math inline">\(1\{\}\)</span> is an indicator function that takes a value of 1 if true, and 0 if false. <span class="math inline">\(i \in g\)</span> means unit <span class="math inline">\(i\)</span> initially recieved treatment in period <span class="math inline">\(g\)</span>. <span class="math inline">\(t-g\)</span> represents the relative year of treatment, with the year treatment initiates is year 0.</p>
 </div>
 <p>The reason for <span class="math inline">\(k ≠ -1\)</span> is because time period -1 relative to treatment (so the year before treatment occurs) is set as the reference category. This is similar to dynamic treatment effects we saw previously.</p>
-<p>This model will produce many coefficients <span class="math inline">\(\tau_{g, t}^\text{ATT}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
+<p>This model will produce many coefficients <span class="math inline">\(\tau_{g, t}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
 <p>Sun and Abraham’s estimator is very similar to Wooldridge’s <a href="../did/etwfe.html">extended two-way fixed effects</a> estimator. The three main differences are:</p>
 <ol type="1">
 <li>Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge’s can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.</li>
