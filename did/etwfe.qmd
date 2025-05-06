@@ -11,16 +11,16 @@ Wooldridge proposes to estimate all of the possible heterogenous treatment effec
 
 $$
 \begin{align}
-Y_{it} = \sum\limits_{g} & \sum\limits_t \blue{\tau_{g,t}} \cdot 1\{i \in g\} \cdot D_{it} \\
-+ & \sum\limits_g \sum\limits_t \blue{\tau_{g,t,j}} \cdot 1\{i \in g\} \cdot D_{it} \cdot X_{j, it} \\ + & \  \alpha_i + \gamma_t + \b X_{it} \b\beta + \eps_{it}
+Y_{it} = \sum\limits_{\text{group}} & \sum\limits_t \blue{\tau_{\text{group},t}} \cdot 1\{i \in \text{group}\} \cdot D_{it} \\
++ & \sum\limits_\text{group} \sum\limits_t \sum\limits_j\blue{\tau_{\text{group},t,j}} \cdot 1\{i \in \text{group}\} \cdot D_{it} \cdot X_{j, it} \\ + & \  \alpha_i + \gamma_t + \b X_{it} \b\beta + \eps_{it}
 \end{align}
 $$
 
 ::: small
-The summations basically mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $1\{\}$ are indicator functions that output a value of 1 if true, and value of 0 if not true. $i \in g$ means unit $i$ is in the initial treatment year group of $g$. The first line interacts treatment with initial group. The second line interacts treatment with initial group and covariates.
+The summations basically mean include one interaction for each group (initial treatment year group), and each $t$ (time periods) within each group. The $1\{\}$ are indicator functions that output a value of 1 if true, and value of 0 if not true. $i \in$ group means unit $i$ is in the initial treatment year group in question. The first line interacts treatment with initial group. The second line interacts treatment with initial group and covariates.
 :::
 
-This model will produce many coefficients $\tau_{g, t}$ and $\tau_{g, t, j}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
+This model will produce many coefficients $\tau_{\text{group}, t}$ and $\tau_{\text{group}, t, j}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
 
 We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.
 

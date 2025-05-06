@@ -12,7 +12,7 @@ Sun and Abraham estimate dynamic ATT's for each group by including interaction t
 
 $$
 \begin{align}
-Y_{it} = \sum\limits_g & \sum\limits_{k ≠ -1} \blue{\tau_{g, k}} \cdot 1\{i \in g\} \cdot 1\{t-g=k\} \\
+Y_{it} = \sum\limits_\text{group} & \sum\limits_{k ≠ -1} \blue{\tau_{\text{group}, k}} \cdot 1\{i \in \text{group}\} \cdot 1\{t-\text{group}=k\} \\
 + & \ \alpha_i + \gamma_t + \b X_{it}'\b\beta + \eps_{it}
 \end{align}
 $$
@@ -23,7 +23,7 @@ The summations mean include one interaction for each $g$ (initial treatment year
 
 The reason for $k ≠ -1$ is because time period -1 relative to treatment (so the year before treatment occurs) is set as the reference category. This is similar to dynamic treatment effects we saw previously.
 
-This model will produce many coefficients $\tau_{g, t}$ (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.
+This model will produce many coefficients $\blue{\tau_{\text{group}, t}}$ (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.
 
 Sun and Abraham's estimator is very similar to Wooldridge's [extended two-way fixed effects](etwfe.qmd) estimator. The three main differences are:
 
