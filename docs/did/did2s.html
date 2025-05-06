@@ -293,14 +293,11 @@ Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
 <p>These are obtained by simply plugging in <span class="math inline">\(D=0,1\)</span> into the TWFE equation.</p>
 </div>
 <p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> regarding “forbidden comparisons” and “weighting” problems by simply estimating the counterfactuals <span class="math inline">\(\red{Y_{it}^{(0)}}\)</span> for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.</p>
-<p><span class="math display">\[
-\tau_\text{ATT} \approx \E \left[Y_{it} - \blue{\widehat Y_{it}^{(0)}} \biggr| D_{it} = 1 \right]
-\]</span></p>
 <p>To estimate the counterfactuals, we first run a regression with <strong>only untreated/not-yet treated observations</strong> <span class="math inline">\(D=0\)</span>:</p>
 <p><span class="math display">\[
 Y_{it|D=0} = \alpha_i + \gamma_t + \b X_{it}' \b\beta + \eps_{it}
 \]</span></p>
-<p>This regression will provide estimates for <span class="math inline">\(\widehat\alpha_i\)</span>, <span class="math inline">\(\widehat\gamma_t\)</span>, and <span class="math inline">\(\widehat{\b\beta}\)</span> using only untreated data. This will allow us to estimate the <span class="math inline">\(Y_{it}^{(0)}\)</span> potential outcomes for all units, including the counterfactuals for the treated units.</p>
+<p>This regression will provide estimates for <span class="math inline">\(\widehat\alpha_i\)</span>, <span class="math inline">\(\widehat\gamma_t\)</span>, and <span class="math inline">\(\widehat{\b\beta}\)</span> using only untreated data. This will allow us to estimate the <span class="math inline">\(Y_{it}^{(0)}\)</span> potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.</p>
 <p><span class="math display">\[
 \blue{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
 \]</span></p>
@@ -326,7 +323,6 @@ Y_{it|D=0} = \alpha_i + \gamma_t + \b X_{it}' \b\beta + \eps_{it}
 <div class="small">
 <p>The standard errors will be incorrect, so Gardner (2021) uses a generalised method of moments estimator to correct the standard errors.</p>
 </div>
-<p>The 2-stage difference-in-differences estimator is the most simple adjustment on TWFE, since it relies on a regression framework, and is relatively intuitive. However, the flexibility and robustness of this estimator is likely worse than many of the alternatives (such as Sun and Abraham, Callaway and Sant’Anna, and Liu et al), which will be covered later.</p>
 <p><br></p>
 <p>To implement 2-stage difference-in-differences, we need the <strong>did2s</strong> package:</p>
 <div class="cell">

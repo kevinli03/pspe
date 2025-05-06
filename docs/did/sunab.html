@@ -283,10 +283,13 @@ window.Quarto = {
 </ul>
 <p>Sun and Abraham estimate dynamic ATT’s for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.</p>
 <p><span class="math display">\[
-Y_{it} = \alpha_i + \gamma_t + \b X_{it}'\b\beta + \underbrace{\sum\limits_g \sum\limits_{k ≠ -1} \tau_{g, k} \cdot 1\{i \in g\} \cdot 1\{t-g=k\}}_{\text{interactions for group-time ATT}} + \eps_{it}
+\begin{align}
+Y_{it} = \sum\limits_g &amp; \sum\limits_{k ≠ -1} \blue{\tau_{g, k}} \cdot 1\{i \in g\} \cdot 1\{t-g=k\} \\
++ &amp; \ \alpha_i + \gamma_t + \b X_{it}'\b\beta + \eps_{it}
+\end{align}
 \]</span></p>
 <div class="small">
-<p>The summations mean include one interaction for each <span class="math inline">\(g\)</span> (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each <span class="math inline">\(g\)</span>. The <span class="math inline">\(1\{\}\)</span> is an indicator function that takes a value of 1 if true, and 0 if false. <span class="math inline">\(i \in g\)</span> means unit <span class="math inline">\(i\)</span> initially recieved treatment in period <span class="math inline">\(g\)</span>. <span class="math inline">\(t-g\)</span> represents the relative year of treatment, with the year treatment initiates is year 0.</p>
+<p>The summations mean include one interaction for each <span class="math inline">\(g\)</span> (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each <span class="math inline">\(g\)</span>. The <span class="math inline">\(1\{\}\)</span> is an indicator function that takes a value of 1 if true, and 0 if false. <span class="math inline">\(i \in g\)</span> means unit <span class="math inline">\(i\)</span> initially recieved treatment in period <span class="math inline">\(g\)</span>. <span class="math inline">\(t-g\)</span> represents the relative year of treatment, with the year treatment initiates is year 0. The first line interacts relative treatment period with the group indicator.</p>
 </div>
 <p>The reason for <span class="math inline">\(k ≠ -1\)</span> is because time period -1 relative to treatment (so the year before treatment occurs) is set as the reference category. This is similar to dynamic treatment effects we saw previously.</p>
 <p>This model will produce many coefficients <span class="math inline">\(\tau_{g, t}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>

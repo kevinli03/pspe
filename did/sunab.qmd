@@ -11,11 +11,14 @@ There are two [issues with the two-way fixed effects estimator](twfestaggered.qm
 Sun and Abraham estimate dynamic ATT's for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.
 
 $$
-Y_{it} = \alpha_i + \gamma_t + \b X_{it}'\b\beta + \underbrace{\sum\limits_g \sum\limits_{k ≠ -1} \tau_{g, k} \cdot 1\{i \in g\} \cdot 1\{t-g=k\}}_{\text{interactions for group-time ATT}} + \eps_{it}
+\begin{align}
+Y_{it} = \sum\limits_g & \sum\limits_{k ≠ -1} \blue{\tau_{g, k}} \cdot 1\{i \in g\} \cdot 1\{t-g=k\} \\
++ & \ \alpha_i + \gamma_t + \b X_{it}'\b\beta + \eps_{it}
+\end{align}
 $$
 
 ::: small
-The summations mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $1\{\}$ is an indicator function that takes a value of 1 if true, and 0 if false. $i \in g$ means unit $i$ initially recieved treatment in period $g$. $t-g$ represents the relative year of treatment, with the year treatment initiates is year 0.
+The summations mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $1\{\}$ is an indicator function that takes a value of 1 if true, and 0 if false. $i \in g$ means unit $i$ initially recieved treatment in period $g$. $t-g$ represents the relative year of treatment, with the year treatment initiates is year 0. The first line interacts relative treatment period with the group indicator.
 :::
 
 The reason for $k ≠ -1$ is because time period -1 relative to treatment (so the year before treatment occurs) is set as the reference category. This is similar to dynamic treatment effects we saw previously.

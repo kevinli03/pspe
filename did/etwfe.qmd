@@ -11,14 +11,13 @@ Wooldridge proposes to estimate all of the possible heterogenous treatment effec
 
 $$
 \begin{align}
-Y_{it} = \alpha_i & + \gamma_t + \b X_{it}'\b\beta && \text{fixed effects and covariates}\\
-& + \sum\limits_{g}\sum\limits_t \tau_{g,t} \cdot 1\{i \in g\} \cdot 1\{t ≥ g\} && \text{interactions with intial treat year} \\
-& + \sum\limits_g \sum\limits_t \tau_{g,t,j} \cdot 1\{i \in g\}  \cdot X_{j, it} + \eps_{it} && \text{interact with covariates}
+Y_{it} = \sum\limits_{g} & \sum\limits_t \blue{\tau_{g,t}} \cdot 1\{i \in g\} \cdot D_{it} \\
++ & \sum\limits_g \sum\limits_t \blue{\tau_{g,t,j}} \cdot 1\{i \in g\} \cdot D_{it} \cdot X_{j, it} \\ + & \  \alpha_i + \gamma_t + \b X_{it} \b\beta + \eps_{it}
 \end{align}
 $$
 
 ::: small
-The summations basically mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $1\{\}$ are indicator functions that output a value of 1 if true, and value of 0 if not true. $i \in g$ means unit $i$ is in the initial treatment year group of $g$.
+The summations basically mean include one interaction for each $g$ (initial treatment year group), and each $t$ (time periods) within each $g$. The $1\{\}$ are indicator functions that output a value of 1 if true, and value of 0 if not true. $i \in g$ means unit $i$ is in the initial treatment year group of $g$. The first line interacts treatment with initial group. The second line interacts treatment with initial group and covariates.
 :::
 
 This model will produce many coefficients $\tau_{g, t}$ and $\tau_{g, t, j}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.

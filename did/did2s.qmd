@@ -27,17 +27,13 @@ These are obtained by simply plugging in $D=0,1$ into the TWFE equation.
 
 Gardner (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) regarding "forbidden comparisons" and "weighting" problems by simply estimating the counterfactuals $\red{Y_{it}^{(0)}}$ for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.
 
-$$
-\tau_\text{ATT} \approx \E \left[Y_{it} - \blue{\widehat Y_{it}^{(0)}} \biggr| D_{it} = 1 \right]
-$$
-
 To estimate the counterfactuals, we first run a regression with **only untreated/not-yet treated observations** $D=0$:
 
 $$
 Y_{it|D=0} = \alpha_i + \gamma_t + \b X_{it}' \b\beta + \eps_{it}
 $$
 
-This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\b\beta}$ using only untreated data. This will allow us to estimate the $Y_{it}^{(0)}$ potential outcomes for all units, including the counterfactuals for the treated units.
+This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\b\beta}$ using only untreated data. This will allow us to estimate the $Y_{it}^{(0)}$ potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.
 
 $$
 \blue{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
@@ -70,8 +66,6 @@ The estimated $\widehat\tau$ is the estimate of the ATT, that should be free of 
 ::: small
 The standard errors will be incorrect, so Gardner (2021) uses a generalised method of moments estimator to correct the standard errors.
 :::
-
-The 2-stage difference-in-differences estimator is the most simple adjustment on TWFE, since it relies on a regression framework, and is relatively intuitive. However, the flexibility and robustness of this estimator is likely worse than many of the alternatives (such as Sun and Abraham, Callaway and Sant'Anna, and Liu et al), which will be covered later.
 
 <br />
 
