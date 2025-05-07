@@ -9,11 +9,11 @@ Note: if you have staggered treatment implementation, [TWFE can produce incorrec
 The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences. The estimator is a linear regression model specified as following:
 
 $$
-\text{outcome}_{it} = \underbrace{\text{unit}_i + \text{period}_t}_{\text{fixed effects}} + \text{treatment}_{it}\blue\tau + \text{covariates}_{it}\beta + \eps_{it}
+\text{outcome}_{it} = \underbrace{\alpha_i \ \text{unit}_i + \gamma_t\ \text{period}_t}_{\text{fixed effects}} + \blue\tau \ \text{treatment}_{it} + \beta \ \text{covariates}_{it} + \eps_{it}
 $$
 
 ::: small
-Where covariates are extra control variables needed to meet the parallel trends assumption (optional).
+Where covariates are extra control variables needed to meet the parallel trends assumption (optional). Note how coefficients $\alpha_i$ and $\gamma_t$ have subscripts - they have different values given which unit $i$ or time $t$ in question.
 :::
 
 The estimate for $\blue\tau$ is our treatment effect (ATT). But what are fixed effects, and what do they do? Let us take a look at this example:

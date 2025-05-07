@@ -283,14 +283,15 @@ window.Quarto = {
 <p>Wooldridge proposes to estimate all of the possible heterogenous treatment effects by simply adding a ton of interaction terms to the TWFE estimator to account for every possible heterogeneity. The two main forms of heterogeneity are heterogeneity between different initial treatment years, and heterogeneity between different levels of confounders.</p>
 <p><span class="math display">\[
 \begin{align}
-\text{outcome}_{it} = &amp; \sum\limits_{\text{group}} \sum\limits_t \blue{\tau_{\text{group},t}} \cdot 1\{i \in \text{group}\} \cdot \text{treatment}_{it} \\
-+ &amp; \sum\limits_\text{group} \sum\limits_t \sum\limits_j\blue{\tau_{\text{group},t,j}} \cdot 1\{i \in \text{group}\} \cdot \text{treatment}_{it} \cdot \text{covariate}_{j, it} \\ + &amp; \  \text{unit}_i + \text{period}_t + \text{covariates}_{it} \b\beta + \eps_{it}
+\text{outcome}_{it} = &amp; \ \blue{\tau_{\text{group}, t}} \cdot \text{group}_i \cdot \text{treatment}_{it} \cdot \text{period}_t \\
+&amp; + \blue{\tau_{\text{group},t, \text{covariates}}} \cdot \text{group}_i \cdot \text{treatment}_{it} \cdot \text{period}_t \cdot \b{\text{covariates}}_{\ it} \\
+&amp; +  \text{unit}_i + \text{period}_t + \b{\text{covariates}}_{\ it} \b\beta + \eps_{it}
 \end{align}
 \]</span></p>
 <div class="small">
-<p>The summations basically mean include one interaction for each group (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each group. The <span class="math inline">\(1\{\}\)</span> are indicator functions that output a value of 1 if true, and value of 0 if not true. <span class="math inline">\(i \in\)</span> group means unit <span class="math inline">\(i\)</span> is in the initial treatment year group in question. The first line interacts treatment with initial group. The second line interacts treatment with initial group and covariates.</p>
+<p><span class="math inline">\(\text{group}_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{period}_t\)</span> is a categorical variable that indicates the different time periods. <span class="math inline">\(\b{\text{covariates}}_{\ it}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, the first line captures a interaction between groups, treatment, and time, and the second line captures an interaction between groups, treatment, time, and covariates.</p>
 </div>
-<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{\text{group}, t}}\)</span> and <span class="math inline">\(\blue{\tau_{\text{group}, t, j}}\)</span> that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.</p>
+<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{\text{group}, t}}\)</span> and <span class="math inline">\(\blue{\tau_{\text{group}, t, \text{covariates}}}\)</span> that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.</p>
 <p>We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.</p>
 <p>Wooldridge’s 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.</p>
 <p>Wooldridge’s extended two-way fixed effects estimator is very similar to <a href="../did/sunab.html">Sun and Abraham’s</a> estimator. The three main differences are:</p>

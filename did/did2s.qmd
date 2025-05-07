@@ -9,59 +9,55 @@ See [Kyle Butts'](https://kylebutts.github.io/did2s/articles/Two-Stage-Differenc
 Recall our two-way fixed effects model:
 
 $$
-Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
+\text{outcome}_{it} = \underbrace{\alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t}_{\text{fixed effects}} + \blue\tau \ \text{treatment}_{it} + \beta \ \text{covariates}_{it} + \eps_{it}
 $$
 
 This also implies a model for the potential outcomes - the potential outcome under control is when $D=0$, and the potential outcome under treatment is $D=1$:
 
 $$
 \begin{align}
-\purple{Y_{it}^{(1)}} & = \alpha_i + \gamma_t + \blue\tau + \b X_{it}' \b\beta + \eps_{it} \\
-\purple{Y_{it}^{(0)}} & = \alpha_i + \gamma_t  + \b X_{it}' \b\beta + \eps_{it}
+\purple{\text{outcome}_{it}^{(\text{treated})}} & = \alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t + \blue\tau + \beta \ \text{covariates}_{it} + \eps_{it} \\
+\purple{\text{outcome}_{it}^{(\text{untreated})}} & = \alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t + \beta \ \text{covariates}_{it} + \eps_{it}
 \end{align}
 $$
 
 ::: small
-These are obtained by simply plugging in $D=0,1$ into the TWFE equation.
+These are obtained by simply plugging in $\text{treatment}_{it}=0,1$ into the TWFE equation.
 :::
 
 Gardner (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) regarding "forbidden comparisons" and "weighting" problems by simply estimating the counterfactuals $\red{Y_{it}^{(0)}}$ for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.
 
-To estimate the counterfactuals, we first run a regression with **only untreated/not-yet treated observations** $D=0$:
+To estimate the counterfactuals, we first run a regression with **only untreated/not-yet treated observations** $\text{treatment}=0$:
 
 $$
-Y_{it|D=0} = \alpha_i + \gamma_t + \b X_{it}' \b\beta + \eps_{it}
+\text{outcome}_{it} = \alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t + \beta \ \text{covariates}_{it} + \eps_{it}
 $$
 
-This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\b\beta}$ using only untreated data. This will allow us to estimate the $Y_{it}^{(0)}$ potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.
+This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\beta}$ using only untreated data. This will allow us to estimate the $\text{outcome}_{it}^{(\text{untreated})}$ potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.
 
 $$
-\blue{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
+\blue{\widehat{\text{outcome}}_{it}^{(\text{untreated})}} = \widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{period}_t + \widehat\beta \ \text{covariates}_{it}
 $$
 
-Now, let us find the difference between our observed $Y_{it}$ values in our dataset and our estimated $Y_{it}^{(0)}$ potential outcomes:
+Now, let us find the difference between our observed $\text{outcome}_{it}$ values in our dataset and our estimated $Y_{it}^{(0)}$ potential outcomes, which we will call the **residual**:
 
 $$
 \begin{align}
-\widetilde Y_{it} & = Y_{it} - \blue{\widehat Y_{it}^{(0)}} \\
-& = Y_{it} - \left(\widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta} \right)
+\widetilde{\text{residual}}_{it} & = \text{outcome}_{it} - \blue{\widehat{\text{outcome}}_{it}^{(\text{untreated})}} \\
+& = \text{outcome}_{it} - \left(\widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{period}_t + \widehat\beta \ \text{covariates}_{it} \right)
 \end{align}
 $$
 
--   For untreated units $D=0$, their observed $Y_{it}$ is $\purple{Y_{it}^{(0)}}$, so $\widetilde Y_{it}$ is essentially measuring $\purple{Y_{it}^{(0)}}- \purple{Y_{it}^{(0)}}$. This should be approximately 0.
--   For treated units $D = 1$, their observed $Y_{it}$ is $\purple{Y_{it}^{(1)}}$, so $\widetilde Y_{it}$ is essentially measuring $\purple{Y_{it}^{(1)}}- \red{Y_{it}^{(0)}}$, or the individual causal effect.
+-   For untreated units, their observed outcome is equal to the potential outcome $\purple{\text{outcome}_{it}^{(\text{untreated})}}$, so the residual should be 0.
+-   For treated units, their observed outcome is the potential outcome $\purple{\text{outcome}_{it}^{(\text{treated})}}$, so the residual isessentially measuring the individual causal effect.
 
 Thus, with the full dataset, we run the following regression to obtain the causal effect:
 
 $$
-\widetilde Y_{it} = \delta + D_{it}\tau + \epsilon_{it}
+\widetilde{\text{residual}}_{it} = \delta + \blue\tau \ \text{treatment}_{it} + \epsilon_{it}
 $$
 
-::: small
-This model implies that for $D = 0$ units, $\widetilde Y_{it} = \delta \approx 0$. For $D = 1$, then $\widetilde Y_{it} = \tau$. Thus, with our intuition of $\widetilde Y_{it}$ from above, we can see that $\tau$ is measuring the average difference $\purple{Y_{it}^{(1)}}- \red{Y_{it}^{(0)}}$ for treated units.
-:::
-
-The estimated $\widehat\tau$ is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.
+The estimated $\blue{\widehat\tau}$ is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.
 
 ::: small
 The standard errors will be incorrect, so Gardner (2021) uses a generalised method of moments estimator to correct the standard errors.

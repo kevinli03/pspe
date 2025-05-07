@@ -284,15 +284,14 @@ window.Quarto = {
 <p>Sun and Abraham estimate dynamic ATT’s for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.</p>
 <p><span class="math display">\[
 \begin{align}
-Y_{it} = \sum\limits_\text{group} &amp; \sum\limits_{k ≠ -1} \blue{\tau_{\text{group}, k}} \cdot 1\{i \in \text{group}\} \cdot 1\{t-\text{group}=k\} \\
-+ &amp; \ \alpha_i + \gamma_t + \b X_{it}'\b\beta + \eps_{it}
+\text{outcome}_{it} = &amp; \ \blue{\tau_{\text{group}, \text{rel.time}}}  \cdot \text{group}_i \cdot \text{rel.time}_{it} \\
+&amp; + \text{unit}_i + \text{period}_t + \b{\text{covariates}}_{\ it} \b\beta + \eps_{it}
 \end{align}
 \]</span></p>
 <div class="small">
-<p>The summations mean include one interaction for each <span class="math inline">\(g\)</span> (initial treatment year group), and each <span class="math inline">\(t\)</span> (time periods) within each <span class="math inline">\(g\)</span>. The <span class="math inline">\(1\{\}\)</span> is an indicator function that takes a value of 1 if true, and 0 if false. <span class="math inline">\(i \in g\)</span> means unit <span class="math inline">\(i\)</span> initially recieved treatment in period <span class="math inline">\(g\)</span>. <span class="math inline">\(t-g\)</span> represents the relative year of treatment, with the year treatment initiates is year 0. The first line interacts relative treatment period with the group indicator.</p>
+<p><span class="math inline">\(\text{group}_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{rel.time}_{it}\)</span> is a categorical variable that describes unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and how many periods away from the initial treatment period of that unit <span class="math inline">\(i\)</span> is. <span class="math inline">\(\b{\text{covariates}}_{\ it}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, the first line interacts group with relative treatment time.</p>
 </div>
-<p>The reason for <span class="math inline">\(k ≠ -1\)</span> is because time period -1 relative to treatment (so the year before treatment occurs) is set as the reference category. This is similar to dynamic treatment effects we saw previously.</p>
-<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{\text{group}, t}}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
+<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{\text{group}, \text{rel.time}}}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
 <p>Sun and Abraham’s estimator is very similar to Wooldridge’s <a href="../did/etwfe.html">extended two-way fixed effects</a> estimator. The three main differences are:</p>
 <ol type="1">
 <li>Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge’s can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.</li>

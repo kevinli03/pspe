@@ -280,10 +280,10 @@ window.Quarto = {
 </div>
 <p>The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences. The estimator is a linear regression model specified as following:</p>
 <p><span class="math display">\[
-\text{outcome}_{it} = \underbrace{\text{unit}_i + \text{period}_t}_{\text{fixed effects}} + \text{treatment}_{it}\blue\tau + \text{covariates}_{it}\beta + \eps_{it}
+\text{outcome}_{it} = \underbrace{\alpha_i \ \text{unit}_i + \gamma_t\ \text{period}_t}_{\text{fixed effects}} + \blue\tau \ \text{treatment}_{it} + \beta \ \text{covariates}_{it} + \eps_{it}
 \]</span></p>
 <div class="small">
-<p>Where covariates are extra control variables needed to meet the parallel trends assumption (optional).</p>
+<p>Where covariates are extra control variables needed to meet the parallel trends assumption (optional). Note how coefficients <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> have subscripts - they have different values given which unit <span class="math inline">\(i\)</span> or time <span class="math inline">\(t\)</span> in question.</p>
 </div>
 <p>The estimate for <span class="math inline">\(\blue\tau\)</span> is our treatment effect (ATT). But what are fixed effects, and what do they do? Let us take a look at this example:</p>
 <div class="center-graph">

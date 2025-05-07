@@ -11,16 +11,17 @@ Wooldridge proposes to estimate all of the possible heterogenous treatment effec
 
 $$
 \begin{align}
-\text{outcome}_{it} = & \sum\limits_{\text{group}} \sum\limits_t \blue{\tau_{\text{group},t}} \cdot 1\{i \in \text{group}\} \cdot \text{treatment}_{it} \\
-+ & \sum\limits_\text{group} \sum\limits_t \sum\limits_j\blue{\tau_{\text{group},t,j}} \cdot 1\{i \in \text{group}\} \cdot \text{treatment}_{it} \cdot \text{covariate}_{j, it} \\ + & \  \text{unit}_i + \text{period}_t + \text{covariates}_{it} \b\beta + \eps_{it}
+\text{outcome}_{it} = & \ \blue{\tau_{\text{group}, t}} \cdot \text{group}_i \cdot \text{treatment}_{it} \cdot \text{period}_t \\
+& + \blue{\tau_{\text{group},t, \text{covariates}}} \cdot \text{group}_i \cdot \text{treatment}_{it} \cdot \text{period}_t \cdot \b{\text{covariates}}_{\ it} \\
+& +  \text{unit}_i + \text{period}_t + \b{\text{covariates}}_{\ it} \b\beta + \eps_{it}
 \end{align}
 $$
 
 ::: small
-The summations basically mean include one interaction for each group (initial treatment year group), and each $t$ (time periods) within each group. The $1\{\}$ are indicator functions that output a value of 1 if true, and value of 0 if not true. $i \in$ group means unit $i$ is in the initial treatment year group in question. The first line interacts treatment with initial group. The second line interacts treatment with initial group and covariates.
+$\text{group}_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{period}_t$ is a categorical variable that indicates the different time periods. $\b{\text{covariates}}_{\ it}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, the first line captures a interaction between groups, treatment, and time, and the second line captures an interaction between groups, treatment, time, and covariates.
 :::
 
-This model will produce many coefficients $\blue{\tau_{\text{group}, t}}$ and $\blue{\tau_{\text{group}, t, j}}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
+This model will produce many coefficients $\blue{\tau_{\text{group}, t}}$ and $\blue{\tau_{\text{group}, t, \text{covariates}}}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
 
 We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.
 

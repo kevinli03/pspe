@@ -273,21 +273,21 @@ window.Quarto = {
 <td style="text-align: left;"><span class="smallcaps">Potential Outcome</span></td>
 </tr>
 <tr class="even">
-<td style="text-align: left;">Kevin does not Receive Treatment</td>
-<td style="text-align: left;"><span class="math inline">\(D_\text{Kevin} = 0\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(\purple{Y_\text{Kevin}^{(0)}}\)</span></td>
+<td style="text-align: left;">Unit <span class="math inline">\(i\)</span> does not Receive Treatment</td>
+<td style="text-align: left;"><span class="math inline">\(\text{treatment}_i = 0\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\purple{\text{outcome}_i^{(\text{untreated})}}\)</span></td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">Kevin Receives Treatment</td>
-<td style="text-align: left;"><span class="math inline">\(D_\text{Kevin} = 1\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(\purple{Y_\text{Kevin}^{(1)}}\)</span></td>
+<td style="text-align: left;">Unit <span class="math inline">\(i\)</span> Receives Treatment</td>
+<td style="text-align: left;"><span class="math inline">\(\text{treatment}_i = 1\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\purple{\text{outcome}_i^{(\text{treated})}}\)</span></td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <p>The only difference between the two worlds is the treatment. Thus, any difference in outcomes between the two worlds must be the <mark>causal effect</mark> of the treatment.</p>
 <p><span class="math display">\[
-\tau_\text{Kevin} = \purple{Y_\text{Kevin}^{(1)}} - \purple{Y_\text{Kevin}^{(0)}}
+\tau_i = \purple{\text{outcome}_i^{(\text{treated})}} - \purple{\text{outcome}_i^{(\text{untreated})}}
 \]</span></p>
 <div class="small">
 <p>Technically, we need another assumption, SUTVA, for this to be true. I will explain this assumption as part of the identification assumptions.</p>
