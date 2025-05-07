@@ -9,7 +9,7 @@ See [Goodman-Bacon (2021)](https://www.sciencedirect.com/science/article/abs/pii
 The two-way fixed effects estimator is possible with staggered difference-in-differences:
 
 $$
-\text{outcome}_{it} = \underbrace{\alpha_i \ \text{unit}_i + \gamma_t\ \text{period}_t}_{\text{fixed effects}} + \blue\tau \ \text{treatment}_{it} + \beta \ \text{covariates}_{it} + \eps_{it}
+\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D_{it} + \beta\ \cov_{it} + \eps_{it}
 $$
 
 ::: small

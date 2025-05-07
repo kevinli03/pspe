@@ -284,12 +284,12 @@ window.Quarto = {
 <p>Sun and Abraham estimate dynamic ATT’s for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.</p>
 <p><span class="math display">\[
 \begin{align}
-\text{outcome}_{it} = &amp; \ \blue{\tau_{\text{group}, \text{rel.time}}}  \cdot \text{group}_i \cdot \text{rel.time}_{it} \\
-&amp; + \text{unit}_i + \text{period}_t + \b{\text{covariates}}_{\ it} \b\beta + \eps_{it}
+\Y_{it} = &amp; \ \blue{\tau_{\text{group}, \text{rel.time}}}  \cdot \text{group}_i \cdot \text{rel.time}_{it} \\
+&amp; + \unit + \time + \beta \ \cov_{it} + \eps_{it}
 \end{align}
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(\text{group}_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{rel.time}_{it}\)</span> is a categorical variable that describes unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and how many periods away from the initial treatment period of that unit <span class="math inline">\(i\)</span> is. <span class="math inline">\(\b{\text{covariates}}_{\ it}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, the first line interacts group with relative treatment time.</p>
+<p><span class="math inline">\(\text{group}_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{rel.time}_{it}\)</span> is a categorical variable that describes unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and how many periods away from the initial treatment period of that unit <span class="math inline">\(i\)</span> is. <span class="math inline">\(\text{covariates}_{it}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, the first line interacts group with relative treatment time.</p>
 </div>
 <p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{\text{group}, \text{rel.time}}}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
 <p>Sun and Abraham’s estimator is very similar to Wooldridge’s <a href="../did/etwfe.html">extended two-way fixed effects</a> estimator. The three main differences are:</p>

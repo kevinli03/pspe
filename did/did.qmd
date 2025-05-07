@@ -2,7 +2,7 @@
 title: "Difference-in-Differences"
 ---
 
-In April 1992, New Jersey increased its minimum wage. We want to know how this affected employment rates. We have data from before and after the change:
+In April 1992, New Jersey increased its minimum wage. We want to know how changing the minimum wage (the treatment) affected employment rates (the result). We have data from before and after the change:
 
 |                                 |                                |
 |---------------------------------|--------------------------------|
@@ -18,7 +18,7 @@ Specifically, these are average employment numbers in fast-food restaurants.
 With this data, we **cannot** find the causal effect. Why? Well recall our definition of the causal effect using potential outcomes. Our treatment effect after the treatment in December 1992 would be:
 
 $$
-\tau_\text{Dec92} = \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \red{\text{outcome}^{(\text{untreated})}_\text{Dec92}}
+\tau_\text{Dec92} = \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \red{\text{outcome}^{(\text{control})}_\text{Dec92}}
 $$
 
 We don't observe the counterfactual in December 1992 without the minimum wage increase. We need some way to estimate this.
@@ -55,8 +55,8 @@ Now, we have an approximation of New Jersey's missing counterfactual, so we can 
 
 $$
 \begin{align}
-\tau_\text{Dec92} &  = \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \red{\text{outcome}^{(\text{untreated})}_\text{Dec92}} \\
-& \approx \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \left( \purple{\text{outcome}^{(\text{untreated})}_\text{Mar92}}  - 2.16\right)
+\tau_\text{Dec92} &  = \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \red{\text{result}^{(\text{control})}_\text{Dec92}} \\
+& \approx \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \left( \purple{\text{outcome}^{(\text{control})}_\text{Mar92}}  - 2.16\right)
 \end{align}
 $$
 

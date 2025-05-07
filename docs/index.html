@@ -51,6 +51,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -188,16 +217,20 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
+<p>For my personal website, see <a href="http://kevinli03.github.io" class="uri">http://kevinli03.github.io</a></p>
 <p>This repository contains resources on causal inference and social statistics, specifically focused on applications to politics and economics.</p>
 <ul>
-<li><p>Use the top navigation bar to navigate between different methods.</p></li>
-<li><p>Use the side navigation bar to navigate within a method.</p></li>
-<li><p>R-code for implementation is included.</p></li>
-<li><p>I have tried to keep up with modern advancements, including the recent difference-in-differences rennaisance.</p></li>
+<li>Use the top navigation bar to navigate between different methods.</li>
+<li>Use the side navigation bar to navigate within a method.</li>
 </ul>
-<p>These resources have been collected throughout my postgraduate degree at the London School of Economics. I hope these resources can be useful for my future self and others. I try to ensure everything in this repository is accurate. If there are any issues with the repository, let me know.</p>
-<p>There are some stuff that doesn’t fit into any category, which I have included in the home page sidebar.</p>
-<p>For my personal website, see <a href="http://kevinli03.github.io" class="uri">http://kevinli03.github.io</a></p>
+<p>R-code for implementation is included. There are some stuff that doesn’t fit into any category, which I have included in the home page sidebar.</p>
+<p><strong>Notation Notes</strong>:</p>
+<ul>
+<li>I try to avoid too many letters/variable shorthands, and try to use words as much as possible to facilitate easy understanding of equations.</li>
+<li><span class="math inline">\(i\)</span> refers to units within our data, and <span class="math inline">\(t\)</span> refers to time periods.</li>
+<li>Greek letters are used for <strong>parameters</strong> that need to be estimated. I typically use <span class="math inline">\(\beta\)</span> for most coefficients multiplied to variables, <span class="math inline">\(\tau\)</span> to represent causal effects, and <span class="math inline">\(\eps\)</span> to represent the error term.</li>
+<li>I color code potential outcomes in purple, counterfactual potential outcomes in red, and other notable things in blue.</li>
+</ul>
 
 
 

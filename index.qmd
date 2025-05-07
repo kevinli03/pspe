@@ -3,18 +3,18 @@ title: "Resources on Causal Inference and Social Science Statistics"
 subtitle: "Methodology for Political Science and Political Economy (PSPE)"
 ---
 
+For my personal website, see <http://kevinli03.github.io>
+
 This repository contains resources on causal inference and social statistics, specifically focused on applications to politics and economics.
 
 -   Use the top navigation bar to navigate between different methods.
-
 -   Use the side navigation bar to navigate within a method.
 
--   R-code for implementation is included.
+R-code for implementation is included. There are some stuff that doesn't fit into any category, which I have included in the home page sidebar.
 
--   I have tried to keep up with modern advancements, including the recent difference-in-differences rennaisance.
+**Notation Notes**:
 
-These resources have been collected throughout my postgraduate degree at the London School of Economics. I hope these resources can be useful for my future self and others. I try to ensure everything in this repository is accurate. If there are any issues with the repository, let me know.
-
-There are some stuff that doesn't fit into any category, which I have included in the home page sidebar.
-
-For my personal website, see <http://kevinli03.github.io>
+-   I try to avoid too many letters/variable shorthands, and try to use words as much as possible to facilitate easy understanding of equations.
+-   $i$ refers to units within our data, and $t$ refers to time periods.
+-   Greek letters are used for **parameters** that need to be estimated. I typically use $\beta$ for most coefficients multiplied to variables, $\tau$ to represent causal effects, and $\eps$ to represent the error term.
+-   I color code potential outcomes in purple, counterfactual potential outcomes in red, and other notable things in blue.

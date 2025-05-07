@@ -11,14 +11,14 @@ Wooldridge proposes to estimate all of the possible heterogenous treatment effec
 
 $$
 \begin{align}
-\text{outcome}_{it} = & \ \blue{\tau_{\text{group}, t}} \cdot \text{group}_i \cdot \text{treatment}_{it} \cdot \text{period}_t \\
-& + \blue{\tau_{\text{group},t, \text{covariates}}} \cdot \text{group}_i \cdot \text{treatment}_{it} \cdot \text{period}_t \cdot \b{\text{covariates}}_{\ it} \\
-& +  \text{unit}_i + \text{period}_t + \b{\text{covariates}}_{\ it} \b\beta + \eps_{it}
+\Y_{it} = & \ \blue{\tau_{\text{group}, t}} \cdot \text{group}_i \cdot \D_{it} \cdot \text{time}_t \\
+& + \blue{\tau_{\text{group},t, \text{covariates}}} \cdot \text{group}_i \cdot \D_{it} \cdot \text{time}_t \cdot \cov_{it} \\
+& +  \unit + \time + \beta \ \cov_{it} + \eps_{it}
 \end{align}
 $$
 
 ::: small
-$\text{group}_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{period}_t$ is a categorical variable that indicates the different time periods. $\b{\text{covariates}}_{\ it}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, the first line captures a interaction between groups, treatment, and time, and the second line captures an interaction between groups, treatment, time, and covariates.
+$\text{group}_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{time}_t$ is a categorical variable that indicates the different time periods. $\text{covariates}_{\ it}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, the first line captures a interaction between groups, treatment, and time, and the second line captures an interaction between groups, treatment, time, and covariates.
 :::
 
 This model will produce many coefficients $\blue{\tau_{\text{group}, t}}$ and $\blue{\tau_{\text{group}, t, \text{covariates}}}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.

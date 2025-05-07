@@ -280,41 +280,41 @@ window.Quarto = {
 </div>
 <p>Recall our two-way fixed effects model:</p>
 <p><span class="math display">\[
-\text{outcome}_{it} = \underbrace{\alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t}_{\text{fixed effects}} + \blue\tau \ \text{treatment}_{it} + \beta \ \text{covariates}_{it} + \eps_{it}
+\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D_{it} + \beta\ \cov_{it} + \eps_{it}
 \]</span></p>
-<p>This also implies a model for the potential outcomes - the potential outcome under control is when <span class="math inline">\(D=0\)</span>, and the potential outcome under treatment is <span class="math inline">\(D=1\)</span>:</p>
+<p>This also implies a model for the potential outcomes - the potential outcome under control is when <span class="math inline">\(\text{treat}=0\)</span>, and the potential outcome under treatment is <span class="math inline">\(\text{treat}=1\)</span>:</p>
 <p><span class="math display">\[
 \begin{align}
-\purple{\text{outcome}_{it}^{(\text{treated})}} &amp; = \alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t + \blue\tau + \beta \ \text{covariates}_{it} + \eps_{it} \\
-\purple{\text{outcome}_{it}^{(\text{untreated})}} &amp; = \alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t + \beta \ \text{covariates}_{it} + \eps_{it}
+\pT &amp; = \unit + \time + \blue\tau + \beta \ \cov_{it} + \eps_{it} \\
+\pC &amp; = \unit + \time + \beta \ \cov_{it} + \eps_{it}
 \end{align}
 \]</span></p>
 <div class="small">
 <p>These are obtained by simply plugging in <span class="math inline">\(\text{treatment}_{it}=0,1\)</span> into the TWFE equation.</p>
 </div>
-<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> regarding “forbidden comparisons” and “weighting” problems by simply estimating the counterfactuals <span class="math inline">\(\red{Y_{it}^{(0)}}\)</span> for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.</p>
-<p>To estimate the counterfactuals, we first run a regression with <strong>only untreated/not-yet treated observations</strong> <span class="math inline">\(\text{treatment}=0\)</span>:</p>
+<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> regarding “forbidden comparisons” and “weighting” problems by simply estimating the counterfactuals <span class="math inline">\(\pCred\)</span> for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.</p>
+<p>To estimate the counterfactuals, we first run a regression with <strong>only untreated/not-yet treated observations</strong> <span class="math inline">\(\D_{it}=0\)</span>:</p>
 <p><span class="math display">\[
-\text{outcome}_{it} = \alpha_i\ \text{unit}_i + \gamma_t\ \text{period}_t + \beta \ \text{covariates}_{it} + \eps_{it}
+\Y_{it} = \unit + \time + \beta \ \cov_{it} + \eps_{it}
 \]</span></p>
-<p>This regression will provide estimates for <span class="math inline">\(\widehat\alpha_i\)</span>, <span class="math inline">\(\widehat\gamma_t\)</span>, and <span class="math inline">\(\widehat{\beta}\)</span> using only untreated data. This will allow us to estimate the <span class="math inline">\(\text{outcome}_{it}^{(\text{untreated})}\)</span> potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.</p>
+<p>This regression will provide estimates for <span class="math inline">\(\widehat\alpha_i\)</span>, <span class="math inline">\(\widehat\gamma_t\)</span>, and <span class="math inline">\(\widehat{\beta}\)</span> using only untreated data. This will allow us to estimate the <span class="math inline">\(\purple{\text{outcome}_{it}^{(\text{control})}}\)</span> potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.</p>
 <p><span class="math display">\[
-\blue{\widehat{\text{outcome}}_{it}^{(\text{untreated})}} = \widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{period}_t + \widehat\beta \ \text{covariates}_{it}
+\blue{\widehat{\text{outcome}}_{it}^{(\text{control})}} = \widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{time}_t + \widehat\beta \ \cov_{it}
 \]</span></p>
 <p>Now, let us find the difference between our observed <span class="math inline">\(\text{outcome}_{it}\)</span> values in our dataset and our estimated <span class="math inline">\(Y_{it}^{(0)}\)</span> potential outcomes, which we will call the <strong>residual</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
-\widetilde{\text{residual}}_{it} &amp; = \text{outcome}_{it} - \blue{\widehat{\text{outcome}}_{it}^{(\text{untreated})}} \\
-&amp; = \text{outcome}_{it} - \left(\widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{period}_t + \widehat\beta \ \text{covariates}_{it} \right)
+\widetilde{\text{residual}}_{it} &amp; = \Y_{it} - \blue{\widehat{\text{outcome}}_{it}^{(\text{control})}} \\
+&amp; = \Y_{it} - \left(\widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{time}_t + \widehat\beta \ \cov_{it} \right)
 \end{align}
 \]</span></p>
 <ul>
-<li>For untreated units, their observed outcome is equal to the potential outcome <span class="math inline">\(\purple{\text{outcome}_{it}^{(\text{untreated})}}\)</span>, so the residual should be 0.</li>
-<li>For treated units, their observed outcome is the potential outcome <span class="math inline">\(\purple{\text{outcome}_{it}^{(\text{treated})}}\)</span>, so the residual isessentially measuring the individual causal effect.</li>
+<li>For untreated units, their observed outcome is equal to the potential outcome <span class="math inline">\(\pC\)</span>, so the residual should be 0.</li>
+<li>For treated units, their observed outcome is the potential outcome <span class="math inline">\(\pT\)</span>, so the residual isessentially measuring the individual causal effect.</li>
 </ul>
 <p>Thus, with the full dataset, we run the following regression to obtain the causal effect:</p>
 <p><span class="math display">\[
-\widetilde{\text{residual}}_{it} = \delta + \blue\tau \ \text{treatment}_{it} + \epsilon_{it}
+\widetilde{\text{residual}}_{it} = \delta + \blue\tau \ \D_{it} + \eps_{it}
 \]</span></p>
 <p>The estimated <span class="math inline">\(\blue{\widehat\tau}\)</span> is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.</p>
 <div class="small">

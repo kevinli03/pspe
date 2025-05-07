@@ -12,13 +12,13 @@ Sun and Abraham estimate dynamic ATT's for each group by including interaction t
 
 $$
 \begin{align}
-\text{outcome}_{it} = & \ \blue{\tau_{\text{group}, \text{rel.time}}}  \cdot \text{group}_i \cdot \text{rel.time}_{it} \\
-& + \text{unit}_i + \text{period}_t + \b{\text{covariates}}_{\ it} \b\beta + \eps_{it}
+\Y_{it} = & \ \blue{\tau_{\text{group}, \text{rel.time}}}  \cdot \text{group}_i \cdot \text{rel.time}_{it} \\
+& + \unit + \time + \beta \ \cov_{it} + \eps_{it}
 \end{align}
 $$
 
 ::: small
-$\text{group}_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{rel.time}_{it}$ is a categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is. $\b{\text{covariates}}_{\ it}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, the first line interacts group with relative treatment time.
+$\text{group}_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{rel.time}_{it}$ is a categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is. $\text{covariates}_{it}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, the first line interacts group with relative treatment time.
 :::
 
 This model will produce many coefficients $\blue{\tau_{\text{group}, \text{rel.time}}}$ (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.

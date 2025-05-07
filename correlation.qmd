@@ -15,8 +15,8 @@ Let us look at this causal question:
 digraph example1 {
   bgcolor="transparent";
   // Nodes
-  D [shape=box, label="Going to the Hospital (D)"]
-  Y [shape=box, label="Health Outcomes (Y)"]
+  D [shape=box, label="Going to the Hospital"]
+  Y [shape=box, label="Health Outcomes"]
 
   // Edges
   D -> Y [label="Causal Effect"]
@@ -30,7 +30,7 @@ digraph example1 {
 We have a treated group (went to hospital), and an untreated group. Using our potential outcomes framework, we can define the treatment effect of the treated group:
 
 $$
-\tau_\text{treated} = \textcolor{purple}{\mean Y_{\text{treated}}^{(1)}} - \textcolor{red}{\mean Y_{\text{treated}}^{(0)}}
+\tau_\text{treated} = \textcolor{purple}{{\text{outcome}}_{\text{treated}}^{(\text{treated})}} - \textcolor{red}{{\text{outcome}}_{\text{treated}}^{(\text{untreated})}}
 $$
 
 ::: small
@@ -41,15 +41,15 @@ Now compare the treatment effects above to correlation, which is defined as the 
 
 $$
 \begin{align}
-\text{correlation} & = \mean Y_\text{treated} - \mean Y_\text{untreated} \\
-& = \textcolor{purple}{\mean Y_{\text{treated}}^{(1)}} - \textcolor{purple}{\mean Y_\text{untreated}^{(0)}}
+\text{correlation} & =  \text{outcome}_\text{treated} - \text{outcome}_\text{untreated} \\
+& = \textcolor{purple}{\text{outcome}_{\text{treated}}^{(\text{treated})}} - \textcolor{purple}{\text{outcome}_\text{untreated}^{(\text{untreated})}}
 \end{align}
 $$
 
 If we compare this correlation to our $\tau_\text{treated}$, we see:
 
 $$
-\text{if  } \textcolor{purple}{\mean Y_\text{untreated}^{(0)}} ≠ \textcolor{red}{\mean Y_\text{treated}^{(0)}}, \text{ then }  \tau_\text{treated} ≠ \text{correlation}
+\text{if  } \textcolor{purple}{\text{outcome}_\text{untreated}^{(\text{untreated})}} ≠ \textcolor{red}{\text{outcome}_\text{treated}^{(\text{untreated})}}, \text{ then }  \tau_\text{treated} ≠ \text{correlation}
 $$
 
 ::: small
