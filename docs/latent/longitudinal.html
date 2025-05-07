@@ -292,14 +292,14 @@ window.Quarto = {
 
 
 <p>Longitudinal data (also called panel data) is when we have the same variables observed over several time points for the same units. Structural equation models can accommodate panel data as well.</p>
-<p>Let us say we have some latent response variable <span class="math inline">\(\eta_{it}\)</span>, which is measured by observed indicators <span class="math inline">\(Y_{it1}, Y_{it2}, \dots, Y_{itp}\)</span>. We also have a few explanatory variables:</p>
+<p>Let us say we have some latent response variable, which is measured by observed items. We also have a few explanatory variables:</p>
 <ul>
 <li><span class="math inline">\(Z_i\)</span> is a explanatory variable that determines characteristics of units, that does not change over time.</li>
 <li><span class="math inline">\(X_{it}\)</span> are time-varying explanatory variables.</li>
 </ul>
-<p>A <strong>lagged response model</strong> is a regression model that says that the response variable <span class="math inline">\(\eta_{it}\)</span> not only depends on the explanatory variables <span class="math inline">\(Z_i\)</span> and <span class="math inline">\(X_{it}\)</span>, but also previous values of <span class="math inline">\(\eta_{it}\)</span>.</p>
+<p>A <strong>lagged response model</strong> is a regression model that says that the response variable not only depends on the explanatory variables <span class="math inline">\(Z_i\)</span> and <span class="math inline">\(X_{it}\)</span>, but also previous values of the response.</p>
 <p><span class="math display">\[
-\eta_{it} = \beta_0 + \beta_xX_{it} + \beta_zZ_i + \underbrace{\beta_\eta \eta_{i, t-1}}_{\text{lagged}} + \eps_{it}
+\text{response}_{it} = \beta_0 + \beta_1X_{it} + \beta_2Z_i + \underbrace{\beta_3 \ \text{response}_{i, t-1}}_{\text{response from prior}} + \eps_{it}
 \]</span></p>
 <p>In a diagram, this model can be modelled as:</p>
 <div class="quarto-figure quarto-figure-center">
@@ -308,16 +308,16 @@ window.Quarto = {
 </figure>
 </div>
 <div class="small">
-<p>Note how <span class="math inline">\(\eta\)</span> in <span class="math inline">\(t=3\)</span> depends on both <span class="math inline">\(X_{it}\)</span>, <span class="math inline">\(Z_t\)</span>, and <span class="math inline">\(\eta\)</span> from <span class="math inline">\(t=2\)</span>.</p>
+<p>Note how <span class="math inline">\(\eta_{i3}\)</span> in <span class="math inline">\(t=3\)</span> depends on both <span class="math inline">\(X_{it}\)</span>, <span class="math inline">\(Z_t\)</span>, and <span class="math inline">\(\eta\)</span> from <span class="math inline">\(t=2\)</span>.</p>
 </div>
-<p>Recall the response variable <span class="math inline">\(\eta\)</span> is itself a latent variable, measured with indicators <span class="math inline">\(Y_{it1}, Y_{it2}, \dots, Y_{itp}\)</span>. This also implies a measurement model relating latent <span class="math inline">\(\eta_{it}\)</span> with each observed item:</p>
+<p>Recall the response variable is itself a latent variable, measured with observed items. This also implies a measurement model relating the latent responsewith each observed item:</p>
 <p><span class="math display">\[
-\b Y_{it} = \b\tau_t + \b\lambda_t \b\eta_{it} + \b\eps_{it}
+\b{\text{item}}_{\ t} = \b\tau_t + \b\lambda_t \ \b{\text{response}}_{\ t} + \b\eps_{it}
 \]</span></p>
 <div class="small">
-<p>Where all are vectors encompassing measurement models for all items <span class="math inline">\(Y_{it1}, Y_{it2}, \dots, Y_{itp}\)</span>. Note how the parameters have the subscript <span class="math inline">\(t\)</span> - this implies a different measurement model for each item, at each time period.</p>
+<p>Where all are vectors encompassing measurement models for all items 1, 2, and so on. Note how the parameters have the subscript <span class="math inline">\(t\)</span> - this implies a different measurement model for each item, at each time period.</p>
 </div>
-<p>However, because each item <span class="math inline">\(Y_p\)</span> is observed over time, it is likely that <span class="math inline">\(Y_p\)</span> from <span class="math inline">\(t=1\)</span> is correlated with <span class="math inline">\(Y_p\)</span> from <span class="math inline">\(t=2\)</span> ( autocorrelation). We have to take this into account in one of two ways:</p>
+<p>However, because each item <span class="math inline">\(i\)</span> is observed over time, it is likely that item <span class="math inline">\(i\)</span> from <span class="math inline">\(t=1\)</span> is correlated with item <span class="math inline">\(i\)</span> from <span class="math inline">\(t=2\)</span> ( autocorrelation). We have to take this into account in one of two ways:</p>
 <ol type="1">
 <li>We could <strong>constrain</strong> the model, assuming that the measurement model is identical throughout different time periods. That means <span class="math inline">\(\tau_t\)</span> and <span class="math inline">\(\lambda_t\)</span> will now no longer depend on the time period (the same for all time periods).</li>
 <li>Or we could complicate the model, by including correlation between the error terms <span class="math inline">\(\eps\)</span> for the same item.</li>

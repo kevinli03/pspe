@@ -280,12 +280,12 @@ window.Quarto = {
 </div>
 <p>The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences. The estimator is a linear regression model specified as following:</p>
 <p><span class="math display">\[
-Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
+\text{outcome}_{it} = \underbrace{\text{unit}_i + \text{period}_t}_{\text{fixed effects}} + \text{treatment}_{it}\blue\tau + \text{covariates}_{it}\beta + \eps_{it}
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are country and year fixed effects, <span class="math inline">\(\b X_{it}\)</span> is a vector of covariates for conditional parallel trends.</p>
+<p>Where covariates are extra control variables needed to meet the parallel trends assumption (optional).</p>
 </div>
-<p>What are fixed effects, and what do they do? Let us take a look at this example:</p>
+<p>The estimate for <span class="math inline">\(\blue\tau\)</span> is our treatment effect (ATT). But what are fixed effects, and what do they do? Let us take a look at this example:</p>
 <div class="center-graph">
 <div class="cell" data-fig-width="4.5" data-fig-height="1.2" data-layout-align="default">
 <div class="cell-output-display">
@@ -365,7 +365,7 @@ Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
 <li>States have systematic differences between them. These differences between states may change the likelihood of adopting a minimum wage increase, and may be linked with unemployment.</li>
 <li>Years have differences between them. Some years have recessions, which might affect both the likelihood of a minimum wage increase, and may be linked with unemployment.</li>
 </ol>
-<p>Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> get rid of these two potential sources of confounding.</p>
+<p>Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects get rid of these two potential sources of confounding.</p>
 <div class="small">
 <p>You can also think of fixed effects as essentially de-meaning observations by group. For example, it calculates the average unemployment in every state over time, and subtracts that for each observation within that state. This “subtracts” away the differences between states.</p>
 </div>

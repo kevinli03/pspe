@@ -9,14 +9,14 @@ Note: if you have staggered treatment implementation, [TWFE can produce incorrec
 The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences. The estimator is a linear regression model specified as following:
 
 $$
-Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}' \b\beta + \eps_{it}
+\text{outcome}_{it} = \underbrace{\text{unit}_i + \text{period}_t}_{\text{fixed effects}} + \text{treatment}_{it}\blue\tau + \text{covariates}_{it}\beta + \eps_{it}
 $$
 
 ::: small
-$\alpha_i$ and $\gamma_t$ are country and year fixed effects, $\b X_{it}$ is a vector of covariates for conditional parallel trends.
+Where covariates are extra control variables needed to meet the parallel trends assumption (optional).
 :::
 
-What are fixed effects, and what do they do? Let us take a look at this example:
+The estimate for $\blue\tau$ is our treatment effect (ATT). But what are fixed effects, and what do they do? Let us take a look at this example:
 
 ::: center-graph
 ```{dot}
@@ -48,7 +48,7 @@ As we can see in this diagram, we have two potential confounders:
 1.  States have systematic differences between them. These differences between states may change the likelihood of adopting a minimum wage increase, and may be linked with unemployment.
 2.  Years have differences between them. Some years have recessions, which might affect both the likelihood of a minimum wage increase, and may be linked with unemployment.
 
-Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects $\alpha_i$ and $\gamma_t$ get rid of these two potential sources of confounding.
+Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects get rid of these two potential sources of confounding.
 
 ::: small
 You can also think of fixed effects as essentially de-meaning observations by group. For example, it calculates the average unemployment in every state over time, and subtracts that for each observation within that state. This "subtracts" away the differences between states.

@@ -15,10 +15,10 @@ In April 1992, New Jersey increased its minimum wage. We want to know how this a
 Specifically, these are average employment numbers in fast-food restaurants.
 :::
 
-With this data, we **cannot** find the causal effect. Why? Well recall our definition of the causal effect - our treatment effect after the treatment in December 1992 would be:
+With this data, we **cannot** find the causal effect. Why? Well recall our definition of the causal effect using potential outcomes. Our treatment effect after the treatment in December 1992 would be:
 
 $$
-\tau_\text{Dec92} = \purple{Y^{(1)}_\text{Dec92}} - \red{Y^{(0)}_\text{Dec92}}
+\tau_\text{Dec92} = \purple{Y^{(\text{treated})}_\text{Dec92}} - \red{Y^{(\text{untreated})}_\text{Dec92}}
 $$
 
 We don't observe the counterfactual in December 1992 without the minimum wage increase. We need some way to estimate this.
@@ -28,7 +28,7 @@ Why can't we pretend that the numbers from March 1992 are our counterfactual, si
 **Difference-in-differences** estimates the trend by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:
 
 |                                       |                                       |
-|---------------------------------------|---------------------------------------|
+|------------------------------------|------------------------------------|
 | [Mar 1992 (Pennsylvania)]{.smallcaps} | [Dec 1992 (Pennsylvania)]{.smallcaps} |
 | 23.33                                 | 21.17                                 |
 
@@ -41,7 +41,7 @@ These are employment values in Pennsylvania, where no mininum wage changes occur
 Pennsylvania tells us the **trend** in employment without a change in minimum wage (-2.16). [This trend tells us that if New Jersey hadn't received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.]{.underline}
 
 |                                        |                                                     |
-|----------------------------------------|-----------------------------------------------------|
+|-------------------------------|-----------------------------------------|
 | [Mar 92 (NJ, Not Treated)]{.smallcaps} | [Dec 92 (NJ, Hypothetical Not Treated)]{.smallcaps} |
 | 20.44                                  | 20.44 - 2.16                                        |
 
@@ -55,15 +55,15 @@ Now, we have an approximation of New Jersey's missing counterfactual, so we can 
 
 $$
 \begin{align}
-\tau_\text{Dec92} &  = \purple{Y^{(1)}_\text{Dec92}} - \red{Y^{(0)}_\text{Dec92}} \\
-& \approx \purple{Y^{(1)}_\text{Dec92}} - \left( \purple{Y^{(0)}_\text{Mar92}}  - 2.16\right)
+\tau_\text{Dec92} &  = \purple{Y^{(\text{treated})}_\text{Dec92}} - \red{Y^{(\text{untreated})}_\text{Dec92}} \\
+& \approx \purple{Y^{(\text{treated})}_\text{Dec92}} - \left( \purple{Y^{(\text{untreated})}_\text{Mar92}}  - 2.16\right)
 \end{align}
 $$
 
 This entire idea of using another group's trend to estimate counterfactuals depends on two assumptions:
 
 |                                                         |                                                                                                                             |
-|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+|-----------------------|-------------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
 | [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
 | [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                    |

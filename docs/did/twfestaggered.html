@@ -246,10 +246,10 @@ window.Quarto = {
 </div>
 <p>The two-way fixed effects estimator is possible with staggered difference-in-differences:</p>
 <p><span class="math display">\[
-Y_{it} = \alpha_i + \gamma_t + D_{it}\tau + \b X_{it}'\b\beta + \eps_{it}
+\text{outcome}_{it} = \underbrace{\text{unit}_i + \text{period}_t}_{\text{fixed effects}} + \text{treatment}_{it}\blue\tau + \text{covariates}_{it}\beta + \eps_{it}
 \]</span></p>
 <div class="small">
-<p>For more info on two-way fixed effects, see the previous page in classical DiD.</p>
+<p>For more info on two-way fixed effects, see <a href="../did/twfe.html">here</a>.</p>
 </div>
 <p>But what is two-way fixed effects estimating in a staggered difference-in-differences setting? Goodman-Bacon decompose the estimate of TWFE in a staggered setting. Let us assume we have 3 groups - a group treated early, a group that was treated late, and a untreated group.</p>
 <div class="quarto-figure quarto-figure-center">
