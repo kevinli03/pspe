@@ -30,11 +30,13 @@ By definition, as the confounder **changes**, your likelihood of getting treatme
 
 These issues occur when the confounder **changes** in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.
 
-For example, let's assume that intellegence has two values: smart and dumb. Let us calculate the treatment effect within each level of intellegence:
+For example, let's assume that intellegence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intellegence:
 
 $$
-\tau_\text{smart} = \purple{\mean Y_\text{smart}^{(1)}} - \purple{\mean Y_\text{smart}^{(0)}}
-, \quad \tau_\text{dumb} = \purple{\mean Y_\text{dumb}^{(1)}} - \purple{\mean Y_\text{dumb}^{(0)}}
+\begin{align}
+\tau_\text{smart} & = \purple{\text{grades}_\text{smart}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{smart}^{(\text{no scholarship})}}\\
+\tau_\text{dumb} & = \purple{\text{grades}_\text{dumb}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{dumb}^{(\text{no scholarship})}}
+\end{align}
 $$
 
 The confounder is constant here, so no selection bias. Thus, within each category, correlation is equal to causation. Our overall causal effect will be a weighted average of the categories:
@@ -62,7 +64,7 @@ $$
 For selection on observables to work, we need to meet 3 assumptions:
 
 |                                                         |                                                                                                                                                           |
-|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------|
+|--------------------|----------------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                                                 |
 | [Conditional Ignorability]{.mark}                       | This means that we must account for **all** possible confounders (cannot miss a single one).                                                              |
 | [Common Support]{.mark}                                 | This means no one can have a 100% chance of being in treatment or control. They always have a chance to be in either, no matter their confounding values. |

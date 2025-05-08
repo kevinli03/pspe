@@ -15,7 +15,7 @@ $$
 Notice how the weights are the probability of the confounder values of $\b x$. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:
 
 $$
-\hat\beta_\text{OLS} = \sum \tau(\b x) \underbrace{\frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}}_{\text{weight}}
+\hat\beta_\text{OLS} = \sum \tau(\b x) \underbrace{\frac{Var(\D | \b x)Pr(\b x)}{\sum Var(\D | \b x^c)Pr(\b x^c)}}_{\text{weight}}
 $$
 
 ::: small
@@ -27,14 +27,18 @@ These weights are not equivalent to the selection on observables $\tau_{ATE}$. T
 Heterogeneity is present in almost all situations we are interested in. [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) proposes the **fully interacted estimator**, which allows for consistent estimation of the ATE even with heterogeneity:
 
 $$
-Y_i = \alpha + D_i \tau + \underbrace{(\b{X}_i - \mean{\b X})' \b\beta}_{\text{confounders}} \ + \underbrace{D_i (\b X_i - \mean{\b X})' \b\gamma}_{\text{interaction}} \  + \eps_i
+\begin{align}
+\Y = & \ \alpha + \blue\tau\ \D \\
+& + \beta\left( \cov - \text{avg.covariates}\right) \\
+& + \gamma\ \D \left( \cov - \text{avg.covariates}\right) + \eps
+\end{align}
 $$
 
 ::: small
-$\mean{\b X}$ is a vector of the means of each confounder. $\tau$ is the estimate of the ATE. See [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) for proofs.
+Where avg.covariates is the average value of all covariates for all individuals. Essentially, the first line is our simple regression, our second line is controlling for confounders, and the third line is controlling for interactions between treatment and confounders.
 :::
 
-The new OLS estimate of $\hat\tau$ in this estimator will technically still be a biased estimator of $\tau_{ATE}$, but the bias is negligible.
+The new OLS estimate of $\blue{\hat\tau}$ in this estimator will technically still be a biased estimator of $\tau_{ATE}$, but the bias is negligible.
 
 <br />
 
@@ -49,8 +53,8 @@ library(estimatr)
 Then, we can use the **lm_lin()** function to estimate:
 
 ```{r, eval = FALSE}
-ate <- estimatr::lm_lin(Y ~ D,
-                        covariates = ~ X1 + X2 + X3,
+ate <- estimatr::lm_lin(outcome ~ treatment,
+                        covariates = ~ covariate1 + covariate2,
                         data = my_data)
 summary(ate)
 ```

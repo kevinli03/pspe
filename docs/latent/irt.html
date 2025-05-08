@@ -361,14 +361,14 @@ window.Quarto = {
 <p>We must have at least 3 observed items for estimation purposes. The items are associated with the latent factor with a <strong>binomial logistic model</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
-\text{logit}[Pr(\text{item}_1 = 1 \ | \ \text{factor})] &amp; = \tau_1 + \lambda_1 \ \text{factor} \\
-\text{logit}[Pr(\text{item}_2 = 2 \ | \ \text{factor})] &amp; = \tau_2 + \lambda_2 \ \text{factor} \\
+\overbrace{\text{logit}[Pr(\I_1 = 1 \ | \ \text{factor})]}^{\text{logit}=\log[x/(1-x)]} &amp; = \tau_1 + \lambda_1 \ \F \\
+\text{logit}[Pr(\I_2 = 1 \ | \ \text{factor})] &amp; = \tau_2 + \lambda_2 \ \F \\
 \vdots \qquad \qquad \vdots \qquad \qquad \vdots &amp; \qquad \qquad \vdots \\
-\text{logit}[Pr(\text{item}_p = 1 \ | \ \text{factor})] &amp; = \tau_p + \lambda_p \ \text{factor} \\
+\text{logit}[Pr(\I_p = 1 \ | \ \text{factor})] &amp; = \tau_p + \lambda_p \ \F \\
 \end{align}
 \]</span></p>
 <div class="small">
-<p>The logit link function is defined as <span class="math inline">\(x/1-x\)</span>. For categorical (more than 2 categories) items, a multinomial or ordinal logistic model is used. But this is pretty rare for someone to actually fit a model of this type.</p>
+<p>For categorical (more than 2 categories) items, a multinomial or ordinal logistic model is used. But this is pretty rare for someone to actually fit a model of this type.</p>
 </div>
 <p><span class="math inline">\(\tau_i\)</span> is the intercept of the model, called the <strong>difficulty</strong>. <span class="math inline">\(\lambda_i\)</span> is the coefficeint that describes the relationship between any item <span class="math inline">\(X_i\)</span> and the factor. These are called <strong>factor loadings</strong>. It is also called the <strong>discrimination</strong> parameter.</p>
 <p>These factor loadings are interepreted in a very similar way to factor analysis. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.</p>

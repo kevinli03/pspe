@@ -261,9 +261,9 @@ window.Quarto = {
 <div class="small">
 <p>Specifically, these are average employment numbers in fast-food restaurants.</p>
 </div>
-<p>With this data, we <strong>cannot</strong> find the causal effect. Why? Well recall our definition of the causal effect using potential outcomes. Our treatment effect after the treatment in December 1992 would be:</p>
+<p>With this data, we <strong>cannot</strong> find the causal effect. Why? Well recall our definition of the causal effect using potential outcomes. Our treatment effect after the raise of minimum wage in December 1992 would be:</p>
 <p><span class="math display">\[
-\tau_\text{Dec92} = \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \red{\text{outcome}^{(\text{control})}_\text{Dec92}}
+\tau_\text{Dec92} = \purple{\text{employment}^{(\text{raised})}_\text{Dec92}} - \red{\text{employment}^{(\text{no raise})}_\text{Dec92}}
 \]</span></p>
 <p>We don’t observe the counterfactual in December 1992 without the minimum wage increase. We need some way to estimate this.</p>
 <p>Why can’t we pretend that the numbers from March 1992 are our counterfactual, since the treatment hadn’t occurred yet? Well, there could have been something that happened between these two times that changes the <strong>trend</strong> in employment (like a recession).</p>
@@ -310,8 +310,8 @@ window.Quarto = {
 <p>Now, we have an approximation of New Jersey’s missing counterfactual, so we can now estimate the causal effect:</p>
 <p><span class="math display">\[
 \begin{align}
-\tau_\text{Dec92} &amp;  = \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \red{\text{result}^{(\text{control})}_\text{Dec92}} \\
-&amp; \approx \purple{\text{outcome}^{(\text{treated})}_\text{Dec92}} - \left( \purple{\text{outcome}^{(\text{control})}_\text{Mar92}}  - 2.16\right)
+\tau_\text{Dec92} &amp;  = \purple{\text{employment}^{(\text{raised})}_\text{Dec92}} - \red{\text{employment}^{(\text{no raise})}_\text{Dec92}} \\
+&amp; \approx \purple{\text{employment}^{(\text{raised})}_\text{Dec92}} - \left( \purple{\text{employment}^{(\text{no raise})}_\text{Mar92}}  - 2.16\right)
 \end{align}
 \]</span></p>
 <p>This entire idea of using another group’s trend to estimate counterfactuals depends on two assumptions:</p>

@@ -30,7 +30,7 @@ digraph example2 {
 The factor is the unobserved latent variable we want to measure. We assume that the factor is continuous, and normally distributed:
 
 $$
-\text{factor} \sim \mathcal N(0, 1)
+\F \sim \mathcal N(0, 1)
 $$
 
 ::: small
@@ -41,10 +41,10 @@ The $p$ number of items are the variables we observe, that we believe are a meas
 
 $$
 \begin{align}
-\text{item}_1 & = \tau_1 + \lambda_1 \ \text{factor} + \delta_1 \\
-\text{item}_2 & = \tau_2 + \lambda_2 \ \text{factor} + \delta_2 \\
+\I_1 & = \tau_1 + \lambda_1 \ \F + \delta_1 \\
+\I_2 & = \tau_2 + \lambda_2 \ \F + \delta_2 \\
 & \vdots \qquad \qquad \vdots \\
-\text{item}_p & = \tau_p + \lambda_p \ \text{factor} + \delta_p
+\I_p & = \tau_p + \lambda_p \ \F + \delta_p
 \end{align}
 $$
 

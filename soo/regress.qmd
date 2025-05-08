@@ -9,22 +9,26 @@ See the pros and cons of this estimator in the [choosing an estimator](soochoose
 Selection on observables is about controlling for confounders. Linear regression is a very natural way to control for confounders.
 
 $$
-Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \eps_i
+\Y = \beta_0 + \beta_1\ \X_{1} + \beta_2\ \X_{2} + \eps
 $$
 
-We know that in the above equation, $\beta_1$ is the relationship between $X_i$ and $Y_i$, while controllling (holding constant) $X_2$.
+::: small
+Where $\X_1$ and $\X_2$ are two different input/explanatory/independent variables
+:::
+
+We know that in the above equation, $\beta_1$ is the relationship between $\X_1$ and outcome, while controllling (holding constant) $\X_2$.
 
 Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.
 
 $$
-Y_i = \alpha + D_i\tau + \b X_i' \b\beta + \eps_i
+\Y = \alpha + \blue\tau\ \D + \beta\ \cov + \eps
 $$
 
 ::: small
-Where $\alpha$ is the intercept and $\b X_i$ is a vector of confounder values for individual $i$.
+Where $\alpha$ is the intercept and $\cov_i$ is a vector of covariates/confounders for individual $i$.
 :::
 
-Our ordinary least squares (OLS) estimate $\widehat\tau$ is an unbiased estimator of the true $\tau_{ATE}$ given three conditions are met:
+Our ordinary least squares (OLS) estimate $\blue{\widehat\tau}$ is an unbiased estimator of the true $\tau_{ATE}$ given three conditions are met:
 
 1.  We meet the selection on observables assumption of **conditional ignorability**. Conditional ignorability implies exogeneity, which means the estimate is unbiased.
 
@@ -49,7 +53,7 @@ library(fixest)
 To run a regression estimator, we do:
 
 ```{r, eval = F}
-feols(Y ~ D + X1 + X2 + X3,
+feols(outcome ~ treatment + covariate1 + covariate2,
       data = data,
       se = "hetero")
 ```

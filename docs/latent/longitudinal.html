@@ -292,14 +292,10 @@ window.Quarto = {
 
 
 <p>Longitudinal data (also called panel data) is when we have the same variables observed over several time points for the same units. Structural equation models can accommodate panel data as well.</p>
-<p>Let us say we have some latent response variable, which is measured by observed items. We also have a few explanatory variables:</p>
-<ul>
-<li><span class="math inline">\(Z_i\)</span> is a explanatory variable that determines characteristics of units, that does not change over time.</li>
-<li><span class="math inline">\(X_{it}\)</span> are time-varying explanatory variables.</li>
-</ul>
+<p>Let us say we have some latent outcome variable, which is measured by observed items. We also have a few observed input variables:</p>
 <p>A <strong>lagged response model</strong> is a regression model that says that the response variable not only depends on the explanatory variables <span class="math inline">\(Z_i\)</span> and <span class="math inline">\(X_{it}\)</span>, but also previous values of the response.</p>
 <p><span class="math display">\[
-\text{response}_{it} = \beta_0 + \beta_1X_{it} + \beta_2Z_i + \underbrace{\beta_3 \ \text{response}_{i, t-1}}_{\text{response from prior}} + \eps_{it}
+\Y_{it} = \beta_0 + \beta_1\ \X_{1,it} + \beta_2\ \X_{2,i} + \underbrace{\beta_3 \ \Y_{i, t-1}}_{\text{from prior time}} + \eps_{it}
 \]</span></p>
 <p>In a diagram, this model can be modelled as:</p>
 <div class="quarto-figure quarto-figure-center">

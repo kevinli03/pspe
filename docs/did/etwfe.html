@@ -283,15 +283,14 @@ window.Quarto = {
 <p>Wooldridge proposes to estimate all of the possible heterogenous treatment effects by simply adding a ton of interaction terms to the TWFE estimator to account for every possible heterogeneity. The two main forms of heterogeneity are heterogeneity between different initial treatment years, and heterogeneity between different levels of confounders.</p>
 <p><span class="math display">\[
 \begin{align}
-\Y_{it} = &amp; \ \blue{\tau_{\text{group}, t}} \cdot \text{group}_i \cdot \D_{it} \cdot \text{time}_t \\
-&amp; + \blue{\tau_{\text{group},t, \text{covariates}}} \cdot \text{group}_i \cdot \D_{it} \cdot \text{time}_t \cdot \cov_{it} \\
-&amp; +  \unit + \time + \beta \ \cov_{it} + \eps_{it}
+\Y = &amp; \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{group} \cdot \D \cdot \text{time} \right)}^{\text{interactions for heterogeneity}} \\
+&amp; + \underbrace{\blue{\tau_b} \left( \text{group} \cdot \D \cdot \text{time} \cdot \cov \right)}_{\text{interactions for heterogeneity}} + \eps
 \end{align}
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(\text{group}_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{time}_t\)</span> is a categorical variable that indicates the different time periods. <span class="math inline">\(\text{covariates}_{\ it}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, the first line captures a interaction between groups, treatment, and time, and the second line captures an interaction between groups, treatment, time, and covariates.</p>
+<p><span class="math inline">\(\text{group}\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{time}\)</span> is a categorical variable that indicates the different time periods. <span class="math inline">\(\text{covariates}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>.</p>
 </div>
-<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{\text{group}, t}}\)</span> and <span class="math inline">\(\blue{\tau_{\text{group}, t, \text{covariates}}}\)</span> that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.</p>
+<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_a}\)</span> and <span class="math inline">\(\blue{\tau_b}\)</span> that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.</p>
 <p>We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.</p>
 <p>Wooldridge’s 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.</p>
 <p>Wooldridge’s extended two-way fixed effects estimator is very similar to <a href="../did/sunab.html">Sun and Abraham’s</a> estimator. The three main differences are:</p>
@@ -307,14 +306,15 @@ window.Quarto = {
 </div>
 <p>To estimate all the group-time ATTs, we do the following:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">etwfe</span>(<span class="at">fml =</span> Y <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3, <span class="co">#if no controls, put 0 after ~</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">tvar =</span> period, <span class="co">#time period variable</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">gvar =</span> initial_treat, <span class="co">#initial period of treatment for unit</span></span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">etwfe</span>(<span class="at">fml =</span> outcome <span class="sc">~</span> covariate1 <span class="sc">+</span> covariate2,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>              <span class="at">tvar =</span> time,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>              <span class="at">gvar =</span> initial_treat_year, <span class="co">#initial period of treatment for unit</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">data =</span> my_data,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">vcov =</span> <span class="sc">~</span>unit, <span class="co"># cluster se by unit</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">family =</span> <span class="cn">NULL</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="small">
+<p>If you have no covariates, replace them with a 0, so it looks something like “outcome ~ 0”.</p>
 <p>You can delete the family argument if you are just using a standard linear model. You can also replace NULL with “logit”, “poisson”, and “negbin”.</p>
 </div>
 <p>We can then aggregate our group-time ATT’s. To obtain one single ATT, we can use the following code:</p>

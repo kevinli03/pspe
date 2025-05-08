@@ -87,8 +87,10 @@ Since the confounder is no longer causing who gets the treatment and who doesn't
 Randomisation also means that every individual has the same chance of being treated or untreated, so the two groups will, on average, the same as each other. That means:
 
 $$
-\textcolor{purple}{\mean Y_\text{untreated}^{(0)}} = \textcolor{red}{\mean Y_\text{treated}^{(0)}}, \text{ so correlation} = \text{causation}
+\textcolor{purple}{\text{outcome}_\text{untreated}^{(\text{control})}} = \textcolor{red}{\text{outcome}_\text{treated}^{(\text{untreated})}}
 $$
+
+And thus, since that is true, that means correlation equals causation.
 
 ::: small
 This is established by the law of large numbers, but it is a little technical for here.

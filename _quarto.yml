@@ -137,7 +137,7 @@ format:
   html:
     theme: cosmo
     number-sections: false
-    fontsize: 12pt
+    fontsize: 12.5pt
     mainfont: helvetica
     fontcolor: "#3b4b57"
     linkcolor: "#0969da"

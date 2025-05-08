@@ -11,17 +11,16 @@ Wooldridge proposes to estimate all of the possible heterogenous treatment effec
 
 $$
 \begin{align}
-\Y_{it} = & \ \blue{\tau_{\text{group}, t}} \cdot \text{group}_i \cdot \D_{it} \cdot \text{time}_t \\
-& + \blue{\tau_{\text{group},t, \text{covariates}}} \cdot \text{group}_i \cdot \D_{it} \cdot \text{time}_t \cdot \cov_{it} \\
-& +  \unit + \time + \beta \ \cov_{it} + \eps_{it}
+\Y = & \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{group} \cdot \D \cdot \text{time} \right)}^{\text{interactions for heterogeneity}} \\
+& + \underbrace{\blue{\tau_b} \left( \text{group} \cdot \D \cdot \text{time} \cdot \cov \right)}_{\text{interactions for heterogeneity}} + \eps
 \end{align}
 $$
 
 ::: small
-$\text{group}_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{time}_t$ is a categorical variable that indicates the different time periods. $\text{covariates}_{\ it}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, the first line captures a interaction between groups, treatment, and time, and the second line captures an interaction between groups, treatment, time, and covariates.
+$\text{group}$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{time}$ is a categorical variable that indicates the different time periods. $\text{covariates}$ is a vector of values for all covariates for a specific unit $i$ at period $t$.
 :::
 
-This model will produce many coefficients $\blue{\tau_{\text{group}, t}}$ and $\blue{\tau_{\text{group}, t, \text{covariates}}}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
+This model will produce many coefficients $\blue{\tau_a}$ and $\blue{\tau_b}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
 
 We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.
 
@@ -44,15 +43,17 @@ library(etwfe)
 To estimate all the group-time ATTs, we do the following:
 
 ```{r, eval = F}
-model <- etwfe(fml = Y ~ X1 + X2 + X3, #if no controls, put 0 after ~
-              tvar = period, #time period variable
-              gvar = initial_treat, #initial period of treatment for unit
+model <- etwfe(fml = outcome ~ covariate1 + covariate2,
+              tvar = time,
+              gvar = initial_treat_year, #initial period of treatment for unit
               data = my_data,
               vcov = ~unit, # cluster se by unit
               family = NULL) 
 ```
 
 ::: small
+If you have no covariates, replace them with a 0, so it looks something like "outcome \~ 0".
+
 You can delete the family argument if you are just using a standard linear model. You can also replace NULL with "logit", "poisson", and "negbin".
 :::
 

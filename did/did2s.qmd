@@ -6,45 +6,45 @@ title: "Gardner (2021) Two-Stage Difference-in-Differences"
 See [Kyle Butts'](https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html) github page for more info on this estimator. [Asjad Naqvi](https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/) also has a helpful page.
 :::
 
-Recall our two-way fixed effects model:
-
-$$
-\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D_{it} + \beta\ \cov_{it} + \eps_{it}
-$$
-
-This also implies a model for the potential outcomes - the potential outcome under control is when $\text{treat}=0$, and the potential outcome under treatment is $\text{treat}=1$:
+Recall our [two-way fixed effects](twfe.qmd) model: This model also implies a model for the potential outcomes - the potential outcome under control is when $\text{treatment}=0$, and the potential outcome under treatment is $\text{treatment}=1$:
 
 $$
 \begin{align}
-\pT & = \unit + \time + \blue\tau + \beta \ \cov_{it} + \eps_{it} \\
-\pC & = \unit + \time + \beta \ \cov_{it} + \eps_{it}
+\pT & = \overbrace{\unit + \time}^\text{fixed effects} + \blue\tau + \beta \ \cov + \eps \\
+\pC & = \unit + \time + \beta \ \cov + \eps
 \end{align}
 $$
 
 ::: small
-These are obtained by simply plugging in $\text{treatment}_{it}=0,1$ into the TWFE equation.
+These are obtained by simply plugging in $\D=0,1$ into the TWFE equation.
 :::
 
-Gardner (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) regarding "forbidden comparisons" and "weighting" problems by simply estimating the counterfactuals $\pCred$ for treated units in the post-period. With these counterfactuals, we can calculate the treatment effect directly without weighting or forbidden comparisons.
+Gardner (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) regarding "forbidden comparisons" and "weighting" problems by simply estimating the causal effect of the treated units as defined by our potential outcomes:
+
+$$
+\tau_\text{ATT} = \pT - \pCred
+$$
+
+However, the counterfactual for treated units in the post-period are unobserved. Thus, the goal of 2-stage difference-in-differencs is to estimate $\pCred$.
 
 To estimate the counterfactuals, we first run a regression with **only untreated/not-yet treated observations** $\D_{it}=0$:
 
 $$
-\Y_{it} = \unit + \time + \beta \ \cov_{it} + \eps_{it}
+\Y = \unit + \time + \beta \ \cov + \eps
 $$
 
-This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\beta}$ using only untreated data. This will allow us to estimate the $\purple{\text{outcome}_{it}^{(\text{control})}}$ potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.
+This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\beta}$ using only untreated data. This will allow us to estimate the $\pC$ potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.
 
 $$
-\blue{\widehat{\text{outcome}}_{it}^{(\text{control})}} = \widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{time}_t + \widehat\beta \ \cov_{it}
+\blue{\hat{\text{outcome}}^{(\text{control})}} = \widehat\alpha_i + \widehat\gamma_t+ \widehat\beta \ \cov
 $$
 
-Now, let us find the difference between our observed $\text{outcome}_{it}$ values in our dataset and our estimated $Y_{it}^{(0)}$ potential outcomes, which we will call the **residual**:
+Now, let us find the difference between our observed $\text{outcome}_{it}$ values in our dataset and our estimated potential outcomes, which we will call the **residual**:
 
 $$
 \begin{align}
-\widetilde{\text{residual}}_{it} & = \Y_{it} - \blue{\widehat{\text{outcome}}_{it}^{(\text{control})}} \\
-& = \Y_{it} - \left(\widehat\alpha_i\ \text{unit}_i + \widehat\gamma_t\ \text{time}_t + \widehat\beta \ \cov_{it} \right)
+\tilde{\text{residual}} & = \Y - \blue{\hat{\text{outcome}}^{(\text{control})}} \\
+& = \Y - \left(\widehat\alpha_i + \widehat\gamma_t + \widehat\beta \ \cov \right)
 \end{align}
 $$
 
@@ -54,7 +54,7 @@ $$
 Thus, with the full dataset, we run the following regression to obtain the causal effect:
 
 $$
-\widetilde{\text{residual}}_{it} = \delta + \blue\tau \ \D_{it} + \eps_{it}
+\tilde{\text{residual}} = \delta + \blue\tau \ \D + \eps
 $$
 
 The estimated $\blue{\widehat\tau}$ is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.
@@ -75,27 +75,33 @@ For the estimation of the ATT, we do the following:
 
 ```{r, eval = F}
 model <- did2s(data = my_data,
-               yname = "Y",
-               first_stage = ~ X1 + X2 | unit + period, #if no covariates, put "0"
-               second_stage = ~i(D), #i() makes it a factor variable
-               treatment = "D",
+               yname = "outcome",
+               first_stage = ~ covariate1 + covariate2 | unit + time,
+               second_stage = ~i(treatment),
+               treatment = "treatment",
                cluster_var = "unit")
 model
 ```
+
+::: small
+If you have no covariates, replace the covariates with 0 (so it looks something like " \~ 0 \| unit + time")
+:::
 
 For estimation of dynamic treatment effects (and testing of parallel trends), we do the following:
 
 ```{r, eval = F}
 model <- did2s(data = my_data,
-               yname = "Y",
-               first_stage = ~ X1 + X2 | unit + period, #if no covariates, put "0"
-               second_stage = ~i(time_to_treat, ref = c(-1, Inf)),
-               treatment = "D",
+               yname = "outcome",
+               first_stage = ~ covariate1 + covariate2 | unit + time,
+               second_stage = ~i(rel_time, ref = c(-1, Inf)),
+               treatment = "treatment",
                cluster_var = "unit")
 model
 iplot(model) #to view dynamic treatment effects plot
 ```
 
 ::: small
+If you have no covariates, replace the covariates with 0 (so it looks something like " \~ 0 \| unit + time")
+
 Note: the **inf** is the reference for the never-treated control group, for the variable time_to_treat. If it is NA's, then you do not need to include it, just put ref = -1.
 :::

@@ -27,36 +27,38 @@ digraph example1 {
 ```
 :::
 
-We have a treated group (went to hospital), and an untreated group. Using our potential outcomes framework, we can define the treatment effect of the treated group:
+We have a group that went to hospital (we will call this group "went"), and a group that "did not go". Using our potential outcomes framework, we can define the treatment effect of the group that went to the hospital:
 
 $$
-\tau_\text{treated} = \textcolor{purple}{{\text{outcome}}_{\text{treated}}^{(\text{treated})}} - \textcolor{red}{{\text{outcome}}_{\text{treated}}^{(\text{untreated})}}
+\tau_\text{treated} = \textcolor{purple}{{\text{health}}_{\text{went}}^{(\text{treated})}} - \textcolor{red}{{\text{health}}_{\text{went}}^{(\text{control})}}
 $$
 
 ::: small
-In red is the counterfactual we do not observe.
+In red is the counterfactual we do not observe. This is because the individuals who went to the hospital were treated, so we cannot see the world where they are in control.
 :::
 
 Now compare the treatment effects above to correlation, which is defined as the difference in observed outcomes:
 
 $$
 \begin{align}
-\text{correlation} & =  \text{outcome}_\text{treated} - \text{outcome}_\text{untreated} \\
-& = \textcolor{purple}{\text{outcome}_{\text{treated}}^{(\text{treated})}} - \textcolor{purple}{\text{outcome}_\text{untreated}^{(\text{untreated})}}
+\text{correlation} & =  \text{health}_\text{went} - \text{health}_\text{did not go} \\
+& = \textcolor{purple}{\text{health}_{\text{went}}^{(\text{treated})}} - \textcolor{purple}{\text{health}_\text{did not go}^{(\text{control})}}
 \end{align}
 $$
 
 If we compare this correlation to our $\tau_\text{treated}$, we see:
 
 $$
-\text{if  } \textcolor{purple}{\text{outcome}_\text{untreated}^{(\text{untreated})}} ≠ \textcolor{red}{\text{outcome}_\text{treated}^{(\text{untreated})}}, \text{ then }  \tau_\text{treated} ≠ \text{correlation}
+\text{if  } \textcolor{purple}{\text{health}_\text{did not go}^{(\text{control})}} ≠ \textcolor{red}{\text{health}_\text{went}^{(\text{control})}}
 $$
+
+If this is true (they are different), then correlation is not causation.
 
 ::: small
 These two quantities are potential outcomes under control, or in another way to think of it, outcomes of the two groups prior to treatment happening.
 :::
 
-Thus, if there is a difference between the average outcomes between treated and untreated before treatment is administered, then correlation is not equal to causation. This is because we cannot tell if the difference between the groups is due to treatment, or [due to their pre-existing differences]{.mark}.
+Thus, if there is a difference between the average health outcomes between those who went to the hospital, and those who did not go to the hospital, **before** treatment is administered, then correlation is not equal to causation. This is because we cannot tell if the difference between the groups is due to treatment, or [due to their pre-existing differences]{.mark}.
 
 <br />
 

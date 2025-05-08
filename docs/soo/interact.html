@@ -271,7 +271,7 @@ window.Quarto = {
 \]</span></p>
 <p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:</p>
 <p><span class="math display">\[
-\hat\beta_\text{OLS} = \sum \tau(\b x) \underbrace{\frac{Var(D_i | \b x)Pr(\b x)}{\sum Var(D_i | \b x^c)Pr(\b x^c)}}_{\text{weight}}
+\hat\beta_\text{OLS} = \sum \tau(\b x) \underbrace{\frac{Var(\D | \b x)Pr(\b x)}{\sum Var(\D | \b x^c)Pr(\b x^c)}}_{\text{weight}}
 \]</span></p>
 <div class="small">
 <p>Where <span class="math inline">\(\b x^c\)</span> is the complement (not <span class="math inline">\(\b x\)</span>).</p>
@@ -279,12 +279,16 @@ window.Quarto = {
 <p>These weights are not equivalent to the selection on observables <span class="math inline">\(\tau_{ATE}\)</span>. Thus, if not all <span class="math inline">\(\tau(\b x)\)</span> are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.</p>
 <p>Heterogeneity is present in almost all situations we are interested in. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
 <p><span class="math display">\[
-Y_i = \alpha + D_i \tau + \underbrace{(\b{X}_i - \mean{\b X})' \b\beta}_{\text{confounders}} \ + \underbrace{D_i (\b X_i - \mean{\b X})' \b\gamma}_{\text{interaction}} \  + \eps_i
+\begin{align}
+\Y = &amp; \ \alpha + \blue\tau\ \D \\
+&amp; + \beta\left( \cov - \text{avg.covariates}\right) \\
+&amp; + \gamma\ \D \left( \cov - \text{avg.covariates}\right) + \eps
+\end{align}
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(\mean{\b X}\)</span> is a vector of the means of each confounder. <span class="math inline">\(\tau\)</span> is the estimate of the ATE. See <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> for proofs.</p>
+<p>Where avg.covariates is the average value of all covariates for all individuals. Essentially, the first line is our simple regression, our second line is controlling for confounders, and the third line is controlling for interactions between treatment and confounders.</p>
 </div>
-<p>The new OLS estimate of <span class="math inline">\(\hat\tau\)</span> in this estimator will technically still be a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>, but the bias is negligible.</p>
+<p>The new OLS estimate of <span class="math inline">\(\blue{\hat\tau}\)</span> in this estimator will technically still be a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>, but the bias is negligible.</p>
 <p><br></p>
 <p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>.</p>
 <p>We will need the <strong>estimatr</strong> package:</p>
@@ -293,8 +297,8 @@ Y_i = \alpha + D_i \tau + \underbrace{(\b{X}_i - \mean{\b X})' \b\beta}_{\text{c
 </div>
 <p>Then, we can use the <strong>lm_lin()</strong> function to estimate:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">lm_lin</span>(Y <span class="sc">~</span> D,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">covariates =</span> <span class="sc">~</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">lm_lin</span>(outcome <span class="sc">~</span> treatment,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">covariates =</span> <span class="sc">~</span> covariate1 <span class="sc">+</span> covariate2,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> my_data)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

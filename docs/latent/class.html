@@ -354,14 +354,14 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>The factor s a categorical variable with <span class="math inline">\(C\)</span> number of categories, which are also called <strong>latent classes</strong>. These categories are treated as if they have no inherent order, and we can choose the number of categories.</p>
+<p>The factors a categorical variable with <span class="math inline">\(C\)</span> number of categories, which are also called <strong>latent classes</strong>. These categories are treated as if they have no inherent order, and we can choose the number of categories.</p>
 <p>We also have categorical observed items with each item <span class="math inline">\(i\)</span> having <span class="math inline">\(K_i\)</span> number of categories. The latent class models connects each item with a factor through a <strong>item response probability</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
-Pr(\text{item}_1 = k \ | \ \text{factor} = c) &amp; = \pi_{1, kc} \\
-Pr(\text{item}_2 = k \ | \ \text{factor} = c) &amp; = \pi_{2, kc} \\
+Pr(\text{item}_1 = \text{category }k \ | \ \text{factor} = \text{category }c) &amp; = \pi_{1, kc} \\
+Pr(\text{item}_2 = \text{category }k  \ | \ \text{factor} = \text{category }c) &amp; = \pi_{2, kc} \\
 \vdots \qquad \qquad \vdots \qquad \qquad &amp; \vdots \\
-Pr(\text{item}_p = k \ | \ \text{factor} = c) &amp; = \pi_{p, kc} \\
+Pr(\text{item}_p = \text{category }k  \ | \ \text{factor} = \text{category }c) &amp; = \pi_{p, kc} \\
 \end{align}
 \]</span></p>
 <div class="small">
@@ -369,7 +369,7 @@ Pr(\text{item}_p = k \ | \ \text{factor} = c) &amp; = \pi_{p, kc} \\
 </div>
 <p>We also have another part of the measurement mode, the <strong>structural model</strong>, which determines the probability of each category in the factor:</p>
 <p><span class="math display">\[
-\alpha_c = Pr(\text{factor}=c)
+\alpha_c = Pr(\text{factor}=\text{category }c)
 \]</span></p>
 <p>Interpretation of the latent factor <span class="math inline">\(F\)</span> depends on these item response probabilities <span class="math inline">\(\pi_{i, kc}\)</span>. An example is provided below, because it can be a little confusing.</p>
 <div class="callout callout-style-simple callout-note callout-titled">
@@ -393,7 +393,7 @@ Example of Interpretation
 </div>
 <p>We can also create factor scores - which is a little different, because now we are basically assigning every unit in our data to a category of the latent factor. This is done by calculating the posterior probability of being in each class:</p>
 <p><span class="math display">\[
-\widehat{Pr}(\text{factor} = c \ | \ \text{item}_1 = k_1, \text{item}_2 = k_2, \dots )
+\widehat{Pr}(\text{factor} = \text{category }c \ | \ \text{item}_1 = \text{category }k_1, \text{item}_2 = \text{category }k_2, \dots )
 \]</span></p>
 <p>We calcaulte this probability for all categories <span class="math inline">\(c\)</span> in the factor. Whichever category <span class="math inline">\(c\)</span> of the latent variable has the highest probability, is the category a unit is assigned to.</p>
 <div class="small">
@@ -407,16 +407,16 @@ Example of Interpretation
 <p>This package requires that our categories of items are labelled starting with 1. This means if you have a binary variable of 0 and 1, you will need to change it to 1 and 2.</p>
 <p>To begin, we will first need to create a vector of our item names:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>,<span class="st">"X3"</span>,<span class="st">"X4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"item1"</span>,<span class="st">"item2"</span>,<span class="st">"item3"</span>,<span class="st">"item4"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Then, let us fit our model as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">cbind</span>(X1, X2, X3, X4) <span class="sc">~</span><span class="dv">1</span></span>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>form <span class="ot">&lt;-</span> <span class="fu">cbind</span>(item1, item2, item3, item4) <span class="sc">~</span><span class="dv">1</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">poLCA</span>(form,</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>              my_data[,vars],</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">nclass=</span><span class="dv">2</span>, <span class="co">#number of categories for factor</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">na.rm=</span>F,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrep=</span><span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>              <span class="at">nclass =</span> <span class="dv">2</span>, <span class="co">#number of categories for factor</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>              <span class="at">na.rm =</span> F,</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>              <span class="at">nrep =</span> <span class="dv">10</span>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="small">
 <p>na.rm = F means to include missing values when estimating (which is recommended). nrep = 10 indicates how many times to run the gradient descent algorithm - more is better, but will take longer.</p>

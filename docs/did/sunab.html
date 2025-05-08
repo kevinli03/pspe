@@ -283,15 +283,12 @@ window.Quarto = {
 </ul>
 <p>Sun and Abraham estimate dynamic ATT’s for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.</p>
 <p><span class="math display">\[
-\begin{align}
-\Y_{it} = &amp; \ \blue{\tau_{\text{group}, \text{rel.time}}}  \cdot \text{group}_i \cdot \text{rel.time}_{it} \\
-&amp; + \unit + \time + \beta \ \cov_{it} + \eps_{it}
-\end{align}
+\Y = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau} \left( \text{group} \cdot \text{rel.time} \right)}_{\text{interact for heterogeneity}} +  \beta \ \cov + \eps
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(\text{group}_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{rel.time}_{it}\)</span> is a categorical variable that describes unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and how many periods away from the initial treatment period of that unit <span class="math inline">\(i\)</span> is. <span class="math inline">\(\text{covariates}_{it}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, the first line interacts group with relative treatment time.</p>
+<p><span class="math inline">\(\text{group}\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{rel.time}\)</span> is a categorical variable that describes unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and how many periods away from the initial treatment period of that unit <span class="math inline">\(i\)</span> is. <span class="math inline">\(\text{covariates}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, thisinteracts group with relative treatment time.</p>
 </div>
-<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{\text{group}, \text{rel.time}}}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
+<p>This model will produce many coefficients <span class="math inline">\(\blue\tau\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
 <p>Sun and Abraham’s estimator is very similar to Wooldridge’s <a href="../did/etwfe.html">extended two-way fixed effects</a> estimator. The three main differences are:</p>
 <ol type="1">
 <li>Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge’s can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.</li>
@@ -305,7 +302,7 @@ window.Quarto = {
 </div>
 <p>We implement Sun and Abraham’s estimator as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(Y <span class="sc">~</span> <span class="fu">sunab</span>(initial_treat_year, period) <span class="sc">|</span> unit <span class="sc">+</span> period,</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> <span class="fu">sunab</span>(initial_treat_year, time) <span class="sc">+</span> covariate1 <span class="sc">+</span> covariate2 <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> my_data,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">vcov =</span> <span class="sc">~</span>unit)</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>

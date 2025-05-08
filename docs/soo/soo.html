@@ -286,10 +286,12 @@ window.Quarto = {
 </div>
 <p>By definition, as the confounder <strong>changes</strong>, your likelihood of getting treatment changes. As the confounder <strong>changes</strong>, the outcome value will also change.</p>
 <p>These issues occur when the confounder <strong>changes</strong> in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.</p>
-<p>For example, let’s assume that intellegence has two values: smart and dumb. Let us calculate the treatment effect within each level of intellegence:</p>
+<p>For example, let’s assume that intellegence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intellegence:</p>
 <p><span class="math display">\[
-\tau_\text{smart} = \purple{\mean Y_\text{smart}^{(1)}} - \purple{\mean Y_\text{smart}^{(0)}}
-, \quad \tau_\text{dumb} = \purple{\mean Y_\text{dumb}^{(1)}} - \purple{\mean Y_\text{dumb}^{(0)}}
+\begin{align}
+\tau_\text{smart} &amp; = \purple{\text{grades}_\text{smart}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{smart}^{(\text{no scholarship})}}\\
+\tau_\text{dumb} &amp; = \purple{\text{grades}_\text{dumb}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{dumb}^{(\text{no scholarship})}}
+\end{align}
 \]</span></p>
 <p>The confounder is constant here, so no selection bias. Thus, within each category, correlation is equal to causation. Our overall causal effect will be a weighted average of the categories:</p>
 <p><span class="math display">\[

@@ -267,17 +267,20 @@ window.Quarto = {
 </div>
 <p>Selection on observables is about controlling for confounders. Linear regression is a very natural way to control for confounders.</p>
 <p><span class="math display">\[
-Y_i = \beta_0 + \beta_1X_{i1} + \beta_2 X_{i2} + \eps_i
-\]</span></p>
-<p>We know that in the above equation, <span class="math inline">\(\beta_1\)</span> is the relationship between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(Y_i\)</span>, while controllling (holding constant) <span class="math inline">\(X_2\)</span>.</p>
-<p>Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.</p>
-<p><span class="math display">\[
-Y_i = \alpha + D_i\tau + \b X_i' \b\beta + \eps_i
+\Y = \beta_0 + \beta_1\ \X_{1} + \beta_2\ \X_{2} + \eps
 \]</span></p>
 <div class="small">
-<p>Where <span class="math inline">\(\alpha\)</span> is the intercept and <span class="math inline">\(\b X_i\)</span> is a vector of confounder values for individual <span class="math inline">\(i\)</span>.</p>
+<p>Where <span class="math inline">\(\X_1\)</span> and <span class="math inline">\(\X_2\)</span> are two different input/explanatory/independent variables</p>
 </div>
-<p>Our ordinary least squares (OLS) estimate <span class="math inline">\(\widehat\tau\)</span> is an unbiased estimator of the true <span class="math inline">\(\tau_{ATE}\)</span> given three conditions are met:</p>
+<p>We know that in the above equation, <span class="math inline">\(\beta_1\)</span> is the relationship between <span class="math inline">\(\X_1\)</span> and outcome, while controllling (holding constant) <span class="math inline">\(\X_2\)</span>.</p>
+<p>Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.</p>
+<p><span class="math display">\[
+\Y = \alpha + \blue\tau\ \D + \beta\ \cov + \eps
+\]</span></p>
+<div class="small">
+<p>Where <span class="math inline">\(\alpha\)</span> is the intercept and <span class="math inline">\(\cov_i\)</span> is a vector of covariates/confounders for individual <span class="math inline">\(i\)</span>.</p>
+</div>
+<p>Our ordinary least squares (OLS) estimate <span class="math inline">\(\blue{\widehat\tau}\)</span> is an unbiased estimator of the true <span class="math inline">\(\tau_{ATE}\)</span> given three conditions are met:</p>
 <ol type="1">
 <li><p>We meet the selection on observables assumption of <strong>conditional ignorability</strong>. Conditional ignorability implies exogeneity, which means the estimate is unbiased.</p></li>
 <li><p>The relationship between our continuous confounders and outcome variable is <strong>linear</strong>. This is because if the true relationship between these two is not linear, then our linear model is wrong, so it is not properly controlling for confounders.</p></li>
@@ -294,7 +297,7 @@ Y_i = \alpha + D_i\tau + \b X_i' \b\beta + \eps_i
 </div>
 <p>To run a regression estimator, we do:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(Y <span class="sc">~</span> D <span class="sc">+</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3,</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">feols</span>(outcome <span class="sc">~</span> treatment <span class="sc">+</span> covariate1 <span class="sc">+</span> covariate2,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">data =</span> data,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">se =</span> <span class="st">"hetero"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

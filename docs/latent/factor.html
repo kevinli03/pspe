@@ -356,7 +356,7 @@ window.Quarto = {
 </div>
 <p>The factor is the unobserved latent variable we want to measure. We assume that the factor is continuous, and normally distributed:</p>
 <p><span class="math display">\[
-\text{factor} \sim \mathcal N(0, 1)
+\F \sim \mathcal N(0, 1)
 \]</span></p>
 <div class="small">
 <p>Where <span class="math inline">\(\kappa = 0\)</span> is the mean of the factor, and <span class="math inline">\(\phi =1\)</span> is the variance of the factor. Technically, the factor only needs to be normally distributed - we can have different means and variances. However, for identification reasons, we typically fix the factor to a standard normal.</p>
@@ -364,10 +364,10 @@ window.Quarto = {
 <p>The <span class="math inline">\(p\)</span> number of items are the variables we observe, that we believe are a measurement of the latent factor. Factor analysis assumes that each observed item is associated with the latent factor with a <strong>linear regression model</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
-\text{item}_1 &amp; = \tau_1 + \lambda_1 \ \text{factor} + \delta_1 \\
-\text{item}_2 &amp; = \tau_2 + \lambda_2 \ \text{factor} + \delta_2 \\
+\I_1 &amp; = \tau_1 + \lambda_1 \ \F + \delta_1 \\
+\I_2 &amp; = \tau_2 + \lambda_2 \ \F + \delta_2 \\
 &amp; \vdots \qquad \qquad \vdots \\
-\text{item}_p &amp; = \tau_p + \lambda_p \ \text{factor} + \delta_p
+\I_p &amp; = \tau_p + \lambda_p \ \F + \delta_p
 \end{align}
 \]</span></p>
 <ul>

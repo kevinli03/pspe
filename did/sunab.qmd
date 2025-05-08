@@ -11,17 +11,14 @@ There are two [issues with the two-way fixed effects estimator](twfestaggered.qm
 Sun and Abraham estimate dynamic ATT's for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.
 
 $$
-\begin{align}
-\Y_{it} = & \ \blue{\tau_{\text{group}, \text{rel.time}}}  \cdot \text{group}_i \cdot \text{rel.time}_{it} \\
-& + \unit + \time + \beta \ \cov_{it} + \eps_{it}
-\end{align}
+\Y = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau} \left( \text{group} \cdot \text{rel.time} \right)}_{\text{interact for heterogeneity}} +  \beta \ \cov + \eps
 $$
 
 ::: small
-$\text{group}_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{rel.time}_{it}$ is a categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is. $\text{covariates}_{it}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, the first line interacts group with relative treatment time.
+$\text{group}$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{rel.time}$ is a categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is. $\text{covariates}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, thisinteracts group with relative treatment time.
 :::
 
-This model will produce many coefficients $\blue{\tau_{\text{group}, \text{rel.time}}}$ (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.
+This model will produce many coefficients $\blue\tau$ (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.
 
 Sun and Abraham's estimator is very similar to Wooldridge's [extended two-way fixed effects](etwfe.qmd) estimator. The three main differences are:
 
@@ -40,7 +37,7 @@ library(fixest)
 We implement Sun and Abraham's estimator as follows:
 
 ```{r, eval = F}
-model <- feols(Y ~ sunab(initial_treat_year, period) | unit + period,
+model <- feols(outcome ~ sunab(initial_treat_year, time) + covariate1 + covariate2 | unit + time,
                data = my_data,
                vcov = ~unit)
 iplot(model)

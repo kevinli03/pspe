@@ -296,13 +296,13 @@ window.Quarto = {
 </div>
 <p>Recall our measurement models linking each item <span class="math inline">\(i\)</span> to our factor:</p>
 <p><span class="math display">\[
-\text{item}_i = \tau_i + \lambda_i \ \text{factor} + \delta_i
+\I_i = \tau_i + \lambda_i \ \F + \delta_i
 \]</span></p>
-<p>One of the assumptions of this model is the the error term <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_i)\)</span>, or in other words, the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. Through some complex math, we can show that the variance of each item <span class="math inline">\(X_i\)</span> is as follows:</p>
+<p>One of the assumptions of this model is the the error term <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_i)\)</span>, or in other words, the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. Through some complex math, we can show that the variance of each item is as follows:</p>
 <p><span class="math display">\[
-Var(\text{item}_i) = \lambda_i^2 + \theta_i
+Var(\I_i) = \lambda_i^2 + \theta_i
 \]</span></p>
-<p>Thus, this allows us to essentially “split” the variance in any item <span class="math inline">\(X_i\)</span> into two parts:</p>
+<p>Thus, this allows us to essentially “split” the variance in any item into two parts:</p>
 <ol type="1">
 <li><span class="math inline">\(\lambda_i^2\)</span> is the part of the variance in the item explained by the latent factor. We call this the <strong>communality</strong> of the item <span class="math inline">\(i\)</span>.</li>
 <li><span class="math inline">\(\theta_i\)</span> is the <strong>residual variance</strong>, the part of the variance <strong>not</strong> explained by our factor.</li>
@@ -322,7 +322,7 @@ Var(\text{item}_i) = \lambda_i^2 + \theta_i
 <p><strong>Factor scores</strong> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model.</p>
 <p>We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:</p>
 <p><span class="math display">\[
-\text{factor scores} = w_0 + w_1 \ \text{item}_1 + w_2 \  \text{item}_2 + \dots
+\text{factor scores} = \omega_0 + \omega_1 \ \I_1 + \omega_2 \  \I_2 + \dots
 \]</span></p>
 <p>The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.</p>
 <p><br></p>

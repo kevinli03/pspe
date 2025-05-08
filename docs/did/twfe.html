@@ -280,98 +280,26 @@ window.Quarto = {
 </div>
 <p>The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences, used when we have panel data with multiple observations observed in multiple time periods. The estimator is a linear regression model specified as following:</p>
 <p><span class="math display">\[
-\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D_{it} + \beta\ \cov_{it} + \eps_{it}
+\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D + \beta\ \cov + \eps
 \]</span></p>
 <div class="small">
-<p>Where controls are extra variables needed to be controlled for meet the parallel trends assumption (optional). Note how coefficients <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> have subscripts - they have different values given which unit <span class="math inline">\(i\)</span> or time <span class="math inline">\(t\)</span> in question.</p>
+<p>Where covariates are control variables needed to meet the parallel trends assumption (optional).</p>
 </div>
-<p>The estimate for <span class="math inline">\(\blue\tau\)</span> is our treatment effect (ATT). But what are fixed effects, and what do they do? Let us take a look at this example:</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="4.5" data-fig-height="1.2" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="432" height="115" viewbox="0.00 0.00 488.36 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
-<title>example2</title>
-<!-- D -->
-<g id="node1" class="node">
-<title>D</title>
-<polygon fill="none" stroke="black" points="210.04,-36 -0.01,-36 -0.01,0 210.04,0 210.04,-36"></polygon>
-<text text-anchor="middle" x="105.01" y="-13.8" font-family="Times,serif" font-size="14.00">Raising Minimum Wage in a State</text>
-</g>
-<!-- Y -->
-<g id="node3" class="node">
-<title>Y</title>
-<polygon fill="none" stroke="black" points="480.21,-36 321.82,-36 321.82,0 480.21,0 480.21,-36"></polygon>
-<text text-anchor="middle" x="401.01" y="-13.8" font-family="Times,serif" font-size="14.00">Unemployment in a State</text>
-</g>
-<!-- D&#45;&gt;Y -->
-<g id="edge1" class="edge">
-<title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M210.2,-18C243.34,-18 279.61,-18 311.55,-18"></path>
-<polygon fill="black" stroke="black" points="311.75,-21.5 321.75,-18 311.75,-14.5 311.75,-21.5"></polygon>
-<text text-anchor="middle" x="265.84" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
-</g>
-<!-- X -->
-<g id="node2" class="node">
-<title>X</title>
-<polygon fill="none" stroke="black" points="234.01,-109 180.01,-109 180.01,-73 234.01,-73 234.01,-109"></polygon>
-<text text-anchor="middle" x="207.01" y="-86.8" font-family="Times,serif" font-size="14.00">State</text>
-</g>
-<!-- X&#45;&gt;D -->
-<g id="edge2" class="edge">
-<title>X-&gt;D</title>
-<path fill="none" stroke="black" d="M182.58,-72.99C169.18,-63.67 152.38,-51.97 137.85,-41.86"></path>
-<polygon fill="black" stroke="black" points="139.8,-38.95 129.6,-36.11 135.81,-44.7 139.8,-38.95"></polygon>
-</g>
-<!-- X&#45;&gt;Y -->
-<g id="edge3" class="edge">
-<title>X-&gt;Y</title>
-<path fill="none" stroke="black" d="M244.06,-76.44C272.48,-66.04 312.18,-51.51 344.55,-39.67"></path>
-<polygon fill="black" stroke="black" points="242.58,-73.25 234.4,-79.98 244.99,-79.83 242.58,-73.25"></polygon>
-<polygon fill="black" stroke="black" points="346.15,-42.81 354.33,-36.08 343.74,-36.23 346.15,-42.81"></polygon>
-</g>
-<!-- Q -->
-<g id="node4" class="node">
-<title>Q</title>
-<polygon fill="none" stroke="black" points="334.01,-109 280.01,-109 280.01,-73 334.01,-73 334.01,-109"></polygon>
-<text text-anchor="middle" x="307.01" y="-86.8" font-family="Times,serif" font-size="14.00">Year</text>
-</g>
-<!-- Q&#45;&gt;D -->
-<g id="edge4" class="edge">
-<title>Q-&gt;D</title>
-<path fill="none" stroke="black" d="M279.77,-80.42C249.99,-69.96 201.39,-52.88 162.99,-39.38"></path>
-<polygon fill="black" stroke="black" points="164.06,-36.05 153.47,-36.03 161.74,-42.65 164.06,-36.05"></polygon>
-</g>
-<!-- Q&#45;&gt;Y -->
-<g id="edge5" class="edge">
-<title>Q-&gt;Y</title>
-<path fill="none" stroke="black" d="M338.11,-66.51C348.51,-58.65 360.1,-49.9 370.46,-42.07"></path>
-<polygon fill="black" stroke="black" points="335.64,-63.99 329.77,-72.81 339.86,-69.58 335.64,-63.99"></polygon>
-<polygon fill="black" stroke="black" points="372.6,-44.85 378.47,-36.03 368.38,-39.26 372.6,-44.85"></polygon>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
-<p>As we can see in this diagram, we have two potential confounders:</p>
-<ol type="1">
-<li>States have systematic differences between them. These differences between states may change the likelihood of adopting a minimum wage increase, and may be linked with unemployment.</li>
-<li>Years have differences between them. Some years have recessions, which might affect both the likelihood of a minimum wage increase, and may be linked with unemployment.</li>
-</ol>
-<p>Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects get rid of these two potential sources of confounding.</p>
+<p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are sort-of “special” intercepts. However, unlike our normal intercepts in regression (often notated <span class="math inline">\(\beta_0\)</span>), these intercepts <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> take different values depending on the unit and time.</p>
+<ul>
+<li>Intercept <span class="math inline">\(\alpha_i\)</span> has a different value for each unit <span class="math inline">\(i\)</span>.</li>
+<li>Intercept <span class="math inline">\(\gamma_t\)</span> has a different value for each time period <span class="math inline">\(t\)</span>.</li>
+</ul>
+<p>Essentially, what fixed effects does is that it calculates different intercepts for each unit <span class="math inline">\(i\)</span>, and each time period <span class="math inline">\(t\)</span>. Thus, these intercepts reflect differences on-average between different units <span class="math inline">\(i\)</span>, and different time periods <span class="math inline">\(t\)</span>.</p>
+<p>Since the differences between units <span class="math inline">\(i\)</span> and time periods <span class="math inline">\(t\)</span> are included in these fixed effects intercept terms, this allows us to <strong>account</strong> for differences between units and differences between time periods.</p>
 <div class="small">
-<p>You can also think of fixed effects as essentially de-meaning observations by group. For example, it calculates the average unemployment in every state over time, and subtracts that for each observation within that state. This “subtracts” away the differences between states.</p>
+<p>Or in other words, we are essentially “controlling” for differences between units, and differences between years.</p>
 </div>
-<p>The estimated <span class="math inline">\(\widehat\tau\)</span> of the two-way fixed effects estimator is the ATT estimate of difference-in-differences. This estimate is unbiased, assuming our assumptions (most importantly, parallel trends) are met.</p>
-<p>The reason why two-way fixed effects works lies in the mechanics of the Ordinary Least Squares (OLS) estimator. Under the condition of strict exogeneity, OLS is an unbiased estimator. Or in other words, if all confounders are controlled for, OLS is unbiased.</p>
-<p>The unit fixed effects <span class="math inline">\(\alpha_i\)</span> control for between-unit differences. The time fixed effects <span class="math inline">\(\gamma_t\)</span> control for between-period differences. Thus, the only remaining “confounders” are the difference in trends over time. If parallel trends assumption is met, then we have no “confounders”, and thus, we have strict exogneity and a unbiased estimate.</p>
+<p>By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect.</p>
+<ul>
+<li>For example, if we were comparing yearly GDP growth data, 2008 recession would on average have low values, and 2016 would have high values. But this difference between years might cloud the main effect of our treatment. Fixed effects would account for this.</li>
+</ul>
+<p>The estimate for <span class="math inline">\(\blue\tau\)</span> is our treatment effect (ATT). This estimate is <strong>unbiased</strong> if the parallel trends assumption is met.</p>
 <p>Two additional notes regarding fixed effects:</p>
 <ol type="1">
 <li>We should cluster standard errors by unit.</li>
@@ -384,7 +312,7 @@ window.Quarto = {
 </div>
 <p>We implement two-way fixed effects as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(Y <span class="sc">~</span> D <span class="sc">+</span> X1 <span class="sc">+</span> X2 <span class="sc">+</span> X3 <span class="sc">|</span> unit <span class="sc">+</span> period,</span>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> treatment <span class="sc">+</span> covariate1 <span class="sc">+</span> covariate2 <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> my_data,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"cluster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>

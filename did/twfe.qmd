@@ -9,56 +9,31 @@ Note: if you have staggered treatment implementation, [TWFE can produce incorrec
 The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences, used when we have panel data with multiple observations observed in multiple time periods. The estimator is a linear regression model specified as following:
 
 $$
-\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D_{it} + \beta\ \cov_{it} + \eps_{it}
+\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D + \beta\ \cov + \eps
 $$
 
 ::: small
-Where controls are extra variables needed to be controlled for meet the parallel trends assumption (optional). Note how coefficients $\alpha_i$ and $\gamma_t$ have subscripts - they have different values given which unit $i$ or time $t$ in question.
+Where covariates are control variables needed to meet the parallel trends assumption (optional).
 :::
 
-The estimate for $\blue\tau$ is our treatment effect (ATT). But what are fixed effects, and what do they do? Let us take a look at this example:
+The fixed effects $\alpha_i$ and $\gamma_t$ are sort-of "special" intercepts. However, unlike our normal intercepts in regression (often notated $\beta_0$), these intercepts $\alpha_i$ and $\gamma_t$ take different values depending on the unit and time.
 
-::: center-graph
-```{dot}
-//| fig-width: 4.5
-//| fig-height: 1.2
-digraph example2 {
-  bgcolor="transparent";
-  // Nodes
-  D [shape=box, pos = "0,0!", label="Raising Minimum Wage in a State"]
-  X [shape=box, pos = "2,0!", label="State"]
-  Y [shape=box, pos = "1,-1!", label="Unemployment in a State"]
-  Q [shape=box, pos = "2,0!", label="Year"]
+-   Intercept $\alpha_i$ has a different value for each unit $i$.
+-   Intercept $\gamma_t$ has a different value for each time period $t$.
 
-  // Edges
-  {rank=same; D -> Y [label="Causal Effect"]}
-  X -> D
-  X -> Y [dir=both]
-  Q -> D
-  Q -> Y [dir=both]
-  
-  graph [nodesep=0.5, ranksep=0.5]
+Essentially, what fixed effects does is that it calculates different intercepts for each unit $i$, and each time period $t$. Thus, these intercepts reflect differences on-average between different units $i$, and different time periods $t$.
 
-}
-```
-:::
-
-As we can see in this diagram, we have two potential confounders:
-
-1.  States have systematic differences between them. These differences between states may change the likelihood of adopting a minimum wage increase, and may be linked with unemployment.
-2.  Years have differences between them. Some years have recessions, which might affect both the likelihood of a minimum wage increase, and may be linked with unemployment.
-
-Thus, two-way fixed effects are mechnically control variables for units (in this example, countries) and time-periods (in this example, years). Fixed effects get rid of these two potential sources of confounding.
+Since the differences between units $i$ and time periods $t$ are included in these fixed effects intercept terms, this allows us to **account** for differences between units and differences between time periods.
 
 ::: small
-You can also think of fixed effects as essentially de-meaning observations by group. For example, it calculates the average unemployment in every state over time, and subtracts that for each observation within that state. This "subtracts" away the differences between states.
+Or in other words, we are essentially "controlling" for differences between units, and differences between years.
 :::
 
-The estimated $\widehat\tau$ of the two-way fixed effects estimator is the ATT estimate of difference-in-differences. This estimate is unbiased, assuming our assumptions (most importantly, parallel trends) are met.
+By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect.
 
-The reason why two-way fixed effects works lies in the mechanics of the Ordinary Least Squares (OLS) estimator. Under the condition of strict exogeneity, OLS is an unbiased estimator. Or in other words, if all confounders are controlled for, OLS is unbiased.
+-   For example, if we were comparing yearly GDP growth data, 2008 recession would on average have low values, and 2016 would have high values. But this difference between years might cloud the main effect of our treatment. Fixed effects would account for this.
 
-The unit fixed effects $\alpha_i$ control for between-unit differences. The time fixed effects $\gamma_t$ control for between-period differences. Thus, the only remaining "confounders" are the difference in trends over time. If parallel trends assumption is met, then we have no "confounders", and thus, we have strict exogneity and a unbiased estimate.
+The estimate for $\blue\tau$ is our treatment effect (ATT). This estimate is **unbiased** if the parallel trends assumption is met.
 
 Two additional notes regarding fixed effects:
 
@@ -76,7 +51,7 @@ library(fixest)
 We implement two-way fixed effects as follows:
 
 ```{r, eval = F}
-model <- feols(Y ~ D + X1 + X2 + X3 | unit + period,
+model <- feols(outcome ~ treatment + covariate1 + covariate2 | unit + time,
                data = my_data,
                se = "cluster")
 ```

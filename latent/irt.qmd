@@ -37,15 +37,15 @@ We must have at least 3 observed items for estimation purposes. The items are as
 
 $$
 \begin{align}
-\text{logit}[Pr(\text{item}_1 = 1 \ | \ \text{factor})] & = \tau_1 + \lambda_1 \ \text{factor} \\
-\text{logit}[Pr(\text{item}_2 = 2 \ | \ \text{factor})] & = \tau_2 + \lambda_2 \ \text{factor} \\
+\overbrace{\text{logit}[Pr(\I_1 = 1 \ | \ \text{factor})]}^{\text{logit}=\log[x/(1-x)]} & = \tau_1 + \lambda_1 \ \F \\
+\text{logit}[Pr(\I_2 = 1 \ | \ \text{factor})] & = \tau_2 + \lambda_2 \ \F \\
 \vdots \qquad \qquad \vdots \qquad \qquad \vdots & \qquad \qquad \vdots \\
-\text{logit}[Pr(\text{item}_p = 1 \ | \ \text{factor})] & = \tau_p + \lambda_p \ \text{factor} \\
+\text{logit}[Pr(\I_p = 1 \ | \ \text{factor})] & = \tau_p + \lambda_p \ \F \\
 \end{align}
 $$
 
 ::: small
-The logit link function is defined as $x/1-x$. For categorical (more than 2 categories) items, a multinomial or ordinal logistic model is used. But this is pretty rare for someone to actually fit a model of this type.
+For categorical (more than 2 categories) items, a multinomial or ordinal logistic model is used. But this is pretty rare for someone to actually fit a model of this type.
 :::
 
 $\tau_i$ is the intercept of the model, called the **difficulty**. $\lambda_i$ is the coefficeint that describes the relationship between any item $X_i$ and the factor. These are called **factor loadings**. It is also called the **discrimination** parameter.

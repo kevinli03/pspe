@@ -9,16 +9,16 @@ Make sure you have read the previous page on [factor analysis](factor.qmd) befor
 Recall our measurement models linking each item $i$ to our factor:
 
 $$
-\text{item}_i = \tau_i + \lambda_i \ \text{factor} + \delta_i
+\I_i = \tau_i + \lambda_i \ \F + \delta_i
 $$
 
-One of the assumptions of this model is the the error term $\delta_i \sim \mathcal N(0, \theta_i)$, or in other words, the error term has a mean of 0 and a variance of $\theta_i$. Through some complex math, we can show that the variance of each item $X_i$ is as follows:
+One of the assumptions of this model is the the error term $\delta_i \sim \mathcal N(0, \theta_i)$, or in other words, the error term has a mean of 0 and a variance of $\theta_i$. Through some complex math, we can show that the variance of each item is as follows:
 
 $$
-Var(\text{item}_i) = \lambda_i^2 + \theta_i
+Var(\I_i) = \lambda_i^2 + \theta_i
 $$
 
-Thus, this allows us to essentially "split" the variance in any item $X_i$ into two parts:
+Thus, this allows us to essentially "split" the variance in any item into two parts:
 
 1.  $\lambda_i^2$ is the part of the variance in the item explained by the latent factor. We call this the **communality** of the item $i$.
 2.  $\theta_i$ is the **residual variance**, the part of the variance **not** explained by our factor.
@@ -43,7 +43,7 @@ Communality and relaibility is important for two reasons:
 We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:
 
 $$
-\text{factor scores} = w_0 + w_1 \ \text{item}_1 + w_2 \  \text{item}_2 + \dots
+\text{factor scores} = \omega_0 + \omega_1 \ \I_1 + \omega_2 \  \I_2 + \dots
 $$
 
 The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.
