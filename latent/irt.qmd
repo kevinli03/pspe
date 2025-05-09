@@ -2,7 +2,7 @@
 title: "Item Response Theory"
 ---
 
-Item Response Theory (IRT), also called Latent Trait Models, is an extension of factor anlaysis, that deals with cases with a continuous latent factor but a binary/categorical set of observed items.
+Item Response Theory (IRT) is an extension of factor analysis, that deals with cases with a continuous latent factor but a binary/categorical set of observed items.
 
 ::: center-graph
 ```{dot}
@@ -11,10 +11,10 @@ Item Response Theory (IRT), also called Latent Trait Models, is an extension of 
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F [shape=box, pos = "0,0!", label="Latent Factor (F)"]
-  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
-  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
+  F [shape=box, pos = "0,0!", label="Latent Factor"]
+  X1 [shape=box, pos = "2,0!", label="Item 1"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2"]
+  X3 [shape=box, pos="1,0!", label="Item 3"]
 
   // Edges
   {F -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
@@ -27,20 +27,13 @@ digraph example2 {
 ```
 :::
 
-The factor is the unobserved latent variable we want to measure. We assume that the factor is continuous, and normally distributed:
-
-$$
-\text{factor} \sim \mathcal N(0, 1)
-$$
-
-We must have at least 3 observed items for estimation purposes. The items are associated with the latent factor with a **binomial logistic model**:
+We must have at least 3 observed items for estimation purposes. The items are associated with the continuous latent factor with a **binomial logistic model**:
 
 $$
 \begin{align}
-\overbrace{\text{logit}[Pr(\I_1 = 1 \ | \ \text{factor})]}^{\text{logit}=\log[x/(1-x)]} & = \tau_1 + \lambda_1 \ \F \\
-\text{logit}[Pr(\I_2 = 1 \ | \ \text{factor})] & = \tau_2 + \lambda_2 \ \F \\
-\vdots \qquad \qquad \vdots \qquad \qquad \vdots & \qquad \qquad \vdots \\
-\text{logit}[Pr(\I_p = 1 \ | \ \text{factor})] & = \tau_p + \lambda_p \ \F \\
+\overbrace{\text{logit}[Pr(\I_1 = 1 \ | \ \F)]}^{\text{logit}=\log[x/(1-x)]} & = \tau_1 + \lambda_1 \ \F \\
+\text{logit}[Pr(\I_2 = 1 \ | \ \F)] & = \tau_2 + \lambda_2 \ \F \\
+\text{logit}[Pr(\I_3 = 1 \ | \ \F)] & = \tau_3 + \lambda_3 \ \F \\
 \end{align}
 $$
 
@@ -50,32 +43,19 @@ For categorical (more than 2 categories) items, a multinomial or ordinal logisti
 
 $\tau_i$ is the intercept of the model, called the **difficulty**. $\lambda_i$ is the coefficeint that describes the relationship between any item $X_i$ and the factor. These are called **factor loadings**. It is also called the **discrimination** parameter.
 
-These factor loadings are interepreted in a very similar way to factor analysis. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
+These factor loadings $\lambda$ are interepreted in a very similar way to factor analysis. The intercepts $\tau_i$ also tell us how "common" a value of 1 for the item is. For example, below, the items are policies that politicians support/don't oppose.
 
-The intercepts $\tau_i$ also tell us how "common" a value of 1 for the item is.
+![](images/clipboard-4283525368.png){fig-align="center" width="65%"}
 
-::: {.callout-note collapse="true" appearance="simple"}
-## Example of Interpretation
+::: small
+a1 are the loadings $\lambda$, and d is the intercept. The rows are binary items - with 1 indicating a politician supports that, and 0 indicating a politician opposes that.
+:::
 
-Below is a example of an interpretation - the items are binary (things that politicians want/don't want).
-
-![](images/clipboard-4283525368.png){width="75%"}
-
-We can first look at the signs:
-
--   The latent factor increases with agreeing (a value of 1) with PartialBirth, CapitalGains, and CAFTA.
--   The latent factor decreases with agreeing (a value of 1) with StemCell, IraqWithdraw, Immigration, and Minimum Wage.
+We can first look at the signs of $\lambda$: The latent factor increases with agreeing (a value of 1) with PartialBirth, CapitalGains, and CAFTA. The latent factor decreases with agreeing (a value of 1) with StemCell, IraqWithdraw, Immigration, and Minimum Wage.
 
 From this, we can kind of get a sense that latent variable is measuring right-left political affiliation, with higher values indicating right-wing, since agreeing left wing policies like IraqWithdraw, Immigration, and Minimum Wage are negative.
 
-The absolute size of the factor loadings are quite similar - we can see that CAFTA is the least important to the factor.
-
-The $d$ (which in this output are the intercepts) show the average agreement with each item - we see the most people agree with MinimumWage and StemCell, and the least people agree with CAFTA and Immigration.
-:::
-
-The factor scores are also very similar to factor analysis - they are a linear combination, with weights determined by how large a loading is for a certain item.
-
-The models can also accommodate confirmatory analysis and multiple factors, just like factor analysis can.
+The absolute size of the factor loadings are quite similar - we can see that CAFTA is the least important item to the factor.
 
 <br />
 

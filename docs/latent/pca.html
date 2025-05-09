@@ -246,8 +246,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Clustered Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Group Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -294,60 +297,39 @@ window.Quarto = {
 <div class="small">
 <p>Note: PCA is not a latent variable model itself, but can be used to approximate a latent variable model.</p>
 </div>
-<p>Principle components analysis (PCA) takes <span class="math inline">\(p\)</span> number of observed variables (called <strong>features</strong>), and change them into a <span class="math inline">\(p\)</span> number of new variables called <strong>principle components</strong> (PC), without losing any variance/information.</p>
-<div class="small">
-<p>Without losing information/variance means the total variance of features equals total variance of PCs</p>
-</div>
-<p>Essentially, what PCA does is it takes our features, and finds the “axis” in which there is the most variation, and makes that the 1st PC. Then it finds the “axis” with the 2nd most variation, and makes that the 2nd PC, and so on.</p>
+<p>Principle components analysis (PCA) takes observed variables (called <strong>features</strong>), and change them into new variables called <strong>principle components</strong>, without losing any information.</p>
+<p>Essentially, what PCA does is it takes our features, and finds the “axis” in which there is the most variation, and makes that the 1st component. Then it finds the “axis” with the 2nd most variation, and makes that the 2nd component, and so on.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-1131163029.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+<p><img src="images/clipboard-1131163029.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
 </figure>
 </div>
 <div class="small">
-<p>Note that each principle component is orthogonal/uncorrelated with each other by design.</p>
+<p>Note that each principle component is orthogonal/uncorrelated with each other by design. Also note that the 1st component explains the most variance in our features, then the 2nd component, and so on.</p>
 </div>
-<p>The 1st PC explains the most variance in our features, then the 2nd PC, and so on.</p>
-<p><span class="math display">\[
-Var(\text{PC}_1) ≥ Var(\text{PC}_2) ≥ \dots &gt; Var(\text{PC}_p)
-\]</span></p>
 <p>Each new principle component is a weighted average of the observed variables:</p>
 <p><span class="math display">\[
 \begin{align}
-\text{PC}_1 &amp; = a_{11}\text{feature}_1 + a_{21}\text{feature}_2 + \dots + a_{p1}\text{feature}_p \\
-\text{PC}_2 &amp; = a_{12}\text{feature}_1 + a_{22} \text{feature}_2 + \dots + a_{p2}\text{feature}_p \\
-&amp; \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots\\
-\text{PC}_p &amp; = a_{1p}\text{feature}_1 + a_{2p} \text{feature}_2 + \dots + a_{pp}\text{feature}_p \\
+\comp_1 &amp; = \omega_{11}\feat_1 + \omega_{21}\feat_2 + \omega_{31}\feat_3 + \dots \\
+\comp_2 &amp; = \omega_{12}\feat_1 + \omega_{22} \feat_2 + \omega_{32}\feat_3 + \dots \\
 \end{align}
 \]</span></p>
-<p>The <span class="math inline">\(a\)</span>’s are the weights of each observed feature in creating a principle component, and are determined by the correlation matrix of the observed features. For interpreting a principle component, we often “normalise” the weights <span class="math inline">\(a\)</span> to get the correlation between a observed feature and a principle component:</p>
+<p>The <span class="math inline">\(\omega\)</span>’s are the weights of each observed feature in creating a principle component, and are determined by the correlation matrix of the features. For interpreting a component, we often “normalise” the weights <span class="math inline">\(\omega\)</span> to get the correlation between a observed feature and a principle component:</p>
 <p><span class="math display">\[
-Corr(\text{feature}_i, \text{PC}_j) = \sqrt{Var(\text{PC}_j)} \cdot a_{ij}
+Corr(\feat_i, \comp_j) =  \omega_{ij} \cdot \sqrt{Var(\comp_j)}
 \]</span></p>
 <div class="small">
-<p>This value is also called a <strong>component loading</strong>. Note that the right side is only equal to the correlation given we perform PCA on the correlation matrix (which is standard, but you can use a covariance matrix).</p>
+<p>This value is also called a <strong>component loading</strong>. Note that this is only true given we perform PCA on the correlation matrix (which is standard, but you can use a covariance matrix).</p>
 </div>
-<p>Interpreting the principle components is identical to that of <a href="../latent/factor.html">factor analysis</a> - just using these correlations rather than factor loadings. Just like factor analysis, we can also calculate <strong>principle component scores,</strong> which are the individual values of each principle component for each individual in our data.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<p>Interpreting the principle components is identical to that of <a href="../latent/factor.html">factor analysis</a> - just using correlations rather than factor loadings. Below, the rows are features describing how much an individual trusts different institutions. The columns are the principle components.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-8264992.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+</figure>
 </div>
-<div class="callout-title-container flex-fill">
-Example of Interpretation
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>Below, the rows are observed features describing how much an individual trusts different institutions on a scale of 1-10. The columns are the principle components.</p>
-<p><img src="images/clipboard-8264992.png" class="img-fluid"></p>
 <p>In component 1, we see that the correlation is pretty high for all of the variables, and positive. We might conclude component 1 measures general trust in institutions.</p>
 <p>In component 2, we can see that the loadgins for <em>legal</em> and <em>police</em> are the highest (in absolute terms) and negative. Meanwhile, <em>politicians, pol_parties</em>, and <em>EP</em> are positive and still not too small. The other loadings are quite small. We might interpret this component as sort of a tradeoff between political trust and legal/law enforcement trust, with higher values indicating more political trust, and lower values indicating more trust in legal/police.</p>
-<p>In component 3, we see positive loadings for everything but <em>EP</em> and <em>UN</em>. This might measure the tradeoff between trust in national and international institutions, with higher values for trust in national institutions, and lower values indicating more trust in international institutions.</p>
-</div>
-</div>
-</div>
+<p>Just like factor analysis, we can also calculate <strong>principle component scores,</strong> which are the individual values of each principle component for each individual in our data.</p>
 <p><br></p>
 <p>To implement principle components analysis, we do the following:</p>
 <div class="cell">

@@ -246,8 +246,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Clustered Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Group Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -291,32 +294,75 @@ window.Quarto = {
 </header>
 
 
-<p>Longitudinal data (also called panel data) is when we have the same variables observed over several time points for the same units. Structural equation models can accommodate panel data as well.</p>
-<p>Let us say we have some latent outcome variable, which is measured by observed items. We also have a few observed input variables:</p>
-<p>A <strong>lagged response model</strong> is a regression model that says that the response variable not only depends on the explanatory variables <span class="math inline">\(Z_i\)</span> and <span class="math inline">\(X_{it}\)</span>, but also previous values of the response.</p>
+<p>A <strong>lagged response model</strong> is a regression model that says that the outcome variable not only depends on the input variables, but also previous values of the outcome from the past.</p>
 <p><span class="math display">\[
-\Y_{it} = \beta_0 + \beta_1\ \X_{1,it} + \beta_2\ \X_{2,i} + \underbrace{\beta_3 \ \Y_{i, t-1}}_{\text{from prior time}} + \eps_{it}
+\Y_{t} = \beta_0 + \underbrace{\beta_1\ \X_{1,t} + \beta_2\ \X_{2,t}}_{\text{from current time}} + \underbrace{\beta_3 \ \Y_{t-1}}_{\text{from prior time}} + \eps_{t}
 \]</span></p>
-<p>In a diagram, this model can be modelled as:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3334687245.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:40.0%"></p>
-</figure>
+<div class="center-graph">
+<div class="cell" data-fig-width="6" data-fig-height="1.2" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<svg width="576" height="115" viewbox="0.00 0.00 258.86 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
+<title>example2</title>
+<!-- Y1 -->
+<g id="node1" class="node">
+<title>Y1</title>
+<polygon fill="none" stroke="black" points="95.54,-36 0.15,-36 0.15,0 95.54,0 95.54,-36"></polygon>
+<text text-anchor="middle" x="47.85" y="-13.8" font-family="Times,serif" font-size="14.00">Outcome (t-1)</text>
+</g>
+<!-- Y2 -->
+<g id="node3" class="node">
+<title>Y2</title>
+<polygon fill="none" stroke="black" points="250.88,-36 166.82,-36 166.82,0 250.88,0 250.88,-36"></polygon>
+<text text-anchor="middle" x="208.85" y="-13.8" font-family="Times,serif" font-size="14.00">Outcome (t)</text>
+</g>
+<!-- Y1&#45;&gt;Y2 -->
+<g id="edge3" class="edge">
+<title>Y1-&gt;Y2</title>
+<path fill="none" stroke="black" d="M95.72,-18C114.81,-18 136.85,-18 156.38,-18"></path>
+<polygon fill="black" stroke="black" points="156.63,-21.5 166.63,-18 156.63,-14.5 156.63,-21.5"></polygon>
+<text text-anchor="middle" x="131.26" y="-25.2" font-family="Times,serif" font-size="14.00">Lag</text>
+</g>
+<!-- X1 -->
+<g id="node2" class="node">
+<title>X1</title>
+<polygon fill="none" stroke="black" points="173.11,-109 82.58,-109 82.58,-73 173.11,-73 173.11,-109"></polygon>
+<text text-anchor="middle" x="127.85" y="-86.8" font-family="Times,serif" font-size="14.00">Input 1 and 2</text>
+</g>
+<!-- X1&#45;&gt;Y1 -->
+<g id="edge1" class="edge">
+<title>X1-&gt;Y1</title>
+<path fill="none" stroke="black" d="M108.48,-72.81C98.36,-63.83 85.81,-52.69 74.76,-42.89"></path>
+<polygon fill="black" stroke="black" points="76.84,-40.05 67.03,-36.03 72.19,-45.28 76.84,-40.05"></polygon>
+</g>
+<!-- X1&#45;&gt;Y2 -->
+<g id="edge2" class="edge">
+<title>X1-&gt;Y2</title>
+<path fill="none" stroke="black" d="M147.45,-72.81C157.7,-63.83 170.41,-52.69 181.6,-42.89"></path>
+<polygon fill="black" stroke="black" points="184.21,-45.25 189.42,-36.03 179.59,-39.99 184.21,-45.25"></polygon>
+</g>
+</g>
+</svg>
 </div>
-<div class="small">
-<p>Note how <span class="math inline">\(\eta_{i3}\)</span> in <span class="math inline">\(t=3\)</span> depends on both <span class="math inline">\(X_{it}\)</span>, <span class="math inline">\(Z_t\)</span>, and <span class="math inline">\(\eta\)</span> from <span class="math inline">\(t=2\)</span>.</p>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
 </div>
 <p>Recall the response variable is itself a latent variable, measured with observed items. This also implies a measurement model relating the latent responsewith each observed item:</p>
 <p><span class="math display">\[
-\b{\text{item}}_{\ t} = \b\tau_t + \b\lambda_t \ \b{\text{response}}_{\ t} + \b\eps_{it}
+\I_{t} = \tau_t + \lambda_t\ \Y + \eps_{t}
 \]</span></p>
 <div class="small">
-<p>Where all are vectors encompassing measurement models for all items 1, 2, and so on. Note how the parameters have the subscript <span class="math inline">\(t\)</span> - this implies a different measurement model for each item, at each time period.</p>
+<p>This is just the model for one (of many) items. Note how the parameters have the subscript <span class="math inline">\(t\)</span> - this implies a different measurement model for each item, at each time period.</p>
 </div>
-<p>However, because each item <span class="math inline">\(i\)</span> is observed over time, it is likely that item <span class="math inline">\(i\)</span> from <span class="math inline">\(t=1\)</span> is correlated with item <span class="math inline">\(i\)</span> from <span class="math inline">\(t=2\)</span> ( autocorrelation). We have to take this into account in one of two ways:</p>
+<p>However, because each item is observed over multiple time periods, it is likely that an item from <span class="math inline">\(t=1\)</span> is correlated with the same item from <span class="math inline">\(t=2\)</span> ( autocorrelation). We have to take this into account in one of two ways:</p>
 <ol type="1">
-<li>We could <strong>constrain</strong> the model, assuming that the measurement model is identical throughout different time periods. That means <span class="math inline">\(\tau_t\)</span> and <span class="math inline">\(\lambda_t\)</span> will now no longer depend on the time period (the same for all time periods).</li>
-<li>Or we could complicate the model, by including correlation between the error terms <span class="math inline">\(\eps\)</span> for the same item.</li>
+<li>We could <strong>constrain</strong> the model, assuming that the measurement model is identical throughout different time periods. That means <span class="math inline">\(\tau_t\)</span> and <span class="math inline">\(\lambda_t\)</span> will now no longer depend on the time period (the same for all time periods, for the same item).</li>
+<li>Or we could complicate the model, by including correlation between the error terms <span class="math inline">\(\eps\)</span> for the same item at different times.</li>
 </ol>
 <p><br></p>
 <p>To implement lagged response models, we need the <strong>lavaan</strong> package:</p>

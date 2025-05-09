@@ -6,62 +6,32 @@ title: "Gardner (2021) Two-Stage Difference-in-Differences"
 See [Kyle Butts'](https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html) github page for more info on this estimator. [Asjad Naqvi](https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/) also has a helpful page.
 :::
 
-Recall our [two-way fixed effects](twfe.qmd) model: This model also implies a model for the potential outcomes - the potential outcome under control is when $\text{treatment}=0$, and the potential outcome under treatment is $\text{treatment}=1$:
+Gardner (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) regarding "forbidden comparisons" and "weighting" problems by just not doing comparisons and weighting.
 
-$$
-\begin{align}
-\pT & = \overbrace{\unit + \time}^\text{fixed effects} + \blue\tau + \beta \ \cov + \eps \\
-\pC & = \unit + \time + \beta \ \cov + \eps
-\end{align}
-$$
-
-::: small
-These are obtained by simply plugging in $\D=0,1$ into the TWFE equation.
-:::
-
-Gardner (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) regarding "forbidden comparisons" and "weighting" problems by simply estimating the causal effect of the treated units as defined by our potential outcomes:
+Instead, Gardner (2021) proposes to calculate the treatment effects directly, as discussed in the introduction to [difference-in-differences](did.qmd):
 
 $$
 \tau_\text{ATT} = \pT - \pCred
 $$
 
-However, the counterfactual for treated units in the post-period are unobserved. Thus, the goal of 2-stage difference-in-differencs is to estimate $\pCred$.
+However, the hypothetical control outcome (in red) for treated units in the post-period are unobserved. Thus, the goal of 2-stage difference-in-differences is to estimate $\pCred$.
 
-To estimate the counterfactuals, we first run a regression with **only untreated/not-yet treated observations** $\D_{it}=0$:
-
-$$
-\Y = \unit + \time + \beta \ \cov + \eps
-$$
-
-This regression will provide estimates for $\widehat\alpha_i$, $\widehat\gamma_t$, and $\widehat{\beta}$ using only untreated data. This will allow us to estimate the $\pC$ potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.
+By definition, $\pCred$ is the hypothetical world if treatment never occurred. Thus, using the idea of two-way fixed effects, we should be able to calculate $\pCred$ if we simply set treatment = 0 in the TWFE equation:
 
 $$
-\blue{\hat{\text{outcome}}^{(\text{control})}} = \widehat\alpha_i + \widehat\gamma_t+ \widehat\beta \ \cov
+\pCred = \unit + \time + \beta \ \cov + \eps
 $$
-
-Now, let us find the difference between our observed $\text{outcome}_{it}$ values in our dataset and our estimated potential outcomes, which we will call the **residual**:
-
-$$
-\begin{align}
-\tilde{\text{residual}} & = \Y - \blue{\hat{\text{outcome}}^{(\text{control})}} \\
-& = \Y - \left(\widehat\alpha_i + \widehat\gamma_t + \widehat\beta \ \cov \right)
-\end{align}
-$$
-
--   For untreated units, their observed outcome is equal to the potential outcome $\pC$, so the residual should be 0.
--   For treated units, their observed outcome is the potential outcome $\pT$, so the residual isessentially measuring the individual causal effect.
-
-Thus, with the full dataset, we run the following regression to obtain the causal effect:
-
-$$
-\tilde{\text{residual}} = \delta + \blue\tau \ \D + \eps
-$$
-
-The estimated $\blue{\widehat\tau}$ is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.
 
 ::: small
-The standard errors will be incorrect, so Gardner (2021) uses a generalised method of moments estimator to correct the standard errors.
+This equation is obtained by taking the [two-way fixed effects](twfe.qmd) equation and plugging in treatment = 0.
 :::
+
+Gardner's 2-stage difference-in-differences uses this equation and framework above, and attempts to estimate $\pCred$.
+
+1.  First, Gardner uses only control units (treatment = 0) in a regression to estimate $\time$, $\unit$, and $\beta$. The choice of using only control units is to ensure that the estimation of hypothetical controls is accurate and not influenced by the treatment.
+2.  Then, using the estimated $\widehat\time$, $\widehat\unit$, and $\widehat\beta$, we can estimate $\pCred$ using the equation above. This will give us an estimate of the hypothetical outcome.
+3.  Once we have estimated $\pCred$, we can calculate the treatment effects for the treated units, as we have an estimate for the hypothetical outcomes.
+4.  Then, we average all the individual treatment effects to get the ATT.
 
 <br />
 

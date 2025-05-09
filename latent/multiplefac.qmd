@@ -6,7 +6,7 @@ title: "Multiple Latent Factors"
 Make sure you have read the previous page on [factor analysis](factor.qmd) before this.
 :::
 
-So far, we have covered factor analysis for a single factor. However, factor analysis can work with multiple latent factors.
+Factor analysis can work with multiple latent factors.
 
 ::: center-graph
 ```{dot}
@@ -15,12 +15,12 @@ So far, we have covered factor analysis for a single factor. However, factor ana
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F1 [shape=box, pos = "0,0!", label="Latent Factor (F1)"]
-  F2 [shape=box, pos = "0,0!", label="Latent Factor (F2)"]
-  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
-  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
-  X4 [shape=box, pos="1,0!", label="Item 4 (X4)"]
+  F1 [shape=box, pos = "0,0!", label="Latent Factor 1"]
+  F2 [shape=box, pos = "0,0!", label="Latent Factor 2"]
+  X1 [shape=box, pos = "2,0!", label="Item 1"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2"]
+  X3 [shape=box, pos="1,0!", label="Item 3"]
+  X4 [shape=box, pos="1,0!", label="Item 4"]
 
   // Edges
   {F1 -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
@@ -29,6 +29,7 @@ digraph example2 {
   {F2 -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
   {F2 -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
   {F2 -> X4 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {rank=same; F1 -> F2 [dir=both, label="Correlation"]}
   
   graph [nodesep=0.5, ranksep=0.5]
 
@@ -36,42 +37,49 @@ digraph example2 {
 ```
 :::
 
-We can see in the above figure, an example of two latent factors. Each item can measure either only one or two of the factors. The factors can also both have the same items, but put emphasis on different items.
-
-Let us say we have multiple factors. We still assume the factors are normally distributed:
-
-$$
-\text{factors} \sim \mathcal N(\b \kappa, \b\Phi)
-$$
+Each item can measure either only some or all of the factors. The factors can also both have the same items, but put emphasis on different items. The factors can also be correlated.
 
 ::: small
-Where $\b\kappa$ is a vector of all the means of each factor, and $\b\Phi$ is a variance-covariance matrix of all the factors.
+We can also have much more than just 2 factors. However, we typically need 3 items for the first factor, and 2 items for each additional factor, or else we won't have enough degrees of freedom for estimation.
 :::
+
+Just like in single factor analysis, we use a linear regression to express the relationship between any item $i$ and the factors. However, this time, each regression will relate each item to all factors:
+
+$$
+\begin{align}
+\I_1 & = \tau_1 + \lambda_{1}^{(1)}\ \F_1 + \lambda_{1}^{(2)}\ \F_2 + \dots + \delta_1 \\
+\I_2 & = \tau_2 + \lambda_{2}^{(1)}\ \F_1 + \lambda_{2}^{(2)}\ \F_2 + \dots + \delta_2 \\
+& \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
+\end{align}
+$$
+
+::: {.callout-note collapse="true"}
+## Details: Assumptions of the Model
+
+::: append
+We still assume the factors are normally distributed:
+
+$$
+\sim \mathcal N(\b \kappa, \b\Phi)
+$$
+
+Where $\b\kappa$ is a vector of all the means of each factor, and $\b\Phi$ is a variance-covariance matrix of all the factors.
 
 Using our conventional identification assumption like in single factor analysis, we will assume each factor is a standard normal $\mathcal N (0, 1)$. This implies that $\b\kappa = 0$.
 
 Our variance matrix $\b\Phi$ is a little more complicated - the variances of each factor is 1 (as assumed in a standard normal), however, the matrix $\b\Phi$ also includes the covariances between factors. This is an additional thing that we will need to estimate that was not present in one-factor models.
 
-::: small
 For example, factor 1 and 2 might be correlated with each other, which is reflected in $\b\Phi$.
 :::
-
-Now on to our measurement models. Just like in single factor analysis, we use a linear regression to express the relationship between any item $i$ and the factors. However, this time, each regression will relate each item to all factors:
-
-$$
-\begin{align}
-\text{item}_1 & = \tau_1 + \lambda_{11}\ \text{factor}_1 + \lambda_{12}\ \text{factor}_2 + \dots + \delta_1 \\
-\text{item}_2 & = \tau_2 + \lambda_{21}\ \text{factor}_1 + \lambda_{22}\ \text{factor}_2 + \dots + \delta_2 \\
-& \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
-\text{item}_p & = \tau_p + \lambda_{p1}\ \text{factor}_1 + \lambda_{p2}\ \text{factor}_2+ \dots + \delta_p
-\end{align}
-$$
+:::
 
 The factor loadings $\lambda$ are still the relationship between each factor and each item, and are interpreted in the same way as a 1-factor model. However, the the interpretation of communality and relaibility are no longer valid with more than 1-factor.
 
 ::: small
 When interpreting - do one factor at a time. Start with one, then go to the next. Interpreting each factor is the same as shown in the page on [factor analysis](factor.qmd).
 :::
+
+As seen in the figure above, factors can also be correlated with each other. Our model estimation will also estimate the correlation between factors. Just like in single factor analysis, [factor scores](scores.qmd) are also possible.
 
 <br />
 
@@ -99,5 +107,5 @@ print(fa)
 ::: small
 Change nfactors=2 to however many factors you want. Note that you cannot have too many, this will be discussed in the next page on identification.
 
-This code also uses the "oblimin" rotation, which will be discussed in the next page on identification and rotation.
+This code also uses the "oblimin" rotation, which will be discussed in the next page on [identification and rotation](identify.qmd).
 :::

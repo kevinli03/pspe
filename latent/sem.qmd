@@ -2,7 +2,7 @@
 title: "Structural Equation Models"
 ---
 
-Structural Equation Models (SEM) allow us to combine measurement models (ex. factor anlaysis) with Linear regression models between the latent variables.
+Structural Equation Models (SEMs) allow us to combine measurement models (ex. factor analysis) with linear regression models between the latent variables.
 
 ::: center-graph
 ```{dot}
@@ -11,14 +11,14 @@ Structural Equation Models (SEM) allow us to combine measurement models (ex. fac
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F1 [shape=box, pos = "0,0!", label="Latent Explanatory Variable"]
-  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
-  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
-  F2 [shape=box, pos = "0,0!", label="Latent Response Variable"]
-  X4 [shape=box, pos = "2,0!", label="Item (Y1)"]
-  X5 [shape=box, pos = "1,-2!", label="Item (Y2)"]
-  X6 [shape=box, pos="1,0!", label="Item (Y3)"]
+  F1 [shape=box, pos = "0,0!", label="Latent Input Variable"]
+  X1 [shape=box, pos = "2,0!", label="Item 1"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2"]
+  X3 [shape=box, pos="1,0!", label="Item 3"]
+  F2 [shape=box, pos = "0,0!", label="Latent Outcome Variable"]
+  X4 [shape=box, pos = "2,0!", label="Item 4"]
+  X5 [shape=box, pos = "1,-2!", label="Item 5"]
+  X6 [shape=box, pos="1,0!", label="Item 6"]
 
   // Edges
   {F1 -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
@@ -35,29 +35,18 @@ digraph example2 {
 ```
 :::
 
-::: small
-This is an example of a very simple structural equation model.
-:::
-
 This structural equation model contains a linear regression between the latent input variable explaining the latent outcome variable.
 
 $$
 \Y = \alpha +  \beta\ \X + \eps
 $$
 
-The latent outcome variable and input variable are explained by measurement models (typically a factor analysis model):
-
-$$
-\begin{align}
-\text{input.item}_i & = \tau_\text{input} + \lambda_{i} \ \X + \eps_\text{input} \\
-\text{outcome.item}_j & = \tau_\text{outcome} + \lambda_j \ \X + \eps_\text{outcome}
-\end{align}
-$$
+The latent outcome variable and input variable are unobserved, and we only observe items. We can use these observed items to create a [factor analysis](factor.qmd) model for both the outcome variable, and the input variable.
 
 The interpretations of the model are quite straight forward - the measurment models are interpreted in the same way as factor analysis, and the linear model between latent variable is interpreted the same way as a linear model between any other variables.
 
 ::: small
-For example, the linear model says that as explanatory increases by 1, response increases by an expected $\beta$ units.
+Ex: the linear model says that as explanatory increases by 1, response increases by an expected $\beta$ units.
 :::
 
 Structural models don't have to have just one dependent and independent latent variable. We can have multiple dependent and independent variables, multiple linear models, and also measure correlations within the dependent and independent variables:
@@ -69,16 +58,16 @@ Structural models don't have to have just one dependent and independent latent v
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  X1 [shape=box, label="Latent Independent Variable 1"]
-  X2 [shape=box, label="Latent Independent Variable 2"]
-  Y1 [shape=box, label="Latent Dependent Variable 1"]
-  Y2 [shape=box, label="Latent Dependent Variable 2"]
+  X1 [shape=box, label="Latent Input Variable 1"]
+  X2 [shape=box, label="Latent Input Variable 2"]
+  Y1 [shape=box, label="Latent Outcome Variable 1"]
+  Y2 [shape=box, label="Latent Outcome Variable 2"]
 
   // Edges
-  {rank=same; X1 -> Y1 [label = "Model"]}
-  {rank=same; X2 -> Y2 [label = "Model"]}
-  X1 -> Y2 [label = "Model"]
-  X2 -> Y1 [label = "Model"]
+  {rank=same; X1 -> Y1 [label=<<FONT FACE="Arial">&beta;</FONT>>]}
+  {rank=same; X2 -> Y2 [label=<<FONT FACE="Arial">&gamma;</FONT>>]}
+  X1 -> Y2 [label=<<FONT FACE="Arial">&gamma;</FONT>>]
+  X2 -> Y1 [label=<<FONT FACE="Arial">&beta;</FONT>>]
   X1 -> X2 [dir=both, label = "Correlation"]
   Y1 -> Y2 [dir=both, label = "Correlation"]
   

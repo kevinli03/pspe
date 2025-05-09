@@ -276,29 +276,42 @@ window.Quarto = {
 
 
 <p>There are two <a href="../did/twfestaggered.html">issues with the two-way fixed effects estimator</a>: forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes a new estimator, the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues.</p>
-<ul>
-<li>First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem.</li>
-<li>Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample.</li>
-</ul>
-<p>Wooldridge proposes to estimate all of the possible heterogenous treatment effects by simply adding a ton of interaction terms to the TWFE estimator to account for every possible heterogeneity. The two main forms of heterogeneity are heterogeneity between different initial treatment years, and heterogeneity between different levels of confounders.</p>
+<p>First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem. Wooldridge estimates heterogenous effects by simply adding a ton of interaction terms to the TWFE estimator to account for all possible heterogeneity:</p>
 <p><span class="math display">\[
 \begin{align}
-\Y = &amp; \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{group} \cdot \D \cdot \text{time} \right)}^{\text{interactions for heterogeneity}} \\
-&amp; + \underbrace{\blue{\tau_b} \left( \text{group} \cdot \D \cdot \text{time} \cdot \cov \right)}_{\text{interactions for heterogeneity}} + \eps
+\Y = &amp; \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{Group} \cdot \D \cdot \text{Time} \right)}^{\text{interactions for heterogeneity}} \\
+&amp; + \underbrace{\blue{\tau_b} \left( \text{Group} \cdot \D \cdot \text{Time} \cdot \cov \right)}_{\text{interactions for heterogeneity with covariates}} + \eps
 \end{align}
 \]</span></p>
 <div class="small">
 <p><span class="math inline">\(\text{group}\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{time}\)</span> is a categorical variable that indicates the different time periods. <span class="math inline">\(\text{covariates}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>.</p>
 </div>
-<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_a}\)</span> and <span class="math inline">\(\blue{\tau_b}\)</span> that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.</p>
+<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_a}\)</span> and <span class="math inline">\(\blue{\tau_b}\)</span> that capture different heterogeneity in treatment effects. Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.</p>
 <p>We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.</p>
 <p>Wooldridge’s 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Comparison to Sun and Abraham (2021)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="append">
 <p>Wooldridge’s extended two-way fixed effects estimator is very similar to <a href="../did/sunab.html">Sun and Abraham’s</a> estimator. The three main differences are:</p>
 <ol type="1">
 <li>Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge’s can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.</li>
 <li>Sun and Abraham is more strict with covariates for parallel trends, while Wooldridge’s allows for more flexibility and robustness to violations of parallel trends. This is because Wooldridge’s estimator contains far more interactions with covariates.</li>
 <li>Wooldridge’s estimator allows for non-linear models (poisson, logistic, etc.).</li>
 </ol>
+</div>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>To implement extended two-way fixed effects, we will need the <strong>etwfe</strong> package:</p>
 <div class="cell">

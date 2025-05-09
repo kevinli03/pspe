@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Difference-in-Differences – Causal Inference Resources</title>
+<title>Multiple Group Models – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -132,7 +166,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/did.html">Difference-in-Differences</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/group.html">Multiple Group Models</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -151,66 +185,85 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Difference-in-Differences</span></a>
+  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
-        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-way Fixed Effects</span></a>
+  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Factor Analysis Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Reliability and Factor Scores</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Latent Factors</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Identification and Rotation</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Confirmatory Analysis</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Item Response Theory</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Latent Class Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD Design</span></a>
+  <a href="../latent/sem.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Structural Equation Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/twfestaggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Issues with TWFE</span></a>
+  <a href="../latent/longitudinal.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Lagged Response Models</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
+  <a href="../latent/group.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Multiple Group Models</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Principle Components Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
+  <a href="../latent/cluster.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Cluster Analysis</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sun and Abraham (2021)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
- <span class="menu-text">Liu et al (2022) Counterfactual</span>
-  </li>
     </ul>
     </div>
 </nav>
@@ -224,7 +277,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Difference-in-Differences</h1>
+<h1 class="title">Multiple Group Models</h1>
 </div>
 
 
@@ -241,111 +294,63 @@ window.Quarto = {
 </header>
 
 
-<p>In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Mar 1992 (Before Min. Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 1992 (After Min. Wage Increase)</span></td>
-</tr>
-<tr class="even">
-<td>20.44</td>
-<td>21.03</td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-<p>More specifically, this is employment rates at fast food restaurants.</p>
-</div>
-<p>Our treatment effect after the raise of minimum wage in December 1992 would be:</p>
+<p>We often deal with data that is clustered or grouped. For example, if we are using European data, we might have observations from different countries. If we are using USA data, we might have observations from different states.</p>
+<p>However, there might be differences between these clusters. We might want to make our model be able to account for these differences between clusters. One way to account for differences between groups is to essentially run different models for different groups:</p>
 <p><span class="math display">\[
 \begin{align}
-\tau_\text{ATT} = &amp; \ \text{employment with min. wage increase (Dec 92)} \\
-&amp; -\red{\text{hypothetical employment without min. wage increase (Dec 92)}}
+\Y^\text{(group 1)} &amp; = \beta_0^\text{(group 1)} + \beta_1^\text{(group 1)} \X^\text{(group 1)} + \eps \\
+\Y^\text{(group 2)} &amp; = \beta_0^\text{(group 2)} + \beta_1^\text{(group 2)} \X^\text{(group 2)} + \eps \\
+\Y^\text{(group 3)} &amp; = \beta_0^\text{(group 3)} + \beta_1^\text{(group 3)} \X^\text{(group 3)} + \eps \\
 \end{align}
 \]</span></p>
-<p>We <strong>don’t</strong> observe the hypothetical in December 1992 without the minimum wage increase.</p>
+<p>This essentially means for each group, they have their own <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> estimates. Since we know <span class="math inline">\(\beta_1\)</span> is the relationship between input and output, this essentially allows the relationship between input and output to <strong>vary</strong> by group.</p>
 <div class="small">
-<p>We cannot use March 1992 because there could have been something that happened between March and December that changes the <strong>trend</strong> in employment (like a recession).</p>
+<p>For example, this would allow the relationship between education and income to vary by country.</p>
 </div>
-<p><strong>Difference-in-differences</strong> estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Mar 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
-</tr>
-<tr class="even">
-<td>23.33</td>
-<td>21.17</td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-<p>These are employment values in Pennsylvania, where no mininum wage changes occured.</p>
-</div>
-<p>Pennsylvania tells us the <strong>trend</strong> in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn’t received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Mar 92 (NJ, Not Minimum Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 92 (NJ, Hypothetical No Minimum Wage Increase)</span></td>
-</tr>
-<tr class="even">
-<td>20.44</td>
-<td>20.44 - 2.16</td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-<p>The March 1992 value is copied from the first table.</p>
-</div>
-<p>Now, we have an approximation of New Jersey’s missing hypothetical outcome, so we can now estimate the causal effect.</p>
-<p><span class="math display">\[
-\begin{align}
-\tau_\text{Dec92} = &amp; \ \text{employment with min. wage increase (Dec 92)} \\
-&amp; -{\text{(estimate) employment without min. wage increase (Dec 92)}}
-\end{align}
-\]</span></p>
+<p>If our outcome and input variables are measurement models, we can also play around with these in a few ways.</p>
+<ol type="1">
+<li>We could assume the same measurement models across groups.</li>
+<li>Or, just like above, we could assume each group has its own measurement model, with its own <span class="math inline">\(\lambda\)</span> factor loading varying by group.</li>
+</ol>
+<p>We noted in factor analysis that we typically assume the (outcome and input) factor is a standard normal distribution with mean of 0 and variance of 1.</p>
+<p>In clustered analysis, we can’t actually assume this. Why? Well, if we allow each group to have a different relationship between input and outcome, by definition, the outcome’s mean will differ by country. So instead, we fix one group (usually randomly) to be standard normal with mean of 0 and variance of 1, and allow the variances of all the other groups be freely estimated.</p>
 <p><br></p>
-<p>This entire idea of using another group’s trend to estimate counterfactuals depends on two assumptions:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 65%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Assumption</span></td>
-<td><span class="smallcaps">Description</span></td>
-</tr>
-<tr class="even">
-<td><mark>Parallel Trends</mark></td>
-<td>This means that had the treated group not received treatment, they would have followed the same trend as the control group.</td>
-</tr>
-<tr class="odd">
-<td><mark>Stable Unit Treatment Value Assumption (SUTVA)</mark></td>
-<td>This means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).</td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-<p>I will show how to test for parallel trends later in Dynamic treatment effects.</p>
+<p>To implement structural equation models, we use the <strong>lavaan</strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>There are two types of difference-in-differences designs - classical and staggered, which we will cover in the next few pages.</p>
-<p><br></p>
+<p>Then, we have to specify the relationships between variables we want to fit in our structural model - including measurement models, regression models, and correlations:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Measurement models </span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  input1 =~ NA*item1 + item2 + item3</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">  input2 =~ NA*item4 + item5 + item6</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">  outcome =~ item1 + item2 + item3</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st"># Regressions</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">  outcome ~ input1 + input2</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st"># Covariances</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">  input1 ~~ input2</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st"># Fixing the variances of independent variables at 1</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">  input1~~c(1,NA)*input1</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">  input2~~c(1,NA)*input2</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">  outcome~~c(1,NA)*outcome</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Now, we estimate our specified model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model,</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> my_data,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">group =</span> <span class="st">"groupvariable"</span>,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>           <span class="at">group.equal=</span><span class="fu">c</span>(<span class="st">"intercepts"</span>,<span class="st">"loadings"</span>,<span class="st">"residuals"</span>),</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>           <span class="at">missing=</span><span class="st">"FIML"</span>)</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>The missing argument tells the software to keep observations with missing values (this is typically a good thing). But it can take longer, so you can delete this argument for it to use only complete observations.</p>
+</div>
 
 
 

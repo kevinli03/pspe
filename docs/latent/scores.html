@@ -246,8 +246,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Clustered Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Group Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -298,7 +301,7 @@ window.Quarto = {
 <p><span class="math display">\[
 \I_i = \tau_i + \lambda_i \ \F + \delta_i
 \]</span></p>
-<p>One of the assumptions of this model is the the error term <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_i)\)</span>, or in other words, the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. Through some complex math, we can show that the variance of each item is as follows:</p>
+<p>The the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. The variance of each item can be shown to equal:</p>
 <p><span class="math display">\[
 Var(\I_i) = \lambda_i^2 + \theta_i
 \]</span></p>
@@ -314,15 +317,10 @@ Var(\I_i) = \lambda_i^2 + \theta_i
 <div class="small">
 <p>If all items are standarised to a standard normal, then <span class="math inline">\(\lambda_i^2\)</span> is equal to the reliability.</p>
 </div>
-<p>Communality and relaibility is important for two reasons:</p>
-<ol type="1">
-<li>Items with higher reliability are considered more “accurate” measures of the latent variable factor. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.</li>
-<li>These allow us to calculate <strong>factor scores</strong>.</li>
-</ol>
+<p>Items with higher reliability are considered more “accurate” measures of the latent variable factor. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.</p>
 <p><strong>Factor scores</strong> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model.</p>
-<p>We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:</p>
 <p><span class="math display">\[
-\text{factor scores} = \omega_0 + \omega_1 \ \I_1 + \omega_2 \  \I_2 + \dots
+\text{Factor Scores} = \omega_0 + \omega_1 \ \I_1 + \omega_2 \  \I_2 + \dots
 \]</span></p>
 <p>The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.</p>
 <p><br></p>

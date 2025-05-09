@@ -183,8 +183,11 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Clustered Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Group Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -231,12 +234,8 @@ ul.task-list li input[type="checkbox"] {
 <div class="small">
 <p>Make sure you have read all the previous pages on factor analysis before this.</p>
 </div>
-<p>When estimating factor analysis models, we encounter many identification issues. An identification issue is basically an inability to calculate a solution. There are two types of identification issues:</p>
-<ol type="1">
-<li>We have too many possible solutions, and we cannot determine which one (a unique identification issue).</li>
-<li>We don’t have enough data to compute any solutions.</li>
-</ol>
-<p>One identification issue is <strong>rotation</strong>. For example, imagine our latent variable is left-right political spectrum leaning. Our latent variable could use positive values for right-wing and negative values for left-wing. Or, it could do the opposite. There is no real substantive difference.</p>
+<p>When estimating factor analysis models, we encounter many identification issues. One identification issue is <strong>rotation</strong>.</p>
+<p>For example, imagine our latent variable is left-right political spectrum leaning. Our latent variable could use positive values for right-wing and negative values for left-wing. Or, it could do the opposite. There is no real substantive difference.</p>
 <p>Thus, in 1-factor models, most software will arbitrarily choose a rotation, as it does not really make a huge difference.</p>
 <p>In multiple factor models, rotation becomes more complex. Because of some linear algebra, you can have almost infinite rotations of factors that make no difference. Just like in the 1-factor model, software will arbitrarily choose one rotation.</p>
 <p>However, in multiple factor models, the chosen rotation can make a big difference in how easy it is to interpret our solutions.</p>

@@ -85,35 +85,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -246,8 +217,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Clustered Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Group Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -300,18 +274,12 @@ window.Quarto = {
 <div class="small">
 <p>Above is an example of a cluster anlaysis with 2 clusters. Latent Class Models can also be considered to be a form of cluster analysis.</p>
 </div>
-<p>The primary way in which cluster anlaysis is conducted is by <strong>K-means clustering</strong>. This form of clustering focuses on the distance between different individuals in our dataset. The idea is that a good clustering will have as small within-cluster variation as possible.</p>
+<p>Cluster anlaysis is often conducted by <strong>K-means clustering</strong>. This form of clustering focuses on the distance between different individuals in our dataset. The idea is that a good clustering will have as small within-cluster variation as possible.</p>
 <div class="small">
 <p>In other words, you want individuals in the same cluster to be similar.</p>
 </div>
 <p>Thus, K-means clustering tries to minimise the squared euclidean distance between all the points within a cluster and the centroid (“center”) of the cluster:</p>
-<p><span class="math display">\[
-\text{distance} (\text{cluster}_k) = \sum\limits_{i \in \text{cluster}_k} || \b x_i - \mean{\b x}_k||^2
-\]</span></p>
-<div class="small">
-<p>Where <span class="math inline">\(\b x_i\)</span> is the vector of variable values of any specific unit within a cluster <span class="math inline">\(k\)</span>, <span class="math inline">\(\mean{\b x}_k\)</span> is a vector of the mean variable values for all units in cluster <span class="math inline">\(k\)</span>, and the two vertical bars indicate the euclidean distance. We generally want to standardise all of our variables before starting to avoid measurement scale issues.</p>
-</div>
-<p>How do we minimise <span class="math inline">\(\text{distance}(\text{cluster}_k)\)</span>? The K-means clustering algorithm works like this:</p>
+<p>How do we minimise this distance? The K-means clustering algorithm works like this:</p>
 <ol type="1">
 <li>Choose how many total clusters we want.</li>
 <li>Randomly assign each unit to one of the clusters.</li>

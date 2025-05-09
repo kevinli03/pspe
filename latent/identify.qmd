@@ -6,12 +6,9 @@ title: "Identification and Rotation"
 Make sure you have read all the previous pages on factor analysis before this.
 :::
 
-When estimating factor analysis models, we encounter many identification issues. An identification issue is basically an inability to calculate a solution. There are two types of identification issues:
+When estimating factor analysis models, we encounter many identification issues. One identification issue is **rotation**.
 
-1.  We have too many possible solutions, and we cannot determine which one (a unique identification issue).
-2.  We don't have enough data to compute any solutions.
-
-One identification issue is **rotation**. For example, imagine our latent variable is left-right political spectrum leaning. Our latent variable could use positive values for right-wing and negative values for left-wing. Or, it could do the opposite. There is no real substantive difference.
+For example, imagine our latent variable is left-right political spectrum leaning. Our latent variable could use positive values for right-wing and negative values for left-wing. Or, it could do the opposite. There is no real substantive difference.
 
 Thus, in 1-factor models, most software will arbitrarily choose a rotation, as it does not really make a huge difference.
 

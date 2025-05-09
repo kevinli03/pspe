@@ -10,7 +10,7 @@ Cluster analysis is a method of finding groups/clusters of similar individuals i
 Above is an example of a cluster anlaysis with 2 clusters. Latent Class Models can also be considered to be a form of cluster analysis.
 :::
 
-The primary way in which cluster anlaysis is conducted is by **K-means clustering**. This form of clustering focuses on the distance between different individuals in our dataset. The idea is that a good clustering will have as small within-cluster variation as possible.
+Cluster anlaysis is often conducted by **K-means clustering**. This form of clustering focuses on the distance between different individuals in our dataset. The idea is that a good clustering will have as small within-cluster variation as possible.
 
 ::: small
 In other words, you want individuals in the same cluster to be similar.
@@ -18,15 +18,7 @@ In other words, you want individuals in the same cluster to be similar.
 
 Thus, K-means clustering tries to minimise the squared euclidean distance between all the points within a cluster and the centroid ("center") of the cluster:
 
-$$
-\text{distance} (\text{cluster}_k) = \sum\limits_{i \in \text{cluster}_k} || \b x_i - \mean{\b x}_k||^2
-$$
-
-::: small
-Where $\b x_i$ is the vector of variable values of any specific unit within a cluster $k$, $\mean{\b x}_k$ is a vector of the mean variable values for all units in cluster $k$, and the two vertical bars indicate the euclidean distance. We generally want to standardise all of our variables before starting to avoid measurement scale issues.
-:::
-
-How do we minimise $\text{distance}(\text{cluster}_k)$? The K-means clustering algorithm works like this:
+How do we minimise this distance? The K-means clustering algorithm works like this:
 
 1.  Choose how many total clusters we want.
 2.  Randomly assign each unit to one of the clusters.

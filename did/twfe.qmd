@@ -16,7 +16,7 @@ $$
 Where covariates are control variables needed to meet the parallel trends assumption (optional).
 :::
 
-The fixed effects $\alpha_i$ and $\gamma_t$ are sort-of "special" intercepts. However, unlike our normal intercepts in regression (often notated $\beta_0$), these intercepts $\alpha_i$ and $\gamma_t$ take different values depending on the unit and time.
+The fixed effects $\alpha_i$ and $\gamma_t$ are "special" intercepts. Unlike our normal intercepts in regression, these intercepts $\alpha_i$ and $\gamma_t$ take different values depending on the unit and time.
 
 -   Intercept $\alpha_i$ has a different value for each unit $i$.
 -   Intercept $\gamma_t$ has a different value for each time period $t$.
@@ -29,16 +29,7 @@ Since the differences between units $i$ and time periods $t$ are included in the
 Or in other words, we are essentially "controlling" for differences between units, and differences between years.
 :::
 
-By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect.
-
--   For example, if we were comparing yearly GDP growth data, 2008 recession would on average have low values, and 2016 would have high values. But this difference between years might cloud the main effect of our treatment. Fixed effects would account for this.
-
-The estimate for $\blue\tau$ is our treatment effect (ATT). This estimate is **unbiased** if the parallel trends assumption is met.
-
-Two additional notes regarding fixed effects:
-
-1.  We should cluster standard errors by unit.
-2.  For staggered treatment (see later pages), [TWFE is flawed](twfestaggered.qmd).
+By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for $\blue\tau$ is our treatment effect (ATT). This estimate is **unbiased** if the parallel trends assumption is met.
 
 <br />
 

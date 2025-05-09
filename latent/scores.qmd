@@ -12,7 +12,7 @@ $$
 \I_i = \tau_i + \lambda_i \ \F + \delta_i
 $$
 
-One of the assumptions of this model is the the error term $\delta_i \sim \mathcal N(0, \theta_i)$, or in other words, the error term has a mean of 0 and a variance of $\theta_i$. Through some complex math, we can show that the variance of each item is as follows:
+The the error term has a mean of 0 and a variance of $\theta_i$. The variance of each item can be shown to equal:
 
 $$
 Var(\I_i) = \lambda_i^2 + \theta_i
@@ -33,17 +33,12 @@ $$
 If all items are standarised to a standard normal, then $\lambda_i^2$ is equal to the reliability.
 :::
 
-Communality and relaibility is important for two reasons:
-
-1.  Items with higher reliability are considered more "accurate" measures of the latent variable factor. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.
-2.  These allow us to calculate **factor scores**.
+Items with higher reliability are considered more "accurate" measures of the latent variable factor. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.
 
 **Factor scores** are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model.
 
-We often conduct factor anlaysis for the sole purpose of getting factor scores. Factor scores are calculated as a weighted linear combination of all items:
-
 $$
-\text{factor scores} = \omega_0 + \omega_1 \ \I_1 + \omega_2 \  \I_2 + \dots
+\text{Factor Scores} = \omega_0 + \omega_1 \ \I_1 + \omega_2 \  \I_2 + \dots
 $$
 
 The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.

@@ -51,35 +51,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -244,34 +215,22 @@ window.Quarto = {
 <div class="small">
 <p>See <a href="https://www.sciencedirect.com/science/article/abs/pii/S0304407621001445">Goodman-Bacon (2021)</a> for a more technical overview of TWFE decomposition.</p>
 </div>
-<p>The two-way fixed effects estimator is possible with staggered difference-in-differences:</p>
-<p><span class="math display">\[
-\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D + \beta\ \cov + \eps
-\]</span></p>
-<div class="small">
-<p>For more info on two-way fixed effects, see <a href="../did/twfe.html">here</a>.</p>
-</div>
-<p>But what is two-way fixed effects estimating in a staggered difference-in-differences setting? Goodman-Bacon decompose the estimate of TWFE in a staggered setting. Let us assume we have 3 groups - a group treated early, a group that was treated late, and a untreated group.</p>
+<p>The <a href="../did/twfe.html">two-way fixed effects</a> estimator is possible with staggered difference-in-differences. But what is TWFE actually doing? Let’s say we have 3 groups - a group treated early, a group that was treated late, and a untreated group.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-3888126795.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+<p><img src="images/clipboard-3888126795.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
 </figure>
 </div>
 <p>Two-way fixed effects essentially estimates 4 different differences, shown below:</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-2200187195.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:80.0%"></p>
+<p><img src="images/clipboard-2200187195.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
 </figure>
 </div>
-<p>The actual TWFE result is a weighted average of these differences. The weights are a function of three things:</p>
-<ol type="1">
-<li>The sample size of each comparison. The higher sample size, the more weight.</li>
-<li>The ratio of treated to control - the closer the ratio to 0.5, the higher weight.</li>
-<li>Relative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.</li>
-</ol>
+<p>The actual TWFE result is a weighted average of these differences. The weights are a function of mainly the telative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
-<p><img src="images/clipboard-3589189122.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
+<p><img src="images/clipboard-3589189122.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%"></p>
 </figure>
 </div>
 <p>There are two problems with these comparison conducted by TWFE:</p>
@@ -286,7 +245,6 @@ window.Quarto = {
 <div class="small">
 <p>TWFE is unbiased with homogeneity, but homogeneity is quite rare in scenarios we typically research.</p>
 </div>
-<p>Thus, researchers have tried to solve these issues by either removing forbidden comparisons, or fixing the weighting (or both). This research took a huge leap since 2020 during the <strong>difference-in-differences revolution</strong>, which has lead to a series of new estimators that solve these issues.</p>
 <p><br></p>
 
 

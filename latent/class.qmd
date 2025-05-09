@@ -11,10 +11,10 @@ Latent class models are an extension of factor analysis, that deals with cases o
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F [shape=box, pos = "0,0!", label="Latent Factor (F)"]
-  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
-  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
+  F [shape=box, pos = "0,0!", label="Latent Factor"]
+  X1 [shape=box, pos = "2,0!", label="Item 1"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2"]
+  X3 [shape=box, pos="1,0!", label="Item 3"]
 
   // Edges
   {F -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
@@ -27,21 +27,18 @@ digraph example2 {
 ```
 :::
 
-The factors a categorical variable with $C$ number of categories, which are also called **latent classes**. These categories are treated as if they have no inherent order, and we can choose the number of categories.
-
-We also have categorical observed items with each item $i$ having $K_i$ number of categories. The latent class models connects each item with a factor through a **item response probability**:
+The factors a categorical variable, which each category $c$ called a **latent class**. We also have categorical observed items. The latent class models connects each item with a factor through a **item response probability**:
 
 $$
 \begin{align}
-Pr(\text{item}_1 = \text{category }k \ | \ \text{factor} = \text{category }c) & = \pi_{1, kc} \\
-Pr(\text{item}_2 = \text{category }k  \ | \ \text{factor} = \text{category }c) & = \pi_{2, kc} \\
-\vdots \qquad \qquad \vdots \qquad \qquad & \vdots \\
-Pr(\text{item}_p = \text{category }k  \ | \ \text{factor} = \text{category }c) & = \pi_{p, kc} \\
+& Pr(\text{item}_1 = \text{category }k_i \ | \ \text{factor} = \text{category }c)\\
+& Pr(\text{item}_2 = \text{category }k_i  \ | \ \text{factor} = \text{category }c)\\
+& Pr(\text{item}_3 = \text{category }k_i  \ | \ \text{factor} = \text{category }c)\\
 \end{align}
 $$
 
 ::: small
-Each $\pi_{i, kc}$ is the probability of any item item being in category $k$, given the factor is category $c$.
+$k_1$ is one specific category of item $1$, same for $k_2$ for item $2$, and so on. $c$ is one specific category of the factor.
 :::
 
 We also have another part of the measurement mode, the **structural model**, which determines the probability of each category in the factor:
@@ -50,19 +47,13 @@ $$
 \alpha_c = Pr(\text{factor}=\text{category }c)
 $$
 
-Interpretation of the latent factor $F$ depends on these item response probabilities $\pi_{i, kc}$. An example is provided below, because it can be a little confusing.
+Interpretation of the latent factor depends on the item response probabilities. Below, the columns are the different classes/categories of the factor, and the big rows are each item.
 
-::: {.callout-note collapse="true" appearance="simple"}
-## Example of Interpretation
-
-Below, the columns are the different classes/categories of the factors, and the big rows are each item.
-
-![](images/clipboard-3462056940.png)
+![](images/clipboard-3462056940.png){fig-align="center" width="80%"}
 
 The first class (the first column) has the highest probabilities if individuals *never worry* about crime, *no real effect* on quality of life, *never* worry about burglary, and *no real effect* on quality of life. Thus, we can conclude this first category of the latent variable is something like - *not worried about crime*.
 
 The second class (the 2nd column), where the top responses have the highest probabilities except for the frequency of worry about burglaries - where the probabilities are highest for *some of the time* and *just occasionally*. This suggests that this second category is measuring something like - only worried about burglary, and no other crime.
-:::
 
 We can also create factor scores - which is a little different, because now we are basically assigning every unit in our data to a category of the latent factor. This is done by calculating the posterior probability of being in each class:
 
@@ -70,7 +61,7 @@ $$
 \widehat{Pr}(\text{factor} = \text{category }c \ | \ \text{item}_1 = \text{category }k_1, \text{item}_2 = \text{category }k_2, \dots )
 $$
 
-We calcaulte this probability for all categories $c$ in the factor. Whichever category $c$ of the latent variable has the highest probability, is the category a unit is assigned to.
+We calculate this probability for all categories $c$ in the factor. Whichever category $c$ of the latent variable has the highest probability, is the category a unit is assigned to.
 
 ::: small
 This can be considered quite similar to that of cluster analysis, which will be introduced later.

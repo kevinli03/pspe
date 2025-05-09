@@ -2,68 +2,75 @@
 title: "Difference-in-Differences"
 ---
 
-In April 1992, New Jersey increased its minimum wage. We want to know how changing the minimum wage (the treatment) affected employment rates (the result). We have data from before and after the change:
+In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:
 
-|                                 |                                |
-|---------------------------------|--------------------------------|
-| [Mar 1992 (Before)]{.smallcaps} | [Dec 1992 (After)]{.smallcaps} |
-| 20.44                           | 21.03                          |
+|                                                    |                                                   |
+|------------------------------------|------------------------------------|
+| [Mar 1992 (Before Min. Wage Increase)]{.smallcaps} | [Dec 1992 (After Min. Wage Increase)]{.smallcaps} |
+| 20.44                                              | 21.03                                             |
 
-: {tbl-colwidths="\[40,60\]" .bordered}
+: {tbl-colwidths="\[50,50\]" .bordered}
 
 ::: small
-Specifically, these are average employment numbers in fast-food restaurants.
+More specifically, this is employment rates at fast food restaurants.
 :::
 
-With this data, we **cannot** find the causal effect. Why? Well recall our definition of the causal effect using potential outcomes. Our treatment effect after the raise of minimum wage in December 1992 would be:
+Our treatment effect after the raise of minimum wage in December 1992 would be:
 
 $$
-\tau_\text{Dec92} = \purple{\text{employment}^{(\text{raised})}_\text{Dec92}} - \red{\text{employment}^{(\text{no raise})}_\text{Dec92}}
+\begin{align}
+\tau_\text{ATT} = & \ \text{employment with min. wage increase (Dec 92)} \\
+& -\red{\text{hypothetical employment without min. wage increase (Dec 92)}}
+\end{align}
 $$
 
-We don't observe the counterfactual in December 1992 without the minimum wage increase. We need some way to estimate this.
+We **don't** observe the hypothetical in December 1992 without the minimum wage increase.
 
-Why can't we pretend that the numbers from March 1992 are our counterfactual, since the treatment hadn't occurred yet? Well, there could have been something that happened between these two times that changes the **trend** in employment (like a recession).
+::: small
+We cannot use March 1992 because there could have been something that happened between March and December that changes the **trend** in employment (like a recession).
+:::
 
-**Difference-in-differences** estimates the trend by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:
+**Difference-in-differences** estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:
 
-|                                       |                                       |
-|---------------------------------------|---------------------------------------|
-| [Mar 1992 (Pennsylvania)]{.smallcaps} | [Dec 1992 (Pennsylvania)]{.smallcaps} |
-| 23.33                                 | 21.17                                 |
+|                                                              |                                                              |
+|------------------------------------|------------------------------------|
+| [Mar 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} | [Dec 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} |
+| 23.33                                                        | 21.17                                                        |
 
-: {tbl-colwidths="\[40,60\]" .bordered}
+: {tbl-colwidths="\[50,50\]" .bordered}
 
 ::: small
 These are employment values in Pennsylvania, where no mininum wage changes occured.
 :::
 
-Pennsylvania tells us the **trend** in employment without a change in minimum wage (-2.16). [This trend tells us that if New Jersey hadn't received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.]{.underline}
+Pennsylvania tells us the **trend** in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn't received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.
 
-|                                        |                                                     |
-|----------------------------------------|-----------------------------------------------------|
-| [Mar 92 (NJ, Not Treated)]{.smallcaps} | [Dec 92 (NJ, Hypothetical Not Treated)]{.smallcaps} |
-| 20.44                                  | 20.44 - 2.16                                        |
+|                                                      |                                                                  |
+|-------------------------------|-----------------------------------------|
+| [Mar 92 (NJ, Not Minimum Wage Increase)]{.smallcaps} | [Dec 92 (NJ, Hypothetical No Minimum Wage Increase)]{.smallcaps} |
+| 20.44                                                | 20.44 - 2.16                                                     |
 
-: {tbl-colwidths="\[40,60\]" .bordered}
+: {tbl-colwidths="\[50,50\]" .bordered}
 
 ::: small
 The March 1992 value is copied from the first table.
 :::
 
-Now, we have an approximation of New Jersey's missing counterfactual, so we can now estimate the causal effect:
+Now, we have an approximation of New Jersey's missing hypothetical outcome, so we can now estimate the causal effect.
 
 $$
 \begin{align}
-\tau_\text{Dec92} &  = \purple{\text{employment}^{(\text{raised})}_\text{Dec92}} - \red{\text{employment}^{(\text{no raise})}_\text{Dec92}} \\
-& \approx \purple{\text{employment}^{(\text{raised})}_\text{Dec92}} - \left( \purple{\text{employment}^{(\text{no raise})}_\text{Mar92}}  - 2.16\right)
+\tau_\text{Dec92} = & \ \text{employment with min. wage increase (Dec 92)} \\
+& -{\text{(estimate) employment without min. wage increase (Dec 92)}}
 \end{align}
 $$
+
+<br />
 
 This entire idea of using another group's trend to estimate counterfactuals depends on two assumptions:
 
 |                                                         |                                                                                                                             |
-|---------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------|
+|-----------------------|------------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
 | [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
 | [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                    |

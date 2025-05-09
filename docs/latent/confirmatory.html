@@ -246,8 +246,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Clustered Models</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Multiple Group Models</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -294,8 +297,7 @@ window.Quarto = {
 <div class="small">
 <p>Make sure you have read the previous page on <a href="../latent/factor.html">factor analysis</a> before this.</p>
 </div>
-<p>In the past few chapters, we have focused on <strong>exploratory analysis</strong>, essentially allowing the data to “speak for itself” and estimate all of the model’s parameters to measure the latent variable.</p>
-<p>However, what if we already have some ideas about our latent variables - some hypotheses on how different items are related to the latent variable. This is what we can <strong>confirmatory analysis</strong>, where we study how well a hypothesised model fits the data.</p>
+<p>Sometimes, we already have some ideas about our latent variables - some hypotheses on how different items are related to the latent variable. This is what we can <strong>confirmatory analysis</strong>, where we study how well a hypothesised model fits the data.</p>
 <p>The basic approach of confirmatory analysis is to set some factor loadings <span class="math inline">\(\lambda\)</span> for certain variables to 0. This essentially means that based on our preconceived theories, establish that some items do not measure a certain factor.</p>
 <div class="small">
 <p>By setting enough loadings to 0, we no longer have to worry about rotation issues discussed previously.</p>
@@ -307,86 +309,86 @@ window.Quarto = {
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="480" height="134" viewbox="0.00 0.00 444.09 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="480" height="134" viewbox="0.00 0.00 332.00 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
 <title>example2</title>
 <!-- F1 -->
 <g id="node1" class="node">
 <title>F1</title>
-<polygon fill="none" stroke="black" points="199.18,-124.8 80.91,-124.8 80.91,-88.8 199.18,-88.8 199.18,-124.8"></polygon>
-<text text-anchor="middle" x="140.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F1)</text>
+<polygon fill="none" stroke="black" points="139.53,-124.8 38.47,-124.8 38.47,-88.8 139.53,-88.8 139.53,-124.8"></polygon>
+<text text-anchor="middle" x="89" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor 1</text>
 </g>
 <!-- X1 -->
 <g id="node3" class="node">
 <title>X1</title>
-<polygon fill="none" stroke="black" points="82.13,-36 -0.04,-36 -0.04,0 82.13,0 82.13,-36"></polygon>
-<text text-anchor="middle" x="41.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (X1)</text>
+<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"></polygon>
+<text text-anchor="middle" x="27" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1</text>
 </g>
 <!-- F1&#45;&gt;X1 -->
 <g id="edge1" class="edge">
 <title>F1-&gt;X1</title>
-<path fill="none" stroke="black" d="M120.49,-88.65C105.57,-75.57 84.85,-57.4 68.3,-42.9"></path>
-<polygon fill="black" stroke="black" points="70.39,-40.07 60.56,-36.11 65.78,-45.34 70.39,-40.07"></polygon>
-<text text-anchor="start" x="100.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M76.75,-88.65C67.75,-76.05 55.37,-58.72 45.21,-44.5"></path>
+<polygon fill="black" stroke="black" points="47.88,-42.22 39.22,-36.11 42.19,-46.28 47.88,-42.22"></polygon>
+<text text-anchor="start" x="64" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 <!-- X2 -->
 <g id="node4" class="node">
 <title>X2</title>
-<polygon fill="none" stroke="black" points="200.13,-36 117.96,-36 117.96,0 200.13,0 200.13,-36"></polygon>
-<text text-anchor="middle" x="159.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (X2)</text>
+<polygon fill="none" stroke="black" points="144,-36 90,-36 90,0 144,0 144,-36"></polygon>
+<text text-anchor="middle" x="117" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2</text>
 </g>
 <!-- F1&#45;&gt;X2 -->
 <g id="edge2" class="edge">
 <title>F1-&gt;X2</title>
-<path fill="none" stroke="black" d="M139.57,-88.77C139.66,-78.55 140.45,-65.37 143.27,-54 143.97,-51.15 144.9,-48.24 145.96,-45.38"></path>
-<polygon fill="black" stroke="black" points="149.25,-46.58 149.9,-36 142.8,-43.87 149.25,-46.58"></polygon>
-<text text-anchor="start" x="144.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M87.26,-88.53C86.82,-78.22 87.33,-65.04 91.22,-54 92.32,-50.87 93.81,-47.78 95.51,-44.81"></path>
+<polygon fill="black" stroke="black" points="98.52,-46.61 101.12,-36.34 92.68,-42.75 98.52,-46.61"></polygon>
+<text text-anchor="start" x="92" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 <!-- X3 -->
 <g id="node5" class="node">
 <title>X3</title>
-<polygon fill="none" stroke="black" points="318.13,-36 235.96,-36 235.96,0 318.13,0 318.13,-36"></polygon>
-<text text-anchor="middle" x="277.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (X3)</text>
+<polygon fill="none" stroke="black" points="234,-36 180,-36 180,0 234,0 234,-36"></polygon>
+<text text-anchor="middle" x="207" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3</text>
 </g>
 <!-- F1&#45;&gt;X3 -->
 <g id="edge3" class="edge">
 <title>F1-&gt;X3</title>
-<path fill="none" stroke="black" d="M156.73,-88.41C167.79,-77.55 183.02,-63.82 198.26,-54 207.03,-48.35 216.87,-43.18 226.54,-38.65"></path>
-<polygon fill="black" stroke="black" points="228.04,-41.81 235.72,-34.5 225.17,-35.42 228.04,-41.81"></polygon>
-<text text-anchor="start" x="199.04" y="-58.2" font-family="Arial" font-size="14.00">0</text>
+<path fill="none" stroke="black" d="M103.53,-88.59C113.2,-77.8 126.59,-64.08 140.21,-54 149.56,-47.09 160.46,-40.76 170.71,-35.44"></path>
+<polygon fill="black" stroke="black" points="172.5,-38.46 179.88,-30.85 169.37,-32.2 172.5,-38.46"></polygon>
+<text text-anchor="start" x="141" y="-58.2" font-family="Arial" font-size="14.00">0</text>
 </g>
 <!-- F2 -->
 <g id="node2" class="node">
 <title>F2</title>
-<polygon fill="none" stroke="black" points="354.18,-124.8 235.91,-124.8 235.91,-88.8 354.18,-88.8 354.18,-124.8"></polygon>
-<text text-anchor="middle" x="295.04" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor (F2)</text>
+<polygon fill="none" stroke="black" points="286.53,-124.8 185.47,-124.8 185.47,-88.8 286.53,-88.8 286.53,-124.8"></polygon>
+<text text-anchor="middle" x="236" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor 2</text>
 </g>
 <!-- F2&#45;&gt;X2 -->
 <g id="edge4" class="edge">
 <title>F2-&gt;X2</title>
-<path fill="none" stroke="black" d="M268.18,-88.65C247.03,-75.16 217.4,-56.24 194.34,-41.53"></path>
-<polygon fill="black" stroke="black" points="196.17,-38.54 185.86,-36.11 192.4,-44.44 196.17,-38.54"></polygon>
-<text text-anchor="start" x="240.04" y="-58.2" font-family="Arial" font-size="14.00">0</text>
+<path fill="none" stroke="black" d="M212.49,-88.65C194.23,-75.34 168.74,-56.74 148.69,-42.11"></path>
+<polygon fill="black" stroke="black" points="150.6,-39.18 140.46,-36.11 146.48,-44.83 150.6,-39.18"></polygon>
+<text text-anchor="start" x="187" y="-58.2" font-family="Arial" font-size="14.00">0</text>
 </g>
 <!-- F2&#45;&gt;X3 -->
 <g id="edge5" class="edge">
 <title>F2-&gt;X3</title>
-<path fill="none" stroke="black" d="M291.49,-88.65C288.97,-76.52 285.55,-60.02 282.67,-46.12"></path>
-<polygon fill="black" stroke="black" points="286.05,-45.19 280.59,-36.11 279.2,-46.62 286.05,-45.19"></polygon>
-<text text-anchor="start" x="287.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M230.27,-88.65C226.18,-76.41 220.6,-59.69 215.92,-45.71"></path>
+<polygon fill="black" stroke="black" points="219.21,-44.49 212.72,-36.11 212.57,-46.71 219.21,-44.49"></polygon>
+<text text-anchor="start" x="224" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 <!-- X4 -->
 <g id="node6" class="node">
 <title>X4</title>
-<polygon fill="none" stroke="black" points="436.13,-36 353.96,-36 353.96,0 436.13,0 436.13,-36"></polygon>
-<text text-anchor="middle" x="395.04" y="-13.8" font-family="Times,serif" font-size="14.00">Item 4 (X4)</text>
+<polygon fill="none" stroke="black" points="324,-36 270,-36 270,0 324,0 324,-36"></polygon>
+<text text-anchor="middle" x="297" y="-13.8" font-family="Times,serif" font-size="14.00">Item 4</text>
 </g>
 <!-- F2&#45;&gt;X4 -->
 <g id="edge6" class="edge">
 <title>F2-&gt;X4</title>
-<path fill="none" stroke="black" d="M314.8,-88.65C329.87,-75.57 350.8,-57.4 367.51,-42.9"></path>
-<polygon fill="black" stroke="black" points="370.07,-45.31 375.33,-36.11 365.48,-40.03 370.07,-45.31"></polygon>
-<text text-anchor="start" x="353.04" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M248.05,-88.65C256.91,-76.05 269.09,-58.72 279.08,-44.5"></path>
+<polygon fill="black" stroke="black" points="282.09,-46.31 284.97,-36.11 276.36,-42.28 282.09,-46.31"></polygon>
+<text text-anchor="start" x="271" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
 </g>
 </g>
 </svg>
@@ -396,22 +398,30 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Another difference is in the assumptions we make on the actual latent variables. Recall that we previously assumed the latent factors are standardly normally distributed:</p>
-<p><span class="math display">\[
-\text{factor} \sim \mathcal N(0, 1)
-\]</span></p>
-<p>In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distirbution to be estimated:</p>
-<p><span class="math display">\[
-\text{factor} \sim \mathcal N(\kappa, \phi)
-\]</span></p>
-<p>Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item’s intercept <span class="math inline">\(\tau_i = 0\)</span>, and the same item’s factor loading for that specific factor at <span class="math inline">\(\lambda = 1\)</span>.</p>
 <p>The estimation and interpretation of confirmatory analysis are essentially identical to that of exploratory analysis we have previously looked at.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Details: Identification Assumptions
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<div class="append">
+<p>Recall that we previously assumed the latent factors are standardly normally distributed. In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distribution to be estimated:</p>
+<p>Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item’s intercept <span class="math inline">\(\tau_i = 0\)</span>, and the same item’s factor loading for that specific factor at <span class="math inline">\(\lambda = 1\)</span>.</p>
+</div>
+</div>
+</div>
+</div>
 <p>There is a special set of tests to see if the parameters we set equal to 0 actually make sense. <strong>Modification indicies</strong> are a sort of hypothesis test for this - larger values indicate parameters that if were not 0, could improve the fit of the model.</p>
-<ul>
-<li>There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.</li>
-</ul>
+<p>There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.</p>
 <div class="small">
-<p>Below in the R-code I providem more ways of choosing between confirmatory models and exploratory models (and really any factor models).</p>
+<p>Below in the R-code I provide more ways of choosing between confirmatory models and exploratory models (and really any factor models).</p>
 </div>
 <p><br></p>
 <p>For confirmatory analysis, we will need the <strong>lavaan</strong> package:</p>
@@ -452,7 +462,7 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
 <div class="callout-icon-container">
 <i class="callout-icon"></i>
 </div>
@@ -461,7 +471,7 @@ More on Choosing Between Models
 </div>
 <div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
 </div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div id="callout-2" class="callout-2-contents callout-collapse collapse">
 <div class="callout-body-container callout-body">
 <p>To compare and choose between different models, we have a few ways.</p>
 <ol type="1">

@@ -6,31 +6,17 @@ title: "Issues with Two Way Fixed Effects in Staggered DiD"
 See [Goodman-Bacon (2021)](https://www.sciencedirect.com/science/article/abs/pii/S0304407621001445) for a more technical overview of TWFE decomposition.
 :::
 
-The two-way fixed effects estimator is possible with staggered difference-in-differences:
+The [two-way fixed effects](twfe.qmd) estimator is possible with staggered difference-in-differences. But what is TWFE actually doing? Let's say we have 3 groups - a group treated early, a group that was treated late, and a untreated group.
 
-$$
-\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D + \beta\ \cov + \eps
-$$
-
-::: small
-For more info on two-way fixed effects, see [here](twfe.qmd).
-:::
-
-But what is two-way fixed effects estimating in a staggered difference-in-differences setting? Goodman-Bacon decompose the estimate of TWFE in a staggered setting. Let us assume we have 3 groups - a group treated early, a group that was treated late, and a untreated group.
-
-![](images/clipboard-3888126795.png){fig-align="center" width="65%"}
+![](images/clipboard-3888126795.png){fig-align="center" width="60%"}
 
 Two-way fixed effects essentially estimates 4 different differences, shown below:
 
-![](images/clipboard-2200187195.png){fig-align="center" width="80%"}
+![](images/clipboard-2200187195.png){fig-align="center" width="75%"}
 
-The actual TWFE result is a weighted average of these differences. The weights are a function of three things:
+The actual TWFE result is a weighted average of these differences. The weights are a function of mainly the telative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.
 
-1.  The sample size of each comparison. The higher sample size, the more weight.
-2.  The ratio of treated to control - the closer the ratio to 0.5, the higher weight.
-3.  Relative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.
-
-![](images/clipboard-3589189122.png){fig-align="center" width="65%"}
+![](images/clipboard-3589189122.png){fig-align="center" width="55%"}
 
 There are two problems with these comparison conducted by TWFE:
 
@@ -46,7 +32,5 @@ These problems with TWFE mean that TWFE is **biased** in estimating the ATT in s
 ::: small
 TWFE is unbiased with homogeneity, but homogeneity is quite rare in scenarios we typically research.
 :::
-
-Thus, researchers have tried to solve these issues by either removing forbidden comparisons, or fixing the weighting (or both). This research took a huge leap since 2020 during the **difference-in-differences revolution**, which has lead to a series of new estimators that solve these issues.
 
 <br />

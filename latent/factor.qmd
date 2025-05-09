@@ -2,19 +2,19 @@
 title: "Factor Analysis Model"
 ---
 
-Factor analysis is a way to model a continuous latent variable, based on a bunch of continuous observed items.
+Factor analysis is a way to model a unobserved continuous latent variable, based on a bunch of continuous observed items.
 
 ::: center-graph
 ```{dot}
 //| fig-width: 4
-//| fig-height: 1.4
+//| fig-height: 1.2
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F [shape=box, pos = "0,0!", label="Latent Factor (F)"]
-  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
-  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
+  F [shape=box, pos = "0,0!", label="Latent Factor Variable (Unobserved)"]
+  X1 [shape=box, pos = "2,0!", label="Item 1 (Observed)"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2 (Observed)"]
+  X3 [shape=box, pos="1,0!", label="Item 3 (Observed)"]
 
   // Edges
   {F -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
@@ -27,56 +27,52 @@ digraph example2 {
 ```
 :::
 
-The factor is the unobserved latent variable we want to measure. We assume that the factor is continuous, and normally distributed:
-
-$$
-\F \sim \mathcal N(0, 1)
-$$
-
-::: small
-Where $\kappa = 0$ is the mean of the factor, and $\phi =1$ is the variance of the factor. Technically, the factor only needs to be normally distributed - we can have different means and variances. However, for identification reasons, we typically fix the factor to a standard normal.
-:::
-
-The $p$ number of items are the variables we observe, that we believe are a measurement of the latent factor. Factor analysis assumes that each observed item is associated with the latent factor with a **linear regression model**:
+Each item is connected with the latent factor by a **linear regression**:
 
 $$
 \begin{align}
 \I_1 & = \tau_1 + \lambda_1 \ \F + \delta_1 \\
 \I_2 & = \tau_2 + \lambda_2 \ \F + \delta_2 \\
-& \vdots \qquad \qquad \vdots \\
-\I_p & = \tau_p + \lambda_p \ \F + \delta_p
+\I_3 & = \tau_3 + \lambda_3 \ \F + \delta_3 \\
 \end{align}
 $$
 
--   $\tau_i$ is the intercept of the model.
--   $\lambda_i$ is the coefficient that describes the relationship between any item and the factor. These are called **factor loadings**.
--   $\delta_i$ is the error term - the part of an item not explained by the factor. They are called the **unique factors**.
-
 ::: small
-We assume that the error terms are normally distributed $\delta_i \sim \mathcal N(0, \theta_{ii})$, that the different error terms $\delta_1, \dots, \delta_p$ are uncorrelated with each other, and factor is uncorrelated with the errors (exogeneity).
+$\tau$ is the intercept of the model. $\lambda$ is the coefficient, called the factor loadings. $\delta$ is the error term - the part of an item not explained by the factor - they are called the **unique factors**.
 :::
 
-The factor loadings $\lambda_i$ represent the relationship/**covariance** between any item and a factor. If the items have been standardised to a standard normal, then $\lambda_i$ is also the correlation coefficient between items and factor.
+::: {.callout-note collapse="true"}
+## Details: Assumptions of the Model
 
-::: small
-Note: this isn't entirely true for multiple factors, as we will discuss in a later page.
+::: append
+We make a few assumptions on this model:
+
+1.  We assume the factor is continuous, and normally distributed with mean $\kappa$ and variance $\phi$. We often assume $\kappa = 0$ and $\phi = 1$ for identification purposes.
+2.  We assume the items are also normally distributed.
+3.  We assume that the error terms are normally distributed $\delta_i \sim \mathcal N(0, \theta_{ii})$, that the different error terms $\delta_1, \dots, \delta_p$ are uncorrelated with each other. This implies that the correlation between any two items is entirely explained by the factor (there is no separate correlation between items).
+4.  We assume the factor is uncorrelated with the error term (exogeneity).
+:::
 :::
 
-These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
+The factor loadings $\lambda_i$ represent the relationship/**covariance** between any item and a factor. These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
 
-::: {.callout-note collapse="true" appearance="simple"}
-## Interpretation Example
+For example, take this factor variable called **personality**, explained by a set of items (rich, admire, success, respect) that show how important a certain quality is to an individual.
 
-This is a typical output of factor anlaysis. ML1 and ML2 are the two factors (let us focus on just ML1), and the rows are items (which are trust in different institutions).
+![](images/clipboard-2966252668.png){fig-align="center" width="55%"}
 
-![](images/clipboard-3872288459.png){width="75%"}
+We can see all the factor loadings $\lambda$ are positive, which means that the higher values of the **personality** factor is measuring higher levels of importance of being rich, being admired, being successful, and being respected.
 
-For factor 1 (ML1), we can see that *pol_parties*, *politicians* have very large loadings. *EP, parliament, and UN* have moderate loadings. *Police* and *legal* have almost 0 loadings. Almost all loadings are positive.
+We can also see the loadings for **respect** and **success** are much higher than **admire** or **rich**. Thus, we can conclude the **personality** factor is more measuring the importance of being respected or successful, than being rich or admired.
 
-This tells us that factor 1 is a latent variable that measures mostly trust in politicians, rather than the legal/policing system. Since the loadings are almost all positive, we can conclude that higher values of factor 1 mean higher levels of trust in legal/policing systems.
+::: {.callout-note collapse="true"}
+## Details: More and Factor Loadings
+
+::: append
+If all our items are standardised to a standard normal distribution, that also implies that our factor loadings $\lambda$ are equal to the correlation coefficients between items and factor.
+
+We can conduct hypothesis testing with each factor loading $\lambda$ with a **z-test** to see if there is a significant relationship between a factor an an item.
 :::
-
-We can conduct hypothesis testing with each factor loading $\lambda$ with a **z-test**. The null hypothesis is that $\lambda = 0$, and the alternate hypothesis is that $\lambda ≠ 0$. If the p-value is less than 0.05, we know that there is a relationship between that item and the factor.
+:::
 
 <br />
 

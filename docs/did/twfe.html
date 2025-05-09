@@ -285,7 +285,7 @@ window.Quarto = {
 <div class="small">
 <p>Where covariates are control variables needed to meet the parallel trends assumption (optional).</p>
 </div>
-<p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are sort-of “special” intercepts. However, unlike our normal intercepts in regression (often notated <span class="math inline">\(\beta_0\)</span>), these intercepts <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> take different values depending on the unit and time.</p>
+<p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are “special” intercepts. Unlike our normal intercepts in regression, these intercepts <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> take different values depending on the unit and time.</p>
 <ul>
 <li>Intercept <span class="math inline">\(\alpha_i\)</span> has a different value for each unit <span class="math inline">\(i\)</span>.</li>
 <li>Intercept <span class="math inline">\(\gamma_t\)</span> has a different value for each time period <span class="math inline">\(t\)</span>.</li>
@@ -295,16 +295,7 @@ window.Quarto = {
 <div class="small">
 <p>Or in other words, we are essentially “controlling” for differences between units, and differences between years.</p>
 </div>
-<p>By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect.</p>
-<ul>
-<li>For example, if we were comparing yearly GDP growth data, 2008 recession would on average have low values, and 2016 would have high values. But this difference between years might cloud the main effect of our treatment. Fixed effects would account for this.</li>
-</ul>
-<p>The estimate for <span class="math inline">\(\blue\tau\)</span> is our treatment effect (ATT). This estimate is <strong>unbiased</strong> if the parallel trends assumption is met.</p>
-<p>Two additional notes regarding fixed effects:</p>
-<ol type="1">
-<li>We should cluster standard errors by unit.</li>
-<li>For staggered treatment (see later pages), <a href="../did/twfestaggered.html">TWFE is flawed</a>.</li>
-</ol>
+<p>By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for <span class="math inline">\(\blue\tau\)</span> is our treatment effect (ATT). This estimate is <strong>unbiased</strong> if the parallel trends assumption is met.</p>
 <p><br></p>
 <p>To implement two-way fixed effects, we need the <strong>fixest</strong> package:</p>
 <div class="cell">

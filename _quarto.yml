@@ -126,7 +126,8 @@ website:
           href: latent/sem.qmd
         - text: "Lagged Response Models"
           href: latent/longitudinal.qmd
-        - text: "Clustered Models"
+        - text: "Multiple Group Models"
+          href: latent/group.qmd
         - text: "---"
         - text: "Principle Components Analysis"
           href: latent/pca.qmd
@@ -137,7 +138,7 @@ format:
   html:
     theme: cosmo
     number-sections: false
-    fontsize: 12.5pt
+    fontsize: 12pt
     mainfont: helvetica
     fontcolor: "#3b4b57"
     linkcolor: "#0969da"

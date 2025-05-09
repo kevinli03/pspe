@@ -4,15 +4,12 @@ title: "Wooldridge (2021) Extended Two-Way Fixed Effects"
 
 There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes a new estimator, the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues.
 
--   First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem.
--   Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample.
-
-Wooldridge proposes to estimate all of the possible heterogenous treatment effects by simply adding a ton of interaction terms to the TWFE estimator to account for every possible heterogeneity. The two main forms of heterogeneity are heterogeneity between different initial treatment years, and heterogeneity between different levels of confounders.
+First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem. Wooldridge estimates heterogenous effects by simply adding a ton of interaction terms to the TWFE estimator to account for all possible heterogeneity:
 
 $$
 \begin{align}
-\Y = & \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{group} \cdot \D \cdot \text{time} \right)}^{\text{interactions for heterogeneity}} \\
-& + \underbrace{\blue{\tau_b} \left( \text{group} \cdot \D \cdot \text{time} \cdot \cov \right)}_{\text{interactions for heterogeneity}} + \eps
+\Y = & \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{Group} \cdot \D \cdot \text{Time} \right)}^{\text{interactions for heterogeneity}} \\
+& + \underbrace{\blue{\tau_b} \left( \text{Group} \cdot \D \cdot \text{Time} \cdot \cov \right)}_{\text{interactions for heterogeneity with covariates}} + \eps
 \end{align}
 $$
 
@@ -20,17 +17,23 @@ $$
 $\text{group}$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{time}$ is a categorical variable that indicates the different time periods. $\text{covariates}$ is a vector of values for all covariates for a specific unit $i$ at period $t$.
 :::
 
-This model will produce many coefficients $\blue{\tau_a}$ and $\blue{\tau_b}$ that capture different heterogeneity in treatment effects. To obtain a single ATT, we will want to aggregate them together in a weighted average.
+This model will produce many coefficients $\blue{\tau_a}$ and $\blue{\tau_b}$ that capture different heterogeneity in treatment effects. Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.
 
 We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.
 
 Wooldridge's 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.
 
+::: {.callout-note collapse="true"}
+## Comparison to Sun and Abraham (2021)
+
+::: append
 Wooldridge's extended two-way fixed effects estimator is very similar to [Sun and Abraham's](sunab.qmd) estimator. The three main differences are:
 
 1.  Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge's can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.
 2.  Sun and Abraham is more strict with covariates for parallel trends, while Wooldridge's allows for more flexibility and robustness to violations of parallel trends. This is because Wooldridge's estimator contains far more interactions with covariates.
 3.  Wooldridge's estimator allows for non-linear models (poisson, logistic, etc.).
+:::
+:::
 
 <br />
 

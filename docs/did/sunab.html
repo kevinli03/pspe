@@ -276,11 +276,7 @@ window.Quarto = {
 
 
 <p>There are two <a href="../did/twfestaggered.html">issues with the two-way fixed effects estimator</a>: forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator that solves both of these issues.</p>
-<ul>
-<li>First, the estimator divides all units into groups based on their initial treatment implementation.</li>
-<li>Then, the estimator calculates dynamic ATT’s separately for group. This captures heterogeneity of treatment between different initial treatment periods.</li>
-<li>Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each initial treatment period group appears in our sample.</li>
-</ul>
+<p>First, the estimator divides all units into groups based on their initial treatment implementation. Then, the estimator calculates dynamic ATT’s separately for group, using only valid comparisons.</p>
 <p>Sun and Abraham estimate dynamic ATT’s for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.</p>
 <p><span class="math display">\[
 \Y = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau} \left( \text{group} \cdot \text{rel.time} \right)}_{\text{interact for heterogeneity}} +  \beta \ \cov + \eps
@@ -288,13 +284,30 @@ window.Quarto = {
 <div class="small">
 <p><span class="math inline">\(\text{group}\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{rel.time}\)</span> is a categorical variable that describes unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and how many periods away from the initial treatment period of that unit <span class="math inline">\(i\)</span> is. <span class="math inline">\(\text{covariates}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>. Essentially, thisinteracts group with relative treatment time.</p>
 </div>
-<p>This model will produce many coefficients <span class="math inline">\(\blue\tau\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). We can then properly weight each of them to create dynamic treatment effects. Sun and Abraham is primarily used to calculate dynamic treatment effects, but we can aggregate them into a single ATT if we need to.</p>
+<p>This model will produce many coefficients <span class="math inline">\(\blue\tau\)</span> (in fact, one for each post-treatment time period for each initial treatment year group).</p>
+<p>Finally, these separate heterogeneous effects are manually aggregated together into dynamic ATT’s by relative treatment time using proper weighting based on how frequent each initial treatment period group appears in our sample. This solves the weighting problem with TWFE.</p>
+<p>Because of the focus of Sun and Abraham on dynamic treatment effects, it is often the go-to estimator for dynamic treatment effects and checking parallel trends.</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Comparison with Wooldridge (2021) ETWFE
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
 <p>Sun and Abraham’s estimator is very similar to Wooldridge’s <a href="../did/etwfe.html">extended two-way fixed effects</a> estimator. The three main differences are:</p>
 <ol type="1">
 <li>Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge’s can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.</li>
 <li>Sun and Abraham is more strict with covariates for parallel trends, while Wooldridge’s allows for more flexibility and robustness to violations of parallel trends. This is because Wooldridge’s estimator contains far more interactions with covariates.</li>
 <li>Wooldridge’s estimator allows for non-linear models (poisson, logistic, etc.).</li>
 </ol>
+</div>
+</div>
+</div>
 <p><br></p>
 <p>To implement this estimator, we will need the <strong>fixest</strong> package:</p>
 <div class="cell">

@@ -6,9 +6,7 @@ title: "Confirmatory Analysis"
 Make sure you have read the previous page on [factor analysis](factor.qmd) before this.
 :::
 
-In the past few chapters, we have focused on **exploratory analysis**, essentially allowing the data to "speak for itself" and estimate all of the model's parameters to measure the latent variable.
-
-However, what if we already have some ideas about our latent variables - some hypotheses on how different items are related to the latent variable. This is what we can **confirmatory analysis**, where we study how well a hypothesised model fits the data.
+Sometimes, we already have some ideas about our latent variables - some hypotheses on how different items are related to the latent variable. This is what we can **confirmatory analysis**, where we study how well a hypothesised model fits the data.
 
 The basic approach of confirmatory analysis is to set some factor loadings $\lambda$ for certain variables to 0. This essentially means that based on our preconceived theories, establish that some items do not measure a certain factor.
 
@@ -25,12 +23,12 @@ For example, perhaps theoretically we believe that items 1 and 2 only explain fa
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F1 [shape=box, pos = "0,0!", label="Latent Factor (F1)"]
-  F2 [shape=box, pos = "0,0!", label="Latent Factor (F2)"]
-  X1 [shape=box, pos = "2,0!", label="Item 1 (X1)"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2 (X2)"]
-  X3 [shape=box, pos="1,0!", label="Item 3 (X3)"]
-  X4 [shape=box, pos="1,0!", label="Item 4 (X4)"]
+  F1 [shape=box, pos = "0,0!", label="Latent Factor 1"]
+  F2 [shape=box, pos = "0,0!", label="Latent Factor 2"]
+  X1 [shape=box, pos = "2,0!", label="Item 1"]
+  X2 [shape=box, pos = "1,-2!", label="Item 2"]
+  X3 [shape=box, pos="1,0!", label="Item 3"]
+  X4 [shape=box, pos="1,0!", label="Item 4"]
 
   // Edges
   {F1 -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
@@ -46,28 +44,24 @@ digraph example2 {
 ```
 :::
 
-Another difference is in the assumptions we make on the actual latent variables. Recall that we previously assumed the latent factors are standardly normally distributed:
+The estimation and interpretation of confirmatory analysis are essentially identical to that of exploratory analysis we have previously looked at.
 
-$$
-\text{factor} \sim \mathcal N(0, 1)
-$$
+::: {.callout-note collapse="true"}
+## Details: Identification Assumptions
 
-In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distirbution to be estimated:
-
-$$
-\text{factor} \sim \mathcal N(\kappa, \phi)
-$$
+::: append
+Recall that we previously assumed the latent factors are standardly normally distributed. In confirmatory analysis, we still assume the factor is normally distributed, but we allow for the mean and variance of the distribution to be estimated:
 
 Instead, we fix each factor (if we have multiple) to the scale of one of the items, with each factor fixed to a different item. Basically, this means that the factor will take the same scale/measurement characteristics as one of the items. This is done by fixing that item's intercept $\tau_i = 0$, and the same item's factor loading for that specific factor at $\lambda = 1$.
-
-The estimation and interpretation of confirmatory analysis are essentially identical to that of exploratory analysis we have previously looked at.
+:::
+:::
 
 There is a special set of tests to see if the parameters we set equal to 0 actually make sense. **Modification indicies** are a sort of hypothesis test for this - larger values indicate parameters that if were not 0, could improve the fit of the model.
 
--   There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.
+There are also expected parameter changes (EPC), which basically estimate what parameters set to 0 would actually be equal to, if they were added to the model.
 
 ::: small
-Below in the R-code I providem more ways of choosing between confirmatory models and exploratory models (and really any factor models).
+Below in the R-code I provide more ways of choosing between confirmatory models and exploratory models (and really any factor models).
 :::
 
 <br />

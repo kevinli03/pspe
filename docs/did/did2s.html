@@ -278,48 +278,26 @@ window.Quarto = {
 <div class="small">
 <p>See <a href="https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html">Kyle Butts’</a> github page for more info on this estimator. <a href="https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/">Asjad Naqvi</a> also has a helpful page.</p>
 </div>
-<p>Recall our <a href="../did/twfe.html">two-way fixed effects</a> model: This model also implies a model for the potential outcomes - the potential outcome under control is when <span class="math inline">\(\text{treatment}=0\)</span>, and the potential outcome under treatment is <span class="math inline">\(\text{treatment}=1\)</span>:</p>
-<p><span class="math display">\[
-\begin{align}
-\pT &amp; = \overbrace{\unit + \time}^\text{fixed effects} + \blue\tau + \beta \ \cov + \eps \\
-\pC &amp; = \unit + \time + \beta \ \cov + \eps
-\end{align}
-\]</span></p>
-<div class="small">
-<p>These are obtained by simply plugging in <span class="math inline">\(\D=0,1\)</span> into the TWFE equation.</p>
-</div>
-<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> regarding “forbidden comparisons” and “weighting” problems by simply estimating the causal effect of the treated units as defined by our potential outcomes:</p>
+<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> regarding “forbidden comparisons” and “weighting” problems by just not doing comparisons and weighting.</p>
+<p>Instead, Gardner (2021) proposes to calculate the treatment effects directly, as discussed in the introduction to <a href="../did/did.html">difference-in-differences</a>:</p>
 <p><span class="math display">\[
 \tau_\text{ATT} = \pT - \pCred
 \]</span></p>
-<p>However, the counterfactual for treated units in the post-period are unobserved. Thus, the goal of 2-stage difference-in-differencs is to estimate <span class="math inline">\(\pCred\)</span>.</p>
-<p>To estimate the counterfactuals, we first run a regression with <strong>only untreated/not-yet treated observations</strong> <span class="math inline">\(\D_{it}=0\)</span>:</p>
+<p>However, the hypothetical control outcome (in red) for treated units in the post-period are unobserved. Thus, the goal of 2-stage difference-in-differences is to estimate <span class="math inline">\(\pCred\)</span>.</p>
+<p>By definition, <span class="math inline">\(\pCred\)</span> is the hypothetical world if treatment never occurred. Thus, using the idea of two-way fixed effects, we should be able to calculate <span class="math inline">\(\pCred\)</span> if we simply set treatment = 0 in the TWFE equation:</p>
 <p><span class="math display">\[
-\Y = \unit + \time + \beta \ \cov + \eps
+\pCred = \unit + \time + \beta \ \cov + \eps
 \]</span></p>
-<p>This regression will provide estimates for <span class="math inline">\(\widehat\alpha_i\)</span>, <span class="math inline">\(\widehat\gamma_t\)</span>, and <span class="math inline">\(\widehat{\beta}\)</span> using only untreated data. This will allow us to estimate the <span class="math inline">\(\pC\)</span> potential outcomes for all units, including the counterfactuals for the treated units and the observed potential outcomes for untreated units.</p>
-<p><span class="math display">\[
-\blue{\hat{\text{outcome}}^{(\text{control})}} = \widehat\alpha_i + \widehat\gamma_t+ \widehat\beta \ \cov
-\]</span></p>
-<p>Now, let us find the difference between our observed <span class="math inline">\(\text{outcome}_{it}\)</span> values in our dataset and our estimated potential outcomes, which we will call the <strong>residual</strong>:</p>
-<p><span class="math display">\[
-\begin{align}
-\tilde{\text{residual}} &amp; = \Y - \blue{\hat{\text{outcome}}^{(\text{control})}} \\
-&amp; = \Y - \left(\widehat\alpha_i + \widehat\gamma_t + \widehat\beta \ \cov \right)
-\end{align}
-\]</span></p>
-<ul>
-<li>For untreated units, their observed outcome is equal to the potential outcome <span class="math inline">\(\pC\)</span>, so the residual should be 0.</li>
-<li>For treated units, their observed outcome is the potential outcome <span class="math inline">\(\pT\)</span>, so the residual isessentially measuring the individual causal effect.</li>
-</ul>
-<p>Thus, with the full dataset, we run the following regression to obtain the causal effect:</p>
-<p><span class="math display">\[
-\tilde{\text{residual}} = \delta + \blue\tau \ \D + \eps
-\]</span></p>
-<p>The estimated <span class="math inline">\(\blue{\widehat\tau}\)</span> is the estimate of the ATT, that should be free of the issues that TWFE faces in staggered difference-in-differences. The same mechanics can be used to calculate dynamic treatment effects for each time period.</p>
 <div class="small">
-<p>The standard errors will be incorrect, so Gardner (2021) uses a generalised method of moments estimator to correct the standard errors.</p>
+<p>This equation is obtained by taking the <a href="../did/twfe.html">two-way fixed effects</a> equation and plugging in treatment = 0.</p>
 </div>
+<p>Gardner’s 2-stage difference-in-differences uses this equation and framework above, and attempts to estimate <span class="math inline">\(\pCred\)</span>.</p>
+<ol type="1">
+<li>First, Gardner uses only control units (treatment = 0) in a regression to estimate <span class="math inline">\(\time\)</span>, <span class="math inline">\(\unit\)</span>, and <span class="math inline">\(\beta\)</span>. The choice of using only control units is to ensure that the estimation of hypothetical controls is accurate and not influenced by the treatment.</li>
+<li>Then, using the estimated <span class="math inline">\(\widehat\time\)</span>, <span class="math inline">\(\widehat\unit\)</span>, and <span class="math inline">\(\widehat\beta\)</span>, we can estimate <span class="math inline">\(\pCred\)</span> using the equation above. This will give us an estimate of the hypothetical outcome.</li>
+<li>Once we have estimated <span class="math inline">\(\pCred\)</span>, we can calculate the treatment effects for the treated units, as we have an estimate for the hypothetical outcomes.</li>
+<li>Then, we average all the individual treatment effects to get the ATT.</li>
+</ol>
 <p><br></p>
 <p>To implement 2-stage difference-in-differences, we need the <strong>did2s</strong> package:</p>
 <div class="cell">
