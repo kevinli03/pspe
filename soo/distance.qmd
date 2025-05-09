@@ -9,13 +9,13 @@ See the pros and cons of this estimator in the [choosing an estimator](soochoose
 Mia is in our study and receives the treatment. Mia's causal effect is:
 
 $$
-\tau_{\text{Mia}} = \textcolor{purple}{\text{outcome}^{(\text{treated})}_\text{Mia}} - \textcolor{red}{\text{outcome}^{(\text{control})}_\text{Mia}}
+\tau_{\text{Mia}} = \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
 $$
 
-We cannot observe Mia's counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia's counterfactual:
+We cannot observe Mia's counterfactual (in red), since Mia receives the treatment.. However, what we can do is to find an untreated individual similar to Mia to approximate Mia's counterfactual:
 
 $$
-\tau_{\text{Mia}} \approx \textcolor{purple}{\text{outcome}^{(\text{treated})}_\text{Mia}} - \textcolor{purple}{\text{outcome}^{(\text{control})}_\text{Matched individual}} 
+\tau_{\text{Mia}} \approx \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Matched Individual}}
 $$
 
 Distance matching matches an individual that is treated (like Mia) with one that is not treated based on how **close** their confounding values are. We define closeness by Mahalanobis distance:

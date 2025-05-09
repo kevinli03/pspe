@@ -243,8 +243,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Liu et al (2022) Counterfactual</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -275,19 +278,28 @@ window.Quarto = {
 </header>
 
 
-<p>There are two <a href="../did/twfestaggered.html">issues with the two-way fixed effects estimator</a>: forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes a new estimator, the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues.</p>
-<p>First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem. Wooldridge estimates heterogenous effects by simply adding a ton of interaction terms to the TWFE estimator to account for all possible heterogeneity:</p>
+<div class="small">
+<p>For technical details, see <a href="https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3906345">Wooldridge (2021)</a> and <a href="https://academic.oup.com/ectj/article/26/3/C31/7250479">Wooldridge (2023)</a>.</p>
+</div>
+<p>There are two <a href="../did/twfestaggered.html">issues with the two-way fixed effects estimator</a>: forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues by:</p>
+<ol type="1">
+<li>The ETWFE estimator estimates all possible heterogeneous effects separately (by including a lot of interactions in the regression), using only valid comparisons, solving the forbidden comparison problem:</li>
+</ol>
 <p><span class="math display">\[
 \begin{align}
-\Y = &amp; \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{Group} \cdot \D \cdot \text{Time} \right)}^{\text{interactions for heterogeneity}} \\
-&amp; + \underbrace{\blue{\tau_b} \left( \text{Group} \cdot \D \cdot \text{Time} \cdot \cov \right)}_{\text{interactions for heterogeneity with covariates}} + \eps
+Y_{it} = &amp; \ \underbrace{\unit + \time}_{\text{fixed effects}} + \cov + \underbrace{\blue{\tau_1} G_i D_{it}T_t + \blue{\tau_2}G_i D_{it}T_t \b X_{it} }_{\text{interactions for heterogeneity}} + \eps
 \end{align}
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(\text{group}\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\text{time}\)</span> is a categorical variable that indicates the different time periods. <span class="math inline">\(\text{covariates}\)</span> is a vector of values for all covariates for a specific unit <span class="math inline">\(i\)</span> at period <span class="math inline">\(t\)</span>.</p>
+<p><span class="math inline">\(G_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(T_t\)</span> is a categorical variable that indicates the different time periods.</p>
 </div>
-<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_a}\)</span> and <span class="math inline">\(\blue{\tau_b}\)</span> that capture different heterogeneity in treatment effects. Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.</p>
+<ol start="2" type="1">
+<li><p>Many coefficients <span class="math inline">\(\blue{\tau_1}\)</span> and <span class="math inline">\(\blue{\tau_2}\)</span> are estimated that capture different heterogeneity in treatment effects.</p></li>
+<li><p>These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.</p></li>
+</ol>
+<div class="small">
 <p>We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.</p>
+</div>
 <p>Wooldridge’s 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">

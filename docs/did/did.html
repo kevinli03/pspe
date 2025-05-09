@@ -209,8 +209,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Liu et al (2022) Counterfactual</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -253,22 +256,19 @@ window.Quarto = {
 <td><span class="smallcaps">Dec 1992 (After Min. Wage Increase)</span></td>
 </tr>
 <tr class="even">
-<td>20.44</td>
-<td>21.03</td>
+<td><span class="math inline">\(\red{20.44}\)</span></td>
+<td><span class="math inline">\(\green{21.03}\)</span></td>
 </tr>
 </tbody>
 </table>
 <div class="small">
-<p>More specifically, this is employment rates at fast food restaurants.</p>
+<p>Red indicates not treated, green indicates treated.</p>
 </div>
 <p>Our treatment effect after the raise of minimum wage in December 1992 would be:</p>
 <p><span class="math display">\[
-\begin{align}
-\tau_\text{ATT} = &amp; \ \text{employment with min. wage increase (Dec 92)} \\
-&amp; -\red{\text{hypothetical employment without min. wage increase (Dec 92)}}
-\end{align}
+\tau_\text{Dec92} = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}}
 \]</span></p>
-<p>We <strong>don’t</strong> observe the hypothetical in December 1992 without the minimum wage increase.</p>
+<p>We <strong>don’t</strong> observe the counterfactual in December 1992 without the minimum wage increase.</p>
 <div class="small">
 <p>We cannot use March 1992 because there could have been something that happened between March and December that changes the <strong>trend</strong> in employment (like a recession).</p>
 </div>
@@ -284,8 +284,8 @@ window.Quarto = {
 <td><span class="smallcaps">Dec 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
 </tr>
 <tr class="even">
-<td>23.33</td>
-<td>21.17</td>
+<td><span class="math inline">\(\red{23.33}\)</span></td>
+<td><span class="math inline">\(\red{21.17}\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -304,8 +304,8 @@ window.Quarto = {
 <td><span class="smallcaps">Dec 92 (NJ, Hypothetical No Minimum Wage Increase)</span></td>
 </tr>
 <tr class="even">
-<td>20.44</td>
-<td>20.44 - 2.16</td>
+<td><span class="math inline">\(\red{20.44}\)</span></td>
+<td><span class="math inline">\(\red{\text{March 92} - 2.16}\)</span></td>
 </tr>
 </tbody>
 </table>
@@ -315,8 +315,8 @@ window.Quarto = {
 <p>Now, we have an approximation of New Jersey’s missing hypothetical outcome, so we can now estimate the causal effect.</p>
 <p><span class="math display">\[
 \begin{align}
-\tau_\text{Dec92} = &amp; \ \text{employment with min. wage increase (Dec 92)} \\
-&amp; -{\text{(estimate) employment without min. wage increase (Dec 92)}}
+\tau_\text{Dec92} &amp; = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}} \\
+&amp; = \green{Y_\text{Dec92}^{(1)}} - \left(\red{Y_\text{Mar92}^{(0)}} - 2.16 \right)
 \end{align}
 \]</span></p>
 <p><br></p>

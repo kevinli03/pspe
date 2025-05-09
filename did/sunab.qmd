@@ -2,23 +2,27 @@
 title: "Sun and Abraham (2021) Estimator"
 ---
 
-There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator that solves both of these issues.
+::: small
+For technical details, see [Sun and Abraham (2021)](https://www.sciencedirect.com/science/article/abs/pii/S030440762030378X) or [this github page](https://asjadnaqvi.github.io/DiD/docs/code_r/07_sunab_r/).
+:::
 
-First, the estimator divides all units into groups based on their initial treatment implementation. Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons.
+There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator that solves both of these issues by:
 
-Sun and Abraham estimate dynamic ATT's for each group by including interaction terms for each initial treatment period grouping and time period in a regression model.
+1.  The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$.
+
+2.  Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $\widetilde T_{it}$ with $G_i$.
 
 $$
-\Y = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau} \left( \text{group} \cdot \text{rel.time} \right)}_{\text{interact for heterogeneity}} +  \beta \ \cov + \eps
+Y_{it} = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau}G_i \widetilde T_{it}}_{\text{interactions}} +  \cov + \eps_{it}
 $$
 
 ::: small
-$\text{group}$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{rel.time}$ is a categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is. $\text{covariates}$ is a vector of values for all covariates for a specific unit $i$ at period $t$. Essentially, thisinteracts group with relative treatment time.
+$G_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\widetilde T_{it}$ is a relative time categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is.
 :::
 
-This model will produce many coefficients $\blue\tau$ (in fact, one for each post-treatment time period for each initial treatment year group).
+3.  This model will produce many coefficients $\blue\tau$ (in fact, one for each post-treatment time period for each initial treatment year group).
 
-Finally, these separate heterogeneous effects are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting based on how frequent each initial treatment period group appears in our sample. This solves the weighting problem with TWFE.
+4.  Finally, these separate heterogeneous effects are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting based on how frequent each initial treatment period group appears in our sample. This solves the weighting problem with TWFE.
 
 Because of the focus of Sun and Abraham on dynamic treatment effects, it is often the go-to estimator for dynamic treatment effects and checking parallel trends.
 

@@ -298,11 +298,14 @@ window.Quarto = {
 <p>However, there might be differences between these clusters. We might want to make our model be able to account for these differences between clusters. One way to account for differences between groups is to essentially run different models for different groups:</p>
 <p><span class="math display">\[
 \begin{align}
-\Y^\text{(group 1)} &amp; = \beta_0^\text{(group 1)} + \beta_1^\text{(group 1)} \X^\text{(group 1)} + \eps \\
-\Y^\text{(group 2)} &amp; = \beta_0^\text{(group 2)} + \beta_1^\text{(group 2)} \X^\text{(group 2)} + \eps \\
-\Y^\text{(group 3)} &amp; = \beta_0^\text{(group 3)} + \beta_1^\text{(group 3)} \X^\text{(group 3)} + \eps \\
+\eta^{(g=1)} &amp; = \beta_0^{(g=1)} + \beta_1^{(g=1)} \xi^{(g= 1)} + \eps \\
+\eta^{(g=2)} &amp; = \beta_0^{(g=2)} + \beta_1^{(g=2)} \xi^{(g= 2)} + \eps \\
+\eta^{(g=3)} &amp; = \beta_0^{(g=3)} + \beta_1^{(g=3)} \xi^{(g= 3)} + \eps \\
 \end{align}
 \]</span></p>
+<div class="small">
+<p>Where <span class="math inline">\(g\)</span> stands for group.</p>
+</div>
 <p>This essentially means for each group, they have their own <span class="math inline">\(\beta_0\)</span> and <span class="math inline">\(\beta_1\)</span> estimates. Since we know <span class="math inline">\(\beta_1\)</span> is the relationship between input and output, this essentially allows the relationship between input and output to <strong>vary</strong> by group.</p>
 <div class="small">
 <p>For example, this would allow the relationship between education and income to vary by country.</p>

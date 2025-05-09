@@ -9,36 +9,28 @@ See the pros and cons of this estimator in the [choosing an estimator](soochoose
 From [selection on observables](soo.qmd), we know that our causal effect is a weighted average:
 
 $$
-\tau_\text{ATE} = \sum\tau (\b x) Pr(\b x)
+\ate = \sum\tau_\text{X} \cdot Pr( X)
 $$
 
 Notice how the weights are the probability of the confounder values of $\b x$. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:
 
 $$
-\hat\beta_\text{OLS} = \sum \tau(\b x) \underbrace{\frac{Var(\D | \b x)Pr(\b x)}{\sum Var(\D | \b x^c)Pr(\b x^c)}}_{\text{weight}}
+\hat\beta_\text{OLS} = \sum \tau_X\cdot \underbrace{\frac{Var(D_i | X)Pr(X)}{\sum Var(D_i | X^c)Pr( X^c)}}_{\text{weight}}
 $$
 
 ::: small
-Where $\b x^c$ is the complement (not $\b x$).
+Where $X^c$ is the complement (not $X$).
 :::
 
-These weights are not equivalent to the selection on observables $\tau_{ATE}$. Thus, if not all $\tau(\b x)$ are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.
+These weights are not equivalent to the selection on observables $\ate$. Thus, if not all $\tau_\text{X}$ are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.
 
 Heterogeneity is present in almost all situations we are interested in. [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) proposes the **fully interacted estimator**, which allows for consistent estimation of the ATE even with heterogeneity:
 
 $$
-\begin{align}
-\Y = & \ \alpha + \blue\tau\ \D \\
-& + \beta\left( \cov - \text{avg.covariates}\right) \\
-& + \gamma\ \D \left( \cov - \text{avg.covariates}\right) + \eps
-\end{align}
+Y_i = \alpha + D_i\ \ate + \underbrace{(\b X_i - \b{\mean X})'\b\beta + D_i(\b X_i - \b{\mean X})'\b\gamma}_{\text{interactions with de-meaned covariates}}+ \eps_i
 $$
 
-::: small
-Where avg.covariates is the average value of all covariates for all individuals. Essentially, the first line is our simple regression, our second line is controlling for confounders, and the third line is controlling for interactions between treatment and confounders.
-:::
-
-The new OLS estimate of $\blue{\hat\tau}$ in this estimator will technically still be a biased estimator of $\tau_{ATE}$, but the bias is negligible.
+The new OLS estimate of $\ate$ in this estimator will technically still be a biased estimator of the ATE, but the bias is negligible.
 
 <br />
 

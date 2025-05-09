@@ -2,24 +2,31 @@
 title: "Wooldridge (2021) Extended Two-Way Fixed Effects"
 ---
 
-There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes a new estimator, the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues.
+::: small
+For technical details, see [Wooldridge (2021)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3906345) and [Wooldridge (2023)](https://academic.oup.com/ectj/article/26/3/C31/7250479).
+:::
 
-First, the ETWFE estimator estimates all possible heterogeneous effects separately, using only valid comparisons, solving the forbidden comparison problem. Wooldridge estimates heterogenous effects by simply adding a ton of interaction terms to the TWFE estimator to account for all possible heterogeneity:
+There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues by:
+
+1.  The ETWFE estimator estimates all possible heterogeneous effects separately (by including a lot of interactions in the regression), using only valid comparisons, solving the forbidden comparison problem:
 
 $$
 \begin{align}
-\Y = & \ \overbrace{\unit + \time}^{\text{fixed effects}} + \beta \ \cov + \overbrace{\blue{\tau_a} \left( \text{Group} \cdot \D \cdot \text{Time} \right)}^{\text{interactions for heterogeneity}} \\
-& + \underbrace{\blue{\tau_b} \left( \text{Group} \cdot \D \cdot \text{Time} \cdot \cov \right)}_{\text{interactions for heterogeneity with covariates}} + \eps
+Y_{it} = & \ \underbrace{\unit + \time}_{\text{fixed effects}} + \cov + \underbrace{\blue{\tau_1} G_i D_{it}T_t + \blue{\tau_2}G_i D_{it}T_t \b X_{it} }_{\text{interactions for heterogeneity}} + \eps
 \end{align}
 $$
 
 ::: small
-$\text{group}$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\text{time}$ is a categorical variable that indicates the different time periods. $\text{covariates}$ is a vector of values for all covariates for a specific unit $i$ at period $t$.
+$G_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $T_t$ is a categorical variable that indicates the different time periods.
 :::
 
-This model will produce many coefficients $\blue{\tau_a}$ and $\blue{\tau_b}$ that capture different heterogeneity in treatment effects. Then, these separate heterogeneous effects are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.
+2.  Many coefficients $\blue{\tau_1}$ and $\blue{\tau_2}$ are estimated that capture different heterogeneity in treatment effects.
 
+3.  These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.
+
+::: small
 We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.
+:::
 
 Wooldridge's 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.
 

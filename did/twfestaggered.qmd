@@ -14,7 +14,7 @@ Two-way fixed effects essentially estimates 4 different differences, shown below
 
 ![](images/clipboard-2200187195.png){fig-align="center" width="75%"}
 
-The actual TWFE result is a weighted average of these differences. The weights are a function of mainly the telative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.
+The actual TWFE estimate is a weighted average of these differences. The weights are a function of mainly the telative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.
 
 ![](images/clipboard-3589189122.png){fig-align="center" width="55%"}
 

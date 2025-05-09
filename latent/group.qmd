@@ -8,11 +8,15 @@ However, there might be differences between these clusters. We might want to mak
 
 $$
 \begin{align}
-\Y^\text{(group 1)} & = \beta_0^\text{(group 1)} + \beta_1^\text{(group 1)} \X^\text{(group 1)} + \eps \\
-\Y^\text{(group 2)} & = \beta_0^\text{(group 2)} + \beta_1^\text{(group 2)} \X^\text{(group 2)} + \eps \\
-\Y^\text{(group 3)} & = \beta_0^\text{(group 3)} + \beta_1^\text{(group 3)} \X^\text{(group 3)} + \eps \\
+\eta^{(g=1)} & = \beta_0^{(g=1)} + \beta_1^{(g=1)} \xi^{(g= 1)} + \eps \\
+\eta^{(g=2)} & = \beta_0^{(g=2)} + \beta_1^{(g=2)} \xi^{(g= 2)} + \eps \\
+\eta^{(g=3)} & = \beta_0^{(g=3)} + \beta_1^{(g=3)} \xi^{(g= 3)} + \eps \\
 \end{align}
 $$
+
+::: small
+Where $g$ stands for group.
+:::
 
 This essentially means for each group, they have their own $\beta_0$ and $\beta_1$ estimates. Since we know $\beta_1$ is the relationship between input and output, this essentially allows the relationship between input and output to **vary** by group.
 

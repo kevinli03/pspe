@@ -243,8 +243,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Liu et al (2022) Counterfactual</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -278,26 +281,39 @@ window.Quarto = {
 <div class="small">
 <p>See <a href="https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html">Kyle Butts’</a> github page for more info on this estimator. <a href="https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/">Asjad Naqvi</a> also has a helpful page.</p>
 </div>
-<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> regarding “forbidden comparisons” and “weighting” problems by just not doing comparisons and weighting.</p>
-<p>Instead, Gardner (2021) proposes to calculate the treatment effects directly, as discussed in the introduction to <a href="../did/did.html">difference-in-differences</a>:</p>
+<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> by just not doing comparisons and weighting. Instead, we estimate the missing counterfactuals and then calculate the treatment effect.</p>
+<p>Thus, the goal of 2-stage difference-in-differences is to estimate <span class="math inline">\(\pCred\)</span>. Using the idea of two-way fixed effects, we can derive a model for these missing counterfactuals:</p>
 <p><span class="math display">\[
-\tau_\text{ATT} = \pT - \pCred
-\]</span></p>
-<p>However, the hypothetical control outcome (in red) for treated units in the post-period are unobserved. Thus, the goal of 2-stage difference-in-differences is to estimate <span class="math inline">\(\pCred\)</span>.</p>
-<p>By definition, <span class="math inline">\(\pCred\)</span> is the hypothetical world if treatment never occurred. Thus, using the idea of two-way fixed effects, we should be able to calculate <span class="math inline">\(\pCred\)</span> if we simply set treatment = 0 in the TWFE equation:</p>
-<p><span class="math display">\[
-\pCred = \unit + \time + \beta \ \cov + \eps
+\pCred = \unit + \time + \cov + \eps_{it}
 \]</span></p>
 <div class="small">
-<p>This equation is obtained by taking the <a href="../did/twfe.html">two-way fixed effects</a> equation and plugging in treatment = 0.</p>
+<p>This equation is obtained by taking the <a href="../did/twfe.html">two-way fixed effects</a> equation and plugging in <span class="math inline">\(D_{it} = 0\)</span>.</p>
 </div>
 <p>Gardner’s 2-stage difference-in-differences uses this equation and framework above, and attempts to estimate <span class="math inline">\(\pCred\)</span>.</p>
 <ol type="1">
-<li>First, Gardner uses only control units (treatment = 0) in a regression to estimate <span class="math inline">\(\time\)</span>, <span class="math inline">\(\unit\)</span>, and <span class="math inline">\(\beta\)</span>. The choice of using only control units is to ensure that the estimation of hypothetical controls is accurate and not influenced by the treatment.</li>
-<li>Then, using the estimated <span class="math inline">\(\widehat\time\)</span>, <span class="math inline">\(\widehat\unit\)</span>, and <span class="math inline">\(\widehat\beta\)</span>, we can estimate <span class="math inline">\(\pCred\)</span> using the equation above. This will give us an estimate of the hypothetical outcome.</li>
+<li>First, Gardner uses only control units (<span class="math inline">\(D_{it} = 0\)</span>) in a regression to estimate <span class="math inline">\(\time\)</span>, <span class="math inline">\(\unit\)</span>, and <span class="math inline">\(\beta\)</span>. The choice of using only control units is to ensure that the estimation of hypothetical controls is accurate and not influenced by the treatment.</li>
+</ol>
+<p><span class="math display">\[
+Y_{it|D = 0} = \unit + \time + \cov + \eps_{it}
+\]</span></p>
+<ol start="2" type="1">
+<li>Using estimated <span class="math inline">\(\widehat\unit\)</span>, <span class="math inline">\(\widehat\time\)</span>, and <span class="math inline">\(\widehat\beta\)</span>, we can estimate <span class="math inline">\(\pCred\)</span> counterfactuals for the treated.</li>
+</ol>
+<p><span class="math display">\[
+\red{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
+\]</span></p>
+<ol start="3" type="1">
 <li>Once we have estimated <span class="math inline">\(\pCred\)</span>, we can calculate the treatment effects for the treated units, as we have an estimate for the hypothetical outcomes.</li>
+</ol>
+<p><span class="math display">\[
+\att = \pT - \pCred
+\]</span></p>
+<ol start="4" type="1">
 <li>Then, we average all the individual treatment effects to get the ATT.</li>
 </ol>
+<div class="small">
+<p>Steps 3-4 are a simplification - Gardner uses a second regression to calculate the final treatment effects, rather than directly computing the treatment effects with the estimated counterfactual.</p>
+</div>
 <p><br></p>
 <p>To implement 2-stage difference-in-differences, we need the <strong>did2s</strong> package:</p>
 <div class="cell">

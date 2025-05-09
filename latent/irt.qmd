@@ -6,20 +6,20 @@ Item Response Theory (IRT) is an extension of factor analysis, that deals with c
 
 ::: center-graph
 ```{dot}
-//| fig-width: 4
+//| fig-width: 4.5
 //| fig-height: 1.4
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F [shape=box, pos = "0,0!", label="Latent Factor"]
-  X1 [shape=box, pos = "2,0!", label="Item 1"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2"]
-  X3 [shape=box, pos="1,0!", label="Item 3"]
+  F [shape=box, pos = "0,0!", label=<<FONT FACE="Helvetica">&xi; (Unobserved)</FONT>>]
+  X1 [shape=box, pos = "2,0!", label="X1 (Observed)"]
+  X2 [shape=box, pos = "1,-2!", label="X2 (Observed)"]
+  X3 [shape=box, pos="1,0!", label="X3 (Observed)"]
 
   // Edges
-  {F -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F -> X1 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F -> X2 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F -> X3 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
   
   graph [nodesep=0.5, ranksep=0.5]
 
@@ -31,9 +31,9 @@ We must have at least 3 observed items for estimation purposes. The items are as
 
 $$
 \begin{align}
-\overbrace{\text{logit}[Pr(\I_1 = 1 \ | \ \F)]}^{\text{logit}=\log[x/(1-x)]} & = \tau_1 + \lambda_1 \ \F \\
-\text{logit}[Pr(\I_2 = 1 \ | \ \F)] & = \tau_2 + \lambda_2 \ \F \\
-\text{logit}[Pr(\I_3 = 1 \ | \ \F)] & = \tau_3 + \lambda_3 \ \F \\
+\text{logit}[Pr(X_1 = 1 \ | \ \xi)] & = \tau_1 + \lambda_1 \ \xi \\
+\text{logit}[Pr(X_2 = 1 \ | \ \xi)] & = \tau_2 + \lambda_2 \ \xi \\
+\text{logit}[Pr(X_3 = 1 \ | \ \xi)] & = \tau_3 + \lambda_3 \ \xi \\
 \end{align}
 $$
 

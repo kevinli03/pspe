@@ -296,7 +296,7 @@ window.Quarto = {
 
 <p>A <strong>lagged response model</strong> is a regression model that says that the outcome variable not only depends on the input variables, but also previous values of the outcome from the past.</p>
 <p><span class="math display">\[
-\Y_{t} = \beta_0 + \underbrace{\beta_1\ \X_{1,t} + \beta_2\ \X_{2,t}}_{\text{from current time}} + \underbrace{\beta_3 \ \Y_{t-1}}_{\text{from prior time}} + \eps_{t}
+\eta_{it} = \beta_0 + \underbrace{\beta_1 X_{1,it} + \beta_2 X_{2,it}}_{t} + \underbrace{\beta_3 \ \eta_{i,t-1}}_{t-1} + \eps_{it}
 \]</span></p>
 <div class="center-graph">
 <div class="cell" data-fig-width="6" data-fig-height="1.2" data-layout-align="default">
@@ -304,45 +304,45 @@ window.Quarto = {
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="576" height="115" viewbox="0.00 0.00 258.86 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="576" height="115" viewbox="0.00 0.00 188.00 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
 <title>example2</title>
 <!-- Y1 -->
 <g id="node1" class="node">
 <title>Y1</title>
-<polygon fill="none" stroke="black" points="95.54,-36 0.15,-36 0.15,0 95.54,0 95.54,-36"></polygon>
-<text text-anchor="middle" x="47.85" y="-13.8" font-family="Times,serif" font-size="14.00">Outcome (t-1)</text>
+<polygon fill="none" stroke="black" points="54,-36 0,-36 0,0 54,0 54,-36"></polygon>
+<text text-anchor="start" x="8.33" y="-13.8" font-family="Helvetica,sans-Serif" font-size="14.00">η (t-1)</text>
 </g>
 <!-- Y2 -->
 <g id="node3" class="node">
 <title>Y2</title>
-<polygon fill="none" stroke="black" points="250.88,-36 166.82,-36 166.82,0 250.88,0 250.88,-36"></polygon>
-<text text-anchor="middle" x="208.85" y="-13.8" font-family="Times,serif" font-size="14.00">Outcome (t)</text>
+<polygon fill="none" stroke="black" points="180,-36 126,-36 126,0 180,0 180,-36"></polygon>
+<text text-anchor="start" x="140.56" y="-13.8" font-family="Helvetica,sans-Serif" font-size="14.00">η (t)</text>
 </g>
 <!-- Y1&#45;&gt;Y2 -->
 <g id="edge3" class="edge">
 <title>Y1-&gt;Y2</title>
-<path fill="none" stroke="black" d="M95.72,-18C114.81,-18 136.85,-18 156.38,-18"></path>
-<polygon fill="black" stroke="black" points="156.63,-21.5 166.63,-18 156.63,-14.5 156.63,-21.5"></polygon>
-<text text-anchor="middle" x="131.26" y="-25.2" font-family="Times,serif" font-size="14.00">Lag</text>
+<path fill="none" stroke="black" d="M54.03,-18C71.93,-18 95.65,-18 115.38,-18"></path>
+<polygon fill="black" stroke="black" points="115.58,-21.5 125.58,-18 115.58,-14.5 115.58,-21.5"></polygon>
+<text text-anchor="middle" x="90" y="-25.2" font-family="Times,serif" font-size="14.00">Lag</text>
 </g>
 <!-- X1 -->
 <g id="node2" class="node">
 <title>X1</title>
-<polygon fill="none" stroke="black" points="173.11,-109 82.58,-109 82.58,-73 173.11,-73 173.11,-109"></polygon>
-<text text-anchor="middle" x="127.85" y="-86.8" font-family="Times,serif" font-size="14.00">Input 1 and 2</text>
+<polygon fill="none" stroke="black" points="127.94,-109 50.06,-109 50.06,-73 127.94,-73 127.94,-109"></polygon>
+<text text-anchor="middle" x="89" y="-86.8" font-family="Times,serif" font-size="14.00">X1 and X2</text>
 </g>
 <!-- X1&#45;&gt;Y1 -->
 <g id="edge1" class="edge">
 <title>X1-&gt;Y1</title>
-<path fill="none" stroke="black" d="M108.48,-72.81C98.36,-63.83 85.81,-52.69 74.76,-42.89"></path>
-<polygon fill="black" stroke="black" points="76.84,-40.05 67.03,-36.03 72.19,-45.28 76.84,-40.05"></polygon>
+<path fill="none" stroke="black" d="M73.99,-72.81C66.38,-64.09 56.99,-53.34 48.61,-43.75"></path>
+<polygon fill="black" stroke="black" points="51.08,-41.26 41.87,-36.03 45.81,-45.86 51.08,-41.26"></polygon>
 </g>
 <!-- X1&#45;&gt;Y2 -->
 <g id="edge2" class="edge">
 <title>X1-&gt;Y2</title>
-<path fill="none" stroke="black" d="M147.45,-72.81C157.7,-63.83 170.41,-52.69 181.6,-42.89"></path>
-<polygon fill="black" stroke="black" points="184.21,-45.25 189.42,-36.03 179.59,-39.99 184.21,-45.25"></polygon>
+<path fill="none" stroke="black" d="M104.49,-72.81C112.43,-64 122.24,-53.13 130.95,-43.46"></path>
+<polygon fill="black" stroke="black" points="133.55,-45.8 137.65,-36.03 128.35,-41.11 133.55,-45.8"></polygon>
 </g>
 </g>
 </svg>
@@ -352,9 +352,9 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Recall the response variable is itself a latent variable, measured with observed items. This also implies a measurement model relating the latent responsewith each observed item:</p>
+<p>Recall the response variable is itself a latent variable, measured with observed items. This also implies a measurement model relating the latent response with each observed item:</p>
 <p><span class="math display">\[
-\I_{t} = \tau_t + \lambda_t\ \Y + \eps_{t}
+\b X_{t} = \b\tau_t + \b\eta'\b\lambda_t + \b\delta_{t}
 \]</span></p>
 <div class="small">
 <p>This is just the model for one (of many) items. Note how the parameters have the subscript <span class="math inline">\(t\)</span> - this implies a different measurement model for each item, at each time period.</p>

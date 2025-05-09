@@ -6,7 +6,7 @@ title: "Multiple Latent Factors"
 Make sure you have read the previous page on [factor analysis](factor.qmd) before this.
 :::
 
-Factor analysis can work with multiple latent factors.
+Factor analysis can work with multiple latent factors $\xi_1, \xi_2, \dots$.
 
 ::: center-graph
 ```{dot}
@@ -15,20 +15,20 @@ Factor analysis can work with multiple latent factors.
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F1 [shape=box, pos = "0,0!", label="Latent Factor 1"]
-  F2 [shape=box, pos = "0,0!", label="Latent Factor 2"]
-  X1 [shape=box, pos = "2,0!", label="Item 1"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2"]
-  X3 [shape=box, pos="1,0!", label="Item 3"]
-  X4 [shape=box, pos="1,0!", label="Item 4"]
+  F1 [shape=box, label=<<FONT FACE="Helvetica">&xi; 1</FONT>>]
+  F2 [shape=box, label=<<FONT FACE="Helvetica">&xi; 1</FONT>>]
+  X1 [shape=box, pos = "2,0!", label="X1"]
+  X2 [shape=box, pos = "1,-2!", label="X2"]
+  X3 [shape=box, pos="1,0!", label="X3"]
+  X4 [shape=box, pos="1,0!", label="X4"]
 
   // Edges
-  {F1 -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F1 -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F1 -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F2 -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F2 -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F2 -> X4 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F1 -> X1 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F1 -> X2 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F1 -> X3 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F2 -> X2 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F2 -> X3 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F2 -> X4 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
   {rank=same; F1 -> F2 [dir=both, label="Correlation"]}
   
   graph [nodesep=0.5, ranksep=0.5]
@@ -47,8 +47,8 @@ Just like in single factor analysis, we use a linear regression to express the r
 
 $$
 \begin{align}
-\I_1 & = \tau_1 + \lambda_{1}^{(1)}\ \F_1 + \lambda_{1}^{(2)}\ \F_2 + \dots + \delta_1 \\
-\I_2 & = \tau_2 + \lambda_{2}^{(1)}\ \F_1 + \lambda_{2}^{(2)}\ \F_2 + \dots + \delta_2 \\
+X_1 & = \tau_1 + \lambda_{1}^{(1)}\ \xi_1 + \lambda_{1}^{(2)}\ \xi_2 + \dots + \delta_1 \\
+X_2 & = \tau_2 + \lambda_{2}^{(1)}\ \xi_1 + \lambda_{2}^{(2)}\ \xi_2 + \dots + \delta_2 \\
 & \vdots \qquad \qquad \vdots \qquad \qquad \vdots \qquad \qquad \vdots \\
 \end{align}
 $$

@@ -299,11 +299,11 @@ window.Quarto = {
 </div>
 <p>Recall our measurement models linking each item <span class="math inline">\(i\)</span> to our factor:</p>
 <p><span class="math display">\[
-\I_i = \tau_i + \lambda_i \ \F + \delta_i
+X_i = \tau_i + \lambda_i\ \xi + \delta_i
 \]</span></p>
 <p>The the error term has a mean of 0 and a variance of <span class="math inline">\(\theta_i\)</span>. The variance of each item can be shown to equal:</p>
 <p><span class="math display">\[
-Var(\I_i) = \lambda_i^2 + \theta_i
+Var(X_i) = \lambda_i^2 + \theta_i
 \]</span></p>
 <p>Thus, this allows us to essentially “split” the variance in any item into two parts:</p>
 <ol type="1">
@@ -312,15 +312,15 @@ Var(\I_i) = \lambda_i^2 + \theta_i
 </ol>
 <p>We can also calculate the percentage/proportion of variance in item <span class="math inline">\(i\)</span> that our factor explains, called the <strong>reliability</strong>:</p>
 <p><span class="math display">\[
-\text{Reliability} = \frac{\lambda_i^2}{Var(\text{item}_i)} = \frac{\lambda_i^2}{\lambda_i^2+\theta_i}
+\text{Reliability} = \frac{\lambda_i^2}{Var(X_i)} = \frac{\lambda_i^2}{\lambda_i^2+\theta_i}
 \]</span></p>
 <div class="small">
 <p>If all items are standarised to a standard normal, then <span class="math inline">\(\lambda_i^2\)</span> is equal to the reliability.</p>
 </div>
 <p>Items with higher reliability are considered more “accurate” measures of the latent variable factor. They thus ensure better model estimation - and when a factor has low relaibility, we will often drop it.</p>
-<p><strong>Factor scores</strong> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model.</p>
+<p><strong>Factor scores</strong> <span class="math inline">\(\widehat\xi\)</span> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model.</p>
 <p><span class="math display">\[
-\text{Factor Scores} = \omega_0 + \omega_1 \ \I_1 + \omega_2 \  \I_2 + \dots
+\widehat\xi = \omega_0 + \omega_1 X_1 + \omega_2 X_2 + \dots
 \]</span></p>
 <p>The weights are calculated based on the communalities. The items with the highest communalities tend to get the strongest weights, while the items with the least communalities get the smallest weights.</p>
 <p><br></p>

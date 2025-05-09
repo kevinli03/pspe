@@ -11,9 +11,9 @@ Our issue in causal inference is that a confounder is causing pre-existing diffe
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  D [shape=box, pos = "0,0!", label="Receiving Scholarship"]
+  D [shape=box, pos = "0,0!", label="Receiving Scholarship (D)"]
   X [shape=box, pos = "2,0!", label="Intellegence (Confounder)"]
-  Y [shape=box, pos = "1,-1!", label="University Grades"]
+  Y [shape=box, pos = "1,-1!", label="University Grades (Y)"]
 
   // Edges
   {rank=same; D -> Y [label="Causal Effect"]}
@@ -30,12 +30,12 @@ By definition, as the confounder **changes**, your likelihood of getting treatme
 
 These issues occur when the confounder **changes** in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.
 
-For example, let's assume that intellegence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intellegence:
+For example, let's assume that intelligence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intelligence:
 
 $$
 \begin{align}
-\tau_\text{smart} & = \purple{\text{grades}_\text{smart}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{smart}^{(\text{no scholarship})}}\\
-\tau_\text{dumb} & = \purple{\text{grades}_\text{dumb}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{dumb}^{(\text{no scholarship})}}
+\tau_\text{smart} & = \green{Y_\text{smart}^{(1)}} - \red{Y_\text{smart}^{(0)}}\\
+\tau_\text{dumb} & = \green{Y_\text{dumb}^{(1)}} - \red{Y_\text{dumb}^{(0)}}
 \end{align}
 $$
 
@@ -49,22 +49,18 @@ $$
 The weights of this weighted average are the probability/frequency of that value of the confounder.
 :::
 
-Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies. Given a set of confounders $\set X$, we first calculate the treatment effect within a specific vector of confounder values $\b x$:
+Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies.
 
 $$
-\tau(\b x) = (\T - \C)| \b x
+\tau = \sum_X \tau_\text{X} \cdot Pr(X)
 $$
 
-And then, we find the weighted average for the total effect, with the weights being the frequency of that specific vector of confounder values:
-
-$$
-\tau_{ATE} = \sum \tau(\b x) \cdot Pr(\b x)
-$$
+<br />
 
 For selection on observables to work, we need to meet 3 assumptions:
 
 |                                                         |                                                                                                                                                           |
-|--------------------|----------------------------------------------------|
+|---------------------|---------------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                                                 |
 | [Conditional Ignorability]{.mark}                       | This means that we must account for **all** possible confounders (cannot miss a single one).                                                              |
 | [Common Support]{.mark}                                 | This means no one can have a 100% chance of being in treatment or control. They always have a chance to be in either, no matter their confounding values. |

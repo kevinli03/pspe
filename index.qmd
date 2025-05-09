@@ -12,9 +12,10 @@ This repository contains resources on causal inference and social statistics, sp
 
 R-code for implementation is included. There are some stuff that doesn't fit into any category, which I have included in the home page sidebar.
 
+<br />
+
 **Notation Notes**:
 
--   I try to avoid too many letters/variable shorthands, and try to use words as much as possible to facilitate easy understanding of equations.
+-   For potential outcomes, green means under treatment, and red means under control.
 -   $i$ refers to units within our data, and $t$ refers to time periods.
 -   Greek letters are used for **parameters** that need to be estimated. I typically use $\beta$ for most coefficients multiplied to variables, $\tau$ to represent causal effects, and $\eps$ to represent the error term.
--   I color code potential outcomes in purple, counterfactual potential outcomes in red, and other notable things in blue.

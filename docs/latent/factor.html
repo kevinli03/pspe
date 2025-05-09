@@ -294,60 +294,60 @@ window.Quarto = {
 </header>
 
 
-<p>Factor analysis is a way to model a unobserved continuous latent variable, based on a bunch of continuous observed items.</p>
+<p>Factor analysis is a way to model a unobserved continuous latent variable <span class="math inline">\(\xi\)</span>, based on a bunch of continuous observed items <span class="math inline">\(X_1, X_2, \dots\)</span>.</p>
 <div class="center-graph">
-<div class="cell" data-fig-width="4" data-fig-height="1.2" data-layout-align="default">
+<div class="cell" data-fig-width="4.5" data-fig-height="1.4" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="384" height="115" viewbox="0.00 0.00 436.63 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="432" height="134" viewbox="0.00 0.00 379.58 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
 <title>example2</title>
 <!-- F -->
 <g id="node1" class="node">
 <title>F</title>
-<polygon fill="none" stroke="black" points="326,-124.8 102.62,-124.8 102.62,-88.8 326,-88.8 326,-124.8"></polygon>
-<text text-anchor="middle" x="214.31" y="-102.6" font-family="Times,serif" font-size="14.00">Latent Factor Variable (Unobserved)</text>
+<polygon fill="none" stroke="black" points="242.27,-124.8 129.31,-124.8 129.31,-88.8 242.27,-88.8 242.27,-124.8"></polygon>
+<text text-anchor="start" x="137.55" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">ξ (Unobserved)</text>
 </g>
 <!-- X1 -->
 <g id="node2" class="node">
 <title>X1</title>
-<polygon fill="none" stroke="black" points="118.44,-36 0.19,-36 0.19,0 118.44,0 118.44,-36"></polygon>
-<text text-anchor="middle" x="59.31" y="-13.8" font-family="Times,serif" font-size="14.00">Item 1 (Observed)</text>
+<polygon fill="none" stroke="black" points="99.38,-36 0.21,-36 0.21,0 99.38,0 99.38,-36"></polygon>
+<text text-anchor="middle" x="49.79" y="-13.8" font-family="Times,serif" font-size="14.00">X1 (Observed)</text>
 </g>
 <!-- F&#45;&gt;X1 -->
 <g id="edge1" class="edge">
 <title>F-&gt;X1</title>
-<path fill="none" stroke="black" d="M183.69,-88.65C159.38,-75.04 125.22,-55.91 98.85,-41.14"></path>
-<polygon fill="black" stroke="black" points="100.31,-37.95 89.87,-36.11 96.89,-44.05 100.31,-37.95"></polygon>
-<text text-anchor="start" x="151.31" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M158.92,-88.65C137.78,-75.16 108.14,-56.24 85.09,-41.53"></path>
+<polygon fill="black" stroke="black" points="86.92,-38.54 76.6,-36.11 83.15,-44.44 86.92,-38.54"></polygon>
+<text text-anchor="start" x="130.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
 </g>
 <!-- X2 -->
 <g id="node3" class="node">
 <title>X2</title>
-<polygon fill="none" stroke="black" points="273.44,-36 155.19,-36 155.19,0 273.44,0 273.44,-36"></polygon>
-<text text-anchor="middle" x="214.31" y="-13.8" font-family="Times,serif" font-size="14.00">Item 2 (Observed)</text>
+<polygon fill="none" stroke="black" points="235.38,-36 136.21,-36 136.21,0 235.38,0 235.38,-36"></polygon>
+<text text-anchor="middle" x="185.79" y="-13.8" font-family="Times,serif" font-size="14.00">X2 (Observed)</text>
 </g>
 <!-- F&#45;&gt;X2 -->
 <g id="edge2" class="edge">
 <title>F-&gt;X2</title>
-<path fill="none" stroke="black" d="M214.31,-88.65C214.31,-76.52 214.31,-60.02 214.31,-46.12"></path>
-<polygon fill="black" stroke="black" points="217.81,-46.11 214.31,-36.11 210.81,-46.11 217.81,-46.11"></polygon>
-<text text-anchor="start" x="214.31" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M185.79,-88.65C185.79,-76.52 185.79,-60.02 185.79,-46.12"></path>
+<polygon fill="black" stroke="black" points="189.29,-46.11 185.79,-36.11 182.29,-46.11 189.29,-46.11"></polygon>
+<text text-anchor="start" x="185.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
 </g>
 <!-- X3 -->
 <g id="node4" class="node">
 <title>X3</title>
-<polygon fill="none" stroke="black" points="428.44,-36 310.19,-36 310.19,0 428.44,0 428.44,-36"></polygon>
-<text text-anchor="middle" x="369.31" y="-13.8" font-family="Times,serif" font-size="14.00">Item 3 (Observed)</text>
+<polygon fill="none" stroke="black" points="371.38,-36 272.21,-36 272.21,0 371.38,0 371.38,-36"></polygon>
+<text text-anchor="middle" x="321.79" y="-13.8" font-family="Times,serif" font-size="14.00">X3 (Observed)</text>
 </g>
 <!-- F&#45;&gt;X3 -->
 <g id="edge3" class="edge">
 <title>F-&gt;X3</title>
-<path fill="none" stroke="black" d="M244.94,-88.65C269.24,-75.04 303.41,-55.91 329.78,-41.14"></path>
-<polygon fill="black" stroke="black" points="331.74,-44.05 338.75,-36.11 328.32,-37.95 331.74,-44.05"></polygon>
-<text text-anchor="start" x="306.31" y="-58.2" font-family="Arial" font-size="14.00">λ</text>
+<path fill="none" stroke="black" d="M212.66,-88.65C233.8,-75.16 263.44,-56.24 286.5,-41.53"></path>
+<polygon fill="black" stroke="black" points="288.43,-44.44 294.98,-36.11 284.67,-38.54 288.43,-44.44"></polygon>
+<text text-anchor="start" x="266.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
 </g>
 </g>
 </svg>
@@ -357,12 +357,12 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Each item is connected with the latent factor by a <strong>linear regression</strong>:</p>
+<p>Each item <span class="math inline">\(X_i\)</span> is connected with the latent factor <span class="math inline">\(\xi\)</span> by a <strong>linear regression</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
-\I_1 &amp; = \tau_1 + \lambda_1 \ \F + \delta_1 \\
-\I_2 &amp; = \tau_2 + \lambda_2 \ \F + \delta_2 \\
-\I_3 &amp; = \tau_3 + \lambda_3 \ \F + \delta_3 \\
+X_1 &amp; = \tau_1 + \blue{\lambda_1} \ \xi + \delta_1 \\
+X_2 &amp; = \tau_2 + \blue{\lambda_2} \ \xi + \delta_2 \\
+X_3 &amp; = \tau_3 + \blue{\lambda_3} \ \xi + \delta_3 \\
 \end{align}
 \]</span></p>
 <div class="small">
@@ -392,7 +392,7 @@ Details: Assumptions of the Model
 </div>
 </div>
 </div>
-<p>The factor loadings <span class="math inline">\(\lambda_i\)</span> represent the relationship/<strong>covariance</strong> between any item and a factor. These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.</p>
+<p>The factor loadings <span class="math inline">\(\blue{\lambda_i}\)</span> represent the relationship/<strong>covariance</strong> between any item and a factor. These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.</p>
 <p>For example, take this factor variable called <strong>personality</strong>, explained by a set of items (rich, admire, success, respect) that show how important a certain quality is to an individual.</p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">

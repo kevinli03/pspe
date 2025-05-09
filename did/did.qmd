@@ -7,24 +7,21 @@ In April 1992, New Jersey increased its minimum wage. We might wonder how that c
 |                                                    |                                                   |
 |------------------------------------|------------------------------------|
 | [Mar 1992 (Before Min. Wage Increase)]{.smallcaps} | [Dec 1992 (After Min. Wage Increase)]{.smallcaps} |
-| 20.44                                              | 21.03                                             |
+| $\red{20.44}$                                      | $\green{21.03}$                                   |
 
 : {tbl-colwidths="\[50,50\]" .bordered}
 
 ::: small
-More specifically, this is employment rates at fast food restaurants.
+Red indicates not treated, green indicates treated.
 :::
 
 Our treatment effect after the raise of minimum wage in December 1992 would be:
 
 $$
-\begin{align}
-\tau_\text{ATT} = & \ \text{employment with min. wage increase (Dec 92)} \\
-& -\red{\text{hypothetical employment without min. wage increase (Dec 92)}}
-\end{align}
+\tau_\text{Dec92} = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}}
 $$
 
-We **don't** observe the hypothetical in December 1992 without the minimum wage increase.
+We **don't** observe the counterfactual in December 1992 without the minimum wage increase.
 
 ::: small
 We cannot use March 1992 because there could have been something that happened between March and December that changes the **trend** in employment (like a recession).
@@ -35,7 +32,7 @@ We cannot use March 1992 because there could have been something that happened b
 |                                                              |                                                              |
 |------------------------------------|------------------------------------|
 | [Mar 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} | [Dec 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} |
-| 23.33                                                        | 21.17                                                        |
+| $\red{23.33}$                                                | $\red{21.17}$                                                |
 
 : {tbl-colwidths="\[50,50\]" .bordered}
 
@@ -48,7 +45,7 @@ Pennsylvania tells us the **trend** in employment without a change in minimum wa
 |                                                      |                                                                  |
 |-------------------------------|-----------------------------------------|
 | [Mar 92 (NJ, Not Minimum Wage Increase)]{.smallcaps} | [Dec 92 (NJ, Hypothetical No Minimum Wage Increase)]{.smallcaps} |
-| 20.44                                                | 20.44 - 2.16                                                     |
+| $\red{20.44}$                                        | $\red{\text{March 92} - 2.16}$                                   |
 
 : {tbl-colwidths="\[50,50\]" .bordered}
 
@@ -60,8 +57,8 @@ Now, we have an approximation of New Jersey's missing hypothetical outcome, so w
 
 $$
 \begin{align}
-\tau_\text{Dec92} = & \ \text{employment with min. wage increase (Dec 92)} \\
-& -{\text{(estimate) employment without min. wage increase (Dec 92)}}
+\tau_\text{Dec92} & = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}} \\
+& = \green{Y_\text{Dec92}^{(1)}} - \left(\red{Y_\text{Mar92}^{(0)}} - 2.16 \right)
 \end{align}
 $$
 
@@ -70,7 +67,7 @@ $$
 This entire idea of using another group's trend to estimate counterfactuals depends on two assumptions:
 
 |                                                         |                                                                                                                             |
-|-----------------------|------------------------------------------------|
+|------------------------|-----------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
 | [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
 | [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                    |

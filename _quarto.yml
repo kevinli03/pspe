@@ -71,7 +71,8 @@ website:
           href: did/sunab.qmd
         - text: "Callaway and Sant'Anna (2021)"
           href: did/cs.qmd
-        - text: "Liu et al (2022) Counterfactual"
+        - text: "Liu et al (2024) IFEct"
+          href: did/ifect.qmd
         
 
     - title: "Selection on Observables"
@@ -138,7 +139,7 @@ format:
   html:
     theme: cosmo
     number-sections: false
-    fontsize: 12pt
+    fontsize: 12.5pt
     mainfont: helvetica
     fontcolor: "#3b4b57"
     linkcolor: "#0969da"

@@ -5,7 +5,7 @@ title: "Lagged Response Models"
 A **lagged response model** is a regression model that says that the outcome variable not only depends on the input variables, but also previous values of the outcome from the past.
 
 $$
-\Y_{t} = \beta_0 + \underbrace{\beta_1\ \X_{1,t} + \beta_2\ \X_{2,t}}_{\text{from current time}} + \underbrace{\beta_3 \ \Y_{t-1}}_{\text{from prior time}} + \eps_{t}
+\eta_{it} = \beta_0 + \underbrace{\beta_1 X_{1,it} + \beta_2 X_{2,it}}_{t} + \underbrace{\beta_3 \ \eta_{i,t-1}}_{t-1} + \eps_{it}
 $$
 
 ::: center-graph
@@ -15,9 +15,9 @@ $$
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  Y1 [shape=box, pos = "0,0!", label="Outcome (t-1)"]
-  X1 [shape=box, pos = "2,0!", label="Input 1 and 2"]
-  Y2 [shape=box, pos = "0,0!", label="Outcome (t)"]
+  Y1 [shape=box, label=<<FONT FACE="Helvetica">&eta; (t-1)</FONT>>]
+  X1 [shape=box, pos = "2,0!", label="X1 and X2"]
+  Y2 [shape=box, label=<<FONT FACE="Helvetica">&eta; (t)</FONT>>]
 
   // Edges
   {X1 -> Y1}
@@ -30,10 +30,10 @@ digraph example2 {
 ```
 :::
 
-Recall the response variable is itself a latent variable, measured with observed items. This also implies a measurement model relating the latent responsewith each observed item:
+Recall the response variable is itself a latent variable, measured with observed items. This also implies a measurement model relating the latent response with each observed item:
 
 $$
-\I_{t} = \tau_t + \lambda_t\ \Y + \eps_{t}
+\b X_{t} = \b\tau_t + \b\eta'\b\lambda_t + \b\delta_{t}
 $$
 
 ::: small

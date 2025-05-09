@@ -8,33 +8,19 @@ See the pros and cons of this estimator in the [choosing an estimator](soochoose
 
 Selection on observables is about controlling for confounders. Linear regression is a very natural way to control for confounders.
 
-$$
-\Y = \beta_0 + \beta_1\ \X_{1} + \beta_2\ \X_{2} + \eps
-$$
-
-::: small
-Where $\X_1$ and $\X_2$ are two different input/explanatory/independent variables
-:::
-
-We know that in the above equation, $\beta_1$ is the relationship between $\X_1$ and outcome, while controllling (holding constant) $\X_2$.
-
 Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.
 
 $$
-\Y = \alpha + \blue\tau\ \D + \beta\ \cov + \eps
+Y_i = \alpha + D_i\ \ate + \covs + \eps_i
 $$
 
-::: small
-Where $\alpha$ is the intercept and $\cov_i$ is a vector of covariates/confounders for individual $i$.
-:::
-
-Our ordinary least squares (OLS) estimate $\blue{\widehat\tau}$ is an unbiased estimator of the true $\tau_{ATE}$ given three conditions are met:
+Our ordinary least squares (OLS) estimate $\hat\ate$ is an unbiased estimator of the true ATE given three conditions are met:
 
 1.  We meet the selection on observables assumption of **conditional ignorability**. Conditional ignorability implies exogeneity, which means the estimate is unbiased.
 
 2.  The relationship between our continuous confounders and outcome variable is **linear**. This is because if the true relationship between these two is not linear, then our linear model is wrong, so it is not properly controlling for confounders.
 
-3.  There is **no heterogeneity** in treatment effects. Angrist (1998), Lin (2013), and Słoczyński (2022) have proven that when there is heterogeneity, OLS is estimating another quantity that is not the ATE.
+3.  There is **no heterogeneity** in treatment effects. Angrist (1998), Lin (2013), and Słoczyński (2022) have proven that when there is heterogeneity, OLS is estimating another quantity that is not the ATE. This is covered in more detail on [fully interacted estimator](interact.qmd) page
 
 ::: small
 **Heterogeneity** means that different individuals have different individual treament effects $\tau_i$. OLS only estimates the ATE if there is homogeneity - all $\tau_i$ are equal.

@@ -235,46 +235,46 @@ window.Quarto = {
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="384" height="106" viewbox="0.00 0.00 380.31 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="384" height="106" viewbox="0.00 0.00 426.24 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
 <title>example2</title>
 <!-- D -->
 <g id="node1" class="node">
 <title>D</title>
-<polygon fill="none" stroke="black" points="142.54,-36 -0.18,-36 -0.18,0 142.54,0 142.54,-36"></polygon>
-<text text-anchor="middle" x="71.18" y="-13.8" font-family="Times,serif" font-size="14.00">Receiving Scholarship</text>
+<polygon fill="none" stroke="black" points="165.45,-36 -0.15,-36 -0.15,0 165.45,0 165.45,-36"></polygon>
+<text text-anchor="middle" x="82.65" y="-13.8" font-family="Times,serif" font-size="14.00">Receiving Scholarship (D)</text>
 </g>
 <!-- Y -->
 <g id="node3" class="node">
 <title>Y</title>
-<polygon fill="none" stroke="black" points="372.43,-36 253.93,-36 253.93,0 372.43,0 372.43,-36"></polygon>
-<text text-anchor="middle" x="313.18" y="-13.8" font-family="Times,serif" font-size="14.00">University Grades</text>
+<polygon fill="none" stroke="black" points="418.34,-36 276.96,-36 276.96,0 418.34,0 418.34,-36"></polygon>
+<text text-anchor="middle" x="347.65" y="-13.8" font-family="Times,serif" font-size="14.00">University Grades (Y)</text>
 </g>
 <!-- D&#45;&gt;Y -->
 <g id="edge1" class="edge">
 <title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M142.48,-18C174.44,-18 211.99,-18 243.72,-18"></path>
-<polygon fill="black" stroke="black" points="243.81,-21.5 253.81,-18 243.81,-14.5 243.81,-21.5"></polygon>
-<text text-anchor="middle" x="198.21" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
+<path fill="none" stroke="black" d="M165.41,-18C197.61,-18 234.4,-18 266.45,-18"></path>
+<polygon fill="black" stroke="black" points="266.68,-21.5 276.68,-18 266.68,-14.5 266.68,-21.5"></polygon>
+<text text-anchor="middle" x="221.18" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
 </g>
 <!-- X -->
 <g id="node2" class="node">
 <title>X</title>
-<polygon fill="none" stroke="black" points="273.28,-109 109.08,-109 109.08,-73 273.28,-73 273.28,-109"></polygon>
-<text text-anchor="middle" x="191.18" y="-86.8" font-family="Times,serif" font-size="14.00">Intellegence (Confounder)</text>
+<polygon fill="none" stroke="black" points="296.75,-109 132.55,-109 132.55,-73 296.75,-73 296.75,-109"></polygon>
+<text text-anchor="middle" x="214.65" y="-86.8" font-family="Times,serif" font-size="14.00">Intellegence (Confounder)</text>
 </g>
 <!-- X&#45;&gt;D -->
 <g id="edge2" class="edge">
 <title>X-&gt;D</title>
-<path fill="none" stroke="black" d="M162.44,-72.99C146.38,-63.49 126.17,-51.54 108.86,-41.29"></path>
-<polygon fill="black" stroke="black" points="110.49,-38.19 100.11,-36.11 106.93,-44.22 110.49,-38.19"></polygon>
+<path fill="none" stroke="black" d="M183.03,-72.99C165.12,-63.36 142.53,-51.21 123.31,-40.87"></path>
+<polygon fill="black" stroke="black" points="124.93,-37.77 114.47,-36.11 121.61,-43.93 124.93,-37.77"></polygon>
 </g>
 <!-- X&#45;&gt;Y -->
 <g id="edge3" class="edge">
 <title>X-&gt;Y</title>
-<path fill="none" stroke="black" d="M229.29,-67.82C243.85,-59.35 260.44,-49.69 275,-41.22"></path>
-<polygon fill="black" stroke="black" points="227.29,-64.94 220.4,-72.99 230.81,-70.99 227.29,-64.94"></polygon>
-<polygon fill="black" stroke="black" points="276.89,-44.17 283.77,-36.11 273.37,-38.12 276.89,-44.17"></polygon>
+<path fill="none" stroke="black" d="M255.4,-68.24C271.57,-59.62 290.13,-49.7 306.35,-41.05"></path>
+<polygon fill="black" stroke="black" points="253.68,-65.2 246.51,-72.99 256.98,-71.37 253.68,-65.2"></polygon>
+<polygon fill="black" stroke="black" points="308.42,-43.91 315.59,-36.11 305.12,-37.74 308.42,-43.91"></polygon>
 </g>
 </g>
 </svg>
@@ -286,11 +286,11 @@ window.Quarto = {
 </div>
 <p>By definition, as the confounder <strong>changes</strong>, your likelihood of getting treatment changes. As the confounder <strong>changes</strong>, the outcome value will also change.</p>
 <p>These issues occur when the confounder <strong>changes</strong> in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.</p>
-<p>For example, let’s assume that intellegence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intellegence:</p>
+<p>For example, let’s assume that intelligence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intelligence:</p>
 <p><span class="math display">\[
 \begin{align}
-\tau_\text{smart} &amp; = \purple{\text{grades}_\text{smart}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{smart}^{(\text{no scholarship})}}\\
-\tau_\text{dumb} &amp; = \purple{\text{grades}_\text{dumb}^{(\text{got scholarship})}} - \purple{\text{grades}_\text{dumb}^{(\text{no scholarship})}}
+\tau_\text{smart} &amp; = \green{Y_\text{smart}^{(1)}} - \red{Y_\text{smart}^{(0)}}\\
+\tau_\text{dumb} &amp; = \green{Y_\text{dumb}^{(1)}} - \red{Y_\text{dumb}^{(0)}}
 \end{align}
 \]</span></p>
 <p>The confounder is constant here, so no selection bias. Thus, within each category, correlation is equal to causation. Our overall causal effect will be a weighted average of the categories:</p>
@@ -300,14 +300,11 @@ window.Quarto = {
 <div class="small">
 <p>The weights of this weighted average are the probability/frequency of that value of the confounder.</p>
 </div>
-<p>Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies. Given a set of confounders <span class="math inline">\(\set X\)</span>, we first calculate the treatment effect within a specific vector of confounder values <span class="math inline">\(\b x\)</span>:</p>
+<p>Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies.</p>
 <p><span class="math display">\[
-\tau(\b x) = (\T - \C)| \b x
+\tau = \sum_X \tau_\text{X} \cdot Pr(X)
 \]</span></p>
-<p>And then, we find the weighted average for the total effect, with the weights being the frequency of that specific vector of confounder values:</p>
-<p><span class="math display">\[
-\tau_{ATE} = \sum \tau(\b x) \cdot Pr(\b x)
-\]</span></p>
+<p><br></p>
 <p>For selection on observables to work, we need to meet 3 assumptions:</p>
 <table class="table-bordered table">
 <colgroup>

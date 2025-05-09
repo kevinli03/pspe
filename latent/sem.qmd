@@ -2,7 +2,7 @@
 title: "Structural Equation Models"
 ---
 
-Structural Equation Models (SEMs) allow us to combine measurement models (ex. factor analysis) with linear regression models between the latent variables.
+Structural Equation Models (SEMs) allow us to combine measurement models (ex. factor analysis) with linear regression models between the latent variables. We split our latent variables into latent explanatory variables $\xi$ and latent outcome variables $\eta$.
 
 ::: center-graph
 ```{dot}
@@ -11,14 +11,14 @@ Structural Equation Models (SEMs) allow us to combine measurement models (ex. fa
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F1 [shape=box, pos = "0,0!", label="Latent Input Variable"]
-  X1 [shape=box, pos = "2,0!", label="Item 1"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2"]
-  X3 [shape=box, pos="1,0!", label="Item 3"]
-  F2 [shape=box, pos = "0,0!", label="Latent Outcome Variable"]
-  X4 [shape=box, pos = "2,0!", label="Item 4"]
-  X5 [shape=box, pos = "1,-2!", label="Item 5"]
-  X6 [shape=box, pos="1,0!", label="Item 6"]
+  F1 [shape=box, label=<<FONT FACE="Helvetica">&xi; (Unobserved)</FONT>>]
+  X1 [shape=box, pos = "2,0!", label="X1"]
+  X2 [shape=box, pos = "1,-2!", label="X2"]
+  X3 [shape=box, pos="1,0!", label="X3"]
+  F2 [shape=box, label=<<FONT FACE="Helvetica">&eta; (Unobserved)</FONT>>]
+  X4 [shape=box, pos = "2,0!", label="Y1"]
+  X5 [shape=box, pos = "1,-2!", label="Y2"]
+  X6 [shape=box, pos="1,0!", label="Y3"]
 
   // Edges
   {F1 -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
@@ -38,7 +38,7 @@ digraph example2 {
 This structural equation model contains a linear regression between the latent input variable explaining the latent outcome variable.
 
 $$
-\Y = \alpha +  \beta\ \X + \eps
+\eta = \beta_0 + \beta_1\ \xi + \eps
 $$
 
 The latent outcome variable and input variable are unobserved, and we only observe items. We can use these observed items to create a [factor analysis](factor.qmd) model for both the outcome variable, and the input variable.
@@ -54,20 +54,20 @@ Structural models don't have to have just one dependent and independent latent v
 ::: center-graph
 ```{dot}
 //| fig-width: 5
-//| fig-height: 1.3
+//| fig-height: 1.4
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  X1 [shape=box, label="Latent Input Variable 1"]
-  X2 [shape=box, label="Latent Input Variable 2"]
-  Y1 [shape=box, label="Latent Outcome Variable 1"]
-  Y2 [shape=box, label="Latent Outcome Variable 2"]
+  X1 [shape=box, label=<<FONT FACE="Helvetica">&xi; 1</FONT>>]
+  X2 [shape=box, label=<<FONT FACE="Helvetica">&xi; 2</FONT>>]
+  Y1 [shape=box, label=<<FONT FACE="Helvetica">&eta; 2</FONT>>]
+  Y2 [shape=box, label=<<FONT FACE="Helvetica">&eta; 2</FONT>>]
 
   // Edges
-  {rank=same; X1 -> Y1 [label=<<FONT FACE="Arial">&beta;</FONT>>]}
-  {rank=same; X2 -> Y2 [label=<<FONT FACE="Arial">&gamma;</FONT>>]}
-  X1 -> Y2 [label=<<FONT FACE="Arial">&gamma;</FONT>>]
-  X2 -> Y1 [label=<<FONT FACE="Arial">&beta;</FONT>>]
+  {rank=same; X1 -> Y1 [label=<<FONT FACE="Arial">&beta;1</FONT>>]}
+  {rank=same; X2 -> Y2 [label=<<FONT FACE="Arial">&gamma;2</FONT>>]}
+  X1 -> Y2 [label=<<FONT FACE="Arial">&gamma;1</FONT>>]
+  X2 -> Y1 [label=<<FONT FACE="Arial">&beta;2</FONT>>]
   X1 -> X2 [dir=both, label = "Correlation"]
   Y1 -> Y2 [dir=both, label = "Correlation"]
   
@@ -85,8 +85,8 @@ In this example, we are measuring the correlation between the independent variab
 
 $$
 \begin{align}
-\Y_1 & = \beta_0 + \beta_1\ \X_1 + \beta_2\ \X_2 + \eps_1 \\
-\Y_2 & = \gamma_0 + \gamma_1\ \X_1 + \gamma_2\ \X_2 + \eps_2 \\
+\eta_1 & = \beta_0 + \beta_1\ \xi_1 + \beta_2\ \xi_2 + \eps_1 \\
+\eta_2 & = \gamma_0 + \gamma_1\ \xi_1 + \gamma_2\ \xi_2 + \eps_2 \\
 \end{align}
 $$
 

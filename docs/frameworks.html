@@ -280,14 +280,14 @@ window.Quarto = {
 <tr class="odd">
 <td style="text-align: left;">Unit <span class="math inline">\(i\)</span> Receives Treatment</td>
 <td style="text-align: left;"><span class="math inline">\(\text{treatment}_i = 1\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(\C\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\Cred\)</span></td>
 </tr>
 </tbody>
 </table>
 <p><br></p>
 <p>The only difference between the two worlds is the treatment. Thus, any difference in outcomes between the two worlds must be the <mark>causal effect</mark> of the treatment.</p>
 <p><span class="math display">\[
-\tau_i = \T - \C
+\tau_i = \T - \Cred
 \]</span></p>
 <div class="small">
 <p>Technically, we need another assumption, SUTVA, for this to be true. I will explain this assumption as part of the identification assumptions.</p>
@@ -312,14 +312,11 @@ window.Quarto = {
 </tr>
 <tr class="odd">
 <td style="text-align: left;"><span class="math inline">\(i\)</span> did not receive treatment</td>
-<td style="text-align: left;"><span class="math inline">\(\Y = \C\)</span></td>
-<td style="text-align: left;"><span class="math inline">\(\Tred\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\Y = \Cred\)</span></td>
+<td style="text-align: left;"><span class="math inline">\(\T\)</span></td>
 </tr>
 </tbody>
 </table>
-<div class="small">
-<p>I will denote potential outcomes in purple, and counterfactual potential outcomes in red.</p>
-</div>
 <p><br></p>
 <p>The <mark>fundamental problem of causal inference</mark> is that in order to calculate our individual treatment effect <span class="math inline">\(\tau\)</span>, we need both potential outcomes. Our goal is to estimate causal effects without observing counterfactuals. This is difficult at the individual level, so instead, we focus on average treatment effects for groups:</p>
 <table class="table-bordered table">

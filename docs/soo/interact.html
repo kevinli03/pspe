@@ -267,28 +267,21 @@ window.Quarto = {
 </div>
 <p>From <a href="../soo/soo.html">selection on observables</a>, we know that our causal effect is a weighted average:</p>
 <p><span class="math display">\[
-\tau_\text{ATE} = \sum\tau (\b x) Pr(\b x)
+\ate = \sum\tau_\text{X} \cdot Pr( X)
 \]</span></p>
 <p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:</p>
 <p><span class="math display">\[
-\hat\beta_\text{OLS} = \sum \tau(\b x) \underbrace{\frac{Var(\D | \b x)Pr(\b x)}{\sum Var(\D | \b x^c)Pr(\b x^c)}}_{\text{weight}}
+\hat\beta_\text{OLS} = \sum \tau_X\cdot \underbrace{\frac{Var(D_i | X)Pr(X)}{\sum Var(D_i | X^c)Pr( X^c)}}_{\text{weight}}
 \]</span></p>
 <div class="small">
-<p>Where <span class="math inline">\(\b x^c\)</span> is the complement (not <span class="math inline">\(\b x\)</span>).</p>
+<p>Where <span class="math inline">\(X^c\)</span> is the complement (not <span class="math inline">\(X\)</span>).</p>
 </div>
-<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\tau_{ATE}\)</span>. Thus, if not all <span class="math inline">\(\tau(\b x)\)</span> are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.</p>
+<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\ate\)</span>. Thus, if not all <span class="math inline">\(\tau_\text{X}\)</span> are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.</p>
 <p>Heterogeneity is present in almost all situations we are interested in. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
 <p><span class="math display">\[
-\begin{align}
-\Y = &amp; \ \alpha + \blue\tau\ \D \\
-&amp; + \beta\left( \cov - \text{avg.covariates}\right) \\
-&amp; + \gamma\ \D \left( \cov - \text{avg.covariates}\right) + \eps
-\end{align}
+Y_i = \alpha + D_i\ \ate + \underbrace{(\b X_i - \b{\mean X})'\b\beta + D_i(\b X_i - \b{\mean X})'\b\gamma}_{\text{interactions with de-meaned covariates}}+ \eps_i
 \]</span></p>
-<div class="small">
-<p>Where avg.covariates is the average value of all covariates for all individuals. Essentially, the first line is our simple regression, our second line is controlling for confounders, and the third line is controlling for interactions between treatment and confounders.</p>
-</div>
-<p>The new OLS estimate of <span class="math inline">\(\blue{\hat\tau}\)</span> in this estimator will technically still be a biased estimator of <span class="math inline">\(\tau_{ATE}\)</span>, but the bias is negligible.</p>
+<p>The new OLS estimate of <span class="math inline">\(\ate\)</span> in this estimator will technically still be a biased estimator of the ATE, but the bias is negligible.</p>
 <p><br></p>
 <p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>.</p>
 <p>We will need the <strong>estimatr</strong> package:</p>

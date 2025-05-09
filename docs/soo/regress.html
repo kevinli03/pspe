@@ -266,25 +266,15 @@ window.Quarto = {
 <p>See the pros and cons of this estimator in the <a href="../soo/soochoose.html">choosing an estimator</a> page.</p>
 </div>
 <p>Selection on observables is about controlling for confounders. Linear regression is a very natural way to control for confounders.</p>
-<p><span class="math display">\[
-\Y = \beta_0 + \beta_1\ \X_{1} + \beta_2\ \X_{2} + \eps
-\]</span></p>
-<div class="small">
-<p>Where <span class="math inline">\(\X_1\)</span> and <span class="math inline">\(\X_2\)</span> are two different input/explanatory/independent variables</p>
-</div>
-<p>We know that in the above equation, <span class="math inline">\(\beta_1\)</span> is the relationship between <span class="math inline">\(\X_1\)</span> and outcome, while controllling (holding constant) <span class="math inline">\(\X_2\)</span>.</p>
 <p>Using this idea, we can implement causal inference with regression, with one of the explanatory variables being our treatment variable, and the rest of the explanatory variables being control variables.</p>
 <p><span class="math display">\[
-\Y = \alpha + \blue\tau\ \D + \beta\ \cov + \eps
+Y_i = \alpha + D_i\ \ate + \covs + \eps_i
 \]</span></p>
-<div class="small">
-<p>Where <span class="math inline">\(\alpha\)</span> is the intercept and <span class="math inline">\(\cov_i\)</span> is a vector of covariates/confounders for individual <span class="math inline">\(i\)</span>.</p>
-</div>
-<p>Our ordinary least squares (OLS) estimate <span class="math inline">\(\blue{\widehat\tau}\)</span> is an unbiased estimator of the true <span class="math inline">\(\tau_{ATE}\)</span> given three conditions are met:</p>
+<p>Our ordinary least squares (OLS) estimate <span class="math inline">\(\hat\ate\)</span> is an unbiased estimator of the true ATE given three conditions are met:</p>
 <ol type="1">
 <li><p>We meet the selection on observables assumption of <strong>conditional ignorability</strong>. Conditional ignorability implies exogeneity, which means the estimate is unbiased.</p></li>
 <li><p>The relationship between our continuous confounders and outcome variable is <strong>linear</strong>. This is because if the true relationship between these two is not linear, then our linear model is wrong, so it is not properly controlling for confounders.</p></li>
-<li><p>There is <strong>no heterogeneity</strong> in treatment effects. Angrist (1998), Lin (2013), and Słoczyński (2022) have proven that when there is heterogeneity, OLS is estimating another quantity that is not the ATE.</p></li>
+<li><p>There is <strong>no heterogeneity</strong> in treatment effects. Angrist (1998), Lin (2013), and Słoczyński (2022) have proven that when there is heterogeneity, OLS is estimating another quantity that is not the ATE. This is covered in more detail on <a href="../soo/interact.html">fully interacted estimator</a> page</p></li>
 </ol>
 <div class="small">
 <p><strong>Heterogeneity</strong> means that different individuals have different individual treament effects <span class="math inline">\(\tau_i\)</span>. OLS only estimates the ATE if there is homogeneity - all <span class="math inline">\(\tau_i\)</span> are equal.</p>

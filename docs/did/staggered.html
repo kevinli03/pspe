@@ -180,8 +180,11 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Liu et al (2022) Counterfactual</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -219,13 +222,12 @@ ul.task-list li input[type="checkbox"] {
 <div class="small">
 <p>For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core curriculum.</p>
 </div>
-<p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment.</p>
-<p>Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.</p>
+<p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment. Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.</p>
 <ul>
 <li>For example, consider that we have 4 groups. Group 1 receives the treatment in period 1, group 2 receives the treatment in period 2, and group 3 receives the treatment in period 3. Group 4 never receives the treatment.</li>
 <li>In this scenario, we essentially have 3 smaller classical difference-in-differences combined into one larger study: one for group 1, one for group 2, and one for group 3.</li>
 </ul>
-<p>Just like in the classical design, the staggered design can acommodate panel data (more common) or repeated cross-sections. Unlike the classical design however, there are far more estimators to choose from.</p>
+<p>Unlike the classical design, there are far more estimators to choose from.</p>
 <table class="table-bordered table">
 <tbody>
 <tr class="odd">

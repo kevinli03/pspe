@@ -2,24 +2,24 @@
 title: "Factor Analysis Model"
 ---
 
-Factor analysis is a way to model a unobserved continuous latent variable, based on a bunch of continuous observed items.
+Factor analysis is a way to model a unobserved continuous latent variable $\xi$, based on a bunch of continuous observed items $X_1, X_2, \dots$.
 
 ::: center-graph
 ```{dot}
-//| fig-width: 4
-//| fig-height: 1.2
+//| fig-width: 4.5
+//| fig-height: 1.4
 digraph example2 {
   bgcolor="transparent";
   // Nodes
-  F [shape=box, pos = "0,0!", label="Latent Factor Variable (Unobserved)"]
-  X1 [shape=box, pos = "2,0!", label="Item 1 (Observed)"]
-  X2 [shape=box, pos = "1,-2!", label="Item 2 (Observed)"]
-  X3 [shape=box, pos="1,0!", label="Item 3 (Observed)"]
+  F [shape=box, pos = "0,0!", label=<<FONT FACE="Helvetica">&xi; (Unobserved)</FONT>>]
+  X1 [shape=box, pos = "2,0!", label="X1 (Observed)"]
+  X2 [shape=box, pos = "1,-2!", label="X2 (Observed)"]
+  X3 [shape=box, pos="1,0!", label="X3 (Observed)"]
 
   // Edges
-  {F -> X1 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F -> X2 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
-  {F -> X3 [label=<<FONT FACE="Arial">&lambda;</FONT>>]}
+  {F -> X1 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F -> X2 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
+  {F -> X3 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
   
   graph [nodesep=0.5, ranksep=0.5]
 
@@ -27,13 +27,13 @@ digraph example2 {
 ```
 :::
 
-Each item is connected with the latent factor by a **linear regression**:
+Each item $X_i$ is connected with the latent factor $\xi$ by a **linear regression**:
 
 $$
 \begin{align}
-\I_1 & = \tau_1 + \lambda_1 \ \F + \delta_1 \\
-\I_2 & = \tau_2 + \lambda_2 \ \F + \delta_2 \\
-\I_3 & = \tau_3 + \lambda_3 \ \F + \delta_3 \\
+X_1 & = \tau_1 + \blue{\lambda_1} \ \xi + \delta_1 \\
+X_2 & = \tau_2 + \blue{\lambda_2} \ \xi + \delta_2 \\
+X_3 & = \tau_3 + \blue{\lambda_3} \ \xi + \delta_3 \\
 \end{align}
 $$
 
@@ -54,7 +54,7 @@ We make a few assumptions on this model:
 :::
 :::
 
-The factor loadings $\lambda_i$ represent the relationship/**covariance** between any item and a factor. These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
+The factor loadings $\blue{\lambda_i}$ represent the relationship/**covariance** between any item and a factor. These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
 
 For example, take this factor variable called **personality**, explained by a set of items (rich, admire, success, respect) that show how important a certain quality is to an individual.
 

@@ -9,19 +9,15 @@ Note: if you have staggered treatment implementation, [TWFE can produce incorrec
 The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences, used when we have panel data with multiple observations observed in multiple time periods. The estimator is a linear regression model specified as following:
 
 $$
-\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D + \beta\ \cov + \eps
+Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
 $$
 
-::: small
-Where covariates are control variables needed to meet the parallel trends assumption (optional).
-:::
-
-The fixed effects $\alpha_i$ and $\gamma_t$ are "special" intercepts. Unlike our normal intercepts in regression, these intercepts $\alpha_i$ and $\gamma_t$ take different values depending on the unit and time.
+The fixed effects $\alpha_i$ and $\gamma_t$ are "special" intercepts. Unlike our normal intercepts in regression, these intercepts take different values depending on the unit and time.
 
 -   Intercept $\alpha_i$ has a different value for each unit $i$.
 -   Intercept $\gamma_t$ has a different value for each time period $t$.
 
-Essentially, what fixed effects does is that it calculates different intercepts for each unit $i$, and each time period $t$. Thus, these intercepts reflect differences on-average between different units $i$, and different time periods $t$.
+What fixed effects does is that it calculates different intercepts for each unit $i$, and each time period $t$. Thus, these intercepts reflect differences on-average between different units $i$, and different time periods $t$.
 
 Since the differences between units $i$ and time periods $t$ are included in these fixed effects intercept terms, this allows us to **account** for differences between units and differences between time periods.
 
@@ -29,7 +25,7 @@ Since the differences between units $i$ and time periods $t$ are included in the
 Or in other words, we are essentially "controlling" for differences between units, and differences between years.
 :::
 
-By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for $\blue\tau$ is our treatment effect (ATT). This estimate is **unbiased** if the parallel trends assumption is met.
+By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for $\att$ is our treatment effect (ATT). This estimate is **unbiased** if the parallel trends assumption is met.
 
 <br />
 

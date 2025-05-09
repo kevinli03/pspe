@@ -1,0 +1,69 @@
+---
+title: "Liu et al (2024) Interactive Fixed Effects Counterfactual Estimator"
+---
+
+::: small
+See [Liu et al (2024)](https://onlinelibrary.wiley.com/doi/10.1111/ajps.12723) for more technical details.
+:::
+
+Liu et al (2024) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) by just not doing comparisons and weighting. Instead, we estimate the missing counterfactuals and then calculate the treatment effect.
+
+::: small
+This is similar to [Gardner (2021)](did2s.qmd) and his 2-stage difference-in-differences.
+:::
+
+Thus, the goal of this **interactive fixed effects counterfactual estimator (IFEct)** is to estimate $\pCred$. They model these counterfactuals as:
+
+$$
+\pCred = \underbrace{\unit + \time + \cov}_{\text{classic TWFE}} + \b\lambda_i'\b\xi_t + \eps_{it}
+$$
+
+As you can see, the first part of this model follows the two-way fixed effects model for counterfactuals $\pCred$, just like in Gardner (2021). However, Liu et al (2024) add an extra term: $\b\lambda_i'\b\xi_t$.
+
+-   $\b\xi_t$ is a vector of latent variables/factors $\xi_{1t}, \xi_{2t}, \dots$. These latent variables change in magnitude depending on time $t$ (they are time-varying).
+-   $\b\lambda_i$ is a vector of factor loadings $\lambda_{1i}, \lambda_{2i}, \dots$, that describes the "influence" every latent factor has on unit $i$. Different units $i$ can have different relationships with each factor.
+
+::: small
+These latent factors and factor loadings are estimated with control data $D_{it} = 0$. For more on latent variables, see the section on latent variable modelling.
+:::
+
+This is essentially a complicated way of saying that this model **adjusts for potential violations in parallel trends**. This is because the latent factors are time-varying, and different units $i$ can have different relationship with each factor, meaning their can be non-parallel trends.
+
+This flexibility in the estimation of this model makes it more **robust** to minor violations of parallel trends. It can also better adjust for heterogeneity, not just between different initial treatment times, but also different covariate values.
+
+<br />
+
+To implement the IFEct estimator, we will need the package **fect**:
+
+```{r, eval = F}
+library(fect)
+```
+
+Before we start, we will need to make sure our unit variable is numerical (so units 1, 2, ...). This is often not the case in most datasets (for example, country is usually UK, USA,..., not 1,2,...).
+
+```{r, eval = F}
+dta <- my_data # new data frame
+dta <- dta %>%
+  group_by(unit) %>%
+  mutate(id = cur_group_id()) %>%
+  ungroup() # change country into a numbered variable
+```
+
+Now, we can estimate our model as follows:
+
+```{r, eval = F}
+set.seed(17)
+model <- fect(outcome ~ treatment + covariate1 + covariate2,
+             data = dta,
+             index = c("id","time"), #don't change id, change time to your period variable
+             method = "ife",
+             se = TRUE,
+             nboots = 100) # more is better, but takes longer
+print(model)
+```
+
+We can also plot our results:
+
+```{r, eval = F}
+plot(model)
+```

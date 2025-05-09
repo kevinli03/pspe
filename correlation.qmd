@@ -15,8 +15,8 @@ Let us look at this causal question:
 digraph example1 {
   bgcolor="transparent";
   // Nodes
-  D [shape=box, label="Going to the Hospital"]
-  Y [shape=box, label="Health Outcomes"]
+  D [shape=box, label="Going to the Hospital (D)"]
+  Y [shape=box, label="Health Outcomes (Y)"]
 
   // Edges
   D -> Y [label="Causal Effect"]
@@ -30,7 +30,7 @@ digraph example1 {
 We have a group that went to hospital (we will call this group "went"), and a group that "did not go". Using our potential outcomes framework, we can define the treatment effect of the group that went to the hospital:
 
 $$
-\tau_\text{treated} = \textcolor{purple}{{\text{health}}_{\text{went}}^{(\text{treated})}} - \textcolor{red}{{\text{health}}_{\text{went}}^{(\text{control})}}
+\tau_\text{went} = \textcolor{green}{{\text{health}}_{\text{went}}^{(1)}} - \textcolor{red}{{\text{health}}_{\text{went}}^{(0)}}
 $$
 
 ::: small
@@ -42,14 +42,14 @@ Now compare the treatment effects above to correlation, which is defined as the 
 $$
 \begin{align}
 \text{correlation} & =  \text{health}_\text{went} - \text{health}_\text{did not go} \\
-& = \textcolor{purple}{\text{health}_{\text{went}}^{(\text{treated})}} - \textcolor{purple}{\text{health}_\text{did not go}^{(\text{control})}}
+& = \textcolor{green}{\text{health}_{\text{went}}^{(1)}} - \textcolor{red}{\text{health}_\text{did not go}^{(0)}}
 \end{align}
 $$
 
 If we compare this correlation to our $\tau_\text{treated}$, we see:
 
 $$
-\text{if  } \textcolor{purple}{\text{health}_\text{did not go}^{(\text{control})}} ≠ \textcolor{red}{\text{health}_\text{went}^{(\text{control})}}
+\text{if  } \textcolor{red}{\text{health}_\text{did not go}^{(0)}} ≠ \textcolor{red}{\text{health}_\text{went}^{(0)}}
 $$
 
 If this is true (they are different), then correlation is not causation.

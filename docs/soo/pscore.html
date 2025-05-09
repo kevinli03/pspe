@@ -267,16 +267,16 @@ window.Quarto = {
 </div>
 <p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
 <p><span class="math display">\[
-\tau_{\text{Mia}} = \textcolor{purple}{\text{outcome}^{(\text{treated})}_\text{Mia}} - \textcolor{red}{\text{outcome}^{(\text{control})}_\text{Mia}}
+\tau_{\text{Mia}} = \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
 \]</span></p>
-<p>We cannot observe Mia’s counterfactual (in red). However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
+<p>We cannot observe Mia’s counterfactual (in red), since Mia receives the treatment.. However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
 <p><span class="math display">\[
-\tau_{\text{Mia}} \approx \textcolor{purple}{\text{outcome}^{(\text{treated})}_\text{Mia}} - \textcolor{purple}{\text{outcome}^{(\text{control})}_\text{Matched individual}}
+\tau_{\text{Mia}} \approx \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Matched Individual}}
 \]</span></p>
 <p>Propensity Score Matching matches an individual that is treated (like Mia) with one that is not treated based on how similar their likelihoods of treatment are.</p>
 <p>What is a likelihood of treatment? Well we know confounders cause people to get the treatment or not treatment. Thus, using an individual’s confounder values, we can estimate their likelihood of getting treatment, called a propensity score.</p>
 <p><span class="math display">\[
-\text{propensity score } \pi =Pr(\text{you get treated})
+\text{propensity score } \pi =Pr(\green{D_i = 1})
 \]</span></p>
 <p>Propensity scores are typically estimated with a logistic regression. This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relatinoships between confounders and propensities, and only being unbiased in large sample sizes.</p>
 <p><br></p>

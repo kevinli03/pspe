@@ -243,8 +243,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Liu et al (2022) Counterfactual</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -280,22 +283,19 @@ window.Quarto = {
 </div>
 <p>The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences, used when we have panel data with multiple observations observed in multiple time periods. The estimator is a linear regression model specified as following:</p>
 <p><span class="math display">\[
-\Y = \underbrace{\unit + \time}_{\text{fixed effects}} + \blue\tau \ \D + \beta\ \cov + \eps
+Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
 \]</span></p>
-<div class="small">
-<p>Where covariates are control variables needed to meet the parallel trends assumption (optional).</p>
-</div>
-<p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are “special” intercepts. Unlike our normal intercepts in regression, these intercepts <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> take different values depending on the unit and time.</p>
+<p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are “special” intercepts. Unlike our normal intercepts in regression, these intercepts take different values depending on the unit and time.</p>
 <ul>
 <li>Intercept <span class="math inline">\(\alpha_i\)</span> has a different value for each unit <span class="math inline">\(i\)</span>.</li>
 <li>Intercept <span class="math inline">\(\gamma_t\)</span> has a different value for each time period <span class="math inline">\(t\)</span>.</li>
 </ul>
-<p>Essentially, what fixed effects does is that it calculates different intercepts for each unit <span class="math inline">\(i\)</span>, and each time period <span class="math inline">\(t\)</span>. Thus, these intercepts reflect differences on-average between different units <span class="math inline">\(i\)</span>, and different time periods <span class="math inline">\(t\)</span>.</p>
+<p>What fixed effects does is that it calculates different intercepts for each unit <span class="math inline">\(i\)</span>, and each time period <span class="math inline">\(t\)</span>. Thus, these intercepts reflect differences on-average between different units <span class="math inline">\(i\)</span>, and different time periods <span class="math inline">\(t\)</span>.</p>
 <p>Since the differences between units <span class="math inline">\(i\)</span> and time periods <span class="math inline">\(t\)</span> are included in these fixed effects intercept terms, this allows us to <strong>account</strong> for differences between units and differences between time periods.</p>
 <div class="small">
 <p>Or in other words, we are essentially “controlling” for differences between units, and differences between years.</p>
 </div>
-<p>By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for <span class="math inline">\(\blue\tau\)</span> is our treatment effect (ATT). This estimate is <strong>unbiased</strong> if the parallel trends assumption is met.</p>
+<p>By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for <span class="math inline">\(\att\)</span> is our treatment effect (ATT). This estimate is <strong>unbiased</strong> if the parallel trends assumption is met.</p>
 <p><br></p>
 <p>To implement two-way fixed effects, we need the <strong>fixest</strong> package:</p>
 <div class="cell">

@@ -226,27 +226,27 @@ window.Quarto = {
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="384" height="43" viewbox="0.00 0.00 370.31 44.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="384" height="43" viewbox="0.00 0.00 416.18 44.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 40)">
 <title>example1</title>
 <!-- D -->
 <g id="node1" class="node">
 <title>D</title>
-<polygon fill="none" stroke="black" points="136.9,-36 0.03,-36 0.03,0 136.9,0 136.9,-36"></polygon>
-<text text-anchor="middle" x="68.47" y="-13.8" font-family="Times,serif" font-size="14.00">Going to the Hospital</text>
+<polygon fill="none" stroke="black" points="159.8,-36 0.07,-36 0.07,0 159.8,0 159.8,-36"></polygon>
+<text text-anchor="middle" x="79.93" y="-13.8" font-family="Times,serif" font-size="14.00">Going to the Hospital (D)</text>
 </g>
 <!-- Y -->
 <g id="node2" class="node">
 <title>Y</title>
-<polygon fill="none" stroke="black" points="362.11,-36 248.94,-36 248.94,0 362.11,0 362.11,-36"></polygon>
-<text text-anchor="middle" x="305.52" y="-13.8" font-family="Times,serif" font-size="14.00">Health Outcomes</text>
+<polygon fill="none" stroke="black" points="407.94,-36 271.91,-36 271.91,0 407.94,0 407.94,-36"></polygon>
+<text text-anchor="middle" x="339.92" y="-13.8" font-family="Times,serif" font-size="14.00">Health Outcomes (Y)</text>
 </g>
 <!-- D&#45;&gt;Y -->
 <g id="edge1" class="edge">
 <title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M137.14,-18C169.08,-18 207.05,-18 238.75,-18"></path>
-<polygon fill="black" stroke="black" points="238.8,-21.5 248.8,-18 238.8,-14.5 238.8,-21.5"></polygon>
-<text text-anchor="middle" x="192.83" y="-22.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
+<path fill="none" stroke="black" d="M160.09,-18C192.3,-18 229.41,-18 261.45,-18"></path>
+<polygon fill="black" stroke="black" points="261.66,-21.5 271.66,-18 261.66,-14.5 261.66,-21.5"></polygon>
+<text text-anchor="middle" x="215.77" y="-22.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
 </g>
 </g>
 </svg>
@@ -258,7 +258,7 @@ window.Quarto = {
 </div>
 <p>We have a group that went to hospital (we will call this group “went”), and a group that “did not go”. Using our potential outcomes framework, we can define the treatment effect of the group that went to the hospital:</p>
 <p><span class="math display">\[
-\tau_\text{treated} = \textcolor{purple}{{\text{health}}_{\text{went}}^{(\text{treated})}} - \textcolor{red}{{\text{health}}_{\text{went}}^{(\text{control})}}
+\tau_\text{went} = \textcolor{green}{{\text{health}}_{\text{went}}^{(1)}} - \textcolor{red}{{\text{health}}_{\text{went}}^{(0)}}
 \]</span></p>
 <div class="small">
 <p>In red is the counterfactual we do not observe. This is because the individuals who went to the hospital were treated, so we cannot see the world where they are in control.</p>
@@ -267,12 +267,12 @@ window.Quarto = {
 <p><span class="math display">\[
 \begin{align}
 \text{correlation} &amp; =  \text{health}_\text{went} - \text{health}_\text{did not go} \\
-&amp; = \textcolor{purple}{\text{health}_{\text{went}}^{(\text{treated})}} - \textcolor{purple}{\text{health}_\text{did not go}^{(\text{control})}}
+&amp; = \textcolor{green}{\text{health}_{\text{went}}^{(1)}} - \textcolor{red}{\text{health}_\text{did not go}^{(0)}}
 \end{align}
 \]</span></p>
 <p>If we compare this correlation to our <span class="math inline">\(\tau_\text{treated}\)</span>, we see:</p>
 <p><span class="math display">\[
-\text{if  } \textcolor{purple}{\text{health}_\text{did not go}^{(\text{control})}} ≠ \textcolor{red}{\text{health}_\text{went}^{(\text{control})}}
+\text{if  } \textcolor{red}{\text{health}_\text{did not go}^{(0)}} ≠ \textcolor{red}{\text{health}_\text{went}^{(0)}}
 \]</span></p>
 <p>If this is true (they are different), then correlation is not causation.</p>
 <div class="small">
