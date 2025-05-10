@@ -138,18 +138,16 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Discontinuity</span>
-    </span>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
+    <a class="nav-link" href="../reg/reg.html"> 
+<span class="menu-text">Regression Models</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
@@ -189,10 +187,6 @@ window.Quarto = {
  <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
@@ -200,11 +194,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Treatment Effects</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -226,6 +220,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
   </div>
@@ -243,11 +243,8 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
+ <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -281,7 +278,8 @@ window.Quarto = {
 <div class="small">
 <p>See <a href="https://onlinelibrary.wiley.com/doi/10.1111/ajps.12723">Liu et al (2024)</a> for more technical details.</p>
 </div>
-<p>Liu et al (2024) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> by just not doing comparisons and weighting. Instead, we estimate the missing counterfactuals and then calculate the treatment effect.</p>
+<p>TWFE compares groups with each other - treated vs.&nbsp;not treated, early treated vs.&nbsp;late treated, etc., and these grouped comparisons <a href="../did/twfestaggered.html">can be “forbidden” or incorrect</a>.</p>
+<p>Liu et al (2024) instead proposes to estimate individual counterfactual outcomes, to calculate individual treatment effects, ensuring no forbidden comparisons.</p>
 <div class="small">
 <p>This is similar to <a href="../did/did2s.html">Gardner (2021)</a> and his 2-stage difference-in-differences.</p>
 </div>
@@ -289,7 +287,7 @@ window.Quarto = {
 <p><span class="math display">\[
 \pCred = \underbrace{\unit + \time + \cov}_{\text{classic TWFE}} + \b\lambda_i'\b\xi_t + \eps_{it}
 \]</span></p>
-<p>As you can see, the first part of this model follows the two-way fixed effects model for counterfactuals <span class="math inline">\(\pCred\)</span>, just like in Gardner (2021). However, Liu et al (2024) add an extra term: <span class="math inline">\(\b\lambda_i'\b\xi_t\)</span>.</p>
+<p>As you can see, the first part of this model follows the two-way fixed effects model for counterfactuals <span class="math inline">\(\pCred\)</span>, just like in Gardner (2021). However, Liu et al (2024) add an extra term to the model: <span class="math inline">\(\b\lambda_i'\b\xi_t\)</span>.</p>
 <ul>
 <li><span class="math inline">\(\b\xi_t\)</span> is a vector of latent variables/factors <span class="math inline">\(\xi_{1t}, \xi_{2t}, \dots\)</span>. These latent variables change in magnitude depending on time <span class="math inline">\(t\)</span> (they are time-varying).</li>
 <li><span class="math inline">\(\b\lambda_i\)</span> is a vector of factor loadings <span class="math inline">\(\lambda_{1i}, \lambda_{2i}, \dots\)</span>, that describes the “influence” every latent factor has on unit <span class="math inline">\(i\)</span>. Different units <span class="math inline">\(i\)</span> can have different relationships with each factor.</li>

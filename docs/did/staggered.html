@@ -75,18 +75,16 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Discontinuity</span>
-    </span>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
+    <a class="nav-link" href="../reg/reg.html"> 
+<span class="menu-text">Regression Models</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
@@ -126,10 +124,6 @@ ul.task-list li input[type="checkbox"] {
  <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
@@ -137,11 +131,11 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Treatment Effects</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -163,6 +157,12 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
   </div>
@@ -180,11 +180,8 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
+ <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -242,31 +239,31 @@ ul.task-list li input[type="checkbox"] {
 </div></td>
 </tr>
 <tr class="odd">
+<td><p><a href="../did/ifect.html">Liu et al (2022) IFEct</a></p>
+<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect.</p>
+<div class="small">
+<p>Kevin’s Notes: This is a more complex estimator that (debatedly) might not even be a difference-in-differences estimator, as it draws a lot from synthetic controls. It is quite flexible and preferable to Gardner (2021), but is more complex and hard to explain.</p>
+</div></td>
+</tr>
+<tr class="even">
 <td><p><a href="../did/etwfe.html">Wooldridge (2021) Extended Two-Way Fixed Effects</a></p>
 <p>This estimator accounts for the issues with TWFE by adding interaction terms to model heterogeneity.</p>
 <div class="small">
 <p>Kevin’s Notes: Can handle non-linear models like poisson and logistic. Very similar to Sun and Abraham. It handles conditional parallel trends more flexibly than Sun and Abraham. However, it cannot estimate pre-treatment dynamic effects, so if you need to test parallel trends use Sun and Abraham.</p>
 </div></td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td><p><a href="../did/sunab.html">Sun and Abraham (2021)</a></p>
 <p>This estimator accounts for the issues with TWFE by adding interaction terms to model heterogeneity.</p>
 <div class="small">
 <p>Kevin’s Notes: Very similar to Wooldridge. It can estimate pre-treatment dynamic treatment effects when Wooldridge cannot. However, it is less flexible and robust when dealing with conditional parallel trends.</p>
 </div></td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td><p><a href="../did/cs.html">Callaway and Sant’Anna (2021)</a></p>
 <p>This estimator accounts for the issues with TWFE through matching and reweighting.</p>
 <div class="small">
 <p>Kevin’s Notes: Probably the most well regarded in econometrics. Intuitively, it might be the simplest, however, technically, it is very complex. It is semi-parametric, making it more flexible than regression based methods.</p>
-</div></td>
-</tr>
-<tr class="even">
-<td><p>Liu et al (2022) Counterfactual</p>
-<p>This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect.</p>
-<div class="small">
-<p>Kevin’s Notes: This is a more complex estimator that (debatedly) might not even be a difference-in-differences estimator, as it draws a lot from synthetic controls. It is quite flexible and preferable to Gardner (2021), but is more complex and hard to explain.</p>
 </div></td>
 </tr>
 </tbody>

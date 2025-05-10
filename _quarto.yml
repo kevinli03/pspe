@@ -15,9 +15,11 @@ website:
         - text: "Difference-in-Differences"
           href: did/did.qmd
         - text: "Regression Discontinuity"
+          href: rdd/rdd.qmd
         - text: "Selection on Observables"
           href: soo/soo.qmd
         - text: "Regression Models"
+          href: reg/reg.qmd
         - text: "Latent Variable Models"
           href: latent/latent.qmd
 
@@ -52,12 +54,10 @@ website:
       contents:
         - text: "Difference-in-Differences"
           href: did/did.qmd
-        - text: "---"
-        - text: "Classic DiD Design"
         - text: "Two-way Fixed Effects"
           href: did/twfe.qmd
-        - text: "Repeated Cross Sections"
         - text: "Dynamic Treatment Effects"
+          href: did/dynamic.qmd
         - text: "---"
         - text: "Staggered DiD Design"
           href: did/staggered.qmd
@@ -65,15 +65,34 @@ website:
           href: did/twfestaggered.qmd
         - text: "Gardner (2021) 2-stage DiD"
           href: did/did2s.qmd
+        - text: "Liu et al (2024) IFEct"
+          href: did/ifect.qmd
         - text: "Wooldridge (2021) ETWFE"
           href: did/etwfe.qmd
         - text: "Sun and Abraham (2021)"
           href: did/sunab.qmd
         - text: "Callaway and Sant'Anna (2021)"
           href: did/cs.qmd
-        - text: "Liu et al (2024) IFEct"
-          href: did/ifect.qmd
-        
+        - text: "Chaisemartin and Haultfoeuille (2024)"
+    
+    - title: "Regression Discontinuity"
+      style: floating
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Regression Discontinuity"
+          href: rdd/rdd.qmd
+        - text: "---"
+        - text: "Linear Parametric Model"
+        - text: "Polynomial Parametric Model"
+        - text: "Non-Parametric Model"
+        - text: "Bandwidth Selection"
+        - text: "Tests for Sorting"
+        - text: "---"
+        - text: "Fuzzy Discontinuity"
+        - text: "Regression Kink Design"
+        - text: "Panel and Spatial Data"
 
     - title: "Selection on Observables"
       style: floating
@@ -90,14 +109,39 @@ website:
           href: soo/regress.qmd
         - text: "Fully Interacted Estimator"
           href: soo/interact.qmd
+        - text: "Causal Forests"
+        - text: "---"
         - text: "Distance Matching"
           href: soo/distance.qmd
         - text: "Propensity Score Matching"
           href: soo/pscore.qmd
         - text: "Genetic Matching"
           href: soo/genetic.qmd
+        - text: "---"
         - text: "Inverse Probability Weighting"
           href: soo/ipw.qmd
+        - text: "Doubly Robust Estimation"
+    
+    - title: "Regression"
+      style: floating
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Regression Models"
+          href: reg/reg.qmd
+        - text: "---"
+        - text: "Multiple Linear Regression"
+        - text: "Binomial Logistic Regression"
+        - text: "Ordinal Logistic Regression"
+        - text: "Multinomial Logistic Regression"
+        - text: "Negative Binomial Regression"
+        - text: "Poisson Regression"
+        - text: "---"
+        - text: "Interaction Effects"
+        - text: "Variable Transformations"
+        - text: "---"
+        - text: "Random Forest"
         
     - title: "Latent Models"
       style: floating

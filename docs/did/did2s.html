@@ -138,18 +138,16 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Discontinuity</span>
-    </span>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
+    <a class="nav-link" href="../reg/reg.html"> 
+<span class="menu-text">Regression Models</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
@@ -189,10 +187,6 @@ window.Quarto = {
  <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
@@ -200,11 +194,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Treatment Effects</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -226,6 +220,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
   </div>
@@ -243,11 +243,8 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
+ <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -281,8 +278,8 @@ window.Quarto = {
 <div class="small">
 <p>See <a href="https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html">Kyle Butts’</a> github page for more info on this estimator. <a href="https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/">Asjad Naqvi</a> also has a helpful page.</p>
 </div>
-<p>Gardner (2021) proposes to solve the <a href="../did/twfestaggered.html">issues with two-way fixed effects</a> by just not doing comparisons and weighting. Instead, we estimate the missing counterfactuals and then calculate the treatment effect.</p>
-<p>Thus, the goal of 2-stage difference-in-differences is to estimate <span class="math inline">\(\pCred\)</span>. Using the idea of two-way fixed effects, we can derive a model for these missing counterfactuals:</p>
+<p>TWFE compares groups with each other - treated vs.&nbsp;not treated, early treated vs.&nbsp;late treated, etc., and these grouped comparisons <a href="../did/twfestaggered.html">can be “forbidden” or incorrect</a>.</p>
+<p>Gardner (2021) instead proposes to estimate individual counterfactual outcomes, to calculate individual treatment effects, ensuring no forbidden comparisons. Using the idea of two-way fixed effects, we can derive a model for these missing counterfactuals:</p>
 <p><span class="math display">\[
 \pCred = \unit + \time + \cov + \eps_{it}
 \]</span></p>
@@ -303,10 +300,10 @@ Y_{it|D = 0} = \unit + \time + \cov + \eps_{it}
 \red{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
 \]</span></p>
 <ol start="3" type="1">
-<li>Once we have estimated <span class="math inline">\(\pCred\)</span>, we can calculate the treatment effects for the treated units, as we have an estimate for the hypothetical outcomes.</li>
+<li>Once we have estimated <span class="math inline">\(\red{\widehat Y_{it}^{(0)}}\)</span>, we can calculate the treatment effects for the treated units, as we have an estimate for the hypothetical outcomes.</li>
 </ol>
 <p><span class="math display">\[
-\att = \pT - \pCred
+\blue{\widehat\tau_{it}} \approx \pT - \red{\widehat Y_{it}^{(0)}}
 \]</span></p>
 <ol start="4" type="1">
 <li>Then, we average all the individual treatment effects to get the ATT.</li>

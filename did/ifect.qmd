@@ -6,7 +6,9 @@ title: "Liu et al (2024) Interactive Fixed Effects Counterfactual Estimator"
 See [Liu et al (2024)](https://onlinelibrary.wiley.com/doi/10.1111/ajps.12723) for more technical details.
 :::
 
-Liu et al (2024) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) by just not doing comparisons and weighting. Instead, we estimate the missing counterfactuals and then calculate the treatment effect.
+TWFE compares groups with each other - treated vs. not treated, early treated vs. late treated, etc., and these grouped comparisons [can be "forbidden" or incorrect](twfestaggered.qmd).
+
+Liu et al (2024) instead proposes to estimate individual counterfactual outcomes, to calculate individual treatment effects, ensuring no forbidden comparisons.
 
 ::: small
 This is similar to [Gardner (2021)](did2s.qmd) and his 2-stage difference-in-differences.
@@ -18,7 +20,7 @@ $$
 \pCred = \underbrace{\unit + \time + \cov}_{\text{classic TWFE}} + \b\lambda_i'\b\xi_t + \eps_{it}
 $$
 
-As you can see, the first part of this model follows the two-way fixed effects model for counterfactuals $\pCred$, just like in Gardner (2021). However, Liu et al (2024) add an extra term: $\b\lambda_i'\b\xi_t$.
+As you can see, the first part of this model follows the two-way fixed effects model for counterfactuals $\pCred$, just like in Gardner (2021). However, Liu et al (2024) add an extra term to the model: $\b\lambda_i'\b\xi_t$.
 
 -   $\b\xi_t$ is a vector of latent variables/factors $\xi_{1t}, \xi_{2t}, \dots$. These latent variables change in magnitude depending on time $t$ (they are time-varying).
 -   $\b\lambda_i$ is a vector of factor loadings $\lambda_{1i}, \lambda_{2i}, \dots$, that describes the "influence" every latent factor has on unit $i$. Different units $i$ can have different relationships with each factor.

@@ -138,18 +138,16 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Discontinuity</span>
-    </span>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
+    <a class="nav-link" href="../reg/reg.html"> 
+<span class="menu-text">Regression Models</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
@@ -189,10 +187,6 @@ window.Quarto = {
  <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
@@ -200,11 +194,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Treatment Effects</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -226,6 +220,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
   </div>
@@ -243,11 +243,8 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
+ <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -287,13 +284,13 @@ window.Quarto = {
 <li><p>Then, the estimator calculates dynamic ATT’s separately for group, using only valid comparisons. This is done by interacting a relative-time variable <span class="math inline">\(\widetilde T_{it}\)</span> with <span class="math inline">\(G_i\)</span>.</p></li>
 </ol>
 <p><span class="math display">\[
-Y_{it} = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau}G_i \widetilde T_{it}}_{\text{interactions}} +  \cov + \eps_{it}
+Y_{it} = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau_{it}}G_i \widetilde T_{it}}_{\text{interactions}} +  \cov + \eps_{it}
 \]</span></p>
 <div class="small">
 <p><span class="math inline">\(G_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(\widetilde T_{it}\)</span> is a relative time categorical variable that describes unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>, and how many periods away from the initial treatment period of that unit <span class="math inline">\(i\)</span> is.</p>
 </div>
 <ol start="3" type="1">
-<li><p>This model will produce many coefficients <span class="math inline">\(\blue\tau\)</span> (in fact, one for each post-treatment time period for each initial treatment year group).</p></li>
+<li><p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{it}}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group).</p></li>
 <li><p>Finally, these separate heterogeneous effects are manually aggregated together into dynamic ATT’s by relative treatment time using proper weighting based on how frequent each initial treatment period group appears in our sample. This solves the weighting problem with TWFE.</p></li>
 </ol>
 <p>Because of the focus of Sun and Abraham on dynamic treatment effects, it is often the go-to estimator for dynamic treatment effects and checking parallel trends.</p>

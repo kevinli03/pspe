@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Latent Variable Models – Causal Inference Resources</title>
+<title>Dynamic Treatment Effects – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -130,7 +164,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/latent.html">Latent Variable Models</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/dynamic.html">Dynamic Treatment Effects</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -149,85 +183,68 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Latent Variable Models</span></a>
+  <a href="../did/did.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Difference-in-Differences</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-way Fixed Effects</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Dynamic Treatment Effects</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Factor Analysis Models</span></a>
+  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Staggered DiD Design</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Reliability and Factor Scores</span></a>
+  <a href="../did/twfestaggered.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Issues with TWFE</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Latent Factors</span></a>
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Identification and Rotation</span></a>
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Confirmatory Analysis</span></a>
+  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Item Response Theory</span></a>
+  <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Sun and Abraham (2021)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Latent Class Models</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/sem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Structural Equation Models</span></a>
+  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/longitudinal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lagged Response Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Group Models</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Principle Components Analysis</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/cluster.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Cluster Analysis</span></a>
-  </div>
-</li>
+ <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -241,7 +258,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Latent Variable Models</h1>
+<h1 class="title">Dynamic Treatment Effects</h1>
 </div>
 
 
@@ -258,118 +275,60 @@ window.Quarto = {
 </header>
 
 
-<p>A latent variable model connects a unobserved variable (<strong>latent factor</strong> <span class="math inline">\(\xi\)</span>) with a few observed variables (<strong>items</strong> <span class="math inline">\(X_1, X_2, \dots\)</span>) that are considered imperfect measures of the latent factor.</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="4.5" data-fig-height="1.4" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="432" height="134" viewbox="0.00 0.00 379.58 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
-<title>example2</title>
-<!-- F -->
-<g id="node1" class="node">
-<title>F</title>
-<polygon fill="none" stroke="black" points="242.27,-124.8 129.31,-124.8 129.31,-88.8 242.27,-88.8 242.27,-124.8"></polygon>
-<text text-anchor="start" x="137.55" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">ξ (Unobserved)</text>
-</g>
-<!-- X1 -->
-<g id="node2" class="node">
-<title>X1</title>
-<polygon fill="none" stroke="black" points="99.38,-36 0.21,-36 0.21,0 99.38,0 99.38,-36"></polygon>
-<text text-anchor="middle" x="49.79" y="-13.8" font-family="Times,serif" font-size="14.00">X1 (Observed)</text>
-</g>
-<!-- F&#45;&gt;X1 -->
-<g id="edge1" class="edge">
-<title>F-&gt;X1</title>
-<path fill="none" stroke="black" d="M158.92,-88.65C137.78,-75.16 108.14,-56.24 85.09,-41.53"></path>
-<polygon fill="black" stroke="black" points="86.92,-38.54 76.6,-36.11 83.15,-44.44 86.92,-38.54"></polygon>
-<text text-anchor="start" x="130.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
-</g>
-<!-- X2 -->
-<g id="node3" class="node">
-<title>X2</title>
-<polygon fill="none" stroke="black" points="235.38,-36 136.21,-36 136.21,0 235.38,0 235.38,-36"></polygon>
-<text text-anchor="middle" x="185.79" y="-13.8" font-family="Times,serif" font-size="14.00">X2 (Observed)</text>
-</g>
-<!-- F&#45;&gt;X2 -->
-<g id="edge2" class="edge">
-<title>F-&gt;X2</title>
-<path fill="none" stroke="black" d="M185.79,-88.65C185.79,-76.52 185.79,-60.02 185.79,-46.12"></path>
-<polygon fill="black" stroke="black" points="189.29,-46.11 185.79,-36.11 182.29,-46.11 189.29,-46.11"></polygon>
-<text text-anchor="start" x="185.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
-</g>
-<!-- X3 -->
-<g id="node4" class="node">
-<title>X3</title>
-<polygon fill="none" stroke="black" points="371.38,-36 272.21,-36 272.21,0 371.38,0 371.38,-36"></polygon>
-<text text-anchor="middle" x="321.79" y="-13.8" font-family="Times,serif" font-size="14.00">X3 (Observed)</text>
-</g>
-<!-- F&#45;&gt;X3 -->
-<g id="edge3" class="edge">
-<title>F-&gt;X3</title>
-<path fill="none" stroke="black" d="M212.66,-88.65C233.8,-75.16 263.44,-56.24 286.5,-41.53"></path>
-<polygon fill="black" stroke="black" points="288.43,-44.44 294.98,-36.11 284.67,-38.54 288.43,-44.44"></polygon>
-<text text-anchor="start" x="266.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
 <div class="small">
-<p>For example, maybe we want to measure the political ideology of a senator. We cannot directly observe the political ideology (the latent factor), but we can observe how they vote on different bills (the items)</p>
+<p>This page requires knowledge on <a href="../did/twfe.html">two-way fixed effects</a>.</p>
 </div>
-<p>Latent variable models assume we can model the relationship between each observed item and the latent factor with some sort of regression model. The coefficient of each regression (often denoted <span class="math inline">\(\lambda\)</span>) is the relationship between each item and the factor.</p>
+<p>The classic difference-in-differences design only requires 2 time periods - a pre-treatment periods, and a post-treatment period. However, we often have more data - many years before the treatment began, and many years after the treatment ended.</p>
+<p><strong>Dynamic Treatment Effects</strong> calculate treatment effects for each year before treatment, and each year after treatment, instead of just one ATT.</p>
 <div class="small">
-<p>For example, in the figure above, each item (X1, X2, X3) is related to the factor (F) with by a <span class="math inline">\(\lambda\)</span> coefficient.</p>
+<p>This is also called an <strong>event study</strong> or <strong>leads-and-lags</strong>. Just like TWFE, this estimator has <a href="../did/twfestaggered.html">issues when dealing with staggered treatment</a>.</p>
 </div>
-<p>These <span class="math inline">\(\lambda\)</span> are called <strong>factor loadings</strong>. We can interpret the estimated factor loadings <span class="math inline">\(\widehat\lambda\)</span> to interpret what the unobserved factor actually is measuring.</p>
+<ol type="1">
+<li>We first create a new categorical variable, called relative-time <span class="math inline">\(R_{it}\)</span>. It essentially measures the number of periods a certain time period <span class="math inline">\(t\)</span> is before/after the initial treatment adoption, with <span class="math inline">\(R_{it} = 0\)</span> being the initial treatment year.</li>
+</ol>
+<p><span class="math display">\[
+R_{it} = t - \text{initial treatment period}
+\]</span></p>
 <div class="small">
-<p>For example, if a factor has a strong relationship with one item, and a weaker relationship with another item, we might conclude that the factor measures the first item more than the second item.</p>
+<p>For example, if treatment starts in 2003, an observation in 2002 would get a relative-time of -1, and an observation in 2004 would get a relative-time of 1.</p>
 </div>
-<p>We can also use latent variable models to create <strong>factor scores</strong> <span class="math inline">\(\widehat\xi\)</span>, which are basically actual values of the latent variable for each individual <span class="math inline">\(i\)</span> in our data. This allows us to use the latent variable in other statistical models.</p>
-<p>The choice of latent variable model depends on the type of items/factors:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 36%">
-<col style="width: 32%">
-<col style="width: 32%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Model</span></td>
-<td><span class="smallcaps">Factor Type</span></td>
-<td><span class="smallcaps">Item Type</span></td>
-</tr>
-<tr class="even">
-<td><a href="../latent/factor.html">Factor Analysis</a></td>
-<td>Continuous</td>
-<td>Continuous</td>
-</tr>
-<tr class="odd">
-<td><a href="../latent/irt.html">Item Response Theory</a></td>
-<td>Continous</td>
-<td>Categorical/Binary</td>
-</tr>
-<tr class="even">
-<td><a href="../latent/class.html">Structural Class Models</a></td>
-<td>Categorical/Binary</td>
-<td>Categorical/Binary</td>
-</tr>
-</tbody>
-</table>
+<ol start="2" type="1">
+<li>Then, we run the following model:</li>
+</ol>
+<p><span class="math display">\[
+Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + R_{it}\blue{\tau_{r}}+ \cov + \eps_{it}
+\]</span></p>
+<div class="small">
+<p><span class="math inline">\(R_{it}\)</span> is a categorical variable, with <span class="math inline">\(R_{it} = -1\)</span> set as the reference category (since this is the last pre-treatment period). If you have repeated cross-sections, use group-fixed effects instead of unit.</p>
+</div>
+<ol start="3" type="1">
+<li>This will estimate a coefficient <span class="math inline">\(\blue{\tau_{r}}\)</span> for each relative time period before/after treatment implementation. These are the treatment effects for each relative-time period <span class="math inline">\(r\)</span>.</li>
+</ol>
+<div class="small">
+<p>More technically, <span class="math inline">\(\tau_r\)</span> is the estimated difference in <span class="math inline">\(Y_{it}\)</span> compared to reference periods <span class="math inline">\(R_{it} = -1\)</span> (which is assumed to have a 0 treatment effect).</p>
+</div>
+<p>In the <strong>post-treatment</strong> periods (after treatment has started), these <span class="math inline">\(\blue{\tau_r}\)</span> represent the treatment effect by year. We can graph the post-treatment <span class="math inline">\(\blue{\tau_r}\)</span> to see the trend in how the effect of treatment changes over time.</p>
+<p>In the <strong>pre-treatment</strong> periods, we shouldn’t expect any singificant causal effect <span class="math inline">\(\blue{\tau_r}\)</span>, since treatment hasn’t started. If we do see any statistically significant effect pre-treatment, <u>this is evidence for a violation of the parallel trends assumption</u>.</p>
+<div class="small">
+<p>Note: this is not a definitive test for parallel trends. Even if there is 0 significance in pre-treatment periods, parallel trends could still be violated. There is no way to be 100% sure.</p>
+</div>
 <p><br></p>
-<p>All models allow for multiple factors <span class="math inline">\(\xi_1, \xi_2, \dots\)</span> as well. If we have many items, some items might only measure on factor, others both factors.</p>
-<p>Each latent model also has the ability to conduct <strong>confirmatory analysis</strong>. This is basically when we, based on theoretical reasons (such as reading the literature), impose certain restrictions on models, and test if this hypothesised model is good.</p>
-<div class="small">
-<p>This typically takes the form of setting certain factor loadings <span class="math inline">\(\lambda\)</span> to 0, meaning a certain item does not measure one of the factors.</p>
+<p>To implement dynamic treatment effects, we need the <strong>fixest</strong> package:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>We can also combine different structural models together to form <strong>structural equation models</strong> (see the structural equation models part).</p>
+<p>Before we start, we will need to create a relative-time variable. This can be done by taking the time variable, and subtracting the initial treatment time period for each unit.</p>
+<p>Then, we run the following model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> <span class="fu">i</span>(relative.time, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> my.data,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"cluster"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>If you are using repeated cross-section, replace unit with group fixed effects.</p>
+</div>
+<p>The output from <strong>iplot()</strong> will be a graph with each <span class="math inline">\(\blue{\tau_r}\)</span> and its confidence interval. If any of the confidence intervals do not touch 0, then it is statistically significant.</p>
 
 
 

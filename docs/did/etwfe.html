@@ -138,18 +138,16 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Discontinuity</span>
-    </span>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
+    <a class="nav-link" href="../reg/reg.html"> 
+<span class="menu-text">Regression Models</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
@@ -189,10 +187,6 @@ window.Quarto = {
  <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
@@ -200,11 +194,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Treatment Effects</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -226,6 +220,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
   </div>
@@ -243,11 +243,8 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
+ <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -287,14 +284,14 @@ window.Quarto = {
 </ol>
 <p><span class="math display">\[
 \begin{align}
-Y_{it} = &amp; \ \underbrace{\unit + \time}_{\text{fixed effects}} + \cov + \underbrace{\blue{\tau_1} G_i D_{it}T_t + \blue{\tau_2}G_i D_{it}T_t \b X_{it} }_{\text{interactions for heterogeneity}} + \eps
+Y_{it} = &amp; \ \underbrace{\unit + \time}_{\text{fixed effects}} + \cov + \underbrace{\blue{\tau_{it}} G_i D_{it}T_t + \blue{\tau_{itx}}G_i D_{it}T_t \b X_{it} }_{\text{interactions for heterogeneity}} + \eps
 \end{align}
 \]</span></p>
 <div class="small">
 <p><span class="math inline">\(G_i\)</span> is a categorical variable that indicates what initial treatment period group unit <span class="math inline">\(i\)</span> belongs to. <span class="math inline">\(T_t\)</span> is a categorical variable that indicates the different time periods.</p>
 </div>
 <ol start="2" type="1">
-<li><p>Many coefficients <span class="math inline">\(\blue{\tau_1}\)</span> and <span class="math inline">\(\blue{\tau_2}\)</span> are estimated that capture different heterogeneity in treatment effects.</p></li>
+<li><p>Many coefficients <span class="math inline">\(\blue{\tau_{it}}\)</span> and <span class="math inline">\(\blue{\tau_{itx}}\)</span> are estimated that capture different heterogeneity in treatment effects.</p></li>
 <li><p>These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.</p></li>
 </ol>
 <div class="small">

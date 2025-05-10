@@ -13,14 +13,14 @@ There are two [issues with the two-way fixed effects estimator](twfestaggered.qm
 2.  Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $\widetilde T_{it}$ with $G_i$.
 
 $$
-Y_{it} = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau}G_i \widetilde T_{it}}_{\text{interactions}} +  \cov + \eps_{it}
+Y_{it} = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau_{it}}G_i \widetilde T_{it}}_{\text{interactions}} +  \cov + \eps_{it}
 $$
 
 ::: small
 $G_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\widetilde T_{it}$ is a relative time categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is.
 :::
 
-3.  This model will produce many coefficients $\blue\tau$ (in fact, one for each post-treatment time period for each initial treatment year group).
+3.  This model will produce many coefficients $\blue{\tau_{it}}$ (in fact, one for each post-treatment time period for each initial treatment year group).
 
 4.  Finally, these separate heterogeneous effects are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting based on how frequent each initial treatment period group appears in our sample. This solves the weighting problem with TWFE.
 

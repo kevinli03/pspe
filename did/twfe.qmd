@@ -2,20 +2,40 @@
 title: "Two-Way Fixed Effects Estimator"
 ---
 
+The two-way fixed effects estimator is the standard estimator for DiD.
+
 ::: small
 Note: if you have staggered treatment implementation, [TWFE can produce incorrect results](twfestaggered.qmd).
 :::
 
-The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences, used when we have panel data with multiple observations observed in multiple time periods. The estimator is a linear regression model specified as following:
+The estimator with **panel data** is a linear regression model specified as following:
 
 $$
 Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
 $$
 
+::: small
+Panel data is when we observe the same units $i$ over multiple periods of time.
+:::
+
+For **repeated cross-section** data, the model is:
+
+$$
+Y_{it} = \underbrace{\alpha_g + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
+$$
+
+::: small
+Repeated cross section is when we have different samples from different time periods. Note how the first fixed effect $\alpha_g$ now has subscript $g$ - we now include group fixed effects - group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).
+:::
+
 The fixed effects $\alpha_i$ and $\gamma_t$ are "special" intercepts. Unlike our normal intercepts in regression, these intercepts take different values depending on the unit and time.
 
 -   Intercept $\alpha_i$ has a different value for each unit $i$.
 -   Intercept $\gamma_t$ has a different value for each time period $t$.
+
+::: small
+For repeated cross section, $\gamma_t$ is the same. $\alpha_g$ will now have different values for each group $g$.
+:::
 
 What fixed effects does is that it calculates different intercepts for each unit $i$, and each time period $t$. Thus, these intercepts reflect differences on-average between different units $i$, and different time periods $t$.
 
@@ -41,4 +61,9 @@ We implement two-way fixed effects as follows:
 model <- feols(outcome ~ treatment + covariate1 + covariate2 | unit + time,
                data = my_data,
                se = "cluster")
+summary(model)
 ```
+
+::: small
+For repeated cross section, replace **unit** with **group**, group being the level at which treatment is assigned.
+:::

@@ -12,7 +12,7 @@ There are two [issues with the two-way fixed effects estimator](twfestaggered.qm
 
 $$
 \begin{align}
-Y_{it} = & \ \underbrace{\unit + \time}_{\text{fixed effects}} + \cov + \underbrace{\blue{\tau_1} G_i D_{it}T_t + \blue{\tau_2}G_i D_{it}T_t \b X_{it} }_{\text{interactions for heterogeneity}} + \eps
+Y_{it} = & \ \underbrace{\unit + \time}_{\text{fixed effects}} + \cov + \underbrace{\blue{\tau_{it}} G_i D_{it}T_t + \blue{\tau_{itx}}G_i D_{it}T_t \b X_{it} }_{\text{interactions for heterogeneity}} + \eps
 \end{align}
 $$
 
@@ -20,7 +20,7 @@ $$
 $G_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $T_t$ is a categorical variable that indicates the different time periods.
 :::
 
-2.  Many coefficients $\blue{\tau_1}$ and $\blue{\tau_2}$ are estimated that capture different heterogeneity in treatment effects.
+2.  Many coefficients $\blue{\tau_{it}}$ and $\blue{\tau_{itx}}$ are estimated that capture different heterogeneity in treatment effects.
 
 3.  These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.
 

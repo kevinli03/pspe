@@ -138,18 +138,16 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Discontinuity</span>
-    </span>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
+    <a class="nav-link" href="../reg/reg.html"> 
+<span class="menu-text">Regression Models</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
@@ -189,10 +187,6 @@ window.Quarto = {
  <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
- <span class="menu-text">Classic DiD Design</span>
-  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link active">
@@ -200,11 +194,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Repeated Cross Sections</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Dynamic Treatment Effects</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Dynamic Treatment Effects</span></a>
+  </div>
+</li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
@@ -226,6 +220,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Liu et al (2024) IFEct</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
   </div>
@@ -243,11 +243,8 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
+ <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+  </li>
     </ul>
     </div>
 </nav>
@@ -278,18 +275,32 @@ window.Quarto = {
 </header>
 
 
+<p>The two-way fixed effects estimator is the standard estimator for DiD.</p>
 <div class="small">
 <p>Note: if you have staggered treatment implementation, <a href="../did/twfestaggered.html">TWFE can produce incorrect results</a>.</p>
 </div>
-<p>The two-way fixed effects estimator is the most commonly used estimator in difference-in-differences, used when we have panel data with multiple observations observed in multiple time periods. The estimator is a linear regression model specified as following:</p>
+<p>The estimator with <strong>panel data</strong> is a linear regression model specified as following:</p>
 <p><span class="math display">\[
 Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
 \]</span></p>
+<div class="small">
+<p>Panel data is when we observe the same units <span class="math inline">\(i\)</span> over multiple periods of time.</p>
+</div>
+<p>For <strong>repeated cross-section</strong> data, the model is:</p>
+<p><span class="math display">\[
+Y_{it} = \underbrace{\alpha_g + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
+\]</span></p>
+<div class="small">
+<p>Repeated cross section is when we have different samples from different time periods. Note how the first fixed effect <span class="math inline">\(\alpha_g\)</span> now has subscript <span class="math inline">\(g\)</span> - we now include group fixed effects - group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).</p>
+</div>
 <p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are “special” intercepts. Unlike our normal intercepts in regression, these intercepts take different values depending on the unit and time.</p>
 <ul>
 <li>Intercept <span class="math inline">\(\alpha_i\)</span> has a different value for each unit <span class="math inline">\(i\)</span>.</li>
 <li>Intercept <span class="math inline">\(\gamma_t\)</span> has a different value for each time period <span class="math inline">\(t\)</span>.</li>
 </ul>
+<div class="small">
+<p>For repeated cross section, <span class="math inline">\(\gamma_t\)</span> is the same. <span class="math inline">\(\alpha_g\)</span> will now have different values for each group <span class="math inline">\(g\)</span>.</p>
+</div>
 <p>What fixed effects does is that it calculates different intercepts for each unit <span class="math inline">\(i\)</span>, and each time period <span class="math inline">\(t\)</span>. Thus, these intercepts reflect differences on-average between different units <span class="math inline">\(i\)</span>, and different time periods <span class="math inline">\(t\)</span>.</p>
 <p>Since the differences between units <span class="math inline">\(i\)</span> and time periods <span class="math inline">\(t\)</span> are included in these fixed effects intercept terms, this allows us to <strong>account</strong> for differences between units and differences between time periods.</p>
 <div class="small">
@@ -305,7 +316,11 @@ Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov +
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> treatment <span class="sc">+</span> covariate1 <span class="sc">+</span> covariate2 <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> my_data,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"cluster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"cluster"</span>)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="small">
+<p>For repeated cross section, replace <strong>unit</strong> with <strong>group</strong>, group being the level at which treatment is assigned.</p>
 </div>
 
 
