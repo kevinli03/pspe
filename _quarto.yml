@@ -4,6 +4,7 @@ project:
 
 website:
   title: "Causal Inference Resources"
+  site-url: "https://kevinli03.github.io/pspe/"
   search: false
   navbar:
       pinned: true
