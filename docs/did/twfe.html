@@ -203,37 +203,31 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD Design</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/twfestaggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Issues with TWFE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
+ <span class="menu-text">Staggered DiD and TWFE</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sun and Abraham (2021)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-stage Difference-in-Differences</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IFE Counterfactual Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extended Two-way Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -275,23 +269,16 @@ window.Quarto = {
 </header>
 
 
-<p>The two-way fixed effects estimator is the standard estimator for DiD.</p>
-<div class="small">
-<p>Note: if you have staggered treatment implementation, <a href="../did/twfestaggered.html">TWFE can produce incorrect results</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The estimator with <strong>panel data</strong> is a linear regression model specified as following:</p>
+<p>The two-way fixed effects estimator is the standard estimator for DiD. The estimator with is a linear regression model specified as following:</p>
 <p><span class="math display">\[
 Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
 \]</span></p>
 <div class="small">
-<p>Panel data is when we observe the same units <span class="math inline">\(i\)</span> over multiple periods of time.</p>
-</div>
-<p>For <strong>repeated cross-section</strong> data, the model is:</p>
-<p><span class="math display">\[
-Y_{it} = \underbrace{\alpha_g + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
-\]</span></p>
-<div class="small">
-<p>Repeated cross section is when we have different samples from different time periods. Note how the first fixed effect <span class="math inline">\(\alpha_g\)</span> now has subscript <span class="math inline">\(g\)</span> - we now include group fixed effects - group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).</p>
+<p>This is the estimator for panel data. In repeated cross-sections, we have to replace the unit fixed effects <span class="math inline">\(\alpha_i\)</span> with group fixed effects, group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).</p>
 </div>
 <p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are “special” intercepts. Unlike our normal intercepts in regression, these intercepts take different values depending on the unit and time.</p>
 <ul>
@@ -301,26 +288,34 @@ Y_{it} = \underbrace{\alpha_g + \time}_{\text{fixed effects}} + D_{it}\att + \co
 <div class="small">
 <p>For repeated cross section, <span class="math inline">\(\gamma_t\)</span> is the same. <span class="math inline">\(\alpha_g\)</span> will now have different values for each group <span class="math inline">\(g\)</span>.</p>
 </div>
-<p>What fixed effects does is that it calculates different intercepts for each unit <span class="math inline">\(i\)</span>, and each time period <span class="math inline">\(t\)</span>. Thus, these intercepts reflect differences on-average between different units <span class="math inline">\(i\)</span>, and different time periods <span class="math inline">\(t\)</span>.</p>
-<p>Since the differences between units <span class="math inline">\(i\)</span> and time periods <span class="math inline">\(t\)</span> are included in these fixed effects intercept terms, this allows us to <strong>account</strong> for differences between units and differences between time periods.</p>
-<div class="small">
-<p>Or in other words, we are essentially “controlling” for differences between units, and differences between years.</p>
-</div>
-<p>By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for <span class="math inline">\(\att\)</span> is our treatment effect (ATT). This estimate is <strong>unbiased</strong> if the parallel trends assumption is met.</p>
-<p><br></p>
-<p>To implement two-way fixed effects, we need the <strong>fixest</strong> package:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> treatment <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="co"># the | separates the main variables from the fixed effects</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="st">"cluster"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># we should always cluster standard errors by unit</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>OLS estimation, Dep. Var.: outcome
+Observations: 1,080
+Fixed-effects: unit: 108,  time: 10
+Standard-errors: Clustered (unit) 
+          Estimate Std. Error t value  Pr(&gt;|t|)    
+treatment 4.850645   0.455222 10.6556 &lt; 2.2e-16 ***
+covariate 0.972166   0.045972 21.1468 &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+RMSE: 3.90173     Adj. R2: 0.474684
+                Within R2: 0.368706</code></pre>
 </div>
-<p>We implement two-way fixed effects as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> treatment <span class="sc">+</span> covariate1 <span class="sc">+</span> covariate2 <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> my_data,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"cluster"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="small">
-<p>For repeated cross section, replace <strong>unit</strong> with <strong>group</strong>, group being the level at which treatment is assigned.</p>
+<p>The estimate for our treatment is the ATT. In this example, it is 4.850645.</p>
+</div>
+<p>Since the differences between units <span class="math inline">\(i\)</span> and time periods <span class="math inline">\(t\)</span> are included in these fixed effects intercept terms, this allows us to <strong>account</strong> for differences between units and differences between time periods. Along with the parallel trends assumption, our treatment <span class="math inline">\(D\)</span> should be strictly exogenous, allowing for the estimated <span class="math inline">\(\att\)</span> to be unbiased.</p>
+<div class="small">
+<p>The unit fixed effects controls for between-unit differences. The time fixed effects controls for between-time differences. The only remaining differences are unit-time differences, or trends of units over time. Parallel trends (if met) controls for this.</p>
 </div>
 
 

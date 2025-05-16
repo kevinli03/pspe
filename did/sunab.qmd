@@ -2,53 +2,68 @@
 title: "Sun and Abraham (2021) Estimator"
 ---
 
-::: small
-For technical details, see [Sun and Abraham (2021)](https://www.sciencedirect.com/science/article/abs/pii/S030440762030378X) or [this github page](https://asjadnaqvi.github.io/DiD/docs/code_r/07_sunab_r/).
-:::
+```{r}
+#| message: false
+#| warning: false
 
-There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator that solves both of these issues by:
-
-1.  The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$.
-
-2.  Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $\widetilde T_{it}$ with $G_i$.
-
-$$
-Y_{it} = \underbrace{\unit + \time}_{\text{fixed effecs}} +\underbrace{\blue{\tau_{it}}G_i \widetilde T_{it}}_{\text{interactions}} +  \cov + \eps_{it}
-$$
-
-::: small
-$G_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $\widetilde T_{it}$ is a relative time categorical variable that describes unit $i$ at time $t$, and how many periods away from the initial treatment period of that unit $i$ is.
-:::
-
-3.  This model will produce many coefficients $\blue{\tau_{it}}$ (in fact, one for each post-treatment time period for each initial treatment year group).
-
-4.  Finally, these separate heterogeneous effects are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting based on how frequent each initial treatment period group appears in our sample. This solves the weighting problem with TWFE.
-
-Because of the focus of Sun and Abraham on dynamic treatment effects, it is often the go-to estimator for dynamic treatment effects and checking parallel trends.
-
-::: {.callout-note collapse="true"}
-## Comparison with Wooldridge (2021) ETWFE
-
-Sun and Abraham's estimator is very similar to Wooldridge's [extended two-way fixed effects](etwfe.qmd) estimator. The three main differences are:
-
-1.  Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge's can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.
-2.  Sun and Abraham is more strict with covariates for parallel trends, while Wooldridge's allows for more flexibility and robustness to violations of parallel trends. This is because Wooldridge's estimator contains far more interactions with covariates.
-3.  Wooldridge's estimator allows for non-linear models (poisson, logistic, etc.).
-:::
-
-<br />
-
-To implement this estimator, we will need the **fixest** package:
-
-```{r, eval = F}
+# Packages Needed:
 library(fixest)
 ```
 
-We implement Sun and Abraham's estimator as follows:
+There are two [issues with the two-way fixed effects estimator](staggered.qmd): forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator to solve this issues.
 
-```{r, eval = F}
-model <- feols(outcome ~ sunab(initial_treat_year, time) + covariate1 + covariate2 | unit + time,
-               data = my_data,
-               vcov = ~unit)
-iplot(model)
+The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$. Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $\widetilde T_{it}$ with $G_i$.
+
+This model will produce many coefficients $\blue{\tau_{it}}$ (in fact, one for each post-treatment time period for each initial treatment year group). These are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting. This solves the weighting problem with TWFE.
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+data(base_stagg, package = "fixest")
+df <- base_stagg
+colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "covariate", "outcome")
 ```
+
+```{r}
+#| warning: false
+#| message: false
+
+model <- feols(
+  outcome ~ sunab(first.treated, time, att = T) + covariate | unit + time,
+      #first.treated for never-treated should be some value outside of time-range
+      #first.treated should not be NA.
+  data = df,
+  vcov = ~unit)
+
+tail(model$coeftable) # the ATT is listed at the end of the coef table
+```
+
+::: small
+The ATT is given by the estimate of the ATT in the table. Here, we can see the ATT is -1.1337.
+:::
+
+We can also calculate dynamic treatment effects and plot them:
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-height: 3.5
+
+model <- feols(
+  outcome ~ sunab(first.treated, time) + covariate | unit + time,
+      #att = T makes it calculate a singular ATT
+  data = df,
+  vcov = ~unit)
+
+iplot(
+  model,
+  drop = "[[:digit:]]{2}",
+      # this drops the time periods too far before and after treatment.
+  ref.line = 0)
+```
+
+::: small
+For technical details, see [Sun and Abraham (2021)](https://www.sciencedirect.com/science/article/abs/pii/S030440762030378X) or [this github page](https://asjadnaqvi.github.io/DiD/docs/code_r/07_sunab_r/).
+:::

@@ -164,7 +164,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/ifect.html">Liu et al (2024) IFEct</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/ifect.html">IFE Counterfactual Estimator</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -203,37 +203,31 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD Design</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/twfestaggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Issues with TWFE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
+ <span class="menu-text">Staggered DiD and TWFE</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sun and Abraham (2021)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-stage Difference-in-Differences</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">IFE Counterfactual Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extended Two-way Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -275,55 +269,59 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>See <a href="https://onlinelibrary.wiley.com/doi/10.1111/ajps.12723">Liu et al (2024)</a> for more technical details.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>TWFE compares groups with each other - treated vs.&nbsp;not treated, early treated vs.&nbsp;late treated, etc., and these grouped comparisons <a href="../did/twfestaggered.html">can be “forbidden” or incorrect</a>.</p>
-<p>Liu et al (2024) instead proposes to estimate individual counterfactual outcomes, to calculate individual treatment effects, ensuring no forbidden comparisons.</p>
-<div class="small">
-<p>This is similar to <a href="../did/did2s.html">Gardner (2021)</a> and his 2-stage difference-in-differences.</p>
-</div>
+<p>TWFE compares groups that <a href="../did/staggered.html">can be “forbidden” or incorrect</a>, such as using already-treated units as controls. Liu et al (2024) instead proposes to estimate individual counterfactual untreated outcomes for treated units, and directly calculating the individual treatment effects:</p>
+<p><span class="math display">\[
+\tau_{it} = \pT - \pCred
+\]</span></p>
 <p>Thus, the goal of this <strong>interactive fixed effects counterfactual estimator (IFEct)</strong> is to estimate <span class="math inline">\(\pCred\)</span>. They model these counterfactuals as:</p>
 <p><span class="math display">\[
 \pCred = \underbrace{\unit + \time + \cov}_{\text{classic TWFE}} + \b\lambda_i'\b\xi_t + \eps_{it}
 \]</span></p>
-<p>As you can see, the first part of this model follows the two-way fixed effects model for counterfactuals <span class="math inline">\(\pCred\)</span>, just like in Gardner (2021). However, Liu et al (2024) add an extra term to the model: <span class="math inline">\(\b\lambda_i'\b\xi_t\)</span>.</p>
-<ul>
-<li><span class="math inline">\(\b\xi_t\)</span> is a vector of latent variables/factors <span class="math inline">\(\xi_{1t}, \xi_{2t}, \dots\)</span>. These latent variables change in magnitude depending on time <span class="math inline">\(t\)</span> (they are time-varying).</li>
-<li><span class="math inline">\(\b\lambda_i\)</span> is a vector of factor loadings <span class="math inline">\(\lambda_{1i}, \lambda_{2i}, \dots\)</span>, that describes the “influence” every latent factor has on unit <span class="math inline">\(i\)</span>. Different units <span class="math inline">\(i\)</span> can have different relationships with each factor.</li>
-</ul>
 <div class="small">
-<p>These latent factors and factor loadings are estimated with control data <span class="math inline">\(D_{it} = 0\)</span>. For more on latent variables, see the section on latent variable modelling.</p>
+<p><span class="math inline">\(\b\xi_t\)</span> is a vector of latent variables/factors <span class="math inline">\(\xi_{1t}, \xi_{2t}, \dots\)</span>. These latent variables change in magnitude depending on time <span class="math inline">\(t\)</span> (they are time-varying). <span class="math inline">\(\b\lambda_i\)</span> is a vector of factor loadings <span class="math inline">\(\lambda_{1i}, \lambda_{2i}, \dots\)</span>, that describes the “influence” every latent factor has on unit <span class="math inline">\(i\)</span>. Different units <span class="math inline">\(i\)</span> can have different relationships with each factor.</p>
 </div>
-<p>This is essentially a complicated way of saying that this model <strong>adjusts for potential violations in parallel trends</strong>. This is because the latent factors are time-varying, and different units <span class="math inline">\(i\)</span> can have different relationship with each factor, meaning their can be non-parallel trends.</p>
-<p>This flexibility in the estimation of this model makes it more <strong>robust</strong> to minor violations of parallel trends. It can also better adjust for heterogeneity, not just between different initial treatment times, but also different covariate values.</p>
-<p><br></p>
-<p>To implement the IFEct estimator, we will need the package <strong>fect</strong>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fect)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">17</span>) <span class="co">#for consistent replication</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">fect</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> outcome <span class="sc">~</span> treatment,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="co">#add covariates after treatment</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"unit"</span>,<span class="st">"time"</span>),</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>      <span class="co">#replace unit and time with your unit and time variables</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">method =</span> <span class="st">"ife"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="co">#do not change</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">nboots =</span> <span class="dv">50</span>) <span class="co">#for standard errors. more is more accurate, but takes longer</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Call:
+fect.formula(formula = outcome ~ treatment, data = df, index = c("unit", 
+    "time"), method = "ife", se = TRUE, nboots = 50)
+
+ATT:
+                            ATT    S.E. CI.lower CI.upper p.value
+Tr obs equally weighted   2.281 0.07924    2.125    2.436       0
+Tr units equally weighted 2.180 0.07979    2.024    2.337       0</code></pre>
 </div>
-<p>Before we start, we will need to make sure our unit variable is numerical (so units 1, 2, …). This is often not the case in most datasets (for example, country is usually UK, USA,…, not 1,2,…).</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data <span class="co"># new data frame</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> dta <span class="sc">%&gt;%</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(unit) <span class="sc">%&gt;%</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">id =</span> <span class="fu">cur_group_id</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ungroup</span>() <span class="co"># change country into a numbered variable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Now, we can estimate our model as follows:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">17</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">fect</span>(outcome <span class="sc">~</span> treatment <span class="sc">+</span> covariate1 <span class="sc">+</span> covariate2,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">data =</span> dta,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">index =</span> <span class="fu">c</span>(<span class="st">"id"</span>,<span class="st">"time"</span>), <span class="co">#don't change id, change time to your period variable</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">method =</span> <span class="st">"ife"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">se =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">nboots =</span> <span class="dv">100</span>) <span class="co"># more is better, but takes longer</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>We can also plot our results:</p>
+<p>We have two outputs - both are plausible ATT’s. It is generally recommended to use the first row - treated observations equally weighted, as it is typically the most accurate ATT estimate.</p>
+<p>We can also plot our results for dynamic treatment effects and parallel trends tests:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="ifect_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<div class="small">
+<p>See <a href="https://onlinelibrary.wiley.com/doi/10.1111/ajps.12723">Liu et al (2024)</a> for more technical details.</p>
 </div>
 
 

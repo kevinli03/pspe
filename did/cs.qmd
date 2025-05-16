@@ -2,107 +2,73 @@
 title: "Callaway and Sant'Anna Flexible Matching and Reweighting Estimator"
 ---
 
-Callaway and Sant'Anna (2021) proposes to solve the [issues with two-way fixed effects](twfestaggered.qmd) by carefully selecting the comparisons, and properly weighting the comparisons:
+```{r}
+#| message: false
+#| warning: false
 
-1.  We first divide all units $i$ into groups, based on their first initial year of receiving treatment. Each unit who was first treated in year $g$ is assigned to group $g$.
-
-2.  Then, we define a new causal estimand of interest: what they call the group-time ATT. This is essentially the dynamic treatment effect of group $g$ at time $t$:
-
-$$
-\tau_{g, t}^\text{ATT} = \green{\mean Y_t^{(1)}} - \red{\mean Y_t^{(0)}} \ | \ G_{i, g} = 1
-$$
-
-::: small
-Where $G_{i,g}$ is a variable that equals 1 if unit $i$ is initially treated in group $g$. It is 0 otherwise.
-:::
-
-3.  Now the issue (as is the case for all DiD), is that the counterfactual $\red{\mean Y_t^{(0)}}$ is unobserved. Now, we need some way to estimate it.
-
-4.  To estimate the "trend" if the treated units were hypothetically untreated, we look only at the **never-treated** group. This ensures that we are making proper comparisons (instead of comparing with already-treated units). We use this group to approximate the trend if hypothetically our treated units were untreated.
-
-::: small
-If this estimation of "trend" makes little sense, see the [intro page on DiD](did.qmd).
-:::
-
-5.  With the trend, we can now estimate the missing counterfactual, allowing us to obtain the group-time ATT $\tau_{g,t}^\text{ATT}$.
-
-6.  Now, we weight each $\tau_{g,t}^\text{ATT}$ together based on how frequent each group $g$ is. By properly weighting, we solve the weighting issue of TWFE.
-
-::: small
-The final step of weighting can be done to obtain one overall ATT, or dynamic ATTs, or even we can decide not to aggregate and report each individual group-time $\tau_{g,t}^\text{ATT}$.
-:::
-
-Unlike the other estimators covered, Callaway and Sant'Anna do not rely on regression models. The comparisons are made through grouping and matching, and the individual effects are weighted.
-
-<br />
-
-To implement this estimator, we will need the **did** package:
-
-::: small
-Note: there are issues when including covariates, so this method may not be the best if you need covariates to condition for parallel trends.
-:::
-
-```{r, eval = F}
+# Packages Needed
 library(did)
 ```
 
-The data will need pre-processing. We will need to make sure the never-treated group has a initial treatment year of 0, and we will need the unit variable to be a numerical id variable.
+Callaway and Sant'Anna (2021) proposes to solve the [issues with two-way fixed effects](staggered.qmd) by carefully selecting the comparisons, and properly weighting the comparisons:
 
-```{r, eval = F}
-dta <- my_data 
+We first divide all units $i$ into groups, based on their first initial year of receiving treatment. Each unit who was first treated in year $g$ is assigned to group $g$.
 
-# set treat_year = 0 for never-treated (assuming NA)
-dta$treat_year <- ifelse(is.na(dta_modify$treat_year), 0, dta_modify$treat_year)
+Then, we define a new causal estimand of interest: what they call the group-time ATT. This is essentially the dynamic treatment effect of group $g$ at time $t$. We estimate the group-time ATT.
 
-# numerical id variable
-dta <- dta %>%
-  group_by(unit) %>%
-  mutate(id = cur_group_id()) %>%
-  ungroup()
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+data(base_stagg, package = "fixest")
+df <- base_stagg
+colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "covariate", "outcome")
 ```
 
-Now, we can use the pre-process function in the **did** package to make the final touches before starting.
+```{r}
+#| message: false
+#| warning: false
 
-```{r, eval = F}
-set.seed(17)
-dta <- dta %>%
-  pre_process_did(yname = "outcome",
-                  tname = "treatment",
-                  idname = "id", #don't change
-                  gname = "treat_year",
-                  allow_unbalanced_panel = T,
-                  data = .)
+set.seed(344) # for replication
+model <- att_gt(
+  yname = "outcome", tname = "time", idname = "unit",
+  gname = "first.treated",
+  xformla = ~ covariate,
+      # you can delete argument xformla if no covariates
+  control_group = c("nevertreated"), # don't change
+  est_method = 'dr', base_period = 'universal', #don't change
+  allow_unbalanced_panel = T, #don't change
+  data = df)
 ```
 
-Now, we can run the analysis:
+Now, we can weight each group-time ATT together based on how frequent each group $g$ is. By properly weighting, we solve the weighting issue of TWFE:
 
-```{r, eval = F}
-model <- dta[['data']] %>%
-  att_gt(yname = "outcome",
-         tname = "year",
-         idname = "id", #don't change
-         gname = "treat_year",
-         control_group = c("nevertreated"),
-         est_method = 'dr',
-         base_period = 'universal',
-         allow_unbalanced_panel = T,
-         data = .)
+```{r}
+#| message: false
+#| warning: false
 
-
-
-
-```
-
-We can view our results in multiple ways. For a singular ATT:
-
-```{r, eval = F}
-att <- did::aggte(model, type = "simple", na.rm = TRUE)
+att <- did::aggte(
+  model,
+  type = "simple",
+  na.rm = TRUE)
 summary(att)
 ```
 
-We can also see ATT's grouped by initial treatment year:
+::: small
+We can see the ATT estimate is -1.1237.
+:::
 
-```{r, eval = F}
-att_group <- aggte(model, type = "group", na.rm = TRUE)
-ggdid(att_group)
+We can also see ATT's weighted to show dynamic treatment effects:
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-height: 3.5
+
+att_dynamic <- did::aggte(
+  model,
+  type = "dynamic",
+  na.rm = TRUE)
+ggdid(att_dynamic)
 ```

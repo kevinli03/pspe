@@ -60,18 +60,16 @@ website:
         - text: "Dynamic Treatment Effects"
           href: did/dynamic.qmd
         - text: "---"
-        - text: "Staggered DiD Design"
+        - text: "Staggered DiD and TWFE"
           href: did/staggered.qmd
-        - text: "Issues with TWFE"
-          href: did/twfestaggered.qmd
-        - text: "Gardner (2021) 2-stage DiD"
-          href: did/did2s.qmd
-        - text: "Liu et al (2024) IFEct"
-          href: did/ifect.qmd
-        - text: "Wooldridge (2021) ETWFE"
-          href: did/etwfe.qmd
         - text: "Sun and Abraham (2021)"
           href: did/sunab.qmd
+        - text: "2-stage Difference-in-Differences"
+          href: did/did2s.qmd
+        - text: "IFE Counterfactual Estimator"
+          href: did/ifect.qmd
+        - text: "Extended Two-way Fixed Effects"
+          href: did/etwfe.qmd
         - text: "Callaway and Sant'Anna (2021)"
           href: did/cs.qmd
         - text: "Chaisemartin and Haultfoeuille (2024)"
@@ -184,7 +182,7 @@ format:
   html:
     theme: cosmo
     number-sections: false
-    fontsize: 12.5pt
+    fontsize: 12pt
     mainfont: helvetica
     fontcolor: "#3b4b57"
     linkcolor: "#0969da"
@@ -193,6 +191,7 @@ format:
     toc-depth: 0
     tbl-cap-location: bottom
     reference-location: section
+    df-print: kable
     grid:
       sidebar-width: 270px
       body-width: 720px

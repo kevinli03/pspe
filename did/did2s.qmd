@@ -2,87 +2,101 @@
 title: "Gardner (2021) Two-Stage Difference-in-Differences"
 ---
 
-::: small
-See [Kyle Butts'](https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html) github page for more info on this estimator. [Asjad Naqvi](https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/) also has a helpful page.
-:::
+```{r}
+#| message: false
+#| warning: false
 
-TWFE compares groups with each other - treated vs. not treated, early treated vs. late treated, etc., and these grouped comparisons [can be "forbidden" or incorrect](twfestaggered.qmd).
-
-Gardner (2021) instead proposes to estimate individual counterfactual outcomes, to calculate individual treatment effects, ensuring no forbidden comparisons. Using the idea of two-way fixed effects, we can derive a model for these missing counterfactuals:
-
-$$
-\pCred = \unit + \time + \cov + \eps_{it}
-$$
-
-::: small
-This equation is obtained by taking the [two-way fixed effects](twfe.qmd) equation and plugging in $D_{it} = 0$.
-:::
-
-Gardner's 2-stage difference-in-differences uses this equation and framework above, and attempts to estimate $\pCred$.
-
-1.  First, Gardner uses only control units ($D_{it} = 0$) in a regression to estimate $\time$, $\unit$, and $\beta$. The choice of using only control units is to ensure that the estimation of hypothetical controls is accurate and not influenced by the treatment.
-
-$$
-Y_{it|D = 0} = \unit + \time + \cov + \eps_{it}
-$$
-
-2.  Using estimated $\widehat\unit$, $\widehat\time$, and $\widehat\beta$, we can estimate $\pCred$ counterfactuals for the treated.
-
-$$
-\red{\widehat Y_{it}^{(0)}} = \widehat\alpha_i + \widehat\gamma_t + \b X_{it}' \widehat{\b\beta}
-$$
-
-3.  Once we have estimated $\red{\widehat Y_{it}^{(0)}}$, we can calculate the treatment effects for the treated units, as we have an estimate for the hypothetical outcomes.
-
-$$
-\blue{\widehat\tau_{it}} \approx \pT - \red{\widehat Y_{it}^{(0)}}
-$$
-
-4.  Then, we average all the individual treatment effects to get the ATT.
-
-::: small
-Steps 3-4 are a simplification - Gardner uses a second regression to calculate the final treatment effects, rather than directly computing the treatment effects with the estimated counterfactual.
-:::
-
-<br />
-
-To implement 2-stage difference-in-differences, we need the **did2s** package:
-
-```{r, eval = F}
+# Packages Needed:
 library(did2s)
 ```
 
-For the estimation of the ATT, we do the following:
+The [TWFE estimator](twfe.qmd) implies that untreated units $D_{it} = 0$ equals the following:
 
-```{r, eval = F}
-model <- did2s(data = my_data,
-               yname = "outcome",
-               first_stage = ~ covariate1 + covariate2 | unit + time,
-               second_stage = ~i(treatment),
-               treatment = "treatment",
-               cluster_var = "unit")
-model
-```
+$$
+Y_{it} (D_{it} = 0) = \unit + \time + \cov + \eps_{it}
+$$
 
 ::: small
-If you have no covariates, replace the covariates with 0 (so it looks something like " \~ 0 \| unit + time")
+This equation is obtained from plugging in $D_{it} = 0$ into the two-way fixed effects equation.
 :::
 
-For estimation of dynamic treatment effects (and testing of parallel trends), we do the following:
+This means parameters $\unit$, $\time$, and $\beta$ should be estimated with only units $D_{it} = 0$. However, in two-way fixed effects, we estimate $\unit$, $\time$, and $\beta$ with both units $D_{it} = 0$ and $D_{it} = 1$. So, we are actually improperly estimating $Y_{it}(D_{it} = 0)$ in two-way fixed effects.
 
-```{r, eval = F}
-model <- did2s(data = my_data,
-               yname = "outcome",
-               first_stage = ~ covariate1 + covariate2 | unit + time,
-               second_stage = ~i(rel_time, ref = c(-1, Inf)),
-               treatment = "treatment",
-               cluster_var = "unit")
+::: small
+This is another fancy way of explaining the [forbidden comparisons problem](staggered.qmd) - in TWFE, $Y_{it}(D_{it} = 0)$ is mis-estimated to include already-treated units, which is the forbidden comparison.
+:::
+
+Gardner (2021) proposes to solve this by spliting the TWFE estimator into two parts.
+
+In the [first-stage]{.underline}, we estimate $\unit$, $\time$, and $\beta$ in a regression **with only untreated units** $D_{it} = 0$. This will ensure the proper estimation of $Y_{it}(D_{it} = 0)$. Then, using our first-stage estimates of $\widehat\unit$, $\widehat\time$, and $\widehat\beta$, in the [second stage]{.underline} regression, estimate $\att$.
+
+```{r, echo = F, warning = F, message = F}
+data(base_did, package = "fixest")
+df <- base_did
+colnames(df) <- c("outcome", "covariate", "unit", "time", "post", "ever.treat")
+df$treatment <- df$post*df$ever.treat
+```
+
+```{r}
+#| warning: false
+#| message: false
+
+model <- did2s(
+  data = df,
+  yname = "outcome",
+  first_stage = ~ covariate | unit + time,
+      # if no covariate, should be ~ 0 | unit + time
+  second_stage = ~ i(treatment), #replace D with your treatment
+  treatment = "treatment",
+  cluster_var = "unit")
 model
-iplot(model) #to view dynamic treatment effects plot
 ```
 
 ::: small
-If you have no covariates, replace the covariates with 0 (so it looks something like " \~ 0 \| unit + time")
+Our ATT is the estimate for treatment::1, which in this case is 4.845.
+:::
 
-Note: the **inf** is the reference for the never-treated control group, for the variable time_to_treat. If it is NA's, then you do not need to include it, just put ref = -1.
+For estimation of dynamic treatment effects, we do the following:
+
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+library(tidyverse)
+first.year <- df %>%
+  filter(treatment == 1) %>%
+  group_by(unit) %>%
+  summarise(first.treat = min(time))
+
+df <- left_join(df, first.year)
+df$rel.time <- df$time - df$first.treat
+
+df$rel.time <- replace_na(df$rel.time, 10000)
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| fig-height: 3.5
+
+model <- did2s(
+  data = df,
+  yname = "outcome",
+  first_stage = ~ covariate | unit + time,
+      # if no covariate, should be ~ 0 | unit + time
+  second_stage = ~ i(rel.time, ref = c(-1, 10000)),
+      # the first number in ref= should always be -1
+      # the second number in ref= should be the value of rel.time for the never-treated
+  treatment = "treatment",
+  cluster_var = "unit")
+
+iplot(
+  model,
+  drop = "[[:digit:]]{2}",
+      # this drops the time periods too far before and after treatment.
+  ref.line = 0)
+```
+
+::: small
+See [Kyle Butts'](https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html) github page for more info on this estimator. [Asjad Naqvi](https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/) also has a helpful page.
 :::

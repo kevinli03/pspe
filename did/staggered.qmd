@@ -1,10 +1,6 @@
 ---
-title: "Stagged Difference-in-Differences"
+title: "Stagged DiD and Issues with TWFE"
 ---
-
-::: small
-Ensure you understand the classical difference-in-differences design before starting this.
-:::
 
 In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time. However, in reality, this is not that common. It is very common that some units receive treatment before others.
 
@@ -12,57 +8,31 @@ In the classical difference-in-differences design, all units in the treatment gr
 For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core curriculum.
 :::
 
-The **staggered difference-in-differences** design is an extension on the classical design, which allows for staggered implementation of treatment. Essentially, this design is a combination of a bunch of smaller classical difference-in-differences designs.
+The **staggered difference-in-differences** design is an extension on the classical design, which allows for staggered implementation of treatment.
 
--   For example, consider that we have 4 groups. Group 1 receives the treatment in period 1, group 2 receives the treatment in period 2, and group 3 receives the treatment in period 3. Group 4 never receives the treatment.
--   In this scenario, we essentially have 3 smaller classical difference-in-differences combined into one larger study: one for group 1, one for group 2, and one for group 3.
+The [two-way fixed effects](twfe.qmd) estimator is operates differently in a staggered setting. Let's say we have 3 groups - a group treated early, a group that was treated late, and a untreated group.
 
-Unlike the classical design, there are far more estimators to choose from.
+![](images/clipboard-3888126795.png){fig-align="center" width="60%"}
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [Two-Way Fixed Effects Estimator](twfe.qmd)                                                                                                                                                                                                                                                               |
-|                                                                                                                                                                                                                                                                                                           |
-| The TWFE estimator is possible in staggered DiD just like in the classical design - and is quite simple. However, there are a variety of issues outlined [here](twfestaggered.qmd), that make it more dubious.                                                                                            |
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [Gardner (2021) 2-Stage DiD](did2s.qmd)                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                           |
-| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect.                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                           |
-| ::: small                                                                                                                                                                                                                                                                                                 |
-| Kevin's Notes: very simple and intuitive, however, not very flexible or robust. If you are interested in a better counterfactual estimator, use Liu et al (2024).                                                                                                                                         |
-| :::                                                                                                                                                                                                                                                                                                       |
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [Liu et al (2022) IFEct](ifect.qmd)                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                           |
-| This estimator accounts for the issues with TWFE by estimating the missing counterfactuals to find the treatment effect.                                                                                                                                                                                  |
-|                                                                                                                                                                                                                                                                                                           |
-| ::: small                                                                                                                                                                                                                                                                                                 |
-| Kevin's Notes: This is a more complex estimator that (debatedly) might not even be a difference-in-differences estimator, as it draws a lot from synthetic controls. It is quite flexible and preferable to Gardner (2021), but is more complex and hard to explain.                                      |
-| :::                                                                                                                                                                                                                                                                                                       |
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [Wooldridge (2021) Extended Two-Way Fixed Effects](etwfe.qmd)                                                                                                                                                                                                                                             |
-|                                                                                                                                                                                                                                                                                                           |
-| This estimator accounts for the issues with TWFE by adding interaction terms to model heterogeneity.                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                           |
-| ::: small                                                                                                                                                                                                                                                                                                 |
-| Kevin's Notes: Can handle non-linear models like poisson and logistic. Very similar to Sun and Abraham. It handles conditional parallel trends more flexibly than Sun and Abraham. However, it cannot estimate pre-treatment dynamic effects, so if you need to test parallel trends use Sun and Abraham. |
-| :::                                                                                                                                                                                                                                                                                                       |
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [Sun and Abraham (2021)](sunab.qmd)                                                                                                                                                                                                                                                                       |
-|                                                                                                                                                                                                                                                                                                           |
-| This estimator accounts for the issues with TWFE by adding interaction terms to model heterogeneity.                                                                                                                                                                                                      |
-|                                                                                                                                                                                                                                                                                                           |
-| ::: small                                                                                                                                                                                                                                                                                                 |
-| Kevin's Notes: Very similar to Wooldridge. It can estimate pre-treatment dynamic treatment effects when Wooldridge cannot. However, it is less flexible and robust when dealing with conditional parallel trends.                                                                                         |
-| :::                                                                                                                                                                                                                                                                                                       |
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-| [Callaway and Sant'Anna (2021)](cs.qmd)                                                                                                                                                                                                                                                                   |
-|                                                                                                                                                                                                                                                                                                           |
-| This estimator accounts for the issues with TWFE through matching and reweighting.                                                                                                                                                                                                                        |
-|                                                                                                                                                                                                                                                                                                           |
-| ::: small                                                                                                                                                                                                                                                                                                 |
-| Kevin's Notes: Probably the most well regarded in econometrics. Intuitively, it might be the simplest, however, technically, it is very complex. It is semi-parametric, making it more flexible than regression based methods.                                                                            |
-| :::                                                                                                                                                                                                                                                                                                       |
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+Two-way fixed effects essentially estimates 4 different differences, shown below:
 
-: {.bordered}
+![](images/clipboard-2200187195.png){fig-align="center" width="75%"}
+
+The actual TWFE estimate is a weighted average of these differences. The weights are a function of mainly the telative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.
+
+![](images/clipboard-3589189122.png){fig-align="center" width="55%"}
+
+There are two problems with these comparison conducted by TWFE:
+
+1.  Some of these comparison (see comparison D above) may be "forbidden" - such that already-treated units are used as controls after they are treated.
+2.  Weighting can result in weird weights - sometimes some groups treated early/late might receive negative weights (see figure above).
+
+::: small
+[This site](https://asjadnaqvi.github.io/DiD/docs/code_r/06_bacon_r/) shows how you can explore the comparison and weighting issue in R. See [Goodman-Bacon (2021)](https://www.sciencedirect.com/science/article/abs/pii/S0304407621001445) for a more technical overview of TWFE decomposition.
+:::
+
+These problems with TWFE mean that TWFE is **biased** in estimating the ATT in staggered difference-in-differences when there is heterogenous treatment effects.
+
+::: small
+TWFE is unbiased with homogeneity, but homogeneity is quite rare in scenarios we typically research.
+:::

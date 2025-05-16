@@ -2,17 +2,19 @@
 title: "Liu et al (2024) Interactive Fixed Effects Counterfactual Estimator"
 ---
 
-::: small
-See [Liu et al (2024)](https://onlinelibrary.wiley.com/doi/10.1111/ajps.12723) for more technical details.
-:::
+```{r}
+#| message: false
+#| warning: false
 
-TWFE compares groups with each other - treated vs. not treated, early treated vs. late treated, etc., and these grouped comparisons [can be "forbidden" or incorrect](twfestaggered.qmd).
+# Packages Needed:
+library(fect)
+```
 
-Liu et al (2024) instead proposes to estimate individual counterfactual outcomes, to calculate individual treatment effects, ensuring no forbidden comparisons.
+TWFE compares groups that [can be "forbidden" or incorrect](staggered.qmd), such as using already-treated units as controls. Liu et al (2024) instead proposes to estimate individual counterfactual untreated outcomes for treated units, and directly calculating the individual treatment effects:
 
-::: small
-This is similar to [Gardner (2021)](did2s.qmd) and his 2-stage difference-in-differences.
-:::
+$$
+\tau_{it} = \pT - \pCred
+$$
 
 Thus, the goal of this **interactive fixed effects counterfactual estimator (IFEct)** is to estimate $\pCred$. They model these counterfactuals as:
 
@@ -20,52 +22,50 @@ $$
 \pCred = \underbrace{\unit + \time + \cov}_{\text{classic TWFE}} + \b\lambda_i'\b\xi_t + \eps_{it}
 $$
 
-As you can see, the first part of this model follows the two-way fixed effects model for counterfactuals $\pCred$, just like in Gardner (2021). However, Liu et al (2024) add an extra term to the model: $\b\lambda_i'\b\xi_t$.
-
--   $\b\xi_t$ is a vector of latent variables/factors $\xi_{1t}, \xi_{2t}, \dots$. These latent variables change in magnitude depending on time $t$ (they are time-varying).
--   $\b\lambda_i$ is a vector of factor loadings $\lambda_{1i}, \lambda_{2i}, \dots$, that describes the "influence" every latent factor has on unit $i$. Different units $i$ can have different relationships with each factor.
-
 ::: small
-These latent factors and factor loadings are estimated with control data $D_{it} = 0$. For more on latent variables, see the section on latent variable modelling.
+$\b\xi_t$ is a vector of latent variables/factors $\xi_{1t}, \xi_{2t}, \dots$. These latent variables change in magnitude depending on time $t$ (they are time-varying). $\b\lambda_i$ is a vector of factor loadings $\lambda_{1i}, \lambda_{2i}, \dots$, that describes the "influence" every latent factor has on unit $i$. Different units $i$ can have different relationships with each factor.
 :::
 
-This is essentially a complicated way of saying that this model **adjusts for potential violations in parallel trends**. This is because the latent factors are time-varying, and different units $i$ can have different relationship with each factor, meaning their can be non-parallel trends.
-
-This flexibility in the estimation of this model makes it more **robust** to minor violations of parallel trends. It can also better adjust for heterogeneity, not just between different initial treatment times, but also different covariate values.
-
-<br />
-
-To implement the IFEct estimator, we will need the package **fect**:
-
-```{r, eval = F}
+```{r, echo = F, warning = F, message = F}
 library(fect)
+set.seed(2003)
+df <- did2s::gen_data(
+        panel = c(1990, 2020),
+        g1 = 2000, g2 = 2010, g3 = 0,
+        te1 = 2, te2 = 1, te3 = 0,
+        te_m1 = 0.05, te_m2 = 0.15, te_m3 = 0,
+        n=100)
+colnames(df) <- c("unit", "state", "group",
+                  "unit.fe", "first.treat", "time", "year.fe",
+                  "treatment", "rel.time", "rel.time.binned", "error",
+                  "te", "te_dynamic", "outcome")
+df$treatment <- as.numeric(df$treatment)
 ```
 
-Before we start, we will need to make sure our unit variable is numerical (so units 1, 2, ...). This is often not the case in most datasets (for example, country is usually UK, USA,..., not 1,2,...).
-
-```{r, eval = F}
-dta <- my_data # new data frame
-dta <- dta %>%
-  group_by(unit) %>%
-  mutate(id = cur_group_id()) %>%
-  ungroup() # change country into a numbered variable
-```
-
-Now, we can estimate our model as follows:
-
-```{r, eval = F}
-set.seed(17)
-model <- fect(outcome ~ treatment + covariate1 + covariate2,
-             data = dta,
-             index = c("id","time"), #don't change id, change time to your period variable
-             method = "ife",
-             se = TRUE,
-             nboots = 100) # more is better, but takes longer
+```{r, warning = F, message = F}
+set.seed(17) #for consistent replication
+model <- fect(
+  formula = outcome ~ treatment,
+      #add covariates after treatment
+  data = df,
+  index = c("unit","time"),
+      #replace unit and time with your unit and time variables
+  method = "ife",
+      #do not change
+  se = TRUE,
+  nboots = 50) #for standard errors. more is more accurate, but takes longer
 print(model)
 ```
 
-We can also plot our results:
+We have two outputs - both are plausible ATT's. It is generally recommended to use the first row - treated observations equally weighted, as it is typically the most accurate ATT estimate.
 
-```{r, eval = F}
+We can also plot our results for dynamic treatment effects and parallel trends tests:
+
+```{r}
+#| fig-height: 3.2
 plot(model)
 ```
+
+::: small
+See [Liu et al (2024)](https://onlinelibrary.wiley.com/doi/10.1111/ajps.12723) for more technical details.
+:::

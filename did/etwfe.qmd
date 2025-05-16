@@ -2,80 +2,74 @@
 title: "Wooldridge (2021) Extended Two-Way Fixed Effects"
 ---
 
-::: small
-For technical details, see [Wooldridge (2021)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3906345) and [Wooldridge (2023)](https://academic.oup.com/ectj/article/26/3/C31/7250479).
-:::
+```{r}
+#| message: false
+#| warning: false
 
-There are two [issues with the two-way fixed effects estimator](twfestaggered.qmd): forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes the extended two-way fixed effects (ETWFE) estimator, that solves both of these issues by:
-
-1.  The ETWFE estimator estimates all possible heterogeneous effects separately (by including a lot of interactions in the regression), using only valid comparisons, solving the forbidden comparison problem:
-
-$$
-\begin{align}
-Y_{it} = & \ \underbrace{\unit + \time}_{\text{fixed effects}} + \cov + \underbrace{\blue{\tau_{it}} G_i D_{it}T_t + \blue{\tau_{itx}}G_i D_{it}T_t \b X_{it} }_{\text{interactions for heterogeneity}} + \eps
-\end{align}
-$$
-
-::: small
-$G_i$ is a categorical variable that indicates what initial treatment period group unit $i$ belongs to. $T_t$ is a categorical variable that indicates the different time periods.
-:::
-
-2.  Many coefficients $\blue{\tau_{it}}$ and $\blue{\tau_{itx}}$ are estimated that capture different heterogeneity in treatment effects.
-
-3.  These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.
-
-::: small
-We can also aggregate them in terms of relative years to initial treatment, which allows us to compute dynamic treatment effects. However, this estimator can only compute post-treatment dynamic treatment effects.
-:::
-
-Wooldridge's 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables.
-
-::: {.callout-note collapse="true"}
-## Comparison to Sun and Abraham (2021)
-
-::: append
-Wooldridge's extended two-way fixed effects estimator is very similar to [Sun and Abraham's](sunab.qmd) estimator. The three main differences are:
-
-1.  Sun and Abraham can calculate dynamic treatment effects for every time period (both pre and post treatment). Wooldridge's can only calculate post-treatment. Thus, only Sun and Abraham can test for parallel trends.
-2.  Sun and Abraham is more strict with covariates for parallel trends, while Wooldridge's allows for more flexibility and robustness to violations of parallel trends. This is because Wooldridge's estimator contains far more interactions with covariates.
-3.  Wooldridge's estimator allows for non-linear models (poisson, logistic, etc.).
-:::
-:::
-
-<br />
-
-To implement extended two-way fixed effects, we will need the **etwfe** package:
-
-```{r, eval = F}
+# Packages Needed
 library(etwfe)
 ```
 
-To estimate all the group-time ATTs, we do the following:
+There are two [issues with the two-way fixed effects estimator](staggered.qmd): forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes the extended two-way fixed effects (ETWFE) estimator.
 
-```{r, eval = F}
-model <- etwfe(fml = outcome ~ covariate1 + covariate2,
-              tvar = time,
-              gvar = initial_treat_year, #initial period of treatment for unit
-              data = my_data,
-              vcov = ~unit, # cluster se by unit
-              family = NULL) 
+The ETWFE estimator estimates all possible heterogeneous effects separately (by including a lot of interactions with initial treatment year, year, and covariates), using only valid comparisons, solving the forbidden comparison problem:
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+library(tidyverse)
+data(base_stagg, package = "fixest")
+df <- base_stagg
+colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "covariate", "outcome")
 ```
 
-::: small
-If you have no covariates, replace them with a 0, so it looks something like "outcome \~ 0".
+```{r}
+#| warning: false
+#| message: false
 
-You can delete the family argument if you are just using a standard linear model. You can also replace NULL with "logit", "poisson", and "negbin".
-:::
+model <- etwfe(
+  fml = outcome ~ covariate,
+  tvar = time,
+  gvar = first.treated,
+  data = df,
+  vcov = ~unit) 
+```
 
-We can then aggregate our group-time ATT's. To obtain one single ATT, we can use the following code:
+Many coefficients $\blue{\tau_{it}}$ and $\blue{\tau_{itx}}$ are estimated that capture different heterogeneity in treatment effects. These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.
 
-```{r, eval = F}
+```{r}
 emfx(model)
 ```
 
-We can also get dynamic ATT's for post-treatment periods:
+::: small
+We can see our estimated ATT is -1.21.
+:::
 
-```{r, eval = F}
+We can also aggregate these coefficients into dynamic treatment effects. However, ETWFE only supports post-treatment dynamic treatment effects, not pre-treatment effects.
+
+```{r}
+#| fig-height: 3.5
+
 dynamic <- emfx(model, type = "event")
 plot(dynamic)
 ```
+
+::: small
+Since ETWFE does not support pre-treatment effects, we cannot use it to test for parallel trends.
+:::
+
+Wooldridge's 2023 paper also extends this framework to work with logistic regression, poisson regression, and negative binomial regression, which is useful when we deal with non-continuous outcome variables. This can be accessed by adding an argument to the **etwfe()** function:
+
+```{r, eval = F}
+family = c("logit", "poisson", "negbin")
+```
+
+::: small
+Only choose one of them - you cannot choose multiple families together.
+:::
+
+::: small
+For technical details, see [Wooldridge (2021)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3906345) and [Wooldridge (2023)](https://academic.oup.com/ectj/article/26/3/C31/7250479).
+:::

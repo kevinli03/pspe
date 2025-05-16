@@ -6,6 +6,8 @@ Here are a list of additional resources that are useful for causal inference and
 
 -   Dr. Asjad Naqvi has a [repository](https://asjadnaqvi.github.io/DiD/) of the modern advancements going on in the recent difference-in-differences revolution.
 
+-   [Yiqing Xu](https://yiqingxu.org/packages/fect/05-panel.html#csdid) also has a page on modern advancements in difference-in-differences.
+
 -   [Causal Inference: The Mixtape](https://mixtape.scunning.com) as a great resource for details on causal inference methodology.
 
 -   [Causal Inference for the Brave and True](https://matheusfacure.github.io/python-causality-handbook/landing-page.html) is another great resource of causal inference, with application in Python.

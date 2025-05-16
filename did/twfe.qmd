@@ -2,30 +2,22 @@
 title: "Two-Way Fixed Effects Estimator"
 ---
 
-The two-way fixed effects estimator is the standard estimator for DiD.
+```{r}
+#| message: false
+#| warning: false
 
-::: small
-Note: if you have staggered treatment implementation, [TWFE can produce incorrect results](twfestaggered.qmd).
-:::
+# Packages Needed:
+library(fixest)
+```
 
-The estimator with **panel data** is a linear regression model specified as following:
+The two-way fixed effects estimator is the standard estimator for DiD. The estimator with is a linear regression model specified as following:
 
 $$
 Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
 $$
 
 ::: small
-Panel data is when we observe the same units $i$ over multiple periods of time.
-:::
-
-For **repeated cross-section** data, the model is:
-
-$$
-Y_{it} = \underbrace{\alpha_g + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
-$$
-
-::: small
-Repeated cross section is when we have different samples from different time periods. Note how the first fixed effect $\alpha_g$ now has subscript $g$ - we now include group fixed effects - group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).
+This is the estimator for panel data. In repeated cross-sections, we have to replace the unit fixed effects $\alpha_i$ with group fixed effects, group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).
 :::
 
 The fixed effects $\alpha_i$ and $\gamma_t$ are "special" intercepts. Unlike our normal intercepts in regression, these intercepts take different values depending on the unit and time.
@@ -37,33 +29,33 @@ The fixed effects $\alpha_i$ and $\gamma_t$ are "special" intercepts. Unlike our
 For repeated cross section, $\gamma_t$ is the same. $\alpha_g$ will now have different values for each group $g$.
 :::
 
-What fixed effects does is that it calculates different intercepts for each unit $i$, and each time period $t$. Thus, these intercepts reflect differences on-average between different units $i$, and different time periods $t$.
+```{r}
+#| echo: false
 
-Since the differences between units $i$ and time periods $t$ are included in these fixed effects intercept terms, this allows us to **account** for differences between units and differences between time periods.
+data(base_did, package = "fixest")
+df <- base_did
+colnames(df) <- c("outcome", "covariate", "unit", "time", "post", "ever.treat")
+df$treatment <- df$post*df$ever.treat
+```
+
+```{r}
+#| warning: false
+#| message: false
+model <- feols(
+  outcome ~ treatment + covariate | unit + time,
+      # the | separates the main variables from the fixed effects
+  data = df,
+  se = "cluster")
+      # we should always cluster standard errors by unit
+print(model)
+```
 
 ::: small
-Or in other words, we are essentially "controlling" for differences between units, and differences between years.
+The estimate for our treatment is the ATT. In this example, it is 4.850645.
 :::
 
-By accounting for differences between units and between differences in time periods, we allow our observations to be more on a level playing field, allowing for us to calculate the causal effect. The estimate for $\att$ is our treatment effect (ATT). This estimate is **unbiased** if the parallel trends assumption is met.
-
-<br />
-
-To implement two-way fixed effects, we need the **fixest** package:
-
-```{r, eval = F}
-library(fixest)
-```
-
-We implement two-way fixed effects as follows:
-
-```{r, eval = F}
-model <- feols(outcome ~ treatment + covariate1 + covariate2 | unit + time,
-               data = my_data,
-               se = "cluster")
-summary(model)
-```
+Since the differences between units $i$ and time periods $t$ are included in these fixed effects intercept terms, this allows us to **account** for differences between units and differences between time periods. Along with the parallel trends assumption, our treatment $D$ should be strictly exogenous, allowing for the estimated $\att$ to be unbiased.
 
 ::: small
-For repeated cross section, replace **unit** with **group**, group being the level at which treatment is assigned.
+The unit fixed effects controls for between-unit differences. The time fixed effects controls for between-time differences. The only remaining differences are unit-time differences, or trends of units over time. Parallel trends (if met) controls for this.
 :::

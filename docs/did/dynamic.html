@@ -203,37 +203,31 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD Design</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/twfestaggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Issues with TWFE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Gardner (2021) 2-stage DiD</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Liu et al (2024) IFEct</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Wooldridge (2021) ETWFE</span></a>
+ <span class="menu-text">Staggered DiD and TWFE</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Sun and Abraham (2021)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-stage Difference-in-Differences</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">IFE Counterfactual Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extended Two-way Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -275,60 +269,62 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>This page requires knowledge on <a href="../did/twfe.html">two-way fixed effects</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The classic difference-in-differences design only requires 2 time periods - a pre-treatment periods, and a post-treatment period. However, we often have more data - many years before the treatment began, and many years after the treatment ended.</p>
 <p><strong>Dynamic Treatment Effects</strong> calculate treatment effects for each year before treatment, and each year after treatment, instead of just one ATT.</p>
 <div class="small">
-<p>This is also called an <strong>event study</strong> or <strong>leads-and-lags</strong>. Just like TWFE, this estimator has <a href="../did/twfestaggered.html">issues when dealing with staggered treatment</a>.</p>
+<p>This assumes we have more than just one pre-treatment and post-treatment period in our data. This is also called an <strong>event study</strong> or <strong>leads-and-lags</strong>.</p>
 </div>
-<ol type="1">
-<li>We first create a new categorical variable, called relative-time <span class="math inline">\(R_{it}\)</span>. It essentially measures the number of periods a certain time period <span class="math inline">\(t\)</span> is before/after the initial treatment adoption, with <span class="math inline">\(R_{it} = 0\)</span> being the initial treatment year.</li>
-</ol>
-<p><span class="math display">\[
-R_{it} = t - \text{initial treatment period}
-\]</span></p>
+<p>We first create a new categorical variable, called relative-time <span class="math inline">\(R_{it}\)</span>. It measures the number of periods a certain time period <span class="math inline">\(t\)</span> is before/after the initial treatment adoption, with <span class="math inline">\(R_{it} = 0\)</span> being the initial treatment year.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rel.time =</span> time <span class="sc">-</span> first.treated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="small">
 <p>For example, if treatment starts in 2003, an observation in 2002 would get a relative-time of -1, and an observation in 2004 would get a relative-time of 1.</p>
 </div>
-<ol start="2" type="1">
-<li>Then, we run the following model:</li>
-</ol>
+<p>Then, we run the following altered two-way fixed effects model:</p>
 <p><span class="math display">\[
 Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + R_{it}\blue{\tau_{r}}+ \cov + \eps_{it}
 \]</span></p>
 <div class="small">
 <p><span class="math inline">\(R_{it}\)</span> is a categorical variable, with <span class="math inline">\(R_{it} = -1\)</span> set as the reference category (since this is the last pre-treatment period). If you have repeated cross-sections, use group-fixed effects instead of unit.</p>
 </div>
-<ol start="3" type="1">
-<li>This will estimate a coefficient <span class="math inline">\(\blue{\tau_{r}}\)</span> for each relative time period before/after treatment implementation. These are the treatment effects for each relative-time period <span class="math inline">\(r\)</span>.</li>
-</ol>
-<div class="small">
-<p>More technically, <span class="math inline">\(\tau_r\)</span> is the estimated difference in <span class="math inline">\(Y_{it}\)</span> compared to reference periods <span class="math inline">\(R_{it} = -1\)</span> (which is assumed to have a 0 treatment effect).</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> <span class="fu">i</span>(rel.time, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="st">"cluster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In the <strong>post-treatment</strong> periods (after treatment has started), these <span class="math inline">\(\blue{\tau_r}\)</span> represent the treatment effect by year. We can graph the post-treatment <span class="math inline">\(\blue{\tau_r}\)</span> to see the trend in how the effect of treatment changes over time.</p>
-<p>In the <strong>pre-treatment</strong> periods, we shouldn’t expect any singificant causal effect <span class="math inline">\(\blue{\tau_r}\)</span>, since treatment hasn’t started. If we do see any statistically significant effect pre-treatment, <u>this is evidence for a violation of the parallel trends assumption</u>.</p>
+<p>This will estimate a coefficient <span class="math inline">\(\blue{\tau_{r}}\)</span> for each relative time period before/after treatment implementation. These are the treatment effects for each relative-time period <span class="math inline">\(r\)</span>. We can plot these coefficients:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  model,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop =</span> <span class="st">"[[:digit:]]{2}"</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this drops the time periods too far before and after treatment.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="dynamic_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <div class="small">
-<p>Note: this is not a definitive test for parallel trends. Even if there is 0 significance in pre-treatment periods, parallel trends could still be violated. There is no way to be 100% sure.</p>
+<p>Negative rel.time are pre-treatment periods. 0 and positive rel.time are post-treatment periods. The dots and confidence intervals represent the estimated treatment effect at that time period relative to the treatment.</p>
+</div>
+<p>In the <strong>post-treatment</strong> periods (after treatment has started), these <span class="math inline">\(\blue{\tau_r}\)</span> represent the treatment effect by year. In the <strong>pre-treatment</strong> periods, we shouldn’t expect any significant causal effect <span class="math inline">\(\blue{\tau_r}\)</span>, since treatment hasn’t started. If we do see any statistically significant effect pre-treatment, <u>this is evidence for a violation of the parallel trends assumption</u>.</p>
+<ul>
+<li>We can see in our example above, that parallel trends is likely violated, because there are significant coefficients in the pre-treatment periods.</li>
+</ul>
+<div class="small">
+<p>Signficant coefficients can be indentified as ones whose confidence intervals do not contain 0. Note: this is not a definitive test for parallel trends. Even if there is 0 significance in pre-treatment periods, parallel trends could still be violated. There is no way to be 100% sure.</p>
 </div>
 <p><br></p>
-<p>To implement dynamic treatment effects, we need the <strong>fixest</strong> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Before we start, we will need to create a relative-time variable. This can be done by taking the time variable, and subtracting the initial treatment time period for each unit.</p>
-<p>Then, we run the following model:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> <span class="fu">i</span>(relative.time, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>               <span class="at">data =</span> my.data,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>               <span class="at">se =</span> <span class="st">"cluster"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="small">
-<p>If you are using repeated cross-section, replace unit with group fixed effects.</p>
-</div>
-<p>The output from <strong>iplot()</strong> will be a graph with each <span class="math inline">\(\blue{\tau_r}\)</span> and its confidence interval. If any of the confidence intervals do not touch 0, then it is statistically significant.</p>
 
 
 

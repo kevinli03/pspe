@@ -2,29 +2,44 @@
 title: "Dynamic Treatment Effects"
 ---
 
-::: small
-This page requires knowledge on [two-way fixed effects](twfe.qmd).
-:::
+```{r}
+#| message: false
+#| warning: false
 
-The classic difference-in-differences design only requires 2 time periods - a pre-treatment periods, and a post-treatment period. However, we often have more data - many years before the treatment began, and many years after the treatment ended.
+# Packages Needed:
+library(fixest)
+library(tidyverse)
+```
 
 **Dynamic Treatment Effects** calculate treatment effects for each year before treatment, and each year after treatment, instead of just one ATT.
 
 ::: small
-This is also called an **event study** or **leads-and-lags**. Just like TWFE, this estimator has [issues when dealing with staggered treatment](twfestaggered.qmd).
+This assumes we have more than just one pre-treatment and post-treatment period in our data. This is also called an **event study** or **leads-and-lags**.
 :::
 
-1.  We first create a new categorical variable, called relative-time $R_{it}$. It essentially measures the number of periods a certain time period $t$ is before/after the initial treatment adoption, with $R_{it} = 0$ being the initial treatment year.
+We first create a new categorical variable, called relative-time $R_{it}$. It measures the number of periods a certain time period $t$ is before/after the initial treatment adoption, with $R_{it} = 0$ being the initial treatment year.
 
-$$
-R_{it} = t - \text{initial treatment period}
-$$
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
+
+library(tidyverse)
+data(base_stagg, package = "fixest")
+df <- base_stagg
+colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "covariate", "outcome")
+```
+
+```{r}
+df <- df %>%
+  mutate(rel.time = time - first.treated)
+```
 
 ::: small
 For example, if treatment starts in 2003, an observation in 2002 would get a relative-time of -1, and an observation in 2004 would get a relative-time of 1.
 :::
 
-2.  Then, we run the following model:
+Then, we run the following altered two-way fixed effects model:
 
 $$
 Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + R_{it}\blue{\tau_{r}}+ \cov + \eps_{it}
@@ -34,41 +49,37 @@ $$
 $R_{it}$ is a categorical variable, with $R_{it} = -1$ set as the reference category (since this is the last pre-treatment period). If you have repeated cross-sections, use group-fixed effects instead of unit.
 :::
 
-3.  This will estimate a coefficient $\blue{\tau_{r}}$ for each relative time period before/after treatment implementation. These are the treatment effects for each relative-time period $r$.
+```{r}
+#| message: false
+#| warning: false
+
+model <- feols(
+  outcome ~ i(rel.time, -1) + covariate | unit + time,
+  data = df,
+  se = "cluster")
+```
+
+This will estimate a coefficient $\blue{\tau_{r}}$ for each relative time period before/after treatment implementation. These are the treatment effects for each relative-time period $r$. We can plot these coefficients:
+
+```{r}
+#| fig-height: 3.5
+iplot(
+  model,
+  drop = "[[:digit:]]{2}",
+      # this drops the time periods too far before and after treatment.
+  ref.line = 0)
+```
 
 ::: small
-More technically, $\tau_r$ is the estimated difference in $Y_{it}$ compared to reference periods $R_{it} = -1$ (which is assumed to have a 0 treatment effect).
+Negative rel.time are pre-treatment periods. 0 and positive rel.time are post-treatment periods. The dots and confidence intervals represent the estimated treatment effect at that time period relative to the treatment.
 :::
 
-In the **post-treatment** periods (after treatment has started), these $\blue{\tau_r}$ represent the treatment effect by year. We can graph the post-treatment $\blue{\tau_r}$ to see the trend in how the effect of treatment changes over time.
+In the **post-treatment** periods (after treatment has started), these $\blue{\tau_r}$ represent the treatment effect by year. In the **pre-treatment** periods, we shouldn't expect any significant causal effect $\blue{\tau_r}$, since treatment hasn't started. If we do see any statistically significant effect pre-treatment, [this is evidence for a violation of the parallel trends assumption]{.underline}.
 
-In the **pre-treatment** periods, we shouldn't expect any singificant causal effect $\blue{\tau_r}$, since treatment hasn't started. If we do see any statistically significant effect pre-treatment, [this is evidence for a violation of the parallel trends assumption]{.underline}.
+-   We can see in our example above, that parallel trends is likely violated, because there are significant coefficients in the pre-treatment periods.
 
 ::: small
-Note: this is not a definitive test for parallel trends. Even if there is 0 significance in pre-treatment periods, parallel trends could still be violated. There is no way to be 100% sure.
+Signficant coefficients can be indentified as ones whose confidence intervals do not contain 0. Note: this is not a definitive test for parallel trends. Even if there is 0 significance in pre-treatment periods, parallel trends could still be violated. There is no way to be 100% sure.
 :::
 
 <br />
-
-To implement dynamic treatment effects, we need the **fixest** package:
-
-```{r, eval = F}
-library(fixest)
-```
-
-Before we start, we will need to create a relative-time variable. This can be done by taking the time variable, and subtracting the initial treatment time period for each unit.
-
-Then, we run the following model:
-
-```{r, eval = F}
-model <- feols(outcome ~ i(relative.time, -1) | unit + time,
-               data = my.data,
-               se = "cluster")
-iplot(model)
-```
-
-::: small
-If you are using repeated cross-section, replace unit with group fixed effects.
-:::
-
-The output from **iplot()** will be a graph with each $\blue{\tau_r}$ and its confidence interval. If any of the confidence intervals do not touch 0, then it is statistically significant.
