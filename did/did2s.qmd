@@ -40,6 +40,8 @@ df$treatment <- df$post*df$ever.treat
 ```{r}
 #| warning: false
 #| message: false
+#| comment: "#>"
+#| class-output: r
 
 model <- did2s(
   data = df,

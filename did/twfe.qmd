@@ -41,6 +41,9 @@ df$treatment <- df$post*df$ever.treat
 ```{r}
 #| warning: false
 #| message: false
+#| comment: "#>"
+#| class-output: r
+
 model <- feols(
   outcome ~ treatment + covariate | unit + time,
       # the | separates the main variables from the fixed effects
@@ -51,7 +54,7 @@ print(model)
 ```
 
 ::: small
-The estimate for our treatment is the ATT. In this example, it is 4.850645.
+The estimate for treatment is the ATT. In this example, it is 4.850645.
 :::
 
 Since the differences between units $i$ and time periods $t$ are included in these fixed effects intercept terms, this allows us to **account** for differences between units and differences between time periods. Along with the parallel trends assumption, our treatment $D$ should be strictly exogenous, allowing for the estimated $\att$ to be unbiased.

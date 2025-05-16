@@ -177,7 +177,7 @@ website:
           href: latent/pca.qmd
         - text: "Cluster Analysis"
           href: latent/cluster.qmd
-  
+
 format:
   html:
     theme: cosmo

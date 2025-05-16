@@ -29,6 +29,8 @@ colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "c
 ```{r}
 #| warning: false
 #| message: false
+#| comment: "#>"
+#| class-output: r
 
 model <- feols(
   outcome ~ sunab(first.treated, time, att = T) + covariate | unit + time,

@@ -42,7 +42,13 @@ colnames(df) <- c("unit", "state", "group",
 df$treatment <- as.numeric(df$treatment)
 ```
 
-```{r, warning = F, message = F}
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
+
+
 set.seed(17) #for consistent replication
 model <- fect(
   formula = outcome ~ treatment,

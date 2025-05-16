@@ -40,6 +40,8 @@ model <- etwfe(
 Many coefficients $\blue{\tau_{it}}$ and $\blue{\tau_{itx}}$ are estimated that capture different heterogeneity in treatment effects. These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.
 
 ```{r}
+#| comment: "#>"
+#| class-output: r
 emfx(model)
 ```
 

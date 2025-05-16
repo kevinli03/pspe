@@ -47,6 +47,8 @@ Now, we can weight each group-time ATT together based on how frequent each group
 ```{r}
 #| message: false
 #| warning: false
+#| comment: "#>"
+#| class-output: r
 
 att <- did::aggte(
   model,
