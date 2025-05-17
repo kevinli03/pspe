@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Callaway and Sant’Anna Flexible Matching and Reweighting Estimator – Causal Inference Resources</title>
+<title>Doubly-Robust Estimator – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -138,20 +138,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -164,7 +161,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/cs.html">Callaway and Sant’Anna (2021)</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/cs.html">Doubly-Robust Estimator</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -189,47 +186,47 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How DiD Works</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiD Estimators</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-way Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dynamic Treatment Effects</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD and TWFE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sun and Abraham (2021)</span></a>
+ <span class="menu-text">Interaction-Weighted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/cs.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2-stage Difference-in-Differences</span></a>
+ <span class="menu-text">Doubly-Robust Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">IFE Counterfactual Estimator</span></a>
+ <span class="menu-text">Imputation Estimator</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+ <span class="menu-text">PanelMatch Estimator</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">DiDmultiple Estimator</span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
@@ -237,8 +234,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-stage DiD Estimator</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -252,7 +252,8 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Callaway and Sant’Anna Flexible Matching and Reweighting Estimator</h1>
+<h1 class="title">Doubly-Robust Estimator</h1>
+<p class="subtitle lead">Callaway and Sant’Anna (2021)</p>
 </div>
 
 
@@ -273,8 +274,8 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(did)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Callaway and Sant’Anna (2021) proposes to solve the <a href="../did/staggered.html">issues with two-way fixed effects</a> by carefully selecting the comparisons, and properly weighting the comparisons:</p>
-<p>We first divide all units <span class="math inline">\(i\)</span> into groups, based on their first initial year of receiving treatment. Each unit who was first treated in year <span class="math inline">\(g\)</span> is assigned to group <span class="math inline">\(g\)</span>.</p>
+<p>The Doubly-Robust estimator developed by Callaway and Sant’Anna (2021) is designed for staggered DiD, accounting for issues in TWFE.</p>
+<p>All units <span class="math inline">\(i\)</span> are divided into groups, based on their first initial year of receiving treatment. Each unit who was first treated in year <span class="math inline">\(g\)</span> is assigned to group <span class="math inline">\(g\)</span>.</p>
 <p>Then, we define a new causal estimand of interest: what they call the group-time ATT. This is essentially the dynamic treatment effect of group <span class="math inline">\(g\)</span> at time <span class="math inline">\(t\)</span>. We estimate the group-time ATT.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">344</span>) <span class="co"># for replication</span></span>

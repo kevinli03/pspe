@@ -1,0 +1,67 @@
+---
+title: "Difference-in-Differences Estimators"
+---
+
+There are two quantities of interest in all DiD designs, that we aim to estimate:
+
+1.  The **Average Treatment Effect on the Treated (ATT)**: the average effect of the treatment in question, for units that adopted the treatment. This is a one number summary of the effect of the treatment.
+
+2.  **Dynamic Treatment Effects**: These are ATT estimates, but for every year the treatment takes effect. For example, if treatment starts in 2000, dynamic treatment effects will exist for 2000, 2001, 2002, etc. This helps us see how the treatment evolves over time.
+
+::: small
+Dynamic treatment effects can only be estimated in classical DiD if we have more than 1 pre and post treatment period. Dynamic treatment effects can also be used to test the parallel trends assumption.
+:::
+
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Estimator                                        | When to Use                                                                                                                                                    |
++==================================================+================================================================================================================================================================+
+| [Two-Way Fixed Effects](twfe.qmd)                | Classical, Staggered\*, Non-Absorbing\*                                                                                                                        |
+|                                                  |                                                                                                                                                                |
+|                                                  | ::: small                                                                                                                                                      |
+|                                                  | \*TWFE is **biased** when dealing with staggered DiD and reversal of treatment, if there is any heterogeneity in treatment effects.                            |
+|                                                  | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Interaction-Weighted Estimator](sunab.qmd)      | Staggered                                                                                                                                                      |
+|                                                  |                                                                                                                                                                |
+| ::: small                                        | ::: small                                                                                                                                                      |
+| Sun and Abraham (2021)                           | Notes: one of the most popular estimators, especially when dynamic treatment effects are of interest. Quite simple as well.                                    |
+| :::                                              | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Doubly-Robust Estimator](cs.qmd)                | Staggered                                                                                                                                                      |
+|                                                  |                                                                                                                                                                |
+| ::: small                                        | ::: small                                                                                                                                                      |
+| Callaway and Sant'Anna (2021)                    | Notes: Probably the most popular estimator in econometrics. Quite a complex estimator.                                                                         |
+| :::                                              | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Imputation Estimator](ifect.qmd)                | Staggered, With Reversal                                                                                                                                       |
+|                                                  |                                                                                                                                                                |
+| ::: small                                        | ::: small                                                                                                                                                      |
+| Liu, Wang, and Xu (2024)                         | Notes: Probably the most popular in political science. Can be robust even with violations to parallel trends.                                                  |
+| :::                                              | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| PanelMatch Estimator                             | Staggered, Non-Absorbing                                                                                                                                       |
+|                                                  |                                                                                                                                                                |
+| ::: small                                        | ::: small                                                                                                                                                      |
+| Imai, Kim, and Wang (2023)                       | Notes: Can be used in non-DiD panel and repeated cross-section designs.                                                                                        |
+| :::                                              | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| DIDmultiple Estimator                            | Staggered, *and Continuous Treatments*                                                                                                                         |
+|                                                  |                                                                                                                                                                |
+| ::: small                                        | ::: small                                                                                                                                                      |
+| De Chaisemartin and d'Haultfoeuille (2021, 2024) | Notes: one of the only ones that can accomodate continuous treatment variables.                                                                                |
+| :::                                              | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [Extended Two-way Fixed Effects](etwfe.qmd)      | Staggered, *and Non-linear Models*                                                                                                                             |
+|                                                  |                                                                                                                                                                |
+| ::: small                                        | ::: small                                                                                                                                                      |
+| Wooldridge (2021, 2023)                          | Notes: One of the only that can accomodate non-linear models, like logistic, negative binomial, and poisson. Cannot do pre-treatment test for parallel trends. |
+| :::                                              | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+| [2-Stage Difference-in-Differences](did2s.qmd)   | Staggered                                                                                                                                                      |
+|                                                  |                                                                                                                                                                |
+| ::: small                                        | ::: small                                                                                                                                                      |
+| Gardner (2021)                                   | Notes: the most simple estimator for staggered designs, very similar to TWFE. However, can be less robust.                                                     |
+| :::                                              | :::                                                                                                                                                            |
++--------------------------------------------------+----------------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: {tbl-colwidths="\[37,63\]" .bordered}

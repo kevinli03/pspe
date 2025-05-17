@@ -138,20 +138,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -189,47 +186,47 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How DiD Works</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiD Estimators</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Two-way Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dynamic Treatment Effects</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD and TWFE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sun and Abraham (2021)</span></a>
+ <span class="menu-text">Interaction-Weighted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2-stage Difference-in-Differences</span></a>
+ <span class="menu-text">Doubly-Robust Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">IFE Counterfactual Estimator</span></a>
+ <span class="menu-text">Imputation Estimator</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+ <span class="menu-text">PanelMatch Estimator</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">DiDmultiple Estimator</span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
@@ -237,8 +234,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-stage DiD Estimator</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -273,49 +273,86 @@ window.Quarto = {
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>The two-way fixed effects estimator is the standard estimator for DiD. The estimator with is a linear regression model specified as following:</p>
+<p>The two-way fixed effects estimator is the estimator for classical DiD, and works (albiet poorly) for staggered DiD and non-absorbing DiD:</p>
 <p><span class="math display">\[
 Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov + \eps_{it}
 \]</span></p>
 <div class="small">
-<p>This is the estimator for panel data. In repeated cross-sections, we have to replace the unit fixed effects <span class="math inline">\(\alpha_i\)</span> with group fixed effects, group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).</p>
-</div>
-<p>The fixed effects <span class="math inline">\(\alpha_i\)</span> and <span class="math inline">\(\gamma_t\)</span> are “special” intercepts. Unlike our normal intercepts in regression, these intercepts take different values depending on the unit and time.</p>
-<ul>
-<li>Intercept <span class="math inline">\(\alpha_i\)</span> has a different value for each unit <span class="math inline">\(i\)</span>.</li>
-<li>Intercept <span class="math inline">\(\gamma_t\)</span> has a different value for each time period <span class="math inline">\(t\)</span>.</li>
-</ul>
-<div class="small">
-<p>For repeated cross section, <span class="math inline">\(\gamma_t\)</span> is the same. <span class="math inline">\(\alpha_g\)</span> will now have different values for each group <span class="math inline">\(g\)</span>.</p>
+<p>In repeated cross-sections, we have to replace the unit fixed effects <span class="math inline">\(\alpha_i\)</span> with group fixed effects, group being the level on which treatment is assigned (ex. if treatment is assigned at a state level, we use state fixed effects).</p>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> treatment <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="co"># the | separates the main variables from the fixed effects</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="st">"cluster"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># we should always cluster standard errors by unit</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df)</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftable</span>(model) <span class="co"># Can also use summary(model)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; OLS estimation, Dep. Var.: outcome</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Observations: 1,080</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Fixed-effects: unit: 108,  time: 10</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Standard-errors: Clustered (unit) </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           Estimate Std. Error t value  Pr(&gt;|t|)    </span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment 4.850645   0.455222 10.6556 &lt; 2.2e-16 ***</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; covariate 0.972166   0.045972 21.1468 &lt; 2.2e-16 ***</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; RMSE: 3.90173     Adj. R2: 0.474684</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                 Within R2: 0.368706</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            Estimate Std. Error  t value     Pr(&gt;|t|)</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment 4.8506451  0.4552220 10.65556 1.667568e-18</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; covariate 0.9721658  0.0459722 21.14682 5.226930e-40</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"type")</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "Clustered (unit)"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="small">
 <p>The estimate for treatment is the ATT. In this example, it is 4.850645.</p>
 </div>
-<p>Since the differences between units <span class="math inline">\(i\)</span> and time periods <span class="math inline">\(t\)</span> are included in these fixed effects intercept terms, this allows us to <strong>account</strong> for differences between units and differences between time periods. Along with the parallel trends assumption, our treatment <span class="math inline">\(D\)</span> should be strictly exogenous, allowing for the estimated <span class="math inline">\(\att\)</span> to be unbiased.</p>
+<p>For dynamic treatment effects, we can</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> <span class="fu">i</span>(rel.time, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>      <span class="co"># rel.time is: time period - initial treatment period of a unit</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># thus, rel.time = 0 is first treatment year. negative is pre-treat.</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df)</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  model,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop =</span> <span class="st">"[[:digit:]]{2}"</span>, <span class="co"># this limits pre-post period to -9 to 9.</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="twfe_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
 <div class="small">
-<p>The unit fixed effects controls for between-unit differences. The time fixed effects controls for between-time differences. The only remaining differences are unit-time differences, or trends of units over time. Parallel trends (if met) controls for this.</p>
+<p>Negative rel.time (pre-treatment) should have 0 significant effects if parallel trends is met. Here, we can see parallel trends is violated. Post rel.time are the dynamic treatment effects over time.</p>
+</div>
+<p>As has been mentioned, TWFE is a poor estimator for staggered DiD or non-absorbing DiD. The reason for this is because of two factors:</p>
+<ol type="1">
+<li><p>TWFE will make “forbidden” comparisons between treatment groups. For example, TWFE will compare treated units to later-treated units. This is an issue - causal effects should only compare treated to untreated units.</p></li>
+<li><p>TWFE does not weight comparisons properly. In the real ATT, comparisons between different groups should be weighted based on how large these different groups are (how many units are in each group). But, in TWFE, weighting depends on treatment timing, not group size. This means some groups may be negatively weighted (which is nonsensical).</p></li>
+</ol>
+<div class="small">
+<p><a href="https://asjadnaqvi.github.io/DiD/docs/code_r/06_bacon_r/">This site</a> shows how you can explore the comparison and weighting issue in R. See <a href="https://www.sciencedirect.com/science/article/abs/pii/S0304407621001445">Goodman-Bacon (2021)</a> for a more technical overview of TWFE decomposition.</p>
+</div>
+<div class="callout callout-style-simple callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Illustration of TWFE Issues
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>The figure below shows the comparisons TWFE makes, including the “forbidden” comparison D.</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-2200187195.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
+</figure>
+</div>
+<p>The figure below shows how TWFE comparisons are weighted:</p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/clipboard-3589189122.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%"></p>
+</figure>
+</div>
+</div>
+</div>
 </div>
 
 

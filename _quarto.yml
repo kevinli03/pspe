@@ -15,14 +15,11 @@ website:
           href: index.qmd
         - text: "Difference-in-Differences"
           href: did/did.qmd
-        - text: "Regression Discontinuity"
-          href: rdd/rdd.qmd
-        - text: "Selection on Observables"
-          href: soo/soo.qmd
-        - text: "Regression Models"
-          href: reg/reg.qmd
+        - text: "More Causal Inference"
+          href: causal/random.qmd
         - text: "Latent Variable Models"
           href: latent/latent.qmd
+        - text: "Regression Models"
 
   sidebar:
     - title: "Causal Inference Basics"
@@ -37,12 +34,11 @@ website:
         - text: "Additional Resources"
           href: resources.qmd
         - text: "---"
+        - text: "Regression with Fixest"
         - text: "Basics of Causality"
           href: frameworks.qmd
         - text: "Issue of Selection Bias"
           href: correlation.qmd
-        - text: "Magic of Randomisation"
-          href: randomisation.qmd
 
     - title: "Difference-in-Differences"
       style: floating
@@ -53,85 +49,50 @@ website:
       contents:
         - text: "Difference-in-Differences"
           href: did/did.qmd
+        - text: "How DiD Works"
+          href: did/design.qmd
+        - text: "DiD Estimators"
+          href: did/estimators.qmd
+        - text: "---"
         - text: "Two-way Fixed Effects"
           href: did/twfe.qmd
-        - text: "Dynamic Treatment Effects"
-          href: did/dynamic.qmd
-        - text: "---"
-        - text: "Staggered DiD and TWFE"
-          href: did/staggered.qmd
-        - text: "Sun and Abraham (2021)"
+        - text: "Interaction-Weighted Estimator"
           href: did/sunab.qmd
-        - text: "Callaway and Sant'Anna (2021)"
+        - text: "Doubly-Robust Estimator"
           href: did/cs.qmd
-        - text: "2-stage Difference-in-Differences"
-          href: did/did2s.qmd
-        - text: "IFE Counterfactual Estimator"
+        - text: "Imputation Estimator"
           href: did/ifect.qmd
+        - text: "PanelMatch Estimator"
+        - text: "DiDmultiple Estimator"
         - text: "Extended Two-way Fixed Effects"
           href: did/etwfe.qmd
-        - text: "Chaisemartin and Haultfoeuille (2024)"
-    
-    - title: "Regression Discontinuity"
-      style: floating
-      border: true
-      background: "#f8f9fa"
-      foreground: "#36026b"
-      contents:
-        - text: "Regression Discontinuity"
-          href: rdd/rdd.qmd
-        - text: "---"
-        - text: "Linear Parametric Model"
-        - text: "Polynomial Parametric Model"
-        - text: "Non-Parametric Model"
-        - text: "Bandwidth Selection"
-        - text: "Tests for Sorting"
-        - text: "---"
-        - text: "Fuzzy Discontinuity"
-        - text: "Regression Kink Design"
-        - text: "Panel and Spatial Data"
+        - text: "2-stage DiD Estimator"
+          href: did/did2s.qmd
 
-    - title: "Selection on Observables"
+    - title: "More Causal Inference"
       style: floating
       border: true
       background: "#f8f9fa"
       foreground: "#36026b"
       contents:
-        - text: "Selection on Observables"
-          href: soo/soo.qmd
+        - text: "The Magic of Randomisation"
+          href: causal/random.qmd
+        - text: "Quasi-Random Estimators"
+          href: causal/estimators.qmd
+        - text: "---"
+        - text: "Instrumental Variables"
+        - text: "Regression Discontinuity"
         - text: "Fully Interacted Estimator"
-          href: soo/interact.qmd
+          href: causal/interact.qmd
         - text: "Distance Matching"
-          href: soo/distance.qmd
+          href: causal/distance.qmd
         - text: "Propensity Score Matching"
-          href: soo/pscore.qmd
+          href: causal/pscore.qmd
         - text: "Genetic Matching"
-          href: soo/genetic.qmd
+          href: causal/genetic.qmd
         - text: "Inverse Probability Weighting"
-          href: soo/ipw.qmd
-        - text: "---"
+          href: causal/ipw.qmd
         - text: "Causal Forests"
-        - text: "Doubly Robust Estimation"
-    
-    - title: "Regression"
-      style: floating
-      border: true
-      background: "#f8f9fa"
-      foreground: "#36026b"
-      contents:
-        - text: "Multiple Linear Regression"
-          href: reg/reg.qmd
-        - text: "Binomial Logistic Regression"
-        - text: "Ordinal Logistic Regression"
-        - text: "Multinomial Logistic Regression"
-        - text: "Negative Binomial Regression"
-        - text: "Poisson Regression"
-        - text: "---"
-        - text: "Instrumental Variables Regression"
-        - text: "Grouped and Panel Data"
-        - text: "Models for Time Series"
-        - text: "Polynomial Regression"
-        - text: "Regression Trees"
         
     - title: "Latent Models"
       style: floating
@@ -141,12 +102,14 @@ website:
       contents:
         - text: "Latent Variable Models"
           href: latent/latent.qmd
+        - text: "---"
         - text: "Factor Analysis Models"
           href: latent/factor.qmd
         - text: "Item Response Theory"
           href: latent/irt.qmd
         - text: "Latent Class Models"
           href: latent/class.qmd
+        - text: "Gaussian Mixture Models"
         - text: "Structural Equation Models"
           href: latent/sem.qmd
         - text: "---"

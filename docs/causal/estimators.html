@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Distance Matching – Causal Inference Resources</title>
+<title>Quasi-Random Estimators – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -85,35 +51,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -138,20 +75,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -164,7 +98,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/distance.html">Distance Matching</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../causal/estimators.html">Quasi-Random Estimators</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -183,46 +117,55 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Selection on Observables</span></a>
+  <a href="../causal/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Magic of Randomisation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/estimators.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Quasi-Random Estimators</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Instrumental Variables</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Regression Discontinuity</span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../causal/interact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link active">
+  <a href="../causal/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/pscore.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
  <span class="menu-text">Causal Forests</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Doubly Robust Estimation</span>
   </li>
     </ul>
     </div>
@@ -237,7 +180,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Distance Matching</h1>
+<h1 class="title">Quasi-Random Estimators</h1>
 </div>
 
 
@@ -254,74 +197,91 @@ window.Quarto = {
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
-<p><span class="math display">\[
-\tau_{\text{Mia}} = \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
-\]</span></p>
-<p>We cannot observe Mia’s counterfactual (in red), since Mia receives the treatment.. However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
-<p><span class="math display">\[
-\tau_{\text{Mia}} \approx \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Matched Individual}}
-\]</span></p>
-<p>Distance matching matches an individual that is treated (like Mia) with one that is not treated based on how <strong>close</strong> their confounding values are. We define closeness by Mahalanobis distance:</p>
-<p><span class="math display">\[
-\text{distance}_{i, j} = \sqrt{(\b x_i - \b x_j)' \ \b\Sigma_x^{-1} (\b x_i - \b x_j)}
-\]</span></p>
-<div class="small">
-<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> is a vector of confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders.</p>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Match</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> df<span class="sc">$</span>outcome,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tr =</span> df<span class="sc">$</span>treatment,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> df[,<span class="fu">c</span>(<span class="st">"cov1"</span>,<span class="st">"cov2"</span>)],</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="dv">1</span>,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># number of matches - default is 1 to 1, but we can match more to 1</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">BiasAdjust =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># modern adjustment - usually good to keep on</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Weight =</span> <span class="dv">2</span>)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.4711 </span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AI SE......  0.14065 </span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  10.459 </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.val......  &lt; 2.22e-16 </span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of observations..............  1000 </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  262 </span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  262 </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  324</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
-<table class="table">
+<p>Randomisation is the <a href="../causal/random.html">gold standard</a>. But it isn’t always possible.</p>
+<p>So instead, our goal in causal inference is often to try to create secnarios that approximate randomisation. If executed properly, our treatment should appear to be random (exogenous), allowing us to calculate treatment effects.</p>
+<p>There are a wide variety of designs and estimators that can attempt to do this, each applicable to certain scenarios under certain situations. Below (and on the sidebar) are a list of popular causal estimators. If you are dealing with panel data, also take a look at the <a href="../did/did.html">difference-in-differences section</a> for more estimators.</p>
+<table class="table-bordered table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 37%">
+<col style="width: 63%">
 </colgroup>
 <thead>
 <tr class="header">
-<th>Pros</th>
-<th>Cons</th>
+<th>Estimator</th>
+<th>When to Use</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td><p>1) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator.</p>
-<p>2) Very intuitive idea of matching similar individuals.</p></td>
-<td><p>1) Can be badly biased when more than 3-5 confounders.</p>
-<p>2) Throws out unmatched data, so it wastes data.</p>
-<p>3) Does not estimate the ATE, only the ATT.</p></td>
+<td><p>Instrumental Variables</p>
+<div class="small">
+<p>Estimand: LATE</p>
+</div></td>
+<td>When you have non-compliance in random experiments, or you have a valid instrument.</td>
+</tr>
+<tr class="even">
+<td><p>Regression Discontinuity</p>
+<div class="small">
+<p>Estimand: LATE</p>
+</div></td>
+<td><p>When your treatment is assigned by some cutoff/threshold.</p>
+<div class="small">
+<p>For example, you treatment is a academic scholarship, that is only given to people who score higher than 90% on a test (threshold).</p>
+</div></td>
+</tr>
+<tr class="odd">
+<td><p>Fully Interacted Estimator</p>
+<div class="small">
+<p>Estimand: ATE</p>
+</div></td>
+<td>When you have data on all the confounders, and you believe the confounders have a linear relationship with the outcome.</td>
+</tr>
+<tr class="even">
+<td><p>Inverse Probability Weighting</p>
+<div class="small">
+<p>Estimand: ATE</p>
+</div></td>
+<td>When you have data on all the confounders, and have a large dataset.</td>
+</tr>
+<tr class="odd">
+<td><p>Distance Matching</p>
+<div class="small">
+<p>Estimand: ATT</p>
+</div></td>
+<td><p>When you have data on all the confounders, and have less than 3-5 confounders.</p>
+<div class="small">
+<p>Note: you should generally use genetic matching unless not possible.</p>
+</div></td>
+</tr>
+<tr class="even">
+<td><p>Propensity Score Matching</p>
+<div class="small">
+<p>Estimand: ATT</p>
+</div></td>
+<td><p>When you have data on all the confounders, and have a large dataset.</p>
+<div class="small">
+<p>Note: you should generally use genetic matching unless not possible.</p>
+</div></td>
+</tr>
+<tr class="odd">
+<td><p>Genetic Matching</p>
+<div class="small">
+<p>Estimand: ATT</p>
+</div></td>
+<td><p>When you have data on all the confounders.</p>
+<div class="small">
+<p>Note: best matching method.</p>
+</div></td>
+</tr>
+<tr class="even">
+<td><p>Causal Forests</p>
+<div class="small">
+<p>Estimand: CATE</p>
+</div></td>
+<td>When you are interested in heterogenous treatment effects.</td>
 </tr>
 </tbody>
 </table>
-<div class="small">
-<p>Kevin’s comments: there is little reason to use distance matching over <a href="../soo/genetic.html">genetic matching</a>, unless your machine lacks the computational power for genetic matching.</p>
-</div>
 
 
 

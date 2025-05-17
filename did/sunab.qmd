@@ -1,5 +1,6 @@
 ---
-title: "Sun and Abraham (2021) Estimator"
+title: "Interaction-Weighted Estimator"
+subtitle: "Sun and Abraham (2021)"
 ---
 
 ```{r}
@@ -10,7 +11,7 @@ title: "Sun and Abraham (2021) Estimator"
 library(fixest)
 ```
 
-There are two [issues with the two-way fixed effects estimator](staggered.qmd): forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator to solve this issues.
+The Interaction-Weighted estimator developed by Sun and Abraham (2021) is designed for staggered DiD, accounting for issues in TWFE.
 
 The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$.
 

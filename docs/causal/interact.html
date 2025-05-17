@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Stagged DiD and Issues with TWFE – Causal Inference Resources</title>
+<title>Fully Interacted Estimator – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -51,6 +85,35 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -75,20 +138,17 @@ ul.task-list li input[type="checkbox"] {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -101,7 +161,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/staggered.html">Staggered DiD and TWFE</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../causal/interact.html">Fully Interacted Estimator</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -120,61 +180,55 @@ ul.task-list li input[type="checkbox"] {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Difference-in-Differences</span></a>
+  <a href="../causal/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Magic of Randomisation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-way Fixed Effects</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dynamic Treatment Effects</span></a>
+  <a href="../causal/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quasi-Random Estimators</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
+ <span class="menu-text">Instrumental Variables</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Regression Discontinuity</span>
+  </li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Staggered DiD and TWFE</span></a>
+  <a href="../causal/interact.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sun and Abraham (2021)</span></a>
+  <a href="../causal/distance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
+  <a href="../causal/pscore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2-stage Difference-in-Differences</span></a>
+  <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">IFE Counterfactual Estimator</span></a>
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extended Two-way Fixed Effects</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
- <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+ <span class="menu-text">Causal Forests</span>
   </li>
     </ul>
     </div>
@@ -189,7 +243,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Stagged DiD and Issues with TWFE</h1>
+<h1 class="title">Fully Interacted Estimator</h1>
 </div>
 
 
@@ -206,41 +260,72 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>In the classical difference-in-differences design, all units in the treatment group receive treatment at the same time. However, in reality, this is not that common. It is very common that some units receive treatment before others.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>From <a href="../causal/soo.html">selection on observables</a>, we know that our causal effect is a weighted average:</p>
+<p><span class="math display">\[
+\ate = \sum\tau_\text{X} \cdot Pr( X)
+\]</span></p>
+<p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can show OLS estimates:</p>
+<p><span class="math display">\[
+\hat\beta_\text{OLS} = \sum \tau_X\cdot \underbrace{\frac{Var(D_i | X)Pr(X)}{\sum Var(D_i | X^c)Pr( X^c)}}_{\text{weight}}
+\]</span></p>
+<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\ate\)</span>. Thus, if not all <span class="math inline">\(\tau_\text{X}\)</span> are exactly the same (homogeneity), then our OLS estimator (OLS) will incorrectly estimate the ATE. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
+<p><span class="math display">\[
+Y_i = \alpha + D_i\ \ate + \underbrace{(\b X_i - \b{\mean X})'\b\beta + D_i(\b X_i - \b{\mean X})'\b\gamma}_{\text{interactions with de-meaned covariates}}+ \eps_i
+\]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm_lin</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> treatment,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariates =</span> <span class="sc">~</span> cov1 <span class="sc">+</span> cov2,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm_lin(formula = outcome ~ treatment, covariates = ~cov1 + cov2, </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = df)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Standard error type:  HC2 </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Estimate Std. Error t value   Pr(&gt;|t|) CI Lower CI Upper  DF</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)       1.27517    0.02843 44.8557 4.250e-241   1.2194  1.33096 994</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment         1.74925    0.11028 15.8613  1.122e-50   1.5328  1.96567 994</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cov1_c            0.52576    0.05465  9.6207  5.203e-21   0.4185  0.63301 994</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cov2_c            0.49358    0.02991 16.5025  2.952e-54   0.4349  0.55228 994</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment:cov1_c  1.93385    0.17941 10.7792  1.067e-25   1.5818  2.28591 994</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment:cov2_c -0.08821    0.09298 -0.9486  3.430e-01  -0.2707  0.09426 994</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.4299 ,    Adjusted R-squared:  0.427 </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 126.7 on 5 and 994 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
 <div class="small">
-<p>For example, in the US, states often adopt different policies at different times - such as the staggered adoption of mail-in voting, or the staggered adoption of the common core curriculum.</p>
+<p>The estimate for treatment is our ATE estimate.</p>
 </div>
-<p>The <strong>staggered difference-in-differences</strong> design is an extension on the classical design, which allows for staggered implementation of treatment.</p>
-<p>The <a href="../did/twfe.html">two-way fixed effects</a> estimator is operates differently in a staggered setting. Let’s say we have 3 groups - a group treated early, a group that was treated late, and a untreated group.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3888126795.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:60.0%"></p>
-</figure>
-</div>
-<p>Two-way fixed effects essentially estimates 4 different differences, shown below:</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2200187195.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:75.0%"></p>
-</figure>
-</div>
-<p>The actual TWFE estimate is a weighted average of these differences. The weights are a function of mainly the telative timing of treatment - groups treated more in the middle (so not too early or too late) are weighted higher. The weights are seen below in the figure.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-3589189122.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%"></p>
-</figure>
-</div>
-<p>There are two problems with these comparison conducted by TWFE:</p>
-<ol type="1">
-<li>Some of these comparison (see comparison D above) may be “forbidden” - such that already-treated units are used as controls after they are treated.</li>
-<li>Weighting can result in weird weights - sometimes some groups treated early/late might receive negative weights (see figure above).</li>
-</ol>
-<div class="small">
-<p><a href="https://asjadnaqvi.github.io/DiD/docs/code_r/06_bacon_r/">This site</a> shows how you can explore the comparison and weighting issue in R. See <a href="https://www.sciencedirect.com/science/article/abs/pii/S0304407621001445">Goodman-Bacon (2021)</a> for a more technical overview of TWFE decomposition.</p>
-</div>
-<p>These problems with TWFE mean that TWFE is <strong>biased</strong> in estimating the ATT in staggered difference-in-differences when there is heterogenous treatment effects.</p>
-<div class="small">
-<p>TWFE is unbiased with homogeneity, but homogeneity is quite rare in scenarios we typically research.</p>
-</div>
+<p>The new OLS estimate of <span class="math inline">\(\ate\)</span> in this estimator will technically still be a biased estimator of the ATE, but the bias is negligible.</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>1) Relatively simple and straight forward, utilising the regression framework.</p>
+<p>2) Works well with smaller sample sizes compared to many other methods.</p></td>
+<td>1) Requires a linear relationship between confounders and outcome. If this is not true, then the estimates can be wrong.</td>
+</tr>
+</tbody>
+</table>
 
 
 

@@ -2,82 +2,40 @@
 title: "Difference-in-Differences"
 ---
 
-In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:
+Difference-in-differences (DiD) is the most popular causal inference method, that has seen a "revolution" in the last few years. The method is designed for:
 
-|                                                    |                                                   |
-|------------------------------------|------------------------------------|
-| [Mar 1992 (Before Min. Wage Increase)]{.smallcaps} | [Dec 1992 (After Min. Wage Increase)]{.smallcaps} |
-| $\red{20.44}$                                      | $\green{21.03}$                                   |
+|                            |                                                           |
+|------------------------|------------------------------------------------|
+| **Panel Data**             | We observe the same units over multiple periods of time.  |
+| **Repeated Cross Section** | We observe different units over multiple periods of time. |
 
-: {tbl-colwidths="\[50,50\]" .bordered}
-
-::: small
-Red indicates not treated, green indicates treated.
-:::
-
-Our treatment effect after the raise of minimum wage in December 1992 would be:
-
-$$
-\tau_\text{Dec92} = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}}
-$$
-
-We **don't** observe the counterfactual in December 1992 without the minimum wage increase.
+: {tbl-colwidths="\[33,67\]" .bordered}
 
 ::: small
-We cannot use March 1992 because there could have been something that happened between March and December that changes the **trend** in employment (like a recession).
+Panel data is usually preferred, but most estimators can accommodate repeated cross section.
 :::
 
-**Difference-in-differences** estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:
+DiD exploits variation in treatment adoption over two dimensions. This typically means variation in treatment adoption between units, and variation of treatment adoption over time. There are three types of DiD designs:
 
-|                                                              |                                                              |
-|------------------------------------|------------------------------------|
-| [Mar 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} | [Dec 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} |
-| $\red{23.33}$                                                | $\red{21.17}$                                                |
+|                       |                                                                                                                                                                                                                                   |
+|-------------|-----------------------------------------------------------|
+| **Classical DiD**     | When there are two groups of units: the treatment group, and the control group. In the pre-treatment time periods, neither group adopts treatment. In the post-treatment time periods, only the treatment group adopts treatment. |
+| **Staggered DiD**     | When there are multiple treatment groups, who adopt treatment at different time-periods. For example, group A might adopt treatment in year 2000, group B might adopt treatment in year 2010, and group C is a control group.     |
+| **Non-Absorbing DiD** | A staggered (or classical) DiD, but some units who adopt treatment earlier may turn off treatment later (treatment reversal).                                                                                                     |
 
-: {tbl-colwidths="\[50,50\]" .bordered}
+: {tbl-colwidths="\[33,67\]" .bordered}
 
 ::: small
-These are employment values in Pennsylvania, where no mininum wage changes occured.
+The choice of estimator will depend on the type of DiD.
 :::
 
-Pennsylvania tells us the **trend** in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn't received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.
-
-|                                                      |                                                                  |
-|-------------------------------|-----------------------------------------|
-| [Mar 92 (NJ, Not Minimum Wage Increase)]{.smallcaps} | [Dec 92 (NJ, Hypothetical No Minimum Wage Increase)]{.smallcaps} |
-| $\red{20.44}$                                        | $\red{\text{March 92} - 2.16}$                                   |
-
-: {tbl-colwidths="\[50,50\]" .bordered}
-
-::: small
-The March 1992 value is copied from the first table.
-:::
-
-Now, we have an approximation of New Jersey's missing hypothetical outcome, so we can now estimate the causal effect.
-
-$$
-\begin{align}
-\tau_\text{Dec92} & = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}} \\
-& = \green{Y_\text{Dec92}^{(1)}} - \left(\red{Y_\text{Mar92}^{(0)}} - 2.16 \right)
-\end{align}
-$$
-
-<br />
-
-This entire idea of using another group's trend to estimate counterfactuals depends on two assumptions:
+All DiD require 3 identification assumptions:
 
 |                                                         |                                                                                                                             |
-|------------------------|-----------------------------------------------|
+|-------------------------|----------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
 | [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
+| [No Anticipation]{.mark}                                | This means that treated units do not respond to treatment prior to the treatment being actually implemented (anticipation). |
 | [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                    |
 
-: {tbl-colwidths="\[35,65\]" .bordered}
-
-::: small
-I will show how to test for parallel trends later in Dynamic treatment effects.
-:::
-
-There are two types of difference-in-differences designs - classical and staggered, which we will cover in the next few pages.
-
-<br />
+: {tbl-colwidths="\[33,67\]" .bordered}

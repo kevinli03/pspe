@@ -51,35 +51,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -104,20 +75,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="./reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="./causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -161,6 +129,9 @@ window.Quarto = {
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
+ <span class="menu-text">Regression with Fixest</span>
+  </li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="./frameworks.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Basics of Causality</span></a>
@@ -170,12 +141,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="./correlation.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Issue of Selection Bias</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="./randomisation.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Magic of Randomisation</span></a>
   </div>
 </li>
     </ul>
@@ -210,19 +175,17 @@ window.Quarto = {
 
 
 <p>For my personal website, see <a href="http://kevinli03.github.io" class="uri">http://kevinli03.github.io</a></p>
-<p>This repository contains resources on causal inference and social statistics, specifically focused on applications to politics and economics.</p>
+<p>This repository contains resources on causal inference and social statistics methods, and implementing these methods in R.</p>
 <ul>
-<li>Use the top navigation bar to navigate between different methods.</li>
-<li>Use the side navigation bar to navigate within a method.</li>
+<li><p><strong>Difference-in-Differences</strong>, including modern advancements from 2021-2025.</p></li>
+<li><p>Other <strong>causal estimators</strong>, such as instrumental variables, regression discontinuity, and more.</p></li>
+<li><p><strong>Latent variable models</strong>, such as factor analysis, item response theory, and structural equation modelling.</p></li>
+<li><p><strong>Regression Models</strong> (not too much in detail, mostly implementation and interpretation).</p></li>
 </ul>
-<p>R-code for implementation is included. There are some stuff that doesn’t fit into any category, which I have included in the home page sidebar.</p>
-<p><br></p>
-<p><strong>Notation Notes</strong>:</p>
-<ul>
-<li>For potential outcomes, green means under treatment, and red means under control.</li>
-<li><span class="math inline">\(i\)</span> refers to units within our data, and <span class="math inline">\(t\)</span> refers to time periods.</li>
-<li>Greek letters are used for <strong>parameters</strong> that need to be estimated. I typically use <span class="math inline">\(\beta\)</span> for most coefficients multiplied to variables, <span class="math inline">\(\tau\)</span> to represent causal effects, and <span class="math inline">\(\eps\)</span> to represent the error term.</li>
-</ul>
+<div class="small">
+<p>This repository isn’t meant to teach you these methods (although I do include explanations of these methods). It is primary aimed as a reference when implementing methods. Check out the <a href="./resources.html">additional resources</a> for more teaching material.</p>
+</div>
+<p>Use the top navigation bar to navigate between different methods. Use the side navigation bar to navigate within a method.</p>
 
 
 

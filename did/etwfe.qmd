@@ -1,5 +1,6 @@
 ---
-title: "Wooldridge (2021) Extended Two-Way Fixed Effects"
+title: "Extended Two-Way Fixed Effects"
+subtitle: "Wooldridge (2021, 2023)"
 ---
 
 ```{r}
@@ -10,7 +11,7 @@ title: "Wooldridge (2021) Extended Two-Way Fixed Effects"
 library(etwfe)
 ```
 
-There are two [issues with the two-way fixed effects estimator](staggered.qmd): forbidden comparisons and issues with weighting. Wooldridge (2021, 2023) proposes the extended two-way fixed effects (ETWFE) estimator.
+The Extended Two-way Fixed Effects Estimator developed by Wooldridge (2021, 2023) is designed for staggered DiD, accounting for issues in TWFE. It is also capable of dealing with non-linear models such as negative binomial, poisson, and logistic.
 
 The ETWFE estimator estimates all possible heterogeneous effects separately (by including a lot of interactions with initial treatment year, year, and covariates), using only valid comparisons, solving the forbidden comparison problem:
 

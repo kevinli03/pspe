@@ -1,0 +1,77 @@
+---
+title: "How Difference-in-Differences Works"
+---
+
+::: small
+This example is from the iconic DiD study conducted by [Card and Kreuger (1993)](https://www.nber.org/papers/w4509).
+:::
+
+In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:
+
+|                                                    |                                                   |
+|------------------------------------|------------------------------------|
+| [Mar 1992 (Before Min. Wage Increase)]{.smallcaps} | [Dec 1992 (After Min. Wage Increase)]{.smallcaps} |
+| $\red{20.44}$                                      | $\green{21.03}$                                   |
+
+: {tbl-colwidths="\[50,50\]" .bordered}
+
+::: small
+Red indicates not treated, green indicates treated.
+:::
+
+Our treatment effect after the raise of minimum wage in December 1992 would be:
+
+$$
+\tau_\text{Dec92} = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}}
+$$
+
+We **don't** observe the counterfactual in December 1992 without the minimum wage increase.
+
+::: small
+We cannot use March 1992 because there could have been something that happened between March and December that changes the **trend** in employment (like a recession).
+:::
+
+**Difference-in-differences** estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:
+
+|                                                              |                                                              |
+|------------------------------------|------------------------------------|
+| [Mar 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} | [Dec 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} |
+| $\red{23.33}$                                                | $\red{21.17}$                                                |
+
+: {tbl-colwidths="\[50,50\]" .bordered}
+
+::: small
+These are employment values in Pennsylvania, where no mininum wage changes occured.
+:::
+
+Pennsylvania tells us the **trend** in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn't received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.
+
+|                                                      |                                                                  |
+|-------------------------------|-----------------------------------------|
+| [Mar 92 (NJ, Not Minimum Wage Increase)]{.smallcaps} | [Dec 92 (NJ, Hypothetical No Minimum Wage Increase)]{.smallcaps} |
+| $\red{20.44}$                                        | $\red{\text{March 92} - 2.16}$                                   |
+
+: {tbl-colwidths="\[50,50\]" .bordered}
+
+::: small
+The March 1992 value is copied from the first table.
+:::
+
+Now, we have an approximation of New Jersey's missing hypothetical outcome, so we can now estimate the causal effect.
+
+$$
+\begin{align}
+\tau_\text{Dec92} & = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}} \\
+& = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \left(\red{\text{employment}_\text{Mar92}^{(\text{control})}} - 2.16 \right)
+\end{align}
+$$
+
+<br />
+
+This entire idea of using another group's trend to estimate counterfactuals depends on the critical assumption of parallel trends: that we can indeed use Pennsylvania's trend to estimate New Jersey's trend under control.
+
+Parallel trends essentially says that if the treated units had hypothetically not been treated, we should expect them to follow the same trend as the untreated units.
+
+::: small
+We also require the SUTVA assumption since our potential outcomes framework is no longer valid without it. We also require the obvious assumption of no anticipation - basically the treatment is actually taking effect when we are saying it is, and people aren't anticipating and reacting before the actual treatment takes effect.
+:::

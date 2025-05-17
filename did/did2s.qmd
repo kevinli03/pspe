@@ -1,5 +1,6 @@
 ---
-title: "Gardner (2021) Two-Stage Difference-in-Differences"
+title: "Two-Stage Difference-in-Differences"
+subtitle: "Gardner (2021)"
 ---
 
 ```{r}
@@ -10,7 +11,7 @@ title: "Gardner (2021) Two-Stage Difference-in-Differences"
 library(did2s)
 ```
 
-The [TWFE estimator](twfe.qmd) implies that untreated units $D_{it} = 0$ equals the following:
+The 2-Stage DiD Estimator developed by Gardner (2021) is designed for staggered DiD, accounting for issues in TWFE. The [TWFE estimator](twfe.qmd) implies that untreated units $D_{it} = 0$ equals the following:
 
 $$
 Y_{it} (D_{it} = 0) = \unit + \time + \cov + \eps_{it}
@@ -23,7 +24,7 @@ This equation is obtained from plugging in $D_{it} = 0$ into the two-way fixed e
 This means parameters $\unit$, $\time$, and $\beta$ should be estimated with only units $D_{it} = 0$. However, in two-way fixed effects, we estimate $\unit$, $\time$, and $\beta$ with both units $D_{it} = 0$ and $D_{it} = 1$. So, we are actually improperly estimating $Y_{it}(D_{it} = 0)$ in two-way fixed effects.
 
 ::: small
-This is another fancy way of explaining the [forbidden comparisons problem](staggered.qmd) - in TWFE, $Y_{it}(D_{it} = 0)$ is mis-estimated to include already-treated units, which is the forbidden comparison.
+This is another fancy way of explaining the [forbidden comparisons problem](twfe.qmd) - in TWFE, $Y_{it}(D_{it} = 0)$ is mis-estimated to include already-treated units, which is the forbidden comparison.
 :::
 
 Gardner (2021) proposes to solve this by spliting the TWFE estimator into two parts.

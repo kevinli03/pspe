@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Selection on Observables – Causal Inference Resources</title>
+<title>How Difference-in-Differences Works – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -104,20 +104,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -130,7 +127,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/soo.html">Selection on Observables</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/design.html">How DiD Works</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -149,47 +146,65 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Selection on Observables</span></a>
+  <a href="../did/did.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Difference-in-Differences</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Fully Interacted Estimator</span></a>
+  <a href="../did/design.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">How DiD Works</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Distance Matching</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Propensity Score Matching</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
+  <a href="../did/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiD Estimators</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
- <span class="menu-text">Causal Forests</span>
+  <div class="sidebar-item-container"> 
+  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Two-way Fixed Effects</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Interaction-Weighted Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Doubly-Robust Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Imputation Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">PanelMatch Estimator</span>
   </li>
         <li class="sidebar-item">
- <span class="menu-text">Doubly Robust Estimation</span>
+ <span class="menu-text">DiDmultiple Estimator</span>
   </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Extended Two-way Fixed Effects</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-stage DiD Estimator</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -203,7 +218,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Selection on Observables</h1>
+<h1 class="title">How Difference-in-Differences Works</h1>
 </div>
 
 
@@ -220,111 +235,90 @@ window.Quarto = {
 </header>
 
 
-<p>Our issue in causal inference is that a confounder is causing pre-existing differences:</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="4" data-fig-height="1.1" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="384" height="106" viewbox="0.00 0.00 426.24 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
-<title>example2</title>
-<!-- D -->
-<g id="node1" class="node">
-<title>D</title>
-<polygon fill="none" stroke="black" points="165.45,-36 -0.15,-36 -0.15,0 165.45,0 165.45,-36"></polygon>
-<text text-anchor="middle" x="82.65" y="-13.8" font-family="Times,serif" font-size="14.00">Receiving Scholarship (D)</text>
-</g>
-<!-- Y -->
-<g id="node3" class="node">
-<title>Y</title>
-<polygon fill="none" stroke="black" points="418.34,-36 276.96,-36 276.96,0 418.34,0 418.34,-36"></polygon>
-<text text-anchor="middle" x="347.65" y="-13.8" font-family="Times,serif" font-size="14.00">University Grades (Y)</text>
-</g>
-<!-- D&#45;&gt;Y -->
-<g id="edge1" class="edge">
-<title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M165.41,-18C197.61,-18 234.4,-18 266.45,-18"></path>
-<polygon fill="black" stroke="black" points="266.68,-21.5 276.68,-18 266.68,-14.5 266.68,-21.5"></polygon>
-<text text-anchor="middle" x="221.18" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
-</g>
-<!-- X -->
-<g id="node2" class="node">
-<title>X</title>
-<polygon fill="none" stroke="black" points="296.75,-109 132.55,-109 132.55,-73 296.75,-73 296.75,-109"></polygon>
-<text text-anchor="middle" x="214.65" y="-86.8" font-family="Times,serif" font-size="14.00">Intellegence (Confounder)</text>
-</g>
-<!-- X&#45;&gt;D -->
-<g id="edge2" class="edge">
-<title>X-&gt;D</title>
-<path fill="none" stroke="black" d="M183.03,-72.99C165.12,-63.36 142.53,-51.21 123.31,-40.87"></path>
-<polygon fill="black" stroke="black" points="124.93,-37.77 114.47,-36.11 121.61,-43.93 124.93,-37.77"></polygon>
-</g>
-<!-- X&#45;&gt;Y -->
-<g id="edge3" class="edge">
-<title>X-&gt;Y</title>
-<path fill="none" stroke="black" d="M255.4,-68.24C271.57,-59.62 290.13,-49.7 306.35,-41.05"></path>
-<polygon fill="black" stroke="black" points="253.68,-65.2 246.51,-72.99 256.98,-71.37 253.68,-65.2"></polygon>
-<polygon fill="black" stroke="black" points="308.42,-43.91 315.59,-36.11 305.12,-37.74 308.42,-43.91"></polygon>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
-<p>By definition, as the confounder <strong>changes</strong>, your likelihood of getting treatment changes. As the confounder <strong>changes</strong>, the outcome value will also change.</p>
-<p>These issues occur when the confounder <strong>changes</strong> in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.</p>
-<p>For example, let’s assume that intelligence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intelligence:</p>
-<p><span class="math display">\[
-\begin{align}
-\tau_\text{smart} &amp; = \green{Y_\text{smart}^{(1)}} - \red{Y_\text{smart}^{(0)}}\\
-\tau_\text{dumb} &amp; = \green{Y_\text{dumb}^{(1)}} - \red{Y_\text{dumb}^{(0)}}
-\end{align}
-\]</span></p>
-<p>The confounder is constant here, so no selection bias. Thus, within each category, correlation is equal to causation. Our overall causal effect will be a weighted average of the categories:</p>
-<p><span class="math display">\[
-\tau = \tau_\text{smart} Pr(\text{smart})  \ + \ \tau_\text{dumb} Pr(\text{dumb})
-\]</span></p>
 <div class="small">
-<p>The weights of this weighted average are the probability/frequency of that value of the confounder.</p>
+<p>This example is from the iconic DiD study conducted by <a href="https://www.nber.org/papers/w4509">Card and Kreuger (1993)</a>.</p>
 </div>
-<p>Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies.</p>
-<p><span class="math display">\[
-\tau = \sum_X \tau_\text{X} \cdot Pr(X)
-\]</span></p>
-<p><br></p>
-<p>For selection on observables to work, we need to meet 3 assumptions:</p>
+<p>In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 35%">
-<col style="width: 65%">
+<col style="width: 50%">
+<col style="width: 50%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Assumption</span></td>
-<td><span class="smallcaps">Description</span></td>
+<td><span class="smallcaps">Mar 1992 (Before Min. Wage Increase)</span></td>
+<td><span class="smallcaps">Dec 1992 (After Min. Wage Increase)</span></td>
 </tr>
 <tr class="even">
-<td><mark>Conditional Ignorability</mark></td>
-<td>This means that we must account for <strong>all</strong> possible confounders (cannot miss a single one).</td>
-</tr>
-<tr class="odd">
-<td><mark>Common Support</mark></td>
-<td>This means no one can have a 100% chance of being in treatment or control. They always have a chance to be in either, no matter their confounding values.</td>
-</tr>
-<tr class="even">
-<td><mark>Stable Unit Treatment Value Assumption (SUTVA)</mark></td>
-<td>This means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).</td>
+<td><span class="math inline">\(\red{20.44}\)</span></td>
+<td><span class="math inline">\(\green{21.03}\)</span></td>
 </tr>
 </tbody>
 </table>
+<div class="small">
+<p>Red indicates not treated, green indicates treated.</p>
+</div>
+<p>Our treatment effect after the raise of minimum wage in December 1992 would be:</p>
+<p><span class="math display">\[
+\tau_\text{Dec92} = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}}
+\]</span></p>
+<p>We <strong>don’t</strong> observe the counterfactual in December 1992 without the minimum wage increase.</p>
+<div class="small">
+<p>We cannot use March 1992 because there could have been something that happened between March and December that changes the <strong>trend</strong> in employment (like a recession).</p>
+</div>
+<p><strong>Difference-in-differences</strong> estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Mar 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
+<td><span class="smallcaps">Dec 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\red{23.33}\)</span></td>
+<td><span class="math inline">\(\red{21.17}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="small">
+<p>These are employment values in Pennsylvania, where no mininum wage changes occured.</p>
+</div>
+<p>Pennsylvania tells us the <strong>trend</strong> in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn’t received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="smallcaps">Mar 92 (NJ, Not Minimum Wage Increase)</span></td>
+<td><span class="smallcaps">Dec 92 (NJ, Hypothetical No Minimum Wage Increase)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\red{20.44}\)</span></td>
+<td><span class="math inline">\(\red{\text{March 92} - 2.16}\)</span></td>
+</tr>
+</tbody>
+</table>
+<div class="small">
+<p>The March 1992 value is copied from the first table.</p>
+</div>
+<p>Now, we have an approximation of New Jersey’s missing hypothetical outcome, so we can now estimate the causal effect.</p>
+<p><span class="math display">\[
+\begin{align}
+\tau_\text{Dec92} &amp; = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}} \\
+&amp; = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \left(\red{\text{employment}_\text{Mar92}^{(\text{control})}} - 2.16 \right)
+\end{align}
+\]</span></p>
 <p><br></p>
-<p>We have a wide choice of estimators that we can use. Use the sidebar or links in the table to access each estimator’s page.</p>
-<p><br></p>
+<p>This entire idea of using another group’s trend to estimate counterfactuals depends on the critical assumption of parallel trends: that we can indeed use Pennsylvania’s trend to estimate New Jersey’s trend under control.</p>
+<p>Parallel trends essentially says that if the treated units had hypothetically not been treated, we should expect them to follow the same trend as the untreated units.</p>
+<div class="small">
+<p>We also require the SUTVA assumption since our potential outcomes framework is no longer valid without it. We also require the obvious assumption of no anticipation - basically the treatment is actually taking effect when we are saying it is, and people aren’t anticipating and reacting before the actual treatment takes effect.</p>
+</div>
 
 
 

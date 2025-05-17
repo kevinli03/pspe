@@ -5,17 +5,18 @@ subtitle: "Methodology for Political Science and Political Economy (PSPE)"
 
 For my personal website, see <http://kevinli03.github.io>
 
-This repository contains resources on causal inference and social statistics, specifically focused on applications to politics and economics.
+This repository contains resources on causal inference and social statistics methods, and implementing these methods in R.
 
--   Use the top navigation bar to navigate between different methods.
--   Use the side navigation bar to navigate within a method.
+-   **Difference-in-Differences**, including modern advancements from 2021-2025.
 
-R-code for implementation is included. There are some stuff that doesn't fit into any category, which I have included in the home page sidebar.
+-   Other **causal estimators**, such as instrumental variables, regression discontinuity, and more.
 
-<br />
+-   **Latent variable models**, such as factor analysis, item response theory, and structural equation modelling.
 
-**Notation Notes**:
+-   **Regression Models** (not too much in detail, mostly implementation and interpretation).
 
--   For potential outcomes, green means under treatment, and red means under control.
--   $i$ refers to units within our data, and $t$ refers to time periods.
--   Greek letters are used for **parameters** that need to be estimated. I typically use $\beta$ for most coefficients multiplied to variables, $\tau$ to represent causal effects, and $\eps$ to represent the error term.
+::: small
+This repository isn't meant to teach you these methods (although I do include explanations of these methods). It is primary aimed as a reference when implementing methods. Check out the [additional resources](resources.qmd) for more teaching material.
+:::
+
+Use the top navigation bar to navigate between different methods. Use the side navigation bar to navigate within a method.

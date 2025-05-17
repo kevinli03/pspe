@@ -51,35 +51,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -104,20 +75,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -155,47 +123,47 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">How DiD Works</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../did/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiD Estimators</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Two-way Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Dynamic Treatment Effects</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD and TWFE</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sun and Abraham (2021)</span></a>
+ <span class="menu-text">Interaction-Weighted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2-stage Difference-in-Differences</span></a>
+ <span class="menu-text">Doubly-Robust Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">IFE Counterfactual Estimator</span></a>
+ <span class="menu-text">Imputation Estimator</span></a>
   </div>
 </li>
+        <li class="sidebar-item">
+ <span class="menu-text">PanelMatch Estimator</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">DiDmultiple Estimator</span>
+  </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
@@ -203,8 +171,11 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">2-stage DiD Estimator</span></a>
+  </div>
+</li>
     </ul>
     </div>
 </nav>
@@ -235,87 +206,55 @@ window.Quarto = {
 </header>
 
 
-<p>In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:</p>
+<p>Difference-in-differences (DiD) is the most popular causal inference method, that has seen a “revolution” in the last few years. The method is designed for:</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 33%">
+<col style="width: 67%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Mar 1992 (Before Min. Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 1992 (After Min. Wage Increase)</span></td>
+<td><strong>Panel Data</strong></td>
+<td>We observe the same units over multiple periods of time.</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(\red{20.44}\)</span></td>
-<td><span class="math inline">\(\green{21.03}\)</span></td>
+<td><strong>Repeated Cross Section</strong></td>
+<td>We observe different units over multiple periods of time.</td>
 </tr>
 </tbody>
 </table>
 <div class="small">
-<p>Red indicates not treated, green indicates treated.</p>
+<p>Panel data is usually preferred, but most estimators can accommodate repeated cross section.</p>
 </div>
-<p>Our treatment effect after the raise of minimum wage in December 1992 would be:</p>
-<p><span class="math display">\[
-\tau_\text{Dec92} = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}}
-\]</span></p>
-<p>We <strong>don’t</strong> observe the counterfactual in December 1992 without the minimum wage increase.</p>
-<div class="small">
-<p>We cannot use March 1992 because there could have been something that happened between March and December that changes the <strong>trend</strong> in employment (like a recession).</p>
-</div>
-<p><strong>Difference-in-differences</strong> estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:</p>
+<p>DiD exploits variation in treatment adoption over two dimensions. This typically means variation in treatment adoption between units, and variation of treatment adoption over time. There are three types of DiD designs:</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 33%">
+<col style="width: 67%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Mar 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
+<td><strong>Classical DiD</strong></td>
+<td>When there are two groups of units: the treatment group, and the control group. In the pre-treatment time periods, neither group adopts treatment. In the post-treatment time periods, only the treatment group adopts treatment.</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(\red{23.33}\)</span></td>
-<td><span class="math inline">\(\red{21.17}\)</span></td>
+<td><strong>Staggered DiD</strong></td>
+<td>When there are multiple treatment groups, who adopt treatment at different time-periods. For example, group A might adopt treatment in year 2000, group B might adopt treatment in year 2010, and group C is a control group.</td>
+</tr>
+<tr class="odd">
+<td><strong>Non-Absorbing DiD</strong></td>
+<td>A staggered (or classical) DiD, but some units who adopt treatment earlier may turn off treatment later (treatment reversal).</td>
 </tr>
 </tbody>
 </table>
 <div class="small">
-<p>These are employment values in Pennsylvania, where no mininum wage changes occured.</p>
+<p>The choice of estimator will depend on the type of DiD.</p>
 </div>
-<p>Pennsylvania tells us the <strong>trend</strong> in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn’t received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.</p>
+<p>All DiD require 3 identification assumptions:</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Mar 92 (NJ, Not Minimum Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 92 (NJ, Hypothetical No Minimum Wage Increase)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\red{20.44}\)</span></td>
-<td><span class="math inline">\(\red{\text{March 92} - 2.16}\)</span></td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-<p>The March 1992 value is copied from the first table.</p>
-</div>
-<p>Now, we have an approximation of New Jersey’s missing hypothetical outcome, so we can now estimate the causal effect.</p>
-<p><span class="math display">\[
-\begin{align}
-\tau_\text{Dec92} &amp; = \green{Y_\text{Dec92}^{(1)}} - \red{Y_\text{Dec92}^{(0)}} \\
-&amp; = \green{Y_\text{Dec92}^{(1)}} - \left(\red{Y_\text{Mar92}^{(0)}} - 2.16 \right)
-\end{align}
-\]</span></p>
-<p><br></p>
-<p>This entire idea of using another group’s trend to estimate counterfactuals depends on two assumptions:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 35%">
-<col style="width: 65%">
+<col style="width: 33%">
+<col style="width: 67%">
 </colgroup>
 <tbody>
 <tr class="odd">
@@ -327,16 +266,15 @@ window.Quarto = {
 <td>This means that had the treated group not received treatment, they would have followed the same trend as the control group.</td>
 </tr>
 <tr class="odd">
+<td><mark>No Anticipation</mark></td>
+<td>This means that treated units do not respond to treatment prior to the treatment being actually implemented (anticipation).</td>
+</tr>
+<tr class="even">
 <td><mark>Stable Unit Treatment Value Assumption (SUTVA)</mark></td>
 <td>This means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).</td>
 </tr>
 </tbody>
 </table>
-<div class="small">
-<p>I will show how to test for parallel trends later in Dynamic treatment effects.</p>
-</div>
-<p>There are two types of difference-in-differences designs - classical and staggered, which we will cover in the next few pages.</p>
-<p><br></p>
 
 
 

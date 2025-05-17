@@ -1,5 +1,6 @@
 ---
-title: "Liu et al (2024) Interactive Fixed Effects Counterfactual Estimator"
+title: "Imputation Estimator"
+subtitle: "Liu, Xu, and Wang (2024)"
 ---
 
 ```{r}
@@ -10,7 +11,9 @@ title: "Liu et al (2024) Interactive Fixed Effects Counterfactual Estimator"
 library(fect)
 ```
 
-TWFE compares groups that [can be "forbidden" or incorrect](staggered.qmd), such as using already-treated units as controls. Liu et al (2024) instead proposes to estimate individual counterfactual untreated outcomes for treated units, and directly calculating the individual treatment effects:
+The Imputation Estimator developed by Liu, Xu, and Wang (2024) is designed for staggered DiD and Non-Absorbing DiD (treatment reversal), accounting for issues in TWFE.
+
+The estimator proposes to estimate individual counterfactual untreated outcomes for treated units, and directly calculating the individual treatment effects:
 
 $$
 \tau_{it} = \pT - \pCred

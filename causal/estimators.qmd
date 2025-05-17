@@ -1,0 +1,63 @@
+---
+title: "Quasi-Random Estimators"
+---
+
+Randomisation is the [gold standard](random.qmd). But it isn't always possible.
+
+So instead, our goal in causal inference is often to try to create secnarios that approximate randomisation. If executed properly, our treatment should appear to be random (exogenous), allowing us to calculate treatment effects.
+
+There are a wide variety of designs and estimators that can attempt to do this, each applicable to certain scenarios under certain situations. Below (and on the sidebar) are a list of popular causal estimators. If you are dealing with panel data, also take a look at the [difference-in-differences section](../did/did.qmd) for more estimators.
+
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Estimator                     | When to Use                                                                                                                         |
++===============================+=====================================================================================================================================+
+| Instrumental Variables        | When you have non-compliance in random experiments, or you have a valid instrument.                                                 |
+|                               |                                                                                                                                     |
+| ::: small                     |                                                                                                                                     |
+| Estimand: LATE                |                                                                                                                                     |
+| :::                           |                                                                                                                                     |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Regression Discontinuity      | When your treatment is assigned by some cutoff/threshold.                                                                           |
+|                               |                                                                                                                                     |
+| ::: small                     | ::: small                                                                                                                           |
+| Estimand: LATE                | For example, you treatment is a academic scholarship, that is only given to people who score higher than 90% on a test (threshold). |
+| :::                           | :::                                                                                                                                 |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Fully Interacted Estimator    | When you have data on all the confounders, and you believe the confounders have a linear relationship with the outcome.             |
+|                               |                                                                                                                                     |
+| ::: small                     |                                                                                                                                     |
+| Estimand: ATE                 |                                                                                                                                     |
+| :::                           |                                                                                                                                     |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Inverse Probability Weighting | When you have data on all the confounders, and have a large dataset.                                                                |
+|                               |                                                                                                                                     |
+| ::: small                     |                                                                                                                                     |
+| Estimand: ATE                 |                                                                                                                                     |
+| :::                           |                                                                                                                                     |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Distance Matching             | When you have data on all the confounders, and have less than 3-5 confounders.                                                      |
+|                               |                                                                                                                                     |
+| ::: small                     | ::: small                                                                                                                           |
+| Estimand: ATT                 | Note: you should generally use genetic matching unless not possible.                                                                |
+| :::                           | :::                                                                                                                                 |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Propensity Score Matching     | When you have data on all the confounders, and have a large dataset.                                                                |
+|                               |                                                                                                                                     |
+| ::: small                     | ::: small                                                                                                                           |
+| Estimand: ATT                 | Note: you should generally use genetic matching unless not possible.                                                                |
+| :::                           | :::                                                                                                                                 |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Genetic Matching              | When you have data on all the confounders.                                                                                          |
+|                               |                                                                                                                                     |
+| ::: small                     | ::: small                                                                                                                           |
+| Estimand: ATT                 | Note: best matching method.                                                                                                         |
+| :::                           | :::                                                                                                                                 |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+| Causal Forests                | When you are interested in heterogenous treatment effects.                                                                          |
+|                               |                                                                                                                                     |
+| ::: small                     |                                                                                                                                     |
+| Estimand: CATE                |                                                                                                                                     |
+| :::                           |                                                                                                                                     |
++-------------------------------+-------------------------------------------------------------------------------------------------------------------------------------+
+
+: {tbl-colwidths="\[37,63\]" .bordered}

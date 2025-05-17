@@ -138,20 +138,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -164,7 +161,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/genetic.html">Genetic Matching</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../causal/genetic.html">Genetic Matching</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -183,46 +180,55 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Selection on Observables</span></a>
+  <a href="../causal/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Magic of Randomisation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quasi-Random Estimators</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Instrumental Variables</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Regression Discontinuity</span>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../causal/interact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/pscore.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link active">
+  <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
  <span class="menu-text">Causal Forests</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Doubly Robust Estimation</span>
   </li>
     </ul>
     </div>
@@ -266,7 +272,7 @@ window.Quarto = {
 <p><span class="math display">\[
 \tau_{\text{Mia}} \approx \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Matched Individual}}
 \]</span></p>
-<p>Like <a href="../soo/distance.html">distance matching</a>, genetic matching matches based on how <strong>close</strong> the pair’s confounding values are. However, there are two differences.</p>
+<p>Like <a href="../causal/distance.html">distance matching</a>, genetic matching matches based on how <strong>close</strong> the pair’s confounding values are. However, there are two differences.</p>
 <p>First, researchers recommend to include propensity scores as another confounder in the genetic matching process:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic Model for Propensity Scores</span></span>
@@ -323,15 +329,15 @@ window.Quarto = {
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.373 </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SE.........  0.11193 </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  12.267 </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.7301 </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SE.........  0.10872 </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  15.913 </span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.val......  &lt; 2.22e-16 </span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of observations..............  1000 </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  234 </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  234 </span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  468</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  254 </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  254 </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  508</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>

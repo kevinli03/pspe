@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Dynamic Treatment Effects – Causal Inference Resources</title>
+<title>Distance Matching – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -138,20 +138,17 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
-<span class="menu-text">Regression Discontinuity</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
-<span class="menu-text">Selection on Observables</span></a>
-  </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../reg/reg.html"> 
-<span class="menu-text">Regression Models</span></a>
+    <a class="nav-link" href="../causal/random.html"> 
+<span class="menu-text">More Causal Inference</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Regression Models</span>
+    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -164,7 +161,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/dynamic.html">Dynamic Treatment Effects</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../causal/distance.html">Distance Matching</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -183,61 +180,55 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Difference-in-Differences</span></a>
+  <a href="../causal/random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">The Magic of Randomisation</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/twfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Two-way Fixed Effects</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/dynamic.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Dynamic Treatment Effects</span></a>
+  <a href="../causal/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Quasi-Random Estimators</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
+ <span class="menu-text">Instrumental Variables</span>
+  </li>
+        <li class="sidebar-item">
+ <span class="menu-text">Regression Discontinuity</span>
+  </li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/staggered.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Staggered DiD and TWFE</span></a>
+  <a href="../causal/interact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/sunab.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Sun and Abraham (2021)</span></a>
+  <a href="../causal/distance.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
+  <a href="../causal/pscore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">2-stage Difference-in-Differences</span></a>
+  <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">IFE Counterfactual Estimator</span></a>
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Extended Two-way Fixed Effects</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
- <span class="menu-text">Chaisemartin and Haultfoeuille (2024)</span>
+ <span class="menu-text">Causal Forests</span>
   </li>
     </ul>
     </div>
@@ -252,7 +243,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Dynamic Treatment Effects</h1>
+<h1 class="title">Distance Matching</h1>
 </div>
 
 
@@ -271,60 +262,72 @@ window.Quarto = {
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p><strong>Dynamic Treatment Effects</strong> calculate treatment effects for each year before treatment, and each year after treatment, instead of just one ATT.</p>
-<div class="small">
-<p>This assumes we have more than just one pre-treatment and post-treatment period in our data. This is also called an <strong>event study</strong> or <strong>leads-and-lags</strong>.</p>
-</div>
-<p>We first create a new categorical variable, called relative-time <span class="math inline">\(R_{it}\)</span>. It measures the number of periods a certain time period <span class="math inline">\(t\)</span> is before/after the initial treatment adoption, with <span class="math inline">\(R_{it} = 0\)</span> being the initial treatment year.</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> df <span class="sc">%&gt;%</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">rel.time =</span> time <span class="sc">-</span> first.treated)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="small">
-<p>For example, if treatment starts in 2003, an observation in 2002 would get a relative-time of -1, and an observation in 2004 would get a relative-time of 1.</p>
-</div>
-<p>Then, we run the following altered two-way fixed effects model:</p>
+<p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
 <p><span class="math display">\[
-Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + R_{it}\blue{\tau_{r}}+ \cov + \eps_{it}
+\tau_{\text{Mia}} = \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Mia}}
+\]</span></p>
+<p>We cannot observe Mia’s counterfactual (in red), since Mia receives the treatment.. However, what we can do is to find an untreated individual similar to Mia to approximate Mia’s counterfactual:</p>
+<p><span class="math display">\[
+\tau_{\text{Mia}} \approx \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Matched Individual}}
+\]</span></p>
+<p>Distance matching matches an individual that is treated (like Mia) with one that is not treated based on how <strong>close</strong> their confounding values are. We define closeness by Mahalanobis distance:</p>
+<p><span class="math display">\[
+\text{distance}_{i, j} = \sqrt{(\b x_i - \b x_j)' \ \b\Sigma_x^{-1} (\b x_i - \b x_j)}
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(R_{it}\)</span> is a categorical variable, with <span class="math inline">\(R_{it} = -1\)</span> set as the reference category (since this is the last pre-treatment period). If you have repeated cross-sections, use group-fixed effects instead of unit.</p>
+<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> is a vector of confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders.</p>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> <span class="fu">i</span>(rel.time, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="st">"cluster"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Match</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> df<span class="sc">$</span>outcome,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tr =</span> df<span class="sc">$</span>treatment,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> df[,<span class="fu">c</span>(<span class="st">"cov1"</span>,<span class="st">"cov2"</span>)],</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="dv">1</span>,</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># number of matches - default is 1 to 1, but we can match more to 1</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">BiasAdjust =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>      <span class="co"># modern adjustment - usually good to keep on</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">Weight =</span> <span class="dv">2</span>)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.266 </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AI SE......  0.12674 </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  9.9892 </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.val......  &lt; 2.22e-16 </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of observations..............  1000 </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  256 </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  256 </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  320</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>This will estimate a coefficient <span class="math inline">\(\blue{\tau_{r}}\)</span> for each relative time period before/after treatment implementation. These are the treatment effects for each relative-time period <span class="math inline">\(r\)</span>. We can plot these coefficients:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  model,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop =</span> <span class="st">"[[:digit:]]{2}"</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this drops the time periods too far before and after treatment.</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div>
-<figure class="figure">
-<p><img src="dynamic_files/figure-html/unnamed-chunk-5-1.png" class="img-fluid figure-img" width="672"></p>
-</figure>
 </div>
-</div>
-</div>
+<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>1) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator.</p>
+<p>2) Very intuitive idea of matching similar individuals.</p></td>
+<td><p>1) Can be badly biased when more than 3-5 confounders.</p>
+<p>2) Throws out unmatched data, so it wastes data.</p>
+<p>3) Does not estimate the ATE, only the ATT.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="small">
-<p>Negative rel.time are pre-treatment periods. 0 and positive rel.time are post-treatment periods. The dots and confidence intervals represent the estimated treatment effect at that time period relative to the treatment.</p>
+<p>Kevin’s comments: there is little reason to use distance matching over <a href="../causal/genetic.html">genetic matching</a>, unless your machine lacks the computational power for genetic matching.</p>
 </div>
-<p>In the <strong>post-treatment</strong> periods (after treatment has started), these <span class="math inline">\(\blue{\tau_r}\)</span> represent the treatment effect by year. In the <strong>pre-treatment</strong> periods, we shouldn’t expect any significant causal effect <span class="math inline">\(\blue{\tau_r}\)</span>, since treatment hasn’t started. If we do see any statistically significant effect pre-treatment, <u>this is evidence for a violation of the parallel trends assumption</u>.</p>
-<ul>
-<li>We can see in our example above, that parallel trends is likely violated, because there are significant coefficients in the pre-treatment periods.</li>
-</ul>
-<div class="small">
-<p>Signficant coefficients can be indentified as ones whose confidence intervals do not contain 0. Note: this is not a definitive test for parallel trends. Even if there is 0 significance in pre-treatment periods, parallel trends could still be violated. There is no way to be 100% sure.</p>
-</div>
-<p><br></p>
 
 
 
