@@ -187,35 +187,10 @@ window.Quarto = {
  <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Factor Analysis Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Reliability and Factor Scores</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Latent Factors</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Identification and Rotation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Confirmatory Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -230,23 +205,10 @@ window.Quarto = {
  <span class="menu-text">Latent Class Models</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../latent/sem.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Structural Equation Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/longitudinal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lagged Response Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Group Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -292,7 +254,11 @@ window.Quarto = {
 </header>
 
 
-<p>Structural Equation Models (SEMs) allow us to combine measurement models (ex. factor analysis) with linear regression models between the latent variables. We split our latent variables into latent explanatory variables <span class="math inline">\(\xi\)</span> and latent outcome variables <span class="math inline">\(\eta\)</span>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Structural Equation Models (SEMs) allow us to combine latent models with linear regression models between the latent variables.</p>
 <div class="center-graph">
 <div class="cell" data-fig-width="6" data-fig-height="1.2" data-layout-align="default">
 <div class="cell-output-display">
@@ -407,16 +373,55 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>This structural equation model contains a linear regression between the latent input variable explaining the latent outcome variable.</p>
+<p>This structural equation model contains a linear regression between the latent explanatory variable explaining the latent outcome variable.</p>
 <p><span class="math display">\[
 \eta = \beta_0 + \beta_1\ \xi + \eps
 \]</span></p>
-<p>The latent outcome variable and input variable are unobserved, and we only observe items. We can use these observed items to create a <a href="../latent/factor.html">factor analysis</a> model for both the outcome variable, and the input variable.</p>
+<p>Both <span class="math inline">\(\eta\)</span> and <span class="math inline">\(\xi\)</span> are latent variables, which need to be estimated with a latent measurement model like factor analysis. We can estimate all measurement models and structural regressions together in a structural equation model:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st"># 2 Measurement Models</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  factor1 =~ rich + admire + success + respect</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">  factor2 =~ friend + equal + nature + care</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st"># Stuctural regression</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st">  factor1 ~ factor2</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">sem</span>(</span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  formula,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">std.ov=</span> <span class="cn">TRUE</span>, <span class="co">#standardises the observed variables</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">std.lv=</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this allows use of missing data, but may take longer</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># You can also use summary(model), which gives a more comprehensive output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;    factor1=~rich  factor1=~admire factor1=~success factor1=~respect </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.473            0.677            0.808            0.481 </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  factor2=~friend   factor2=~equal  factor2=~nature    factor2=~care </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.598            0.375            0.426            0.668 </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  factor1~factor2       rich~~rich   admire~~admire success~~success </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.202            0.767            0.522            0.321 </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; respect~~respect   friend~~friend     equal~~equal   nature~~nature </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.759            0.642            0.859            0.819 </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       care~~care           rich~1         admire~1        success~1 </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.554            0.000            0.000            0.001 </span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        respect~1         friend~1          equal~1         nature~1 </span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.002            0.000            0.001            0.001 </span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           care~1 </span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.000</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="small">
+<p>See <a href="../latent/factor.html">factor analysis</a> on how most terms are interpreted. factor1~factor2 is the coefficient <span class="math inline">\(\beta_1\)</span> of the structural regression.</p>
+</div>
 <p>The interpretations of the model are quite straight forward - the measurment models are interpreted in the same way as factor analysis, and the linear model between latent variable is interpreted the same way as a linear model between any other variables.</p>
 <div class="small">
-<p>Ex: the linear model says that as explanatory increases by 1, response increases by an expected <span class="math inline">\(\beta\)</span> units.</p>
+<p>Ex: the linear model says that as explanatory factor increases by 1, response increases by an expected <span class="math inline">\(\beta\)</span> units.</p>
 </div>
-<p>Structural models don’t have to have just one dependent and independent latent variable. We can have multiple dependent and independent variables, multiple linear models, and also measure correlations within the dependent and independent variables:</p>
+<p>Structural can be far more complicated. For example:</p>
 <div class="center-graph">
 <div class="cell" data-fig-width="5" data-fig-height="1.4" data-layout-align="default">
 <div class="cell-output-display">
@@ -512,45 +517,20 @@ window.Quarto = {
 \eta_2 &amp; = \gamma_0 + \gamma_1\ \xi_1 + \gamma_2\ \xi_2 + \eps_2 \\
 \end{align}
 \]</span></p>
-<div class="small">
-<p>And each response and latent variable all have their own measurement models.</p>
-</div>
-<p><br></p>
-<p>To implement structural equation models, we use the <strong>lavaan</strong> package:</p>
+<p>To implement these more complicated SEMs in R, we just adjust the formula input. Below shows different examples of how we can specify structural models.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then, we have to specify the relationships between variables we want to fit in our structural model - including measurement models, regression models, and correlations:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="st">'</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Measurement models </span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">  input1 =~ NA*item1 + item2 + item3</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="st">  input2 =~ NA*item4 + item5 + item6</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="st">  outcome =~ item1 + item2 + item3</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="st">  </span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="st"># Regressions</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">  outcome ~ input1 + input2</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="st"># Covariances</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="st">  input1 ~~ input2</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="st"># Fixing the variances of independent variables at 1</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="st">  input1~~1*input1</span></span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a><span class="st">  input2~~1*input2</span></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="st"># Measurement Models, same format, see above.</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="st"># Stuctural regression with multiple explanatory variables</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="st">  factor1 ~ factor2 + factor3</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="st"># structural covariances</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="st">  factor1 ~~ factor2</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="small">
-<p>Note how outcome does not have NA*, and outcome doesn’t have its variance fixed at 1 at the end. Meanwhile, input1 and input2 do. This is standard to fix outcome variables with a variance of 1, and input variables are allowed to be “free”.</p>
-</div>
-<p>Now, we estimate our specified model:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>sem <span class="ot">&lt;-</span> <span class="fu">sem</span>(model,</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>           <span class="at">data =</span> my_data,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>           <span class="at">missing=</span><span class="st">"FIML"</span>)</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(sem)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="small">
-<p>The missing argument tells the software to keep observations with missing values (this is typically a good thing). But it can take longer, so you can delete this argument for it to use only complete observations.</p>
+<p>The estimation is the same - use the sem() command.</p>
 </div>
 
 

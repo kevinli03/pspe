@@ -2,9 +2,13 @@
 title: "Fully Interacted Estimator"
 ---
 
-::: small
-See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
-:::
+```{r}
+#| message: false
+#| warning: false
+
+# Packages Needed:
+library(estimatr)
+```
 
 From [selection on observables](soo.qmd), we know that our causal effect is a weighted average:
 
@@ -12,45 +16,74 @@ $$
 \ate = \sum\tau_\text{X} \cdot Pr( X)
 $$
 
-Notice how the weights are the probability of the confounder values of $\b x$. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:
+Notice how the weights are the probability of the confounder values of $\b x$. With some complex math (Angrist 1998), we can show OLS estimates:
 
 $$
 \hat\beta_\text{OLS} = \sum \tau_X\cdot \underbrace{\frac{Var(D_i | X)Pr(X)}{\sum Var(D_i | X^c)Pr( X^c)}}_{\text{weight}}
 $$
 
-::: small
-Where $X^c$ is the complement (not $X$).
-:::
-
-These weights are not equivalent to the selection on observables $\ate$. Thus, if not all $\tau_\text{X}$ are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.
-
-Heterogeneity is present in almost all situations we are interested in. [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) proposes the **fully interacted estimator**, which allows for consistent estimation of the ATE even with heterogeneity:
+These weights are not equivalent to the selection on observables $\ate$. Thus, if not all $\tau_\text{X}$ are exactly the same (homogeneity), then our OLS estimator (OLS) will incorrectly estimate the ATE. [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) proposes the **fully interacted estimator**, which allows for consistent estimation of the ATE even with heterogeneity:
 
 $$
 Y_i = \alpha + D_i\ \ate + \underbrace{(\b X_i - \b{\mean X})'\b\beta + D_i(\b X_i - \b{\mean X})'\b\gamma}_{\text{interactions with de-meaned covariates}}+ \eps_i
 $$
 
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
+library(tidyverse)
+N = 1000
+ATE = 2
+  
+df = tibble(
+  cov1 = rbinom(N, 1, 0.5),
+  cov2 = rnorm(N),
+  P = rnorm(N),
+  U = rnorm(N), 
+  W = rnorm(N),
+) %>%
+  mutate(
+    Y0 = 1 + 0.5*cov1 + 0.5*cov2 + 0.5*P + 0.5*U,
+    Y1 = Y0 + rnorm(N, mean = ATE*1.5, sd = 1)*cov1 + rnorm(N, mean = ATE/2)*(1-cov1)
+  )
+
+df = df %>%
+  mutate(
+    U2 = rnorm(N),
+    pscore = 1/(1 + exp(-(-1 - 2*cov1 - 1.5*cov2 + 1.5*W + 0.5*U2))),
+    treatment = rbinom(N, 1, pscore),
+    outcome = Y1*treatment + Y0*(1-treatment)
+  )
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
+
+model <- lm_lin(
+  outcome ~ treatment,
+  covariates = ~ cov1 + cov2,
+  data = df)
+summary(model)
+```
+
+::: small
+The estimate for treatment is our ATE estimate.
+:::
+
 The new OLS estimate of $\ate$ in this estimator will technically still be a biased estimator of the ATE, but the bias is negligible.
 
-<br />
++---------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
+| Pros                                                                            | Cons                                                                                                                      |
++=================================================================================+===========================================================================================================================+
+| 1\) Relatively simple and straight forward, utilising the regression framework. | 1\) Requires a linear relationship between confounders and outcome. If this is not true, then the estimates can be wrong. |
+|                                                                                 |                                                                                                                           |
+| 2\) Works well with smaller sample sizes compared to many other methods.        |                                                                                                                           |
++---------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
 
-Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd).
-
-We will need the **estimatr** package:
-
-```{r, eval = FALSE}
-library(estimatr)
-```
-
-Then, we can use the **lm_lin()** function to estimate:
-
-```{r, eval = FALSE}
-ate <- estimatr::lm_lin(outcome ~ treatment,
-                        covariates = ~ covariate1 + covariate2,
-                        data = my_data)
-summary(ate)
-```
-
-The output will be the ATE - the average treatment effect for all units in the study.
-
-<br />
+: {tbl-colwidths="\[50,50\]"}

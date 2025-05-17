@@ -72,6 +72,10 @@ family = c("logit", "poisson", "negbin")
 Only choose one of them - you cannot choose multiple families together.
 :::
 
+<br />
+
 ::: small
 For technical details, see [Wooldridge (2021)](https://papers.ssrn.com/sol3/papers.cfm?abstract_id=3906345) and [Wooldridge (2023)](https://academic.oup.com/ectj/article/26/3/C31/7250479).
+
+For details on the etwfe function, see the [documentation](https://grantmcdermott.com/etwfe/reference/index.html).
 :::

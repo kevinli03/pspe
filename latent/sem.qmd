@@ -2,7 +2,15 @@
 title: "Structural Equation Models"
 ---
 
-Structural Equation Models (SEMs) allow us to combine measurement models (ex. factor analysis) with linear regression models between the latent variables. We split our latent variables into latent explanatory variables $\xi$ and latent outcome variables $\eta$.
+```{r}
+#| message: false
+#| warning: false
+
+# Packages Needed
+library(lavaan)
+```
+
+Structural Equation Models (SEMs) allow us to combine latent models with linear regression models between the latent variables.
 
 ::: center-graph
 ```{dot}
@@ -35,21 +43,60 @@ digraph example2 {
 ```
 :::
 
-This structural equation model contains a linear regression between the latent input variable explaining the latent outcome variable.
+This structural equation model contains a linear regression between the latent explanatory variable explaining the latent outcome variable.
 
 $$
 \eta = \beta_0 + \beta_1\ \xi + \eps
 $$
 
-The latent outcome variable and input variable are unobserved, and we only observe items. We can use these observed items to create a [factor analysis](factor.qmd) model for both the outcome variable, and the input variable.
+Both $\eta$ and $\xi$ are latent variables, which need to be estimated with a latent measurement model like factor analysis. We can estimate all measurement models and structural regressions together in a structural equation model:
+
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
+
+df <- readRDS("ESS4values.rds")
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| comment: "#>"
+#| class-output: r
+#| results: hold
+
+formula <- '
+# 2 Measurement Models
+  factor1 =~ rich + admire + success + respect
+  factor2 =~ friend + equal + nature + care
+
+# Stuctural regression
+  factor1 ~ factor2
+'
+
+model <- sem(
+  formula,
+  data = df,
+  std.ov= TRUE, #standardises the observed variables
+  std.lv= TRUE,
+  missing = "fiml")
+      # this allows use of missing data, but may take longer
+coef(model)
+    # You can also use summary(model), which gives a more comprehensive output
+```
+
+::: small
+See [factor analysis](factor.qmd) on how most terms are interpreted. factor1\~factor2 is the coefficient $\beta_1$ of the structural regression.
+:::
 
 The interpretations of the model are quite straight forward - the measurment models are interpreted in the same way as factor analysis, and the linear model between latent variable is interpreted the same way as a linear model between any other variables.
 
 ::: small
-Ex: the linear model says that as explanatory increases by 1, response increases by an expected $\beta$ units.
+Ex: the linear model says that as explanatory factor increases by 1, response increases by an expected $\beta$ units.
 :::
 
-Structural models don't have to have just one dependent and independent latent variable. We can have multiple dependent and independent variables, multiple linear models, and also measure correlations within the dependent and independent variables:
+Structural can be far more complicated. For example:
 
 ::: center-graph
 ```{dot}
@@ -90,52 +137,23 @@ $$
 \end{align}
 $$
 
-::: small
-And each response and latent variable all have their own measurement models.
-:::
+To implement these more complicated SEMs in R, we just adjust the formula input. Below shows different examples of how we can specify structural models.
 
-<br />
+```{r}
+#| eval: false
 
-To implement structural equation models, we use the **lavaan** package:
+formula <- '
+# Measurement Models, same format, see above.
 
-```{r, eval = F}
-library(lavaan)
-```
+# Stuctural regression with multiple explanatory variables
+  factor1 ~ factor2 + factor3
 
-Then, we have to specify the relationships between variables we want to fit in our structural model - including measurement models, regression models, and correlations:
-
-```{r, eval = F}
-model <- '
-# Measurement models 
-  input1 =~ NA*item1 + item2 + item3
-  input2 =~ NA*item4 + item5 + item6
-  outcome =~ item1 + item2 + item3
-  
-# Regressions
-  outcome ~ input1 + input2
-
-# Covariances
-  input1 ~~ input2
-
-# Fixing the variances of independent variables at 1
-  input1~~1*input1
-  input2~~1*input2
+# structural covariances
+  factor1 ~~ factor2
 '
+
 ```
 
 ::: small
-Note how outcome does not have NA\*, and outcome doesn't have its variance fixed at 1 at the end. Meanwhile, input1 and input2 do. This is standard to fix outcome variables with a variance of 1, and input variables are allowed to be "free".
-:::
-
-Now, we estimate our specified model:
-
-```{r, eval = F}
-sem <- sem(model,
-           data = my_data,
-           missing="FIML")
-summary(sem)
-```
-
-::: small
-The missing argument tells the software to keep observations with missing values (this is typically a good thing). But it can take longer, so you can delete this argument for it to use only complete observations.
+The estimation is the same - use the sem() command.
 :::

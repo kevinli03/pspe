@@ -189,27 +189,10 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/soochoose.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Choosing an Estimator</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../soo/regress.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Regression Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../soo/interact.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
- <span class="menu-text">Causal Forests</span>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
@@ -228,13 +211,16 @@ window.Quarto = {
  <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Causal Forests</span>
+  </li>
         <li class="sidebar-item">
  <span class="menu-text">Doubly Robust Estimation</span>
   </li>
@@ -268,41 +254,72 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>See the pros and cons of this estimator in the <a href="../soo/soochoose.html">choosing an estimator</a> page.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>From <a href="../soo/soo.html">selection on observables</a>, we know that our causal effect is a weighted average:</p>
 <p><span class="math display">\[
 \ate = \sum\tau_\text{X} \cdot Pr( X)
 \]</span></p>
-<p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can actually show that OLS actually estimates:</p>
+<p>Notice how the weights are the probability of the confounder values of <span class="math inline">\(\b x\)</span>. With some complex math (Angrist 1998), we can show OLS estimates:</p>
 <p><span class="math display">\[
 \hat\beta_\text{OLS} = \sum \tau_X\cdot \underbrace{\frac{Var(D_i | X)Pr(X)}{\sum Var(D_i | X^c)Pr( X^c)}}_{\text{weight}}
 \]</span></p>
-<div class="small">
-<p>Where <span class="math inline">\(X^c\)</span> is the complement (not <span class="math inline">\(X\)</span>).</p>
-</div>
-<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\ate\)</span>. Thus, if not all <span class="math inline">\(\tau_\text{X}\)</span> are exactly the same (which implies heterogeneity), then our linear regression estimator will incorrectly estimate the ATE.</p>
-<p>Heterogeneity is present in almost all situations we are interested in. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
+<p>These weights are not equivalent to the selection on observables <span class="math inline">\(\ate\)</span>. Thus, if not all <span class="math inline">\(\tau_\text{X}\)</span> are exactly the same (homogeneity), then our OLS estimator (OLS) will incorrectly estimate the ATE. <a href="https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full">Lin (2013)</a> proposes the <strong>fully interacted estimator</strong>, which allows for consistent estimation of the ATE even with heterogeneity:</p>
 <p><span class="math display">\[
 Y_i = \alpha + D_i\ \ate + \underbrace{(\b X_i - \b{\mean X})'\b\beta + D_i(\b X_i - \b{\mean X})'\b\gamma}_{\text{interactions with de-meaned covariates}}+ \eps_i
 \]</span></p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm_lin</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> treatment,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">covariates =</span> <span class="sc">~</span> cov1 <span class="sc">+</span> cov2,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm_lin(formula = outcome ~ treatment, covariates = ~cov1 + cov2, </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     data = df)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Standard error type:  HC2 </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                  Estimate Std. Error t value   Pr(&gt;|t|) CI Lower CI Upper  DF</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)        1.2073    0.02569  47.002 8.178e-255  1.15688   1.2577 994</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment          2.1136    0.10138  20.848  2.330e-80  1.91461   2.3125 994</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cov1_c             0.4678    0.04997   9.361  5.088e-20  0.36975   0.5659 994</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; cov2_c             0.4830    0.02646  18.250  2.113e-64  0.43104   0.5349 994</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment:cov1_c   1.8488    0.17686  10.454  2.443e-24  1.50177   2.1959 994</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment:cov2_c   0.1885    0.08488   2.221  2.656e-02  0.02197   0.3551 994</span></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.5017 ,    Adjusted R-squared:  0.4992 </span></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 165.8 on 5 and 994 DF,  p-value: &lt; 2.2e-16</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="small">
+<p>The estimate for treatment is our ATE estimate.</p>
+</div>
 <p>The new OLS estimate of <span class="math inline">\(\ate\)</span> in this estimator will technically still be a biased estimator of the ATE, but the bias is negligible.</p>
-<p><br></p>
-<p>Before you implement the estimator, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>.</p>
-<p>We will need the <strong>estimatr</strong> package:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(estimatr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Then, we can use the <strong>lm_lin()</strong> function to estimate:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>ate <span class="ot">&lt;-</span> estimatr<span class="sc">::</span><span class="fu">lm_lin</span>(outcome <span class="sc">~</span> treatment,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                        <span class="at">covariates =</span> <span class="sc">~</span> covariate1 <span class="sc">+</span> covariate2,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                        <span class="at">data =</span> my_data)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(ate)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>The output will be the ATE - the average treatment effect for all units in the study.</p>
-<p><br></p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>1) Relatively simple and straight forward, utilising the regression framework.</p>
+<p>2) Works well with smaller sample sizes compared to many other methods.</p></td>
+<td>1) Requires a linear relationship between confounders and outcome. If this is not true, then the estimates can be wrong.</td>
+</tr>
+</tbody>
+</table>
 
 
 

@@ -12,9 +12,11 @@ library(fixest)
 
 There are two [issues with the two-way fixed effects estimator](staggered.qmd): forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator to solve this issues.
 
-The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$. Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $\widetilde T_{it}$ with $G_i$.
+The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$.
 
-This model will produce many coefficients $\blue{\tau_{it}}$ (in fact, one for each post-treatment time period for each initial treatment year group). These are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting. This solves the weighting problem with TWFE.
+Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $R_{it}$ with $G_i$. These interactions will produce many coefficients $\blue{\tau_{it}}$ (in fact, one for each time period for each initial treatment year group). These coefficients capture all the heterogeneity in effects.
+
+These coefficients are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting. This solves the weighting problem with TWFE.
 
 ```{r}
 #| echo: false
@@ -29,33 +31,10 @@ colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "c
 ```{r}
 #| warning: false
 #| message: false
-#| comment: "#>"
-#| class-output: r
-
-model <- feols(
-  outcome ~ sunab(first.treated, time, att = T) + covariate | unit + time,
-      #first.treated for never-treated should be some value outside of time-range
-      #first.treated should not be NA.
-  data = df,
-  vcov = ~unit)
-
-tail(model$coeftable) # the ATT is listed at the end of the coef table
-```
-
-::: small
-The ATT is given by the estimate of the ATT in the table. Here, we can see the ATT is -1.1337.
-:::
-
-We can also calculate dynamic treatment effects and plot them:
-
-```{r}
-#| warning: false
-#| message: false
 #| fig-height: 3.5
 
 model <- feols(
   outcome ~ sunab(first.treated, time) + covariate | unit + time,
-      #att = T makes it calculate a singular ATT
   data = df,
   vcov = ~unit)
 
@@ -66,6 +45,21 @@ iplot(
   ref.line = 0)
 ```
 
+We can also aggregate the dynamic ATT's into one singular ATT:
+
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
+
+aggregate(model, "att")
+```
+
+<br />
+
 ::: small
 For technical details, see [Sun and Abraham (2021)](https://www.sciencedirect.com/science/article/abs/pii/S030440762030378X) or [this github page](https://asjadnaqvi.github.io/DiD/docs/code_r/07_sunab_r/).
+
+For more options with the sunab and aggregate functions, see the [documentation for fixest](https://lrberge.github.io/fixest/reference/index.html).
 :::

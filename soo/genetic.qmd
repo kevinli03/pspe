@@ -2,9 +2,13 @@
 title: "Genetic Matching"
 ---
 
-::: small
-See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
-:::
+```{r}
+#| message: false
+#| warning: false
+
+# Packages Needed:
+library(Matching)
+```
 
 Mia is in our study and receives the treatment. Mia's causal effect is:
 
@@ -18,7 +22,58 @@ $$
 \tau_{\text{Mia}} \approx \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Matched Individual}}
 $$
 
-Like [distance matching](distance.qmd), genetic matching matches an individual that is treated (like Mia) with one that is not treated based on how **close** their confounding values are. However, genetic matching uses a slightly different variation of mahalanobis distance:
+Like [distance matching](distance.qmd), genetic matching matches based on how **close** the pair's confounding values are. However, there are two differences.
+
+First, researchers recommend to include propensity scores as another confounder in the genetic matching process:
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
+library(tidyverse)
+N = 1000
+ATE = 2
+  
+df = tibble(
+  cov1 = rbinom(N, 1, 0.5),
+  cov2 = rnorm(N),
+  P = rnorm(N),
+  U = rnorm(N), 
+  W = rnorm(N),
+) %>%
+  mutate(
+    Y0 = 1 + 0.5*cov1 + 0.5*cov2 + 0.5*P + 0.5*U,
+    Y1 = Y0 + rnorm(N, mean = ATE*1.5, sd = 1)*cov1 + rnorm(N, mean = ATE/2)*(1-cov1)
+  )
+
+df = df %>%
+  mutate(
+    U2 = rnorm(N),
+    pscore = 1/(1 + exp(-(-1 - 2*cov1 - 1.5*cov2 + 1.5*W + 0.5*U2))),
+    treatment = rbinom(N, 1, pscore),
+    outcome = Y1*treatment + Y0*(1-treatment)
+  )
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
+
+# Logistic Model for Propensity Scores
+propensity <- glm(
+  treatment ~ cov1 + cov2,
+  data = df,
+  family = "binomial")
+
+# Predice Propensity Scores for All Observations
+df$pscore <- predict(propensity, type = "response")
+```
+
+Second, genetic matching uses a slightly different variation of mahalanobis distance:
 
 $$
 \text{distance}_{i, j}(\b W) = \sqrt{(\b x_i - \b x_j)' \ (\b\Sigma_x^{-\frac{1}{2}})' \ \b W \ \b\Sigma_x^{-\frac{1}{2}}  (\b x_i - \b x_j)}
@@ -28,65 +83,71 @@ $$
 Where $i$ and $j$ are two units we want to measure the distance between, $\b x$ are their confounder values, and $\b\Sigma_x$ is the covariance matrix of confounders. $\b W$ is a weights matrix.
 :::
 
-The weights $\b W$ are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. Then, matching is done with the units that have the smallest distance.
+The weights $\b W$ are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. We estimate the weights as follows:
 
-<br />
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
 
-Before you start genetic matching, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd):
-
-We will need the **Matching** and **MatchIt** package.
-
-```{r, eval = FALSE}
-library(Matching)
+set.seed(333) #replicability
+gen <- GenMatch(
+  Tr = df$treatment,
+  X = df[,c("cov1","cov2","pscore")],
+      # include all covariates and pscore
+  BalanceMatrix = df[,c("cov1","cov2")],
+      # include all covariates
+  estimand = "ATT",
+  M = 2,
+  replace = TRUE,
+  ties = FALSE,
+  distance.tolerance = 0,
+  print.level = 0,
+  pop.size = 50)
+    # higher pop-size means more accuracy, but also longer (usually 200 is good)
 ```
 
-First, we need to estimate the propensity scores with a logistic regression.
+Then, matching is done with the units that have the smallest distance:
 
-::: small
-It is recommended to use the propensity score as one of the controls on which to genetic match on.
-:::
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
 
-```{r, eval = FALSE}
-propensity <- glm(D ~ X1 + X2,
-                  data = my_data,
-                  family = "binomial")
-my_data$pscore <- predict(propensity,
-                          type = "response")
-```
+# the setting below should match your choices from GenMatch()
+model <- Match(
+  Y = df$outcome,
+  Tr = df$treatment,
+  X = df[,c("cov1","cov2","pscore")],
+      # include all covariates and pscore
+  estimand = "ATT",
+  M = 2,
+  replace = TRUE,
+  ties = FALSE,
+  distance.tolerance = 0,
+  Weight.matrix = gen$Weight.matrix,
+      # tells R to use genetic matching weight matrix calculated earlier
+  Weight = 3)
 
-Then, we use the **GenMatch()** function to estimate a weights matrix $\b W$:
-
-```{r, eval = FALSE}
-set.seed(333) #any number works
-gen <- GenMatch(Tr = my_data$D,
-                    X = my_data[,c("X1","X2","pscore")],
-                    BalanceMatrix = my_data[,c("X1","X2")],   
-                    estimand = "ATT",
-                    M = 2,
-                    replace = TRUE,
-                    ties = FALSE,
-                    distance.tolerance = 0,
-                    print.level = 0,
-                    pop.size = 200)
-```
-
-::: small
-You can increase pop.size to increase the accuracy - but it will increase the time and computational power needed.
-:::
-
-Now, let us conduct estimation with genetic matching:
-
-```{r, eval = FALSE}
-att <- Match(Y = my_data$Y,
-             Tr = my_data$D,
-             X = my_data[,c("X1","X2","pscore")],
-             estimand = "ATT",
-             M = 2,
-             replace = TRUE,
-             ties = FALSE,
-             distance.tolerance = 0,
-             Weight.matrix = gen$Weight.matrix,
-             Weight = 3)
+summary(model)
 ```
 
 Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
+
++----------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------+
+| Pros                                                                                                                                         | Cons                                                   |
++==============================================================================================================================================+========================================================+
+| 1\) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator. | 1\) Throws out unmatched data, so it wastes data.      |
+|                                                                                                                                              |                                                        |
+| 2\) Shown to be the best performing matching estimator.                                                                                      | 2\) Can be computationally intensive and take a while. |
+|                                                                                                                                              |                                                        |
+|                                                                                                                                              | 3\) Only estimates the ATT, not the ATE.               |
++----------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------+
+
+: {tbl-colwidths="\[50,50\]"}
+
+::: small
+Kevin's Comments: Genetic matching is the best form of matching. So if you are using matching, you should use genetic matching unless it is not possible to do.
+:::

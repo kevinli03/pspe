@@ -2,9 +2,13 @@
 title: "Inverse Probability Weighting"
 ---
 
-::: small
-See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
-:::
+```{r}
+#| message: false
+#| warning: false
+
+# Packages Needed:
+library(fixest)
+```
 
 Let us look at this example, with a confounder.
 
@@ -30,59 +34,112 @@ digraph example2 {
 ```
 :::
 
-Let's pretend there are only dumb and smart people (for simplicity). Our treated and control groups might be:
-
-|                                         |                                                   |
-|--------------------------------|----------------------------------------|
-| [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
-| Smart Students (x4)                     | Smart Students (x1)                               |
-| Dumb Students (x1)                      | Dumb Students (x4)                                |
-
-: {tbl-colwidths="\[50,50\]" .bordered}
-
-Our two groups have pre-existing differences. However, by emphasising certain individuals, we can make it seem like there are no more imbalances. For example, weighting might make our above table become:
-
-|                                         |                                                   |
-|--------------------------------|----------------------------------------|
-| [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
-| Smart Students (x4)                     | Smart Students (emphasise to x4)                  |
-| Dumb Students (emphasise to x4)         | Dumb Students (x4)                                |
-
-: {tbl-colwidths="\[50,50\]" .bordered}
+Our treated and control groups might look like:
 
 ::: small
-See how the underrepresented individuals in each group (treated/untreated) were weighted upwards. More technically, inverse probability weighting emphasises/weights an individual by the inverse of their likelihood to receive treatment.
++-----------------------------------------+---------------------------------------------------+
+| [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
++-----------------------------------------+---------------------------------------------------+
+| Smart Students (x4)                     | Smart Students (x1)                               |
++-----------------------------------------+---------------------------------------------------+
+| Dumb Students (x1)                      | Dumb Students (x4)                                |
++-----------------------------------------+---------------------------------------------------+
+
+: {tbl-colwidths="\[50,50\]" .bordered}
 :::
 
-We can see there is no more pre-existing differences after weighting. Thus, selection bias has been solved.
+Our two groups have pre-existing differences. However, by emphasising certain individuals, we can make it seem like there are no more imbalances:
 
-<br />
+::: small
++-----------------------------------------+---------------------------------------------------+
+| [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
++-----------------------------------------+---------------------------------------------------+
+| Smart Students (x4)                     | Smart Students (emphasise to x4)                  |
++-----------------------------------------+---------------------------------------------------+
+| Dumb Students (emphasise to x4)         | Dumb Students (x4)                                |
++-----------------------------------------+---------------------------------------------------+
 
-Before you inverse probability weighting, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd):
+: {tbl-colwidths="\[50,50\]" .bordered}
+:::
 
-We will need the **estimatr** package:
+::: small
+See how the underrepresented individuals in each group (treated/untreated) were weighted upwards. We can see there is no more pre-existing differences after weighting. Thus, selection bias has been solved.
+:::
 
-```{r, warning = F, message = F}
-library(estimatr)
+The weights/emphasis an individual by the inverse of their likelihood to receive treatment. This is estimated as the inverse of the [propensity score](pscore.qmd).
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
+library(tidyverse)
+N = 1000
+ATE = 2
+  
+df = tibble(
+  cov1 = rbinom(N, 1, 0.5),
+  cov2 = rnorm(N),
+  P = rnorm(N),
+  U = rnorm(N), 
+  W = rnorm(N),
+) %>%
+  mutate(
+    Y0 = 1 + 0.5*cov1 + 0.5*cov2 + 0.5*P + 0.5*U,
+    Y1 = Y0 + rnorm(N, mean = ATE*1.5, sd = 1)*cov1 + rnorm(N, mean = ATE/2)*(1-cov1)
+  )
+
+df = df %>%
+  mutate(
+    U2 = rnorm(N),
+    pscore = 1/(1 + exp(-(-1 - 2*cov1 - 1.5*cov2 + 1.5*W + 0.5*U2))),
+    treatment = rbinom(N, 1, pscore),
+    outcome = Y1*treatment + Y0*(1-treatment)
+  )
 ```
 
-To estimate the propensity scores and weights, we can use the **glm()** command:
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
 
-```{r, eval = FALSE}
-propensity <- glm(D ~ X1 + X2,
-                  data = my_data,
-                  family = "binomial")
-my_data$pscore <- predict(propensity, type = "response")
-my_data$ipw <- ifelse(mydata$D == 1,
-                      1/my_data$pscore,
-                      1/(1-my_data$pscore))
+# Logistic Model for Propensity Scores
+propensity <- glm(
+  treatment ~ cov1 + cov2,
+  data = df,
+  family = "binomial")
+
+# Predice Propensity Scores for All Observations
+df$pscore <- predict(propensity, type = "response")
+
+# inverse of propensity score for weights:
+df$ipw <- ifelse(df$treatment == 1, 1/df$pscore, 1/(1-df$pscore))
 ```
 
-Finally, we need to use the **lm_robust()** command to estimate our causal effects:
+Now with the weights, we can estimate the causal effect with a regression:
 
-```{r, eval = FALSE}
-ate <- estimatr::lm_robust(Y ~ D, data = my_data, weights = ipw)
-summary(ate)
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
+
+model <- feols(outcome ~ treatment, data = df, weights = ~ipw)
+summary(model)
 ```
 
-The output will be the ATE - the average treatment effect for all units in the study.
+::: small
+The treatment estimate is our ATE.
+:::
+
++----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Pros                                                                                                                                         | Cons                                                                                                                                                  |
++==============================================================================================================================================+=======================================================================================================================================================+
+| 1\) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator. | 1\) Requires a large sample size to be unbiased, because logistic regression for the propensity scores does not work well with small amounts of data. |
+|                                                                                                                                              |                                                                                                                                                       |
+| 2\) Does not throw out data like matching does.                                                                                              |                                                                                                                                                       |
++----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: {tbl-colwidths="\[50,50\]"}

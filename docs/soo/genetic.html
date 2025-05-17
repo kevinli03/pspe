@@ -189,27 +189,10 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../soo/soochoose.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Choosing an Estimator</span></a>
-  </div>
-</li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../soo/regress.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Linear Regression Estimator</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
   <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
-        <li class="sidebar-item">
- <span class="menu-text">Causal Forests</span>
-  </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
@@ -228,13 +211,16 @@ window.Quarto = {
  <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+ <span class="menu-text">Causal Forests</span>
+  </li>
         <li class="sidebar-item">
  <span class="menu-text">Doubly Robust Estimation</span>
   </li>
@@ -268,8 +254,9 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>See the pros and cons of this estimator in the <a href="../soo/soochoose.html">choosing an estimator</a> page.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
 <p><span class="math display">\[
@@ -279,62 +266,99 @@ window.Quarto = {
 <p><span class="math display">\[
 \tau_{\text{Mia}} \approx \textcolor{green}{Y^{(1)}_\text{Mia}} - \textcolor{red}{Y^{(0)}_\text{Matched Individual}}
 \]</span></p>
-<p>Like <a href="../soo/distance.html">distance matching</a>, genetic matching matches an individual that is treated (like Mia) with one that is not treated based on how <strong>close</strong> their confounding values are. However, genetic matching uses a slightly different variation of mahalanobis distance:</p>
+<p>Like <a href="../soo/distance.html">distance matching</a>, genetic matching matches based on how <strong>close</strong> the pair’s confounding values are. However, there are two differences.</p>
+<p>First, researchers recommend to include propensity scores as another confounder in the genetic matching process:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic Model for Propensity Scores</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  treatment <span class="sc">~</span> cov1 <span class="sc">+</span> cov2,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predice Propensity Scores for All Observations</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>pscore <span class="ot">&lt;-</span> <span class="fu">predict</span>(propensity, <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Second, genetic matching uses a slightly different variation of mahalanobis distance:</p>
 <p><span class="math display">\[
 \text{distance}_{i, j}(\b W) = \sqrt{(\b x_i - \b x_j)' \ (\b\Sigma_x^{-\frac{1}{2}})' \ \b W \ \b\Sigma_x^{-\frac{1}{2}}  (\b x_i - \b x_j)}
 \]</span></p>
 <div class="small">
 <p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> are their confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders. <span class="math inline">\(\b W\)</span> is a weights matrix.</p>
 </div>
-<p>The weights <span class="math inline">\(\b W\)</span> are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. Then, matching is done with the units that have the smallest distance.</p>
-<p><br></p>
-<p>Before you start genetic matching, make sure you have reasons to believe you meet the neccessary assumptions for <a href="../soo/soo.html">selection on observables</a>:</p>
-<p>We will need the <strong>Matching</strong> and <strong>MatchIt</strong> package.</p>
+<p>The weights <span class="math inline">\(\b W\)</span> are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. We estimate the weights as follows:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">333</span>) <span class="co">#replicability</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gen <span class="ot">&lt;-</span> <span class="fu">GenMatch</span>(</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tr =</span> df<span class="sc">$</span>treatment,</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> df[,<span class="fu">c</span>(<span class="st">"cov1"</span>,<span class="st">"cov2"</span>,<span class="st">"pscore"</span>)],</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>      <span class="co"># include all covariates and pscore</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">BalanceMatrix =</span> df[,<span class="fu">c</span>(<span class="st">"cov1"</span>,<span class="st">"cov2"</span>)],</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>      <span class="co"># include all covariates</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimand =</span> <span class="st">"ATT"</span>,</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="dv">2</span>,</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ties =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance.tolerance =</span> <span class="dv">0</span>,</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">print.level =</span> <span class="dv">0</span>,</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">pop.size =</span> <span class="dv">50</span>)</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># higher pop-size means more accuracy, but also longer (usually 200 is good)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, we need to estimate the propensity scores with a logistic regression.</p>
-<div class="small">
-<p>It is recommended to use the propensity score as one of the controls on which to genetic match on.</p>
-</div>
+<p>Then, matching is done with the units that have the smallest distance:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(D <span class="sc">~</span> X1 <span class="sc">+</span> X2,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                  <span class="at">data =</span> my_data,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>my_data<span class="sc">$</span>pscore <span class="ot">&lt;-</span> <span class="fu">predict</span>(propensity,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                          <span class="at">type =</span> <span class="st">"response"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># the setting below should match your choices from GenMatch()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Match</span>(</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> df<span class="sc">$</span>outcome,</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">Tr =</span> df<span class="sc">$</span>treatment,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> df[,<span class="fu">c</span>(<span class="st">"cov1"</span>,<span class="st">"cov2"</span>,<span class="st">"pscore"</span>)],</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>      <span class="co"># include all covariates and pscore</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">estimand =</span> <span class="st">"ATT"</span>,</span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">M =</span> <span class="dv">2</span>,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ties =</span> <span class="cn">FALSE</span>,</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">distance.tolerance =</span> <span class="dv">0</span>,</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">Weight.matrix =</span> gen<span class="sc">$</span>Weight.matrix,</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># tells R to use genetic matching weight matrix calculated earlier</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">Weight =</span> <span class="dv">3</span>)</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.373 </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SE.........  0.11193 </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  12.267 </span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.val......  &lt; 2.22e-16 </span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of observations..............  1000 </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  234 </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  234 </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  468</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then, we use the <strong>GenMatch()</strong> function to estimate a weights matrix <span class="math inline">\(\b W\)</span>:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">333</span>) <span class="co">#any number works</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>gen <span class="ot">&lt;-</span> <span class="fu">GenMatch</span>(<span class="at">Tr =</span> my_data<span class="sc">$</span>D,</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>                    <span class="at">X =</span> my_data[,<span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>,<span class="st">"pscore"</span>)],</span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>                    <span class="at">BalanceMatrix =</span> my_data[,<span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>)],   </span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>                    <span class="at">estimand =</span> <span class="st">"ATT"</span>,</span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>                    <span class="at">M =</span> <span class="dv">2</span>,</span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>                    <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>                    <span class="at">ties =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>                    <span class="at">distance.tolerance =</span> <span class="dv">0</span>,</span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>                    <span class="at">print.level =</span> <span class="dv">0</span>,</span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>                    <span class="at">pop.size =</span> <span class="dv">200</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="small">
-<p>You can increase pop.size to increase the accuracy - but it will increase the time and computational power needed.</p>
-</div>
-<p>Now, let us conduct estimation with genetic matching:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>att <span class="ot">&lt;-</span> <span class="fu">Match</span>(<span class="at">Y =</span> my_data<span class="sc">$</span>Y,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>             <span class="at">Tr =</span> my_data<span class="sc">$</span>D,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>             <span class="at">X =</span> my_data[,<span class="fu">c</span>(<span class="st">"X1"</span>,<span class="st">"X2"</span>,<span class="st">"pscore"</span>)],</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>             <span class="at">estimand =</span> <span class="st">"ATT"</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>             <span class="at">M =</span> <span class="dv">2</span>,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">replace =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">ties =</span> <span class="cn">FALSE</span>,</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>             <span class="at">distance.tolerance =</span> <span class="dv">0</span>,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>             <span class="at">Weight.matrix =</span> gen<span class="sc">$</span>Weight.matrix,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>             <span class="at">Weight =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
+<table class="table">
+<colgroup>
+<col style="width: 50%">
+<col style="width: 50%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Pros</th>
+<th>Cons</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><p>1) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator.</p>
+<p>2) Shown to be the best performing matching estimator.</p></td>
+<td><p>1) Throws out unmatched data, so it wastes data.</p>
+<p>2) Can be computationally intensive and take a while.</p>
+<p>3) Only estimates the ATT, not the ATE.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="small">
+<p>Kevin’s Comments: Genetic matching is the best form of matching. So if you are using matching, you should use genetic matching unless it is not possible to do.</p>
+</div>
 
 
 

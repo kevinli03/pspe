@@ -2,9 +2,13 @@
 title: "Propensity Score Matching"
 ---
 
-::: small
-See the pros and cons of this estimator in the [choosing an estimator](soochoose.qmd) page.
-:::
+```{r}
+#| message: false
+#| warning: false
+
+# Packages Needed:
+library(Matching)
+```
 
 Mia is in our study and receives the treatment. Mia's causal effect is:
 
@@ -26,42 +30,93 @@ $$
 \text{propensity score } \pi =Pr(\green{D_i = 1}) 
 $$
 
-Propensity scores are typically estimated with a logistic regression. This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relatinoships between confounders and propensities, and only being unbiased in large sample sizes.
-
-<br />
-
-Before you implement propensity score matching, make sure you have reasons to believe you meet the neccessary assumptions for [selection on observables](soo.qmd):
-
-We will need the **Matching** package.
-
-```{r, eval = FALSE}
-library(Matching)
-```
-
-First, we need to estimate the propensity scores with a logistic regression:
-
-```{r, eval = FALSE}
-propensity <- glm(D ~ X1 + X2,
-                  data = my_data,
-                  family = "binomial")
-my_data$pscore <- predict(propensity,
-                          type = "response")
-```
+Propensity scores are typically estimated with a logistic regression.
 
 ::: small
-A random forest model is also possible, but less common.
+This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relationships between confounders and propensities, and only being unbiased in large sample sizes.
 :::
 
-Now, we can implement the matching as follows.
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
 
-```{r, eval = FALSE}
-att <- Match(Y = my_data$Y,
-             Tr = my_data$D,
-             X = my_data[,"pscore"],
-             M = 1,
-             BiasAdjust = TRUE,
-             Weight = 2)
+
+library(tidyverse)
+N = 1000
+ATE = 2
+  
+df = tibble(
+  cov1 = rbinom(N, 1, 0.5),
+  cov2 = rnorm(N),
+  P = rnorm(N),
+  U = rnorm(N), 
+  W = rnorm(N),
+) %>%
+  mutate(
+    Y0 = 1 + 0.5*cov1 + 0.5*cov2 + 0.5*P + 0.5*U,
+    Y1 = Y0 + rnorm(N, mean = ATE*1.5, sd = 1)*cov1 + rnorm(N, mean = ATE/2)*(1-cov1)
+  )
+
+df = df %>%
+  mutate(
+    U2 = rnorm(N),
+    pscore = 1/(1 + exp(-(-1 - 2*cov1 - 1.5*cov2 + 1.5*W + 0.5*U2))),
+    treatment = rbinom(N, 1, pscore),
+    outcome = Y1*treatment + Y0*(1-treatment)
+  )
+```
+
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
+
+# Logistic Model for Propensity Scores
+propensity <- glm(
+  treatment ~ cov1 + cov2,
+  data = df,
+  family = "binomial")
+
+# Predice Propensity Scores for All Observations
+df$pscore <- predict(propensity, type = "response")
+```
+
+Now with the propensity scores, we can conduct [distance matching](distance.qmd), matching units by how close their propensity scores are.
+
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
+
+att <- Match(
+  Y = df$outcome,
+  Tr = df$treatment,
+  X = df[,"pscore"],
+  M = 1,
+      # number of matches - default is 1 to 1, but we can match more to 1
+  BiasAdjust = TRUE,
+      # modern adjustment - usually good to keep on
+  Weight = 2)
 summary(att)
 ```
 
 Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
+
++----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+| Pros                                                                                                                                         | Cons                                                                                                                                                  |
++==============================================================================================================================================+=======================================================================================================================================================+
+| 1\) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator. | 1\) Requires a large sample size to be unbiased, because logistic regression for the propensity scores does not work well with small amounts of data. |
+|                                                                                                                                              |                                                                                                                                                       |
+| 2\) Can accurately handle more confounders than distance matching.                                                                           | 2\) Throws out unmatched data, so it wastes data.                                                                                                     |
+|                                                                                                                                              |                                                                                                                                                       |
+|                                                                                                                                              | 3\) Does not estimate the ATE, only estimates the ATT.                                                                                                |
++----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+
+: {tbl-colwidths="\[50,50\]"}
+
+::: small
+Kevin's Comments: there is little reason to use propensity score matching over genetic matching, unless your machine cannot estimate genetic matching.
+:::

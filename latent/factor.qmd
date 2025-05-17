@@ -2,32 +2,15 @@
 title: "Factor Analysis Model"
 ---
 
-Factor analysis is a way to model a unobserved continuous latent variable $\xi$, based on a bunch of continuous observed items $X_1, X_2, \dots$.
+```{r}
+#| message: false
+#| warning: false
 
-::: center-graph
-```{dot}
-//| fig-width: 4.5
-//| fig-height: 1.4
-digraph example2 {
-  bgcolor="transparent";
-  // Nodes
-  F [shape=box, pos = "0,0!", label=<<FONT FACE="Helvetica">&xi; (Unobserved)</FONT>>]
-  X1 [shape=box, pos = "2,0!", label="X1 (Observed)"]
-  X2 [shape=box, pos = "1,-2!", label="X2 (Observed)"]
-  X3 [shape=box, pos="1,0!", label="X3 (Observed)"]
-
-  // Edges
-  {F -> X1 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
-  {F -> X2 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
-  {F -> X3 [label=<<FONT FACE="Helvetica">&lambda;</FONT>>]}
-  
-  graph [nodesep=0.5, ranksep=0.5]
-
-}
+# Packages Needed
+library(lavaan)
 ```
-:::
 
-Each item $X_i$ is connected with the latent factor $\xi$ by a **linear regression**:
+Factor analysis models an unobserved continuous latent variable $\xi$, based on continuous observed items $X_1, X_2, \dots$. Each item is connected with the factor $\xi$ by a **linear model**:
 
 $$
 \begin{align}
@@ -38,61 +21,65 @@ X_3 & = \tau_3 + \blue{\lambda_3} \ \xi + \delta_3 \\
 $$
 
 ::: small
-$\tau$ is the intercept of the model. $\lambda$ is the coefficient, called the factor loadings. $\delta$ is the error term - the part of an item not explained by the factor - they are called the **unique factors**.
+$\tau$ is the intercept of the model. $\lambda$ is the coefficient, called the factor loadings. $\delta$ is the error term.
 :::
 
-::: {.callout-note collapse="true"}
-## Details: Assumptions of the Model
+```{r}
+#| message: false
+#| warning: false
+#| echo: false
 
-::: append
-We make a few assumptions on this model:
+df <- readRDS("ESS4values.rds")
+```
 
-1.  We assume the factor is continuous, and normally distributed with mean $\kappa$ and variance $\phi$. We often assume $\kappa = 0$ and $\phi = 1$ for identification purposes.
-2.  We assume the items are also normally distributed.
-3.  We assume that the error terms are normally distributed $\delta_i \sim \mathcal N(0, \theta_{ii})$, that the different error terms $\delta_1, \dots, \delta_p$ are uncorrelated with each other. This implies that the correlation between any two items is entirely explained by the factor (there is no separate correlation between items).
-4.  We assume the factor is uncorrelated with the error term (exogeneity).
-:::
+```{r}
+#| message: false
+#| warning: false
+#| comment: "#>"
+#| class-output: r
+#| results: hold
+
+formula <- '
+factor =~ rich + admire + success + respect
+'
+# Formula is always factor =~ item1 + item 2
+# You can add multiple factors f1, f2, and multiple measurement models together
+
+model <- sem(
+  formula,
+  data = df,
+  std.ov= TRUE, #standardises the observed variables
+  std.lv= TRUE,
+  missing = "fiml")
+      # this allows use of missing data, but may take longer
+coef(model)
+    # You can also use summary(model), which gives a more comprehensive output
+```
+
+::: small
+The factor=\~item are $\lambda$. The item\~\~item are $\delta$. The item\~1 are $\tau$. Each column is one specific model for one item.
 :::
 
 The factor loadings $\blue{\lambda_i}$ represent the relationship/**covariance** between any item and a factor. These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.
 
-For example, take this factor variable called **personality**, explained by a set of items (rich, admire, success, respect) that show how important a certain quality is to an individual.
-
-![](images/clipboard-2966252668.png){fig-align="center" width="55%"}
-
-We can see all the factor loadings $\lambda$ are positive, which means that the higher values of the **personality** factor is measuring higher levels of importance of being rich, being admired, being successful, and being respected.
-
-We can also see the loadings for **respect** and **success** are much higher than **admire** or **rich**. Thus, we can conclude the **personality** factor is more measuring the importance of being respected or successful, than being rich or admired.
-
-::: {.callout-note collapse="true"}
-## Details: More and Factor Loadings
-
-::: append
-If all our items are standardised to a standard normal distribution, that also implies that our factor loadings $\lambda$ are equal to the correlation coefficients between items and factor.
-
-We can conduct hypothesis testing with each factor loading $\lambda$ with a **z-test** to see if there is a significant relationship between a factor an an item.
-:::
+::: small
+In the output above, all $\lambda$ are positive, meaning as item increases, the factor also increases. *success* is the item with the largest $\lambda$, so it is measured the most in the factor.
 :::
 
-<br />
+**Factor scores** $\widehat\xi$ are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model. We can calculate them in R:
 
-To implement factor analysis, we will need the **psych** and **GPArotation** package:
+```{r}
+#| warning: false
+#| message: false
+#| comment: "#>"
+#| class-output: r
 
-```{r, eval = F}
-library(psych)
-library(GPArotation)
+factor.scores <- lavPredict(model)
+
+# visualise factor scores (not required)
+head(factor.scores)
 ```
 
-First, we should get rid of missing observations:
-
-```{r, eval = F}
-all.obs <- apply(my_data, 1, FUN=function(x){all(!is.na(x))})
-dta <- my_data[all.obs,]
-```
-
-For factor analysis with one factor, we use the syntax:
-
-```{r, eval = F}
-fa <- fa(data[,items], nfactors=1, fm="ml")
-print(fa1)
-```
+::: small
+These are the first 6 observation's factor scores. You can use the variable you saved the factor scores to in a regression or other statistical model.
+:::

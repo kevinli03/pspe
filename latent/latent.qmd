@@ -48,7 +48,7 @@ We can also use latent variable models to create **factor scores** $\widehat\xi$
 The choice of latent variable model depends on the type of items/factors:
 
 |                                      |                           |                         |
-|--------------------------------------|---------------------------|-------------------------|
+|------------------------------|----------------------|--------------------|
 | [Model]{.smallcaps}                  | [Factor Type]{.smallcaps} | [Item Type]{.smallcaps} |
 | [Factor Analysis](factor.qmd)        | Continuous                | Continuous              |
 | [Item Response Theory](irt.qmd)      | Continous                 | Categorical/Binary      |
@@ -59,11 +59,5 @@ The choice of latent variable model depends on the type of items/factors:
 <br />
 
 All models allow for multiple factors $\xi_1, \xi_2, \dots$ as well. If we have many items, some items might only measure on factor, others both factors.
-
-Each latent model also has the ability to conduct **confirmatory analysis**. This is basically when we, based on theoretical reasons (such as reading the literature), impose certain restrictions on models, and test if this hypothesised model is good.
-
-::: small
-This typically takes the form of setting certain factor loadings $\lambda$ to 0, meaning a certain item does not measure one of the factors.
-:::
 
 We can also combine different structural models together to form **structural equation models** (see the structural equation models part).

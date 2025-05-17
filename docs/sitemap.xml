@@ -9,14 +9,6 @@
     <lastmod>2025-05-09T16:39:43.791Z</lastmod>
   </url>
   <url>
-    <loc>https://kevinli03.github.io/pspe/latent/identify.html</loc>
-    <lastmod>2025-05-09T16:34:56.254Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kevinli03.github.io/pspe/latent/longitudinal.html</loc>
-    <lastmod>2025-05-09T21:35:08.742Z</lastmod>
-  </url>
-  <url>
     <loc>https://kevinli03.github.io/pspe/latent/class.html</loc>
     <lastmod>2025-05-09T21:26:10.372Z</lastmod>
   </url>
@@ -25,28 +17,20 @@
     <lastmod>2025-05-09T21:24:23.571Z</lastmod>
   </url>
   <url>
-    <loc>https://kevinli03.github.io/pspe/latent/factor.html</loc>
-    <lastmod>2025-05-09T21:18:24.263Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kevinli03.github.io/pspe/latent/scores.html</loc>
-    <lastmod>2025-05-09T21:19:59.773Z</lastmod>
+    <loc>https://kevinli03.github.io/pspe/latent/sem.html</loc>
+    <lastmod>2025-05-17T12:29:59.055Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/soo/interact.html</loc>
-    <lastmod>2025-05-09T21:51:48.570Z</lastmod>
+    <lastmod>2025-05-17T13:41:36.902Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/soo/ipw.html</loc>
-    <lastmod>2025-05-03T20:53:28.068Z</lastmod>
+    <lastmod>2025-05-17T13:34:52.127Z</lastmod>
   </url>
   <url>
-    <loc>https://kevinli03.github.io/pspe/soo/regress.html</loc>
-    <lastmod>2025-05-09T21:52:08.873Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kevinli03.github.io/pspe/soo/soochoose.html</loc>
-    <lastmod>2025-04-28T20:17:24.242Z</lastmod>
+    <loc>https://kevinli03.github.io/pspe/soo/distance.html</loc>
+    <lastmod>2025-05-17T13:38:33.269Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/index.html</loc>
@@ -62,7 +46,7 @@
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/did2s.html</loc>
-    <lastmod>2025-05-16T17:50:18.550Z</lastmod>
+    <lastmod>2025-05-17T11:31:58.451Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/twfe.html</loc>
@@ -82,15 +66,15 @@
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/etwfe.html</loc>
-    <lastmod>2025-05-16T17:51:53.421Z</lastmod>
+    <lastmod>2025-05-17T11:33:55.195Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/cs.html</loc>
-    <lastmod>2025-05-16T17:52:31.816Z</lastmod>
+    <lastmod>2025-05-17T11:35:32.165Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/sunab.html</loc>
-    <lastmod>2025-05-16T17:49:54.173Z</lastmod>
+    <lastmod>2025-05-17T11:30:49.589Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/dynamic.html</loc>
@@ -105,44 +89,28 @@
     <lastmod>2025-05-09T21:57:45.659Z</lastmod>
   </url>
   <url>
-    <loc>https://kevinli03.github.io/pspe/soo/distance.html</loc>
-    <lastmod>2025-05-09T21:53:59.887Z</lastmod>
-  </url>
-  <url>
     <loc>https://kevinli03.github.io/pspe/soo/soo.html</loc>
-    <lastmod>2025-05-09T21:41:26.523Z</lastmod>
+    <lastmod>2025-05-17T12:45:38.496Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/soo/pscore.html</loc>
-    <lastmod>2025-05-09T21:55:26.009Z</lastmod>
+    <lastmod>2025-05-17T13:38:17.937Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/soo/genetic.html</loc>
-    <lastmod>2025-05-09T21:54:28.268Z</lastmod>
+    <lastmod>2025-05-17T13:40:18.556Z</lastmod>
   </url>
   <url>
-    <loc>https://kevinli03.github.io/pspe/latent/sem.html</loc>
-    <lastmod>2025-05-09T21:31:27.752Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kevinli03.github.io/pspe/latent/multiplefac.html</loc>
-    <lastmod>2025-05-09T21:22:26.467Z</lastmod>
+    <loc>https://kevinli03.github.io/pspe/latent/factor.html</loc>
+    <lastmod>2025-05-17T12:18:31.638Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/latent/latent.html</loc>
-    <lastmod>2025-05-10T16:49:54.900Z</lastmod>
+    <lastmod>2025-05-17T12:14:06.782Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/latent/cluster.html</loc>
     <lastmod>2025-05-09T14:24:19.530Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kevinli03.github.io/pspe/latent/group.html</loc>
-    <lastmod>2025-05-09T21:37:16.239Z</lastmod>
-  </url>
-  <url>
-    <loc>https://kevinli03.github.io/pspe/latent/confirmatory.html</loc>
-    <lastmod>2025-05-09T16:35:37.898Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/resources.html</loc>

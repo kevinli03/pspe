@@ -51,7 +51,7 @@ model <- did2s(
   second_stage = ~ i(treatment), #replace D with your treatment
   treatment = "treatment",
   cluster_var = "unit")
-model
+summary(model)
 ```
 
 ::: small
@@ -99,6 +99,10 @@ iplot(
   ref.line = 0)
 ```
 
+<br />
+
 ::: small
 See [Kyle Butts'](https://kylebutts.github.io/did2s/articles/Two-Stage-Difference-in-Differences.html) github page for more info on this estimator. [Asjad Naqvi](https://asjadnaqvi.github.io/DiD/docs/code_r/07_did2s_r/) also has a helpful page.
+
+Also see the [documentation](https://kylebutts.github.io/did2s/reference/did2s.html) of the did2s function.
 :::

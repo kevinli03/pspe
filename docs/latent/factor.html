@@ -187,35 +187,10 @@ window.Quarto = {
  <span class="menu-text">Latent Variable Models</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../latent/factor.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Factor Analysis Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/scores.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Reliability and Factor Scores</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/multiplefac.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Latent Factors</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/identify.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Identification and Rotation</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/confirmatory.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Confirmatory Analysis</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -230,23 +205,10 @@ window.Quarto = {
  <span class="menu-text">Latent Class Models</span></a>
   </div>
 </li>
-        <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../latent/sem.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Structural Equation Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/longitudinal.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Lagged Response Models</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/group.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Multiple Group Models</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
@@ -292,70 +254,11 @@ window.Quarto = {
 </header>
 
 
-<p>Factor analysis is a way to model a unobserved continuous latent variable <span class="math inline">\(\xi\)</span>, based on a bunch of continuous observed items <span class="math inline">\(X_1, X_2, \dots\)</span>.</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="4.5" data-fig-height="1.4" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="432" height="134" viewbox="0.00 0.00 379.58 132.80" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 128.8)">
-<title>example2</title>
-<!-- F -->
-<g id="node1" class="node">
-<title>F</title>
-<polygon fill="none" stroke="black" points="242.27,-124.8 129.31,-124.8 129.31,-88.8 242.27,-88.8 242.27,-124.8"></polygon>
-<text text-anchor="start" x="137.55" y="-102.6" font-family="Helvetica,sans-Serif" font-size="14.00">ξ (Unobserved)</text>
-</g>
-<!-- X1 -->
-<g id="node2" class="node">
-<title>X1</title>
-<polygon fill="none" stroke="black" points="99.38,-36 0.21,-36 0.21,0 99.38,0 99.38,-36"></polygon>
-<text text-anchor="middle" x="49.79" y="-13.8" font-family="Times,serif" font-size="14.00">X1 (Observed)</text>
-</g>
-<!-- F&#45;&gt;X1 -->
-<g id="edge1" class="edge">
-<title>F-&gt;X1</title>
-<path fill="none" stroke="black" d="M158.92,-88.65C137.78,-75.16 108.14,-56.24 85.09,-41.53"></path>
-<polygon fill="black" stroke="black" points="86.92,-38.54 76.6,-36.11 83.15,-44.44 86.92,-38.54"></polygon>
-<text text-anchor="start" x="130.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
-</g>
-<!-- X2 -->
-<g id="node3" class="node">
-<title>X2</title>
-<polygon fill="none" stroke="black" points="235.38,-36 136.21,-36 136.21,0 235.38,0 235.38,-36"></polygon>
-<text text-anchor="middle" x="185.79" y="-13.8" font-family="Times,serif" font-size="14.00">X2 (Observed)</text>
-</g>
-<!-- F&#45;&gt;X2 -->
-<g id="edge2" class="edge">
-<title>F-&gt;X2</title>
-<path fill="none" stroke="black" d="M185.79,-88.65C185.79,-76.52 185.79,-60.02 185.79,-46.12"></path>
-<polygon fill="black" stroke="black" points="189.29,-46.11 185.79,-36.11 182.29,-46.11 189.29,-46.11"></polygon>
-<text text-anchor="start" x="185.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
-</g>
-<!-- X3 -->
-<g id="node4" class="node">
-<title>X3</title>
-<polygon fill="none" stroke="black" points="371.38,-36 272.21,-36 272.21,0 371.38,0 371.38,-36"></polygon>
-<text text-anchor="middle" x="321.79" y="-13.8" font-family="Times,serif" font-size="14.00">X3 (Observed)</text>
-</g>
-<!-- F&#45;&gt;X3 -->
-<g id="edge3" class="edge">
-<title>F-&gt;X3</title>
-<path fill="none" stroke="black" d="M212.66,-88.65C233.8,-75.16 263.44,-56.24 286.5,-41.53"></path>
-<polygon fill="black" stroke="black" points="288.43,-44.44 294.98,-36.11 284.67,-38.54 288.43,-44.44"></polygon>
-<text text-anchor="start" x="266.79" y="-58.2" font-family="Helvetica,sans-Serif" font-size="14.00">λ</text>
-</g>
-</g>
-</svg>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
-<p>Each item <span class="math inline">\(X_i\)</span> is connected with the latent factor <span class="math inline">\(\xi\)</span> by a <strong>linear regression</strong>:</p>
+<p>Factor analysis models an unobserved continuous latent variable <span class="math inline">\(\xi\)</span>, based on continuous observed items <span class="math inline">\(X_1, X_2, \dots\)</span>. Each item is connected with the factor <span class="math inline">\(\xi\)</span> by a <strong>linear model</strong>:</p>
 <p><span class="math display">\[
 \begin{align}
 X_1 &amp; = \tau_1 + \blue{\lambda_1} \ \xi + \delta_1 \\
@@ -364,75 +267,58 @@ X_3 &amp; = \tau_3 + \blue{\lambda_3} \ \xi + \delta_3 \\
 \end{align}
 \]</span></p>
 <div class="small">
-<p><span class="math inline">\(\tau\)</span> is the intercept of the model. <span class="math inline">\(\lambda\)</span> is the coefficient, called the factor loadings. <span class="math inline">\(\delta\)</span> is the error term - the part of an item not explained by the factor - they are called the <strong>unique factors</strong>.</p>
+<p><span class="math inline">\(\tau\)</span> is the intercept of the model. <span class="math inline">\(\lambda\)</span> is the coefficient, called the factor loadings. <span class="math inline">\(\delta\)</span> is the error term.</p>
 </div>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>formula <span class="ot">&lt;-</span> <span class="st">'</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="st">factor =~ rich + admire + success + respect</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="st">'</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Formula is always factor =~ item1 + item 2</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># You can add multiple factors f1, f2, and multiple measurement models together</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">sem</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  formula,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">std.ov=</span> <span class="cn">TRUE</span>, <span class="co">#standardises the observed variables</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">std.lv=</span> <span class="cn">TRUE</span>,</span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">missing =</span> <span class="st">"fiml"</span>)</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this allows use of missing data, but may take longer</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(model)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>    <span class="co"># You can also use summary(model), which gives a more comprehensive output</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     factor=~rich   factor=~admire  factor=~success  factor=~respect </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.490            0.688            0.827            0.484 </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       rich~~rich   admire~~admire success~~success respect~~respect </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.760            0.527            0.316            0.766 </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           rich~1         admire~1        success~1        respect~1 </span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;            0.000            0.000            0.001            0.001</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="callout-title-container flex-fill">
-Details: Assumptions of the Model
 </div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="append">
-<p>We make a few assumptions on this model:</p>
-<ol type="1">
-<li>We assume the factor is continuous, and normally distributed with mean <span class="math inline">\(\kappa\)</span> and variance <span class="math inline">\(\phi\)</span>. We often assume <span class="math inline">\(\kappa = 0\)</span> and <span class="math inline">\(\phi = 1\)</span> for identification purposes.</li>
-<li>We assume the items are also normally distributed.</li>
-<li>We assume that the error terms are normally distributed <span class="math inline">\(\delta_i \sim \mathcal N(0, \theta_{ii})\)</span>, that the different error terms <span class="math inline">\(\delta_1, \dots, \delta_p\)</span> are uncorrelated with each other. This implies that the correlation between any two items is entirely explained by the factor (there is no separate correlation between items).</li>
-<li>We assume the factor is uncorrelated with the error term (exogeneity).</li>
-</ol>
-</div>
-</div>
-</div>
+<div class="small">
+<p>The factor=~item are <span class="math inline">\(\lambda\)</span>. The item~~item are <span class="math inline">\(\delta\)</span>. The item~1 are <span class="math inline">\(\tau\)</span>. Each column is one specific model for one item.</p>
 </div>
 <p>The factor loadings <span class="math inline">\(\blue{\lambda_i}\)</span> represent the relationship/<strong>covariance</strong> between any item and a factor. These factor loadings help us interpret our latent variable. The sign of the factor loading tells us the direction in which our latent variable is measuring. The absolute size of the factor loading tells us how important that item is to the factor.</p>
-<p>For example, take this factor variable called <strong>personality</strong>, explained by a set of items (rich, admire, success, respect) that show how important a certain quality is to an individual.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-2966252668.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:55.0%"></p>
-</figure>
+<div class="small">
+<p>In the output above, all <span class="math inline">\(\lambda\)</span> are positive, meaning as item increases, the factor also increases. <em>success</em> is the item with the largest <span class="math inline">\(\lambda\)</span>, so it is measured the most in the factor.</p>
 </div>
-<p>We can see all the factor loadings <span class="math inline">\(\lambda\)</span> are positive, which means that the higher values of the <strong>personality</strong> factor is measuring higher levels of importance of being rich, being admired, being successful, and being respected.</p>
-<p>We can also see the loadings for <strong>respect</strong> and <strong>success</strong> are much higher than <strong>admire</strong> or <strong>rich</strong>. Thus, we can conclude the <strong>personality</strong> factor is more measuring the importance of being respected or successful, than being rich or admired.</p>
-<div class="callout callout-style-default callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-2-contents" aria-controls="callout-2" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Details: More and Factor Loadings
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-2" class="callout-2-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<div class="append">
-<p>If all our items are standardised to a standard normal distribution, that also implies that our factor loadings <span class="math inline">\(\lambda\)</span> are equal to the correlation coefficients between items and factor.</p>
-<p>We can conduct hypothesis testing with each factor loading <span class="math inline">\(\lambda\)</span> with a <strong>z-test</strong> to see if there is a significant relationship between a factor an an item.</p>
-</div>
-</div>
-</div>
-</div>
-<p><br></p>
-<p>To implement factor analysis, we will need the <strong>psych</strong> and <strong>GPArotation</strong> package:</p>
+<p><strong>Factor scores</strong> <span class="math inline">\(\widehat\xi\)</span> are essentially values of the latent variable for individuals in our study. This allows us to use our observed items to calculate the latent variable value that any individual should have, which we can then put into another statistical model. We can calculate them in R:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(psych)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GPArotation)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>factor.scores <span class="ot">&lt;-</span> <span class="fu">lavPredict</span>(model)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># visualise factor scores (not required)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(factor.scores)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           factor</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,]  1.10023478</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  1.20216306</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] -0.29398041</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,] -0.02358533</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,]  1.50881758</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,]  0.70699829</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>First, we should get rid of missing observations:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>all.obs <span class="ot">&lt;-</span> <span class="fu">apply</span>(my_data, <span class="dv">1</span>, <span class="at">FUN=</span><span class="cf">function</span>(x){<span class="fu">all</span>(<span class="sc">!</span><span class="fu">is.na</span>(x))})</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> my_data[all.obs,]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>For factor analysis with one factor, we use the syntax:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>fa <span class="ot">&lt;-</span> <span class="fu">fa</span>(data[,items], <span class="at">nfactors=</span><span class="dv">1</span>, <span class="at">fm=</span><span class="st">"ml"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fa1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="small">
+<p>These are the first 6 observation’s factor scores. You can use the variable you saved the factor scores to in a regression or other statistical model.</p>
 </div>
 
 

@@ -43,8 +43,6 @@ website:
           href: correlation.qmd
         - text: "Magic of Randomisation"
           href: randomisation.qmd
-        - text: "Estimators and Inference"
-        - text: "Instrumental Variables"
 
     - title: "Difference-in-Differences"
       style: floating
@@ -64,14 +62,14 @@ website:
           href: did/staggered.qmd
         - text: "Sun and Abraham (2021)"
           href: did/sunab.qmd
+        - text: "Callaway and Sant'Anna (2021)"
+          href: did/cs.qmd
         - text: "2-stage Difference-in-Differences"
           href: did/did2s.qmd
         - text: "IFE Counterfactual Estimator"
           href: did/ifect.qmd
         - text: "Extended Two-way Fixed Effects"
           href: did/etwfe.qmd
-        - text: "Callaway and Sant'Anna (2021)"
-          href: did/cs.qmd
         - text: "Chaisemartin and Haultfoeuille (2024)"
     
     - title: "Regression Discontinuity"
@@ -101,24 +99,18 @@ website:
       contents:
         - text: "Selection on Observables"
           href: soo/soo.qmd
-        - text: "Choosing an Estimator"
-          href: soo/soochoose.qmd
-        - text: "---"
-        - text: "Linear Regression Estimator"
-          href: soo/regress.qmd
         - text: "Fully Interacted Estimator"
           href: soo/interact.qmd
-        - text: "Causal Forests"
-        - text: "---"
         - text: "Distance Matching"
           href: soo/distance.qmd
         - text: "Propensity Score Matching"
           href: soo/pscore.qmd
         - text: "Genetic Matching"
           href: soo/genetic.qmd
-        - text: "---"
         - text: "Inverse Probability Weighting"
           href: soo/ipw.qmd
+        - text: "---"
+        - text: "Causal Forests"
         - text: "Doubly Robust Estimation"
     
     - title: "Regression"
@@ -127,20 +119,19 @@ website:
       background: "#f8f9fa"
       foreground: "#36026b"
       contents:
-        - text: "Regression Models"
-          href: reg/reg.qmd
-        - text: "---"
         - text: "Multiple Linear Regression"
+          href: reg/reg.qmd
         - text: "Binomial Logistic Regression"
         - text: "Ordinal Logistic Regression"
         - text: "Multinomial Logistic Regression"
         - text: "Negative Binomial Regression"
         - text: "Poisson Regression"
         - text: "---"
-        - text: "Interaction Effects"
-        - text: "Variable Transformations"
-        - text: "---"
-        - text: "Random Forest"
+        - text: "Instrumental Variables Regression"
+        - text: "Grouped and Panel Data"
+        - text: "Models for Time Series"
+        - text: "Polynomial Regression"
+        - text: "Regression Trees"
         
     - title: "Latent Models"
       style: floating
@@ -150,28 +141,14 @@ website:
       contents:
         - text: "Latent Variable Models"
           href: latent/latent.qmd
-        - text: "---"
         - text: "Factor Analysis Models"
           href: latent/factor.qmd
-        - text: "Reliability and Factor Scores"
-          href: latent/scores.qmd
-        - text: "Multiple Latent Factors"
-          href: latent/multiplefac.qmd
-        - text: "Identification and Rotation"
-          href: latent/identify.qmd
-        - text: "Confirmatory Analysis"
-          href: latent/confirmatory.qmd
         - text: "Item Response Theory"
           href: latent/irt.qmd
         - text: "Latent Class Models"
           href: latent/class.qmd
-        - text: "---"
         - text: "Structural Equation Models"
           href: latent/sem.qmd
-        - text: "Lagged Response Models"
-          href: latent/longitudinal.qmd
-        - text: "Multiple Group Models"
-          href: latent/group.qmd
         - text: "---"
         - text: "Principle Components Analysis"
           href: latent/pca.qmd

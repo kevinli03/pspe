@@ -214,6 +214,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../did/did2s.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">2-stage Difference-in-Differences</span></a>
   </div>
@@ -228,12 +234,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Extended Two-way Fixed Effects</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../did/cs.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Callaway and Sant’Anna (2021)</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -274,53 +274,40 @@ window.Quarto = {
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>There are two <a href="../did/staggered.html">issues with the two-way fixed effects estimator</a>: forbidden comparisons and issues with weighting. Sun and Abraham (2021) proposes a new estimator to solve this issues.</p>
-<p>The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable <span class="math inline">\(G_i\)</span>. Then, the estimator calculates dynamic ATT’s separately for group, using only valid comparisons. This is done by interacting a relative-time variable <span class="math inline">\(\widetilde T_{it}\)</span> with <span class="math inline">\(G_i\)</span>.</p>
-<p>This model will produce many coefficients <span class="math inline">\(\blue{\tau_{it}}\)</span> (in fact, one for each post-treatment time period for each initial treatment year group). These are manually aggregated together into dynamic ATT’s by relative treatment time using proper weighting. This solves the weighting problem with TWFE.</p>
+<p>The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable <span class="math inline">\(G_i\)</span>.</p>
+<p>Then, the estimator calculates dynamic ATT’s separately for group, using only valid comparisons. This is done by interacting a relative-time variable <span class="math inline">\(R_{it}\)</span> with <span class="math inline">\(G_i\)</span>. These interactions will produce many coefficients <span class="math inline">\(\blue{\tau_{it}}\)</span> (in fact, one for each time period for each initial treatment year group). These coefficients capture all the heterogeneity in effects.</p>
+<p>These coefficients are manually aggregated together into dynamic ATT’s by relative treatment time using proper weighting. This solves the weighting problem with TWFE.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> <span class="fu">sunab</span>(first.treated, time, <span class="at">att =</span> T) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>      <span class="co">#first.treated for never-treated should be some value outside of time-range</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>      <span class="co">#first.treated should not be NA.</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>unit)</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(model<span class="sc">$</span>coeftable) <span class="co"># the ATT is listed at the end of the coef table</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                         Estimate Std. Error      t value     Pr(&gt;|t|)</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time::-2:cohort::7  -0.558631418 0.87199275 -0.640637687 5.233168e-01</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time::-2:cohort::8   0.429591471 0.30527023  1.407249792 1.626514e-01</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time::-2:cohort::9   1.201899494 0.81918562  1.467188223 1.456627e-01</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; time::-2:cohort::10 -0.002429495 0.68208698 -0.003561854 9.971656e-01</span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ATT                 -1.133749449 0.20507049 -5.528583991 2.882038e-07</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; covariate            0.994678311 0.01837813 54.122927933 1.189553e-72</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="small">
-<p>The ATT is given by the estimate of the ATT in the table. Here, we can see the ATT is -1.1337.</p>
-</div>
-<p>We can also calculate dynamic treatment effects and plot them:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> <span class="fu">sunab</span>(first.treated, time) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>      <span class="co">#att = T makes it calculate a singular ATT</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>unit)</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  model,</span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop =</span> <span class="st">"[[:digit:]]{2}"</span>,</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this drops the time periods too far before and after treatment.</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> <span class="fu">sunab</span>(first.treated, time) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>unit)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  model,</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop =</span> <span class="st">"[[:digit:]]{2}"</span>,</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this drops the time periods too far before and after treatment.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
-<p><img src="sunab_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+<p><img src="sunab_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
 </figure>
 </div>
 </div>
 </div>
+<p>We can also aggregate the dynamic ATT’s into one singular ATT:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">aggregate</span>(model, <span class="st">"att"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Estimate Std. Error   t value     Pr(&gt;|t|)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ATT -1.133749  0.2050705 -5.528584 2.882038e-07</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p><br></p>
 <div class="small">
 <p>For technical details, see <a href="https://www.sciencedirect.com/science/article/abs/pii/S030440762030378X">Sun and Abraham (2021)</a> or <a href="https://asjadnaqvi.github.io/DiD/docs/code_r/07_sunab_r/">this github page</a>.</p>
+<p>For more options with the sunab and aggregate functions, see the <a href="https://lrberge.github.io/fixest/reference/index.html">documentation for fixest</a>.</p>
 </div>
 
 

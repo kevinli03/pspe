@@ -74,3 +74,9 @@ att_dynamic <- did::aggte(
   na.rm = TRUE)
 ggdid(att_dynamic)
 ```
+
+<br />
+
+::: small
+See this [github page](https://asjadnaqvi.github.io/DiD/docs/code_r/07_did_r/) for more examples of implementing the code.
+:::
