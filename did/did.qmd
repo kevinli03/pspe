@@ -2,10 +2,14 @@
 title: "Difference-in-Differences"
 ---
 
+::: small
+See Scott Cunningham's [Causal Inference: The Mixtape](https://mixtape.scunning.com/09-difference_in_differences) for a more in depth overview.
+:::
+
 Difference-in-differences (DiD) is the most popular causal inference method, that has seen a "revolution" in the last few years. The method is designed for:
 
 |                            |                                                           |
-|------------------------|------------------------------------------------|
+|------------------------|-----------------------------------------------|
 | **Panel Data**             | We observe the same units over multiple periods of time.  |
 | **Repeated Cross Section** | We observe different units over multiple periods of time. |
 
@@ -18,7 +22,7 @@ Panel data is usually preferred, but most estimators can accommodate repeated cr
 DiD exploits variation in treatment adoption over two dimensions. This typically means variation in treatment adoption between units, and variation of treatment adoption over time. There are three types of DiD designs:
 
 |                       |                                                                                                                                                                                                                                   |
-|-------------|-----------------------------------------------------------|
+|----------------|--------------------------------------------------------|
 | **Classical DiD**     | When there are two groups of units: the treatment group, and the control group. In the pre-treatment time periods, neither group adopts treatment. In the post-treatment time periods, only the treatment group adopts treatment. |
 | **Staggered DiD**     | When there are multiple treatment groups, who adopt treatment at different time-periods. For example, group A might adopt treatment in year 2000, group B might adopt treatment in year 2010, and group C is a control group.     |
 | **Non-Absorbing DiD** | A staggered (or classical) DiD, but some units who adopt treatment earlier may turn off treatment later (treatment reversal).                                                                                                     |
@@ -32,7 +36,7 @@ The choice of estimator will depend on the type of DiD.
 All DiD require 3 identification assumptions:
 
 |                                                         |                                                                                                                             |
-|-------------------------|----------------------------------------------|
+|--------------------------|----------------------------------------------|
 | [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
 | [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
 | [No Anticipation]{.mark}                                | This means that treated units do not respond to treatment prior to the treatment being actually implemented (anticipation). |

@@ -52,7 +52,7 @@ model <- did2s(
   second_stage = ~ i(treatment), #replace D with your treatment
   treatment = "treatment",
   cluster_var = "unit")
-summary(model)
+coeftable(model) # Can also use summary(model)
 ```
 
 ::: small

@@ -205,6 +205,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../causal/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
@@ -219,12 +225,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -262,7 +262,8 @@ window.Quarto = {
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
 <p><span class="math display">\[
@@ -277,13 +278,13 @@ window.Quarto = {
 <p><span class="math display">\[
 \text{propensity score } \pi =Pr(\green{D_i = 1})
 \]</span></p>
-<p>Propensity scores are typically estimated with a logistic regression.</p>
+<p>Propensity scores are typically estimated with a logistic regression with <strong>all confounders</strong> as explanatory variables.</p>
 <div class="small">
 <p>This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relationships between confounders and propensities, and only being unbiased in large sample sizes.</p>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic Model for Propensity Scores</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">feglm</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  treatment <span class="sc">~</span> cov1 <span class="sc">+</span> cov2,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
@@ -305,42 +306,26 @@ window.Quarto = {
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(att)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.7389 </span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AI SE......  0.15285 </span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  11.377 </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.5836 </span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AI SE......  0.12872 </span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  12.303 </span></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.val......  &lt; 2.22e-16 </span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of observations..............  1000 </span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  240 </span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  240 </span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  412</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  272 </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  272 </span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  476</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
-<table class="table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Pros</th>
-<th>Cons</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>1) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator.</p>
-<p>2) Can accurately handle more confounders than distance matching.</p></td>
-<td><p>1) Requires a large sample size to be unbiased, because logistic regression for the propensity scores does not work well with small amounts of data.</p>
-<p>2) Throws out unmatched data, so it wastes data.</p>
-<p>3) Does not estimate the ATE, only estimates the ATT.</p></td>
-</tr>
-</tbody>
-</table>
+<p>If <u>all confounders are included</u>, our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
+<div class="small">
+<p>Omission of any confounder will cause inaccurate matches, thus causing inaccurate results.</p>
+</div>
+<p>Because propensity-score matching is dependent on the estimation of propensity scores, it is sensitive to poorly estimated propensity scores with the logistic regression, This tends to happen with smaller sample sizes, so the propensity score matching estimator can be poor in small sample sizes.</p>
 <div class="small">
 <p>Kevin’s Comments: there is little reason to use propensity score matching over genetic matching, unless your machine cannot estimate genetic matching.</p>
 </div>
+<p>Propensity score matching (and all matching) also throws out a lot of data that is unmatched, which can be wasteful.</p>
 
 
 

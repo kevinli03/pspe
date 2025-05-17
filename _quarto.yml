@@ -84,14 +84,14 @@ website:
         - text: "Regression Discontinuity"
         - text: "Fully Interacted Estimator"
           href: causal/interact.qmd
+        - text: "Inverse Probability Weighting"
+          href: causal/ipw.qmd
         - text: "Distance Matching"
           href: causal/distance.qmd
         - text: "Propensity Score Matching"
           href: causal/pscore.qmd
         - text: "Genetic Matching"
           href: causal/genetic.qmd
-        - text: "Inverse Probability Weighting"
-          href: causal/ipw.qmd
         - text: "Causal Forests"
         
     - title: "Latent Models"

@@ -10,16 +10,22 @@ title: "Fully Interacted Estimator"
 library(estimatr)
 ```
 
-From [selection on observables](soo.qmd), we know that our causal effect is a weighted average:
+Let us say we have data on all confounders. A natural way to account for all confounders is to control for all confounders in a linear regression. With all confounders included, our model should be exogenous, and the $\beta_\text{OLS}$ estimate should be unbiased.
 
 $$
-\ate = \sum\tau_\text{X} \cdot Pr( X)
+Y_i = \alpha + D_i\beta_\text{OLS} + \covs
+$$
+
+However, there is an issue with OLS estimates under treatment heterogeneity. We know that our causal effect is a weighted average of our conditional treatment effects:
+
+$$
+\ate = \sum\tau_\text{CATE}(x) \cdot Pr( x)
 $$
 
 Notice how the weights are the probability of the confounder values of $\b x$. With some complex math (Angrist 1998), we can show OLS estimates:
 
 $$
-\hat\beta_\text{OLS} = \sum \tau_X\cdot \underbrace{\frac{Var(D_i | X)Pr(X)}{\sum Var(D_i | X^c)Pr( X^c)}}_{\text{weight}}
+\hat\beta_\text{OLS} = \sum \tau_\text{CATE}(x)\cdot \underbrace{\frac{Var(D_i | x)Pr(x)}{\sum Var(D_i | x^c)Pr( x^c)}}_{\text{weight}}
 $$
 
 These weights are not equivalent to the selection on observables $\ate$. Thus, if not all $\tau_\text{X}$ are exactly the same (homogeneity), then our OLS estimator (OLS) will incorrectly estimate the ATE. [Lin (2013)](https://projecteuclid.org/journals/annals-of-applied-statistics/volume-7/issue-1/Agnostic-notes-on-regression-adjustments-to-experimental-data--Reexamining/10.1214/12-AOAS583.full) proposes the **fully interacted estimator**, which allows for consistent estimation of the ATE even with heterogeneity:
@@ -69,21 +75,13 @@ model <- lm_lin(
   outcome ~ treatment,
   covariates = ~ cov1 + cov2,
   data = df)
-summary(model)
+fixest::coeftable(model)[,1:4] # Can also use summary(model)
 ```
 
 ::: small
 The estimate for treatment is our ATE estimate.
 :::
 
-The new OLS estimate of $\ate$ in this estimator will technically still be a biased estimator of the ATE, but the bias is negligible.
+If [all confounders are included]{.underline}, the new OLS estimate of $\ate$ in this estimator will technically still be a biased estimator of the ATE, but the bias is negligible.
 
-+---------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
-| Pros                                                                            | Cons                                                                                                                      |
-+=================================================================================+===========================================================================================================================+
-| 1\) Relatively simple and straight forward, utilising the regression framework. | 1\) Requires a linear relationship between confounders and outcome. If this is not true, then the estimates can be wrong. |
-|                                                                                 |                                                                                                                           |
-| 2\) Works well with smaller sample sizes compared to many other methods.        |                                                                                                                           |
-+---------------------------------------------------------------------------------+---------------------------------------------------------------------------------------------------------------------------+
-
-: {tbl-colwidths="\[50,50\]"}
+This estimator (as a linear estimator naturally does) assumes that the relationship between confounders and outcome is linear. If this assumption is hard to justify, then our estimate of $\ate$ will be biased.

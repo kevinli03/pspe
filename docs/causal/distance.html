@@ -205,6 +205,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../causal/distance.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Distance Matching</span></a>
   </div>
@@ -219,12 +225,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -277,7 +277,7 @@ window.Quarto = {
 \text{distance}_{i, j} = \sqrt{(\b x_i - \b x_j)' \ \b\Sigma_x^{-1} (\b x_i - \b x_j)}
 \]</span></p>
 <div class="small">
-<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> is a vector of confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders.</p>
+<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> is a vector of confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders. We must include <strong>all confounders</strong>.</p>
 </div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">Match</span>(</span>
@@ -292,42 +292,26 @@ window.Quarto = {
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.266 </span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AI SE......  0.12674 </span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  9.9892 </span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.6159 </span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; AI SE......  0.13851 </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  11.666 </span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.val......  &lt; 2.22e-16 </span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of observations..............  1000 </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  256 </span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  256 </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  320</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  259 </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  259 </span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  307</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
-<table class="table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Pros</th>
-<th>Cons</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>1) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator.</p>
-<p>2) Very intuitive idea of matching similar individuals.</p></td>
-<td><p>1) Can be badly biased when more than 3-5 confounders.</p>
-<p>2) Throws out unmatched data, so it wastes data.</p>
-<p>3) Does not estimate the ATE, only the ATT.</p></td>
-</tr>
-</tbody>
-</table>
+<p>If <u>all confounders are included</u>, our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
+<div class="small">
+<p>Omission of any confounder will cause inaccurate matches, thus causing inaccurate results.</p>
+</div>
+<p>Distance matching suffers from the curse of dimensionality. This means that as the number of confounders increase, the bias in distance matching estimates becomes larger. Thus, we should avoid using distance matching with more than 3-5 confounders.</p>
 <div class="small">
 <p>Kevin’s comments: there is little reason to use distance matching over <a href="../causal/genetic.html">genetic matching</a>, unless your machine lacks the computational power for genetic matching.</p>
 </div>
+<p>Distance matching (and all matching) also throws out a lot of data that is unmatched, which can be wasteful.</p>
 
 
 

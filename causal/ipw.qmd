@@ -37,13 +37,11 @@ digraph example2 {
 Our treated and control groups might look like:
 
 ::: small
-+-----------------------------------------+---------------------------------------------------+
+|                                         |                                                   |
+|--------------------------------|----------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
-+-----------------------------------------+---------------------------------------------------+
 | Smart Students (x4)                     | Smart Students (x1)                               |
-+-----------------------------------------+---------------------------------------------------+
 | Dumb Students (x1)                      | Dumb Students (x4)                                |
-+-----------------------------------------+---------------------------------------------------+
 
 : {tbl-colwidths="\[50,50\]" .bordered}
 :::
@@ -51,13 +49,11 @@ Our treated and control groups might look like:
 Our two groups have pre-existing differences. However, by emphasising certain individuals, we can make it seem like there are no more imbalances:
 
 ::: small
-+-----------------------------------------+---------------------------------------------------+
+|                                         |                                                   |
+|--------------------------------|----------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
-+-----------------------------------------+---------------------------------------------------+
 | Smart Students (x4)                     | Smart Students (emphasise to x4)                  |
-+-----------------------------------------+---------------------------------------------------+
 | Dumb Students (emphasise to x4)         | Dumb Students (x4)                                |
-+-----------------------------------------+---------------------------------------------------+
 
 : {tbl-colwidths="\[50,50\]" .bordered}
 :::
@@ -66,7 +62,11 @@ Our two groups have pre-existing differences. However, by emphasising certain in
 See how the underrepresented individuals in each group (treated/untreated) were weighted upwards. We can see there is no more pre-existing differences after weighting. Thus, selection bias has been solved.
 :::
 
-The weights/emphasis an individual by the inverse of their likelihood to receive treatment. This is estimated as the inverse of the [propensity score](pscore.qmd).
+The weights/emphasis an individual by the inverse of their likelihood to receive treatment. This is estimated as the inverse of the [propensity score](pscore.qmd), which is estimated using **all confounders**.
+
+::: small
+Omission of any confounder will cause inaccurate propensity scores, and inaccurate weights.
+:::
 
 ```{r}
 #| echo: false
@@ -106,7 +106,7 @@ df = df %>%
 #| class-output: r
 
 # Logistic Model for Propensity Scores
-propensity <- glm(
+propensity <- feglm(
   treatment ~ cov1 + cov2,
   data = df,
   family = "binomial")
@@ -127,19 +127,13 @@ Now with the weights, we can estimate the causal effect with a regression:
 #| class-output: r
 
 model <- feols(outcome ~ treatment, data = df, weights = ~ipw)
-summary(model)
+coeftable(model) # Can also use summary(model)
 ```
 
 ::: small
 The treatment estimate is our ATE.
 :::
 
-+----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Pros                                                                                                                                         | Cons                                                                                                                                                  |
-+==============================================================================================================================================+=======================================================================================================================================================+
-| 1\) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator. | 1\) Requires a large sample size to be unbiased, because logistic regression for the propensity scores does not work well with small amounts of data. |
-|                                                                                                                                              |                                                                                                                                                       |
-| 2\) Does not throw out data like matching does.                                                                                              |                                                                                                                                                       |
-+----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+If [all confounders are included]{.underline} in the propensity score estimation, the estimate will be equal to the $\ate$.
 
-: {tbl-colwidths="\[50,50\]"}
+Because weighting is dependent on the estimation of propensity scores, it is sensitive to poorly estimated propensity scores with the logistic regression, This tends to happen with smaller sample sizes, so the IPW estimator can be poor in small sample sizes.

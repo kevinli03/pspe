@@ -8,6 +8,7 @@ title: "Genetic Matching"
 
 # Packages Needed:
 library(Matching)
+library(fixest)
 ```
 
 Mia is in our study and receives the treatment. Mia's causal effect is:
@@ -64,7 +65,7 @@ df = df %>%
 #| class-output: r
 
 # Logistic Model for Propensity Scores
-propensity <- glm(
+propensity <- feglm(
   treatment ~ cov1 + cov2,
   data = df,
   family = "binomial")
@@ -80,7 +81,7 @@ $$
 $$
 
 ::: small
-Where $i$ and $j$ are two units we want to measure the distance between, $\b x$ are their confounder values, and $\b\Sigma_x$ is the covariance matrix of confounders. $\b W$ is a weights matrix.
+Where $i$ and $j$ are two units we want to measure the distance between, $\b x$ are their confounder values, and $\b\Sigma_x$ is the covariance matrix of confounders. $\b W$ is a weights matrix. We must include **all confounders**.
 :::
 
 The weights $\b W$ are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. We estimate the weights as follows:
@@ -134,20 +135,12 @@ model <- Match(
 summary(model)
 ```
 
-Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
-
-+----------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------+
-| Pros                                                                                                                                         | Cons                                                   |
-+==============================================================================================================================================+========================================================+
-| 1\) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator. | 1\) Throws out unmatched data, so it wastes data.      |
-|                                                                                                                                              |                                                        |
-| 2\) Shown to be the best performing matching estimator.                                                                                      | 2\) Can be computationally intensive and take a while. |
-|                                                                                                                                              |                                                        |
-|                                                                                                                                              | 3\) Only estimates the ATT, not the ATE.               |
-+----------------------------------------------------------------------------------------------------------------------------------------------+--------------------------------------------------------+
-
-: {tbl-colwidths="\[50,50\]"}
+If [all confounders are included]{.underline}, our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
 
 ::: small
-Kevin's Comments: Genetic matching is the best form of matching. So if you are using matching, you should use genetic matching unless it is not possible to do.
+Omission of any confounder will cause inaccurate matches, thus causing inaccurate results.
 :::
+
+Genetic matching is the best form of matching. So if you are using matching, you should use genetic matching unless it is not possible to do.
+
+Genetic matching (and all matching) also throws out a lot of data that is unmatched, which can be wasteful.

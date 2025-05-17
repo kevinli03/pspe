@@ -8,6 +8,7 @@ title: "Propensity Score Matching"
 
 # Packages Needed:
 library(Matching)
+library(fixest)
 ```
 
 Mia is in our study and receives the treatment. Mia's causal effect is:
@@ -30,7 +31,7 @@ $$
 \text{propensity score } \pi =Pr(\green{D_i = 1}) 
 $$
 
-Propensity scores are typically estimated with a logistic regression.
+Propensity scores are typically estimated with a logistic regression with **all confounders** as explanatory variables.
 
 ::: small
 This also means that propensity score matching shares the same weaknesses of logistic regression - including assuming linear relationships between confounders and propensities, and only being unbiased in large sample sizes.
@@ -74,7 +75,7 @@ df = df %>%
 #| class-output: r
 
 # Logistic Model for Propensity Scores
-propensity <- glm(
+propensity <- feglm(
   treatment ~ cov1 + cov2,
   data = df,
   family = "binomial")
@@ -103,20 +104,16 @@ att <- Match(
 summary(att)
 ```
 
-Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
+If [all confounders are included]{.underline}, our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
 
-+----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
-| Pros                                                                                                                                         | Cons                                                                                                                                                  |
-+==============================================================================================================================================+=======================================================================================================================================================+
-| 1\) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator. | 1\) Requires a large sample size to be unbiased, because logistic regression for the propensity scores does not work well with small amounts of data. |
-|                                                                                                                                              |                                                                                                                                                       |
-| 2\) Can accurately handle more confounders than distance matching.                                                                           | 2\) Throws out unmatched data, so it wastes data.                                                                                                     |
-|                                                                                                                                              |                                                                                                                                                       |
-|                                                                                                                                              | 3\) Does not estimate the ATE, only estimates the ATT.                                                                                                |
-+----------------------------------------------------------------------------------------------------------------------------------------------+-------------------------------------------------------------------------------------------------------------------------------------------------------+
+::: small
+Omission of any confounder will cause inaccurate matches, thus causing inaccurate results.
+:::
 
-: {tbl-colwidths="\[50,50\]"}
+Because propensity-score matching is dependent on the estimation of propensity scores, it is sensitive to poorly estimated propensity scores with the logistic regression, This tends to happen with smaller sample sizes, so the propensity score matching estimator can be poor in small sample sizes.
 
 ::: small
 Kevin's Comments: there is little reason to use propensity score matching over genetic matching, unless your machine cannot estimate genetic matching.
 :::
+
+Propensity score matching (and all matching) also throws out a lot of data that is unmatched, which can be wasteful.

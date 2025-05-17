@@ -205,6 +205,12 @@ window.Quarto = {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../causal/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
@@ -219,12 +225,6 @@ window.Quarto = {
   <div class="sidebar-item-container"> 
   <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -262,7 +262,8 @@ window.Quarto = {
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(Matching)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Mia is in our study and receives the treatment. Mia’s causal effect is:</p>
 <p><span class="math display">\[
@@ -276,7 +277,7 @@ window.Quarto = {
 <p>First, researchers recommend to include propensity scores as another confounder in the genetic matching process:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic Model for Propensity Scores</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">feglm</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  treatment <span class="sc">~</span> cov1 <span class="sc">+</span> cov2,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
@@ -289,7 +290,7 @@ window.Quarto = {
 \text{distance}_{i, j}(\b W) = \sqrt{(\b x_i - \b x_j)' \ (\b\Sigma_x^{-\frac{1}{2}})' \ \b W \ \b\Sigma_x^{-\frac{1}{2}}  (\b x_i - \b x_j)}
 \]</span></p>
 <div class="small">
-<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> are their confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders. <span class="math inline">\(\b W\)</span> is a weights matrix.</p>
+<p>Where <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> are two units we want to measure the distance between, <span class="math inline">\(\b x\)</span> are their confounder values, and <span class="math inline">\(\b\Sigma_x\)</span> is the covariance matrix of confounders. <span class="math inline">\(\b W\)</span> is a weights matrix. We must include <strong>all confounders</strong>.</p>
 </div>
 <p>The weights <span class="math inline">\(\b W\)</span> are estimated to make the treated and untreated groups as similar as possible. This balance between treated and untreated eliminates selection bias. We estimate the weights as follows:</p>
 <div class="cell">
@@ -329,42 +330,23 @@ window.Quarto = {
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.7301 </span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SE.........  0.10872 </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  15.913 </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Estimate...  1.5225 </span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SE.........  0.11373 </span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; T-stat.....  13.387 </span></span>
 <span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; p.val......  &lt; 2.22e-16 </span></span>
 <span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of observations..............  1000 </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  254 </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  254 </span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  508</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Original number of treated obs...............  249 </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations...............  249 </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Matched number of observations  (unweighted).  498</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
-<p>Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
-<table class="table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Pros</th>
-<th>Cons</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>1) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator.</p>
-<p>2) Shown to be the best performing matching estimator.</p></td>
-<td><p>1) Throws out unmatched data, so it wastes data.</p>
-<p>2) Can be computationally intensive and take a while.</p>
-<p>3) Only estimates the ATT, not the ATE.</p></td>
-</tr>
-</tbody>
-</table>
+<p>If <u>all confounders are included</u>, our output estimate will be the ATT - the average treatment effect for those units who received the treatment.</p>
 <div class="small">
-<p>Kevin’s Comments: Genetic matching is the best form of matching. So if you are using matching, you should use genetic matching unless it is not possible to do.</p>
+<p>Omission of any confounder will cause inaccurate matches, thus causing inaccurate results.</p>
 </div>
+<p>Genetic matching is the best form of matching. So if you are using matching, you should use genetic matching unless it is not possible to do.</p>
+<p>Genetic matching (and all matching) also throws out a lot of data that is unmatched, which can be wasteful.</p>
 
 
 

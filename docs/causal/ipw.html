@@ -85,6 +85,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="mathjax-config.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -176,6 +205,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
+  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
   <a href="../causal/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
@@ -190,12 +225,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Matching</span></a>
-  </div>
-</li>
-        <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -340,10 +369,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="small">
 <p>See how the underrepresented individuals in each group (treated/untreated) were weighted upwards. We can see there is no more pre-existing differences after weighting. Thus, selection bias has been solved.</p>
 </div>
-<p>The weights/emphasis an individual by the inverse of their likelihood to receive treatment. This is estimated as the inverse of the <a href="../causal/pscore.html">propensity score</a>.</p>
+<p>The weights/emphasis an individual by the inverse of their likelihood to receive treatment. This is estimated as the inverse of the <a href="../causal/pscore.html">propensity score</a>, which is estimated using <strong>all confounders</strong>.</p>
+<div class="small">
+<p>Omission of any confounder will cause inaccurate propensity scores, and inaccurate weights.</p>
+</div>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic Model for Propensity Scores</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">glm</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">feglm</span>(</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  treatment <span class="sc">~</span> cov1 <span class="sc">+</span> cov2,</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
@@ -357,42 +389,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>Now with the weights, we can estimate the causal effect with a regression:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> treatment, <span class="at">data =</span> df, <span class="at">weights =</span> <span class="sc">~</span>ipw)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftable</span>(model) <span class="co"># Can also use summary(model)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; OLS estimation, Dep. Var.: outcome</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Observations: 1,000</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Weights: ipw</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Standard-errors: IID </span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value  Pr(&gt;|t|)    </span></span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)  1.23580   0.068086 18.1507 &lt; 2.2e-16 ***</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment    2.15719   0.097471 22.1316 &lt; 2.2e-16 ***</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; RMSE: 2.16438   Adj. R2: 0.328542</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error  t value     Pr(&gt;|t|)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 1.275451 0.06118812 20.84474 2.161481e-80</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment   1.782415 0.08907485 20.01031 3.688743e-75</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"type")</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "IID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <div class="small">
 <p>The treatment estimate is our ATE.</p>
 </div>
-<table class="table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Pros</th>
-<th>Cons</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><p>1) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator.</p>
-<p>2) Does not throw out data like matching does.</p></td>
-<td>1) Requires a large sample size to be unbiased, because logistic regression for the propensity scores does not work well with small amounts of data.</td>
-</tr>
-</tbody>
-</table>
+<p>If <u>all confounders are included</u> in the propensity score estimation, the estimate will be equal to the <span class="math inline">\(\ate\)</span>.</p>
+<p>Because weighting is dependent on the estimation of propensity scores, it is sensitive to poorly estimated propensity scores with the logistic regression, This tends to happen with smaller sample sizes, so the IPW estimator can be poor in small sample sizes.</p>
 
 
 

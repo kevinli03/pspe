@@ -29,7 +29,7 @@ $$
 $$
 
 ::: small
-Where $i$ and $j$ are two units we want to measure the distance between, $\b x$ is a vector of confounder values, and $\b\Sigma_x$ is the covariance matrix of confounders.
+Where $i$ and $j$ are two units we want to measure the distance between, $\b x$ is a vector of confounder values, and $\b\Sigma_x$ is the covariance matrix of confounders. We must include **all confounders**.
 :::
 
 ```{r}
@@ -81,20 +81,16 @@ model <- Match(
 summary(model)
 ```
 
-Our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
+If [all confounders are included]{.underline}, our output estimate will be the ATT - the average treatment effect for those units who received the treatment.
 
-+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
-| Pros                                                                                                                                         | Cons                                                    |
-+==============================================================================================================================================+=========================================================+
-| 1\) Non-parametric, so it does not need to assume a linear relationship between confounders and outcome like the fully interacted estimator. | 1\) Can be badly biased when more than 3-5 confounders. |
-|                                                                                                                                              |                                                         |
-| 2\) Very intuitive idea of matching similar individuals.                                                                                     | 2\) Throws out unmatched data, so it wastes data.       |
-|                                                                                                                                              |                                                         |
-|                                                                                                                                              | 3\) Does not estimate the ATE, only the ATT.            |
-+----------------------------------------------------------------------------------------------------------------------------------------------+---------------------------------------------------------+
+::: small
+Omission of any confounder will cause inaccurate matches, thus causing inaccurate results.
+:::
 
-: {tbl-colwidths="\[50,50\]"}
+Distance matching suffers from the curse of dimensionality. This means that as the number of confounders increase, the bias in distance matching estimates becomes larger. Thus, we should avoid using distance matching with more than 3-5 confounders.
 
 ::: small
 Kevin's comments: there is little reason to use distance matching over [genetic matching](genetic.qmd), unless your machine lacks the computational power for genetic matching.
 :::
+
+Distance matching (and all matching) also throws out a lot of data that is unmatched, which can be wasteful.
