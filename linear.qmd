@@ -1,0 +1,115 @@
+---
+title: "Linear Regression"
+---
+
+```{r}
+#| message: false
+#| warning: false
+
+# Pakcages Needed
+library(fixest)
+```
+
+Linear regression explores the relationship between several input/explanatory variables $X_1, X_2, \dots, X_p$ and a continuous outcome variable $Y$.
+
+::: small
+A binary $Y$ outcome variable also works if your goal is correlation. For prediction, use logistic.
+:::
+
+The linear regression model is specified as:
+
+$$
+Y_i = \beta_0 +\beta_1X_{i1} + \beta_2 X_{i2} + \dots + \beta_pX_{ip} + \eps_i
+$$
+
+Where $\beta_0$ is the intercept, and $\beta_j$ for $j \in [1, p]$ being the relationship between variable $X_j$ and $Y$. The model is estimated with the Ordinary Least Squares Estimator.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+
+library(tidyverse)
+N = 1000
+ATE = 2
+  
+df = tibble(
+  var1 = rbinom(N, 1, 0.5),
+  var2 = rnorm(N),
+  P = rnorm(N),
+  U = rnorm(N), 
+  W = rnorm(N),
+) %>%
+  mutate(
+    Y0 = 1 + 0.5*var1 + 0.5*var2 + 0.5*P + 0.5*U,
+    Y1 = Y0 + rnorm(N, mean = ATE*1.5, sd = 1)*var1 + rnorm(N, mean = ATE/2)*(1-var1)
+  )
+
+df = df %>%
+  mutate(
+    U2 = rnorm(N),
+    pscore = 1/(1 + exp(-(-1 - 2*var1 - 1.5*var2 + 1.5*W + 0.5*U2))),
+    var3 = rbinom(N, 1, pscore),
+    outcome = Y1*var3 + Y0*(1-var3)
+  )
+```
+
+```{r}
+#| message: false
+#| warning: false
+#| comment: "#>"
+#| class-output: r
+
+model <- feols(
+  outcome ~ var1 + var2 + var3,
+  data = df,
+  se = "hetero")
+      # heteroscedasticity robust standard errors
+summary(model)
+```
+
+::: small
+The $\beta_0$ is the (intercept) estimate. $\beta_j$ are the other estimates.
+:::
+
+The estimated coefficients are interpreted as follows:
+
+|                           |                                                                                                                                                |                                                                                                   |
+|---------------------|--------------------------|--------------------------|
+|                           | Continuous $X_j$                                                                                                                               | Binary $X_j$                                                                                      |
+| $\hat\beta_j$             | For every one unit increase in $X_j$, there is an expected $\hat\beta_j$ unit change in $Y$, holding all other explanatory variables constant. | There is a $\hat\beta_j$ unit difference in $Y$ between category $X_j = 1$ and category $X_j = 0$ |
+| $\hat\beta_0$ (intercept) | When all explanatory variables equal 0, the expected value of $Y$ is $\hat\beta_0$.                                                            | When all explanatory variables equal 0, the expected value of $Y$ is $\hat\beta_0$.               |
+
+: {tbl-colwidths="\[25,43,42\]" .bordered}
+
+::: small
+For binary $Y$, change expected unit to expected probability of $Y=1$.
+:::
+
+The coefficients have a t-test of significance run on them. Anything p\<0.05 (with stars) is considered statistically significant. A statistically significant $\hat\beta_j$ indicates that there is a relationship/correlation between $X_j$ and $Y$.
+
+We can also predict values of $Y$ given we have the values of the explanatory variables using the fitted values equation:
+
+$$
+\widehat Y_i = \hat\beta_0 + \hat\beta_1 X_{i1} + \hat\beta_2X_{i2} + \dots + \hat\beta_pX_{ip}
+$$
+
+```{r}
+#| message: false
+#| echo: false
+#| comment: "#>"
+#| class-output: r
+
+# predict Y for observations in our model
+pred.df <- predict(
+  model,
+  df # replace with df of X values for which to predict Y
+)
+
+head(pred.df)
+```
+
+::: small
+These are the first 6 observations' predicted Y. You can save these predictions into any dataframe/vector.
+:::

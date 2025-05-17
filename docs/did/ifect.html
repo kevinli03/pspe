@@ -138,17 +138,20 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../causal/random.html"> 
-<span class="menu-text">More Causal Inference</span></a>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../iv/iv.html"> 
+<span class="menu-text">Instrumental Variables</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
-  </li>  
-  <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -306,8 +309,8 @@ window.Quarto = {
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ATT:</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;                             ATT    S.E. CI.lower CI.upper p.value</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tr obs equally weighted   2.281 0.08165    2.121    2.441       0</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tr units equally weighted 2.180 0.08535    2.013    2.348       0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tr obs equally weighted   2.281 0.07803    2.128    2.434       0</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Tr units equally weighted 2.180 0.08478    2.014    2.346       0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </div>
 <p>We have two outputs - both are plausible ATT’s. It is generally recommended to use the first row - treated observations equally weighted, as it is typically the most accurate ATT estimate.</p>

@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Cluster Analysis – Causal Inference Resources</title>
+<title>Linear Regression – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -57,17 +57,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </style>
 
 
-<script src="../site_libs/quarto-nav/quarto-nav.js"></script>
-<script src="../site_libs/clipboard/clipboard.min.js"></script>
-<script src="../site_libs/quarto-html/quarto.js"></script>
-<script src="../site_libs/quarto-html/popper.min.js"></script>
-<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
-<script src="../site_libs/quarto-html/anchor.min.js"></script>
-<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
-<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "language": {
     "search-no-results-text": "No results",
@@ -85,8 +85,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }</script>
 <script src="mathjax-config.js"></script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
 
-<link rel="stylesheet" href="../styles.css">
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="styles.css">
 </head>
 
 <body class="nav-sidebar floating nav-fixed">
@@ -101,27 +130,27 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="../index.html" aria-current="page"> 
+    <a class="nav-link active" href="./index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../did/did.html"> 
+    <a class="nav-link" href="./did/did.html"> 
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../rdd/rdd.html"> 
+    <a class="nav-link" href="./rdd/rdd.html"> 
 <span class="menu-text">Regression Discontinuity</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../iv/iv.html"> 
+    <a class="nav-link" href="./iv/iv.html"> 
 <span class="menu-text">Instrumental Variables</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../soo/soo.html"> 
+    <a class="nav-link" href="./soo/soo.html"> 
 <span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../latent/latent.html"> 
+    <a class="nav-link" href="./latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
   </li>  
 </ul>
@@ -135,7 +164,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../latent/cluster.html">Cluster Analysis</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./linear.html">Linear Regression</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -146,54 +175,57 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
     <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
-      <a href="../index.html" class="sidebar-logo-link">
-      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      <a href="./index.html" class="sidebar-logo-link">
+      <img src="./lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
       </a>
       </div>
     <div class="sidebar-menu-container"> 
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/latent.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Latent Variable Models</span></a>
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Homepage</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./resources.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Additional Resources</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/factor.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Factor Analysis Models</span></a>
+  <a href="./linear.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Linear Regression</span></a>
   </div>
 </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/irt.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Item Response Theory</span></a>
-  </div>
-</li>
+ <span class="menu-text">Logistic Regression</span>
+  </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/class.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Latent Class Models</span></a>
-  </div>
-</li>
+ <span class="menu-text">Negative Binomial Regression</span>
+  </li>
         <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../latent/sem.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Structural Equation Models</span></a>
-  </div>
-</li>
+ <span class="menu-text">Fixest Tools for Regression</span>
+  </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/pca.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Principle Components Analysis</span></a>
+  <a href="./frameworks.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Basics of Causality</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../latent/cluster.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">Cluster Analysis</span></a>
+  <a href="./correlation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Issue of Selection Bias</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./random.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Magic of Randomisation</span></a>
   </div>
 </li>
     </ul>
@@ -209,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Cluster Analysis</h1>
+<h1 class="title">Linear Regression</h1>
 </div>
 
 
@@ -226,85 +258,83 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </header>
 
 
-<p>Cluster analysis is a method of finding groups/clusters of similar individuals in our dataset, based on a set of variables. We choose the number of clusters we want to divide our data into, and each individual will be assigned to a specific cluster.</p>
-<div class="quarto-figure quarto-figure-center">
-<figure class="figure">
-<p><img src="images/clipboard-1857153783.png" class="img-fluid quarto-figure quarto-figure-center figure-img" style="width:65.0%"></p>
-</figure>
-</div>
-<div class="small">
-<p>Above is an example of a cluster anlaysis with 2 clusters. Latent Class Models can also be considered to be a form of cluster analysis.</p>
-</div>
-<p>Cluster anlaysis is often conducted by <strong>K-means clustering</strong>. This form of clustering focuses on the distance between different individuals in our dataset. The idea is that a good clustering will have as small within-cluster variation as possible.</p>
-<div class="small">
-<p>In other words, you want individuals in the same cluster to be similar.</p>
-</div>
-<p>Thus, K-means clustering tries to minimise the squared euclidean distance between all the points within a cluster and the centroid (“center”) of the cluster:</p>
-<p>How do we minimise this distance? The K-means clustering algorithm works like this:</p>
-<ol type="1">
-<li>Choose how many total clusters we want.</li>
-<li>Randomly assign each unit to one of the clusters.</li>
-<li>Calculate the centroids of each cluster.</li>
-<li>Re-assign each individual to the cluster whose centroid is closest to that individual.</li>
-<li>Keep repeating steps 3 to 4 until all units are in the cluster whose centroid is closest to that individual.</li>
-<li>Repeat the whole process a few times to find the global optimum.</li>
-</ol>
-<div class="small">
-<p>K-means clustering is algorithmic, not model based (unlike the very similar Latent Class models). This means that K-means does not have model summary statistics like AIC, or significance tests.</p>
-</div>
-<p>To interpret the clusters, we have to use our own field expertise. We look at the individuals in each cluster, as well as their mean variable values, and try to assign meaning to them.</p>
-<div class="callout callout-style-simple callout-note callout-titled">
-<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
-<div class="callout-icon-container">
-<i class="callout-icon"></i>
-</div>
-<div class="callout-title-container flex-fill">
-Other Clustering Methods
-</div>
-<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
-</div>
-<div id="callout-1" class="callout-1-contents callout-collapse collapse">
-<div class="callout-body-container callout-body">
-<p>K-means is the most common, but not the only way to cluster. Other methods include:</p>
-<ol type="1">
-<li>Latent Class Models, which we covered <a href="../latent/class.html">previously</a>. They technically count as cluster analysis, since we are assinging individuals to a category of a latent variable. This is a model-based method.</li>
-<li>Gaussian Mixture Modelling: this is a variation of latent class models that deals with continuous observed items, but categorical variables.</li>
-<li>Hierarchical Cluster Anlaysis: This basically starts with each unit in its own cluster, before merging clusters that are similar. Then it repeats that continuously. We can choose to analyse any specific cluster set within this process.</li>
-</ol>
-</div>
-</div>
-</div>
-<p><br></p>
-<p>To implement cluster anlaysis, we should first start by standardising our variables.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>vars <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"X1"</span>, <span class="st">"X2"</span>, <span class="st">"X3"</span>) <span class="co">#names of variables to cluster by</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Standardise function</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>standard <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>  (x<span class="sc">-</span><span class="fu">mean</span>(x))<span class="sc">/</span><span class="fu">sd</span>(x)</span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co"># apply standardisation</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>my_data.z <span class="ot">&lt;-</span> global[,<span class="fu">c</span>(<span class="st">"Unit Names Variable"</span>, vars)]</span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>my_data.z[,vars] <span class="ot">&lt;-</span> <span class="fu">sapply</span>(my_data.z[,vars], standard)</span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(my_data.z)[<span class="sc">-</span><span class="dv">1</span>] <span class="ot">&lt;-</span> vars.z</span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>dta <span class="ot">&lt;-</span> <span class="fu">merge</span>(my_data, my_data.z, <span class="at">by=</span><span class="st">"Unit Names Variable"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Pakcages Needed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>Then, we can implement cluster anlaysis:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1236</span>) <span class="co">#set seed</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>res <span class="ot">&lt;-</span> <span class="fu">kmeans</span>(dta[,varsz],</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                  <span class="dv">4</span>, <span class="co">#change to number of clusters</span></span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                  <span class="at">nstart =</span> <span class="dv">10</span>) <span class="co">#number of times to run algorithm</span></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(res)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Linear regression explores the relationship between several input/explanatory variables <span class="math inline">\(X_1, X_2, \dots, X_p\)</span> and a continuous outcome variable <span class="math inline">\(Y\)</span>.</p>
+<div class="small">
+<p>A binary <span class="math inline">\(Y\)</span> outcome variable also works if your goal is correlation. For prediction, use logistic.</p>
 </div>
-<p>We can access each individual’s assigned cluster with the following:</p>
+<p>The linear regression model is specified as:</p>
+<p><span class="math display">\[
+Y_i = \beta_0 +\beta_1X_{i1} + \beta_2 X_{i2} + \dots + \beta_pX_{ip} + \eps_i
+\]</span></p>
+<p>Where <span class="math inline">\(\beta_0\)</span> is the intercept, and <span class="math inline">\(\beta_j\)</span> for <span class="math inline">\(j \in [1, p]\)</span> being the relationship between variable <span class="math inline">\(X_j\)</span> and <span class="math inline">\(Y\)</span>. The model is estimated with the Ordinary Least Squares Estimator.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>res<span class="sc">$</span>cluster</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> var1 <span class="sc">+</span> var2 <span class="sc">+</span> var3,</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">se =</span> <span class="st">"hetero"</span>)</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>      <span class="co"># heteroscedasticity robust standard errors</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; OLS estimation, Dep. Var.: outcome</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Observations: 1,000</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Standard-errors: Heteroskedasticity-robust </span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value  Pr(&gt;|t|)    </span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 0.793253   0.050250 15.7861 &lt; 2.2e-16 ***</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; var1        0.825955   0.068114 12.1261 &lt; 2.2e-16 ***</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; var2        0.428970   0.031773 13.5009 &lt; 2.2e-16 ***</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; var3        1.534676   0.112006 13.7017 &lt; 2.2e-16 ***</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; RMSE: 0.958159   Adj. R2: 0.314688</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 </div>
 <div class="small">
-<p>You can save this vector back into your original dataset for further anlaysis.</p>
+<p>The <span class="math inline">\(\beta_0\)</span> is the (intercept) estimate. <span class="math inline">\(\beta_j\)</span> are the other estimates.</p>
+</div>
+<p>The estimated coefficients are interpreted as follows:</p>
+<table class="table-bordered table">
+<colgroup>
+<col style="width: 23%">
+<col style="width: 39%">
+<col style="width: 38%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td></td>
+<td>Continuous <span class="math inline">\(X_j\)</span></td>
+<td>Binary <span class="math inline">\(X_j\)</span></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(\hat\beta_j\)</span></td>
+<td>For every one unit increase in <span class="math inline">\(X_j\)</span>, there is an expected <span class="math inline">\(\hat\beta_j\)</span> unit change in <span class="math inline">\(Y\)</span>, holding all other explanatory variables constant.</td>
+<td>There is a <span class="math inline">\(\hat\beta_j\)</span> unit difference in <span class="math inline">\(Y\)</span> between category <span class="math inline">\(X_j = 1\)</span> and category <span class="math inline">\(X_j = 0\)</span></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(\hat\beta_0\)</span> (intercept)</td>
+<td>When all explanatory variables equal 0, the expected value of <span class="math inline">\(Y\)</span> is <span class="math inline">\(\hat\beta_0\)</span>.</td>
+<td>When all explanatory variables equal 0, the expected value of <span class="math inline">\(Y\)</span> is <span class="math inline">\(\hat\beta_0\)</span>.</td>
+</tr>
+</tbody>
+</table>
+<div class="small">
+<p>For binary <span class="math inline">\(Y\)</span>, change expected unit to expected probability of <span class="math inline">\(Y=1\)</span>.</p>
+</div>
+<p>The coefficients have a t-test of significance run on them. Anything p&lt;0.05 (with stars) is considered statistically significant. A statistically significant <span class="math inline">\(\hat\beta_j\)</span> indicates that there is a relationship/correlation between <span class="math inline">\(X_j\)</span> and <span class="math inline">\(Y\)</span>.</p>
+<p>We can also predict values of <span class="math inline">\(Y\)</span> given we have the values of the explanatory variables using the fitted values equation:</p>
+<p><span class="math display">\[
+\widehat Y_i = \hat\beta_0 + \hat\beta_1 X_{i1} + \hat\beta_2X_{i2} + \dots + \hat\beta_pX_{ip}
+\]</span></p>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 2.247673 1.612395 1.210214 2.213054 2.059865 2.158955</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<div class="small">
+<p>These are the first 6 observations’ predicted Y. You can save these predictions into any dataframe/vector.</p>
 </div>
 
 

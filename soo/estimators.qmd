@@ -1,0 +1,49 @@
+---
+title: "Quasi-Random Estimators"
+---
+
+There are many different estimators that can be used to control for confounders.
+
+Choosing the right estimator is difficult - it depends on the scenario in question. My recommendation is to try as many estimators as possible, and report all of their results. It is a good sign if all your estimators agree on the direction and significance of your causal effect.
+
++--------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| Estimator                                  | When to Use                                                                                                             |
++============================================+=========================================================================================================================+
+| [Fully Interacted Estimator](interact.qmd) | When you have data on all the confounders, and you believe the confounders have a linear relationship with the outcome. |
+|                                            |                                                                                                                         |
+| ::: small                                  |                                                                                                                         |
+| Estimand: ATE                              |                                                                                                                         |
+| :::                                        |                                                                                                                         |
++--------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| [Inverse Probability Weighting](ipw.qmd)   | When you have data on all the confounders, and have a large dataset.                                                    |
+|                                            |                                                                                                                         |
+| ::: small                                  |                                                                                                                         |
+| Estimand: ATE                              |                                                                                                                         |
+| :::                                        |                                                                                                                         |
++--------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| [Distance Matching](distance.qmd)          | When you have data on all the confounders, and have less than 3-5 confounders.                                          |
+|                                            |                                                                                                                         |
+| ::: small                                  | ::: small                                                                                                               |
+| Estimand: ATT                              | Note: you should generally use genetic matching unless not possible.                                                    |
+| :::                                        | :::                                                                                                                     |
++--------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| [Propensity Score Matching](pscore.qmd)    | When you have data on all the confounders, and have a large dataset.                                                    |
+|                                            |                                                                                                                         |
+| ::: small                                  | ::: small                                                                                                               |
+| Estimand: ATT                              | Note: you should generally use genetic matching unless not possible.                                                    |
+| :::                                        | :::                                                                                                                     |
++--------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| [Genetic Matching](genetic.qmd)            | When you have data on all the confounders.                                                                              |
+|                                            |                                                                                                                         |
+| ::: small                                  | ::: small                                                                                                               |
+| Estimand: ATT                              | Note: best matching method.                                                                                             |
+| :::                                        | :::                                                                                                                     |
++--------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+| Causal Forests                             | When you are interested in heterogenous treatment effects.                                                              |
+|                                            |                                                                                                                         |
+| ::: small                                  |                                                                                                                         |
+| Estimand: CATE                             |                                                                                                                         |
+| :::                                        |                                                                                                                         |
++--------------------------------------------+-------------------------------------------------------------------------------------------------------------------------+
+
+: {tbl-colwidths="\[37,63\]" .bordered}

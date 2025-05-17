@@ -38,7 +38,7 @@ Our treated and control groups might look like:
 
 ::: small
 |                                         |                                                   |
-|--------------------------------|----------------------------------------|
+|-----------------------------------------|---------------------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
 | Smart Students (x4)                     | Smart Students (x1)                               |
 | Dumb Students (x1)                      | Dumb Students (x4)                                |
@@ -50,7 +50,7 @@ Our two groups have pre-existing differences. However, by emphasising certain in
 
 ::: small
 |                                         |                                                   |
-|--------------------------------|----------------------------------------|
+|-----------------------------------------|---------------------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
 | Smart Students (x4)                     | Smart Students (emphasise to x4)                  |
 | Dumb Students (emphasise to x4)         | Dumb Students (x4)                                |
@@ -106,10 +106,10 @@ df = df %>%
 #| class-output: r
 
 # Logistic Model for Propensity Scores
-propensity <- feglm(
+propensity <- femlm(
   treatment ~ cov1 + cov2,
   data = df,
-  family = "binomial")
+  family = "logit")
 
 # Predice Propensity Scores for All Observations
 df$pscore <- predict(propensity, type = "response")

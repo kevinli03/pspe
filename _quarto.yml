@@ -15,11 +15,14 @@ website:
           href: index.qmd
         - text: "Difference-in-Differences"
           href: did/did.qmd
-        - text: "More Causal Inference"
-          href: causal/random.qmd
+        - text: "Regression Discontinuity"
+          href: rdd/rdd.qmd
+        - text: "Instrumental Variables"
+          href: iv/iv.qmd
+        - text: "Selection on Observables"
+          href: soo/soo.qmd
         - text: "Latent Variable Models"
           href: latent/latent.qmd
-        - text: "Regression Models"
 
   sidebar:
     - title: "Causal Inference Basics"
@@ -34,11 +37,18 @@ website:
         - text: "Additional Resources"
           href: resources.qmd
         - text: "---"
-        - text: "Regression with Fixest"
+        - text: "Linear Regression"
+          href: linear.qmd
+        - text: "Logistic Regression"
+        - text: "Negative Binomial Regression"
+        - text: "Fixest Tools for Regression"
+        - text: "---"
         - text: "Basics of Causality"
           href: frameworks.qmd
         - text: "Issue of Selection Bias"
           href: correlation.qmd
+        - text: "Magic of Randomisation"
+          href: random.qmd
 
     - title: "Difference-in-Differences"
       style: floating
@@ -69,29 +79,62 @@ website:
         - text: "2-stage DiD Estimator"
           href: did/did2s.qmd
 
-    - title: "More Causal Inference"
+    - title: "RDD"
+      style: floating
+      logo: lse2.png
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Regression Discontinuity"
+          href: rdd/rdd.qmd
+        - text: "How RDD Works"
+        - text: "RDD Estimators"
+        - text: "---"
+        - text: "Sharp RDD Estimator"
+        - text: "Fuzzy RDD Estimator"
+        - text: "Regression Kink"
+        - text: "---"
+        - text: "Tests for Sorting"
+
+    - title: "IV"
+      style: floating
+      logo: lse2.png
+      border: true
+      background: "#f8f9fa"
+      foreground: "#36026b"
+      contents:
+        - text: "Instrumental Variables"
+          href: iv/iv.qmd
+        - text: "Two-Stage Least Squares"
+        - text: "Weak Instruments"
+        - text: "---"
+        - text: "Non-Compliance Instruments"
+        - text: "Examiner Instruments"
+        - text: "Shift-Share Instruments"
+        - text: "Recentered Instruments"
+
+    - title: "SOO"
       style: floating
       border: true
       background: "#f8f9fa"
       foreground: "#36026b"
       contents:
-        - text: "The Magic of Randomisation"
-          href: causal/random.qmd
-        - text: "Quasi-Random Estimators"
-          href: causal/estimators.qmd
+        - text: "Selection on Observables"
+          href: soo/soo.qmd
+        - text: "Estimators for SOO"
+          href: soo/estimators.qmd
         - text: "---"
-        - text: "Instrumental Variables"
-        - text: "Regression Discontinuity"
         - text: "Fully Interacted Estimator"
-          href: causal/interact.qmd
+          href: soo/interact.qmd
         - text: "Inverse Probability Weighting"
-          href: causal/ipw.qmd
+          href: soo/ipw.qmd
         - text: "Distance Matching"
-          href: causal/distance.qmd
+          href: soo/distance.qmd
         - text: "Propensity Score Matching"
-          href: causal/pscore.qmd
+          href: soo/pscore.qmd
         - text: "Genetic Matching"
-          href: causal/genetic.qmd
+          href: soo/genetic.qmd
         - text: "Causal Forests"
         
     - title: "Latent Models"
@@ -109,7 +152,6 @@ website:
           href: latent/irt.qmd
         - text: "Latent Class Models"
           href: latent/class.qmd
-        - text: "Gaussian Mixture Models"
         - text: "Structural Equation Models"
           href: latent/sem.qmd
         - text: "---"

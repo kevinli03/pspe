@@ -75,10 +75,10 @@ df = df %>%
 #| class-output: r
 
 # Logistic Model for Propensity Scores
-propensity <- feglm(
+propensity <- femlm(
   treatment ~ cov1 + cov2,
   data = df,
-  family = "binomial")
+  family = "logit")
 
 # Predice Propensity Scores for All Observations
 df$pscore <- predict(propensity, type = "response")

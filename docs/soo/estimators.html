@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Selection on Observables – Causal Inference Resources</title>
+<title>Quasi-Random Estimators – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -51,40 +51,11 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
 
-<body class="nav-fixed">
+<body class="nav-sidebar floating nav-fixed">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -96,7 +67,7 @@ window.Quarto = {
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link" href="../index.html"> 
+    <a class="nav-link active" href="../index.html" aria-current="page"> 
 <span class="menu-text">Home</span></a>
   </li>  
   <li class="nav-item">
@@ -104,17 +75,20 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../causal/random.html"> 
-<span class="menu-text">More Causal Inference</span></a>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../iv/iv.html"> 
+<span class="menu-text">Instrumental Variables</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
-  </li>  
-  <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -122,10 +96,78 @@ window.Quarto = {
 </div>
       </div> <!-- /container-fluid -->
     </nav>
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/estimators.html">Estimators for SOO</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+    </div>
+  </nav>
 </header>
 <!-- content -->
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header sidebar-header-stacked">
+      <a href="../index.html" class="sidebar-logo-link">
+      <img src="../lse2.png" alt="" class="sidebar-logo py-0 d-lg-inline d-none">
+      </a>
+      </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Selection on Observables</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/estimators.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Estimators for SOO</span></a>
+  </div>
+</li>
+        <li class="px-0"><hr class="sidebar-divider hi "></li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Fully Interacted Estimator</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Inverse Probability Weighting</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Distance Matching</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Propensity Score Matching</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Genetic Matching</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+ <span class="menu-text">Causal Forests</span>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
         
@@ -135,7 +177,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Selection on Observables</h1>
+<h1 class="title">Quasi-Random Estimators</h1>
 </div>
 
 
@@ -152,111 +194,73 @@ window.Quarto = {
 </header>
 
 
-<p>Our issue in causal inference is that a confounder is causing pre-existing differences:</p>
-<div class="center-graph">
-<div class="cell" data-fig-width="4" data-fig-height="1.1" data-layout-align="default">
-<div class="cell-output-display">
-<div>
-<p></p><figure class="figure"><p></p>
-<div>
-<svg width="384" height="106" viewbox="0.00 0.00 426.24 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
-<title>example2</title>
-<!-- D -->
-<g id="node1" class="node">
-<title>D</title>
-<polygon fill="none" stroke="black" points="165.45,-36 -0.15,-36 -0.15,0 165.45,0 165.45,-36"></polygon>
-<text text-anchor="middle" x="82.65" y="-13.8" font-family="Times,serif" font-size="14.00">Receiving Scholarship (D)</text>
-</g>
-<!-- Y -->
-<g id="node3" class="node">
-<title>Y</title>
-<polygon fill="none" stroke="black" points="418.34,-36 276.96,-36 276.96,0 418.34,0 418.34,-36"></polygon>
-<text text-anchor="middle" x="347.65" y="-13.8" font-family="Times,serif" font-size="14.00">University Grades (Y)</text>
-</g>
-<!-- D&#45;&gt;Y -->
-<g id="edge1" class="edge">
-<title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M165.41,-18C197.61,-18 234.4,-18 266.45,-18"></path>
-<polygon fill="black" stroke="black" points="266.68,-21.5 276.68,-18 266.68,-14.5 266.68,-21.5"></polygon>
-<text text-anchor="middle" x="221.18" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
-</g>
-<!-- X -->
-<g id="node2" class="node">
-<title>X</title>
-<polygon fill="none" stroke="black" points="296.75,-109 132.55,-109 132.55,-73 296.75,-73 296.75,-109"></polygon>
-<text text-anchor="middle" x="214.65" y="-86.8" font-family="Times,serif" font-size="14.00">Intellegence (Confounder)</text>
-</g>
-<!-- X&#45;&gt;D -->
-<g id="edge2" class="edge">
-<title>X-&gt;D</title>
-<path fill="none" stroke="black" d="M183.03,-72.99C165.12,-63.36 142.53,-51.21 123.31,-40.87"></path>
-<polygon fill="black" stroke="black" points="124.93,-37.77 114.47,-36.11 121.61,-43.93 124.93,-37.77"></polygon>
-</g>
-<!-- X&#45;&gt;Y -->
-<g id="edge3" class="edge">
-<title>X-&gt;Y</title>
-<path fill="none" stroke="black" d="M255.4,-68.24C271.57,-59.62 290.13,-49.7 306.35,-41.05"></path>
-<polygon fill="black" stroke="black" points="253.68,-65.2 246.51,-72.99 256.98,-71.37 253.68,-65.2"></polygon>
-<polygon fill="black" stroke="black" points="308.42,-43.91 315.59,-36.11 305.12,-37.74 308.42,-43.91"></polygon>
-</g>
-</g>
-</svg>
-</div>
-<p></p></figure><p></p>
-</div>
-</div>
-</div>
-</div>
-<p>By definition, as the confounder <strong>changes</strong>, your likelihood of getting treatment changes. As the confounder <strong>changes</strong>, the outcome value will also change.</p>
-<p>These issues occur when the confounder <strong>changes</strong> in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.</p>
-<p>For example, let’s assume that intelligence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intelligence:</p>
-<p><span class="math display">\[
-\begin{align}
-\tau_\text{smart} &amp; = \green{Y_\text{smart}^{(1)}} - \red{Y_\text{smart}^{(0)}}\\
-\tau_\text{dumb} &amp; = \green{Y_\text{dumb}^{(1)}} - \red{Y_\text{dumb}^{(0)}}
-\end{align}
-\]</span></p>
-<p>The confounder is constant here, so no selection bias. Thus, within each category, correlation is equal to causation. Our overall causal effect will be a weighted average of the categories:</p>
-<p><span class="math display">\[
-\tau = \tau_\text{smart} Pr(\text{smart})  \ + \ \tau_\text{dumb} Pr(\text{dumb})
-\]</span></p>
-<div class="small">
-<p>The weights of this weighted average are the probability/frequency of that value of the confounder.</p>
-</div>
-<p>Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies.</p>
-<p><span class="math display">\[
-\tau = \sum_X \tau_\text{X} \cdot Pr(X)
-\]</span></p>
-<p><br></p>
-<p>For selection on observables to work, we need to meet 3 assumptions:</p>
+<p>There are many different estimators that can be used to control for confounders.</p>
+<p>Choosing the right estimator is difficult - it depends on the scenario in question. My recommendation is to try as many estimators as possible, and report all of their results. It is a good sign if all your estimators agree on the direction and significance of your causal effect.</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 35%">
-<col style="width: 65%">
+<col style="width: 37%">
+<col style="width: 63%">
 </colgroup>
+<thead>
+<tr class="header">
+<th>Estimator</th>
+<th>When to Use</th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Assumption</span></td>
-<td><span class="smallcaps">Description</span></td>
+<td><p><a href="../soo/interact.html">Fully Interacted Estimator</a></p>
+<div class="small">
+<p>Estimand: ATE</p>
+</div></td>
+<td>When you have data on all the confounders, and you believe the confounders have a linear relationship with the outcome.</td>
 </tr>
 <tr class="even">
-<td><mark>Conditional Ignorability</mark></td>
-<td>This means that we must account for <strong>all</strong> possible confounders (cannot miss a single one).</td>
+<td><p><a href="../soo/ipw.html">Inverse Probability Weighting</a></p>
+<div class="small">
+<p>Estimand: ATE</p>
+</div></td>
+<td>When you have data on all the confounders, and have a large dataset.</td>
 </tr>
 <tr class="odd">
-<td><mark>Common Support</mark></td>
-<td>This means no one can have a 100% chance of being in treatment or control. They always have a chance to be in either, no matter their confounding values.</td>
+<td><p><a href="../soo/distance.html">Distance Matching</a></p>
+<div class="small">
+<p>Estimand: ATT</p>
+</div></td>
+<td><p>When you have data on all the confounders, and have less than 3-5 confounders.</p>
+<div class="small">
+<p>Note: you should generally use genetic matching unless not possible.</p>
+</div></td>
 </tr>
 <tr class="even">
-<td><mark>Stable Unit Treatment Value Assumption (SUTVA)</mark></td>
-<td>This means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).</td>
+<td><p><a href="../soo/pscore.html">Propensity Score Matching</a></p>
+<div class="small">
+<p>Estimand: ATT</p>
+</div></td>
+<td><p>When you have data on all the confounders, and have a large dataset.</p>
+<div class="small">
+<p>Note: you should generally use genetic matching unless not possible.</p>
+</div></td>
+</tr>
+<tr class="odd">
+<td><p><a href="../soo/genetic.html">Genetic Matching</a></p>
+<div class="small">
+<p>Estimand: ATT</p>
+</div></td>
+<td><p>When you have data on all the confounders.</p>
+<div class="small">
+<p>Note: best matching method.</p>
+</div></td>
+</tr>
+<tr class="even">
+<td><p>Causal Forests</p>
+<div class="small">
+<p>Estimand: CATE</p>
+</div></td>
+<td>When you are interested in heterogenous treatment effects.</td>
 </tr>
 </tbody>
 </table>
-<p><br></p>
-<p>We have a wide choice of estimators that we can use. Use the sidebar or links in the table to access each estimator’s page.</p>
-<p><br></p>
 
 
 

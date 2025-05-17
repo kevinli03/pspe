@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Inverse Probability Weighting – Causal Inference Resources</title>
+<title>Selection on Observables – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,40 +19,6 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
-}
-/* CSS for syntax highlighting */
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-div.sourceCode { margin: 1em 0; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-  }
-pre.numberSource { margin-left: 3em;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -138,17 +104,20 @@ window.Quarto = {
 <span class="menu-text">Difference-in-Differences</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="../causal/random.html"> 
-<span class="menu-text">More Causal Inference</span></a>
+    <a class="nav-link" href="../rdd/rdd.html"> 
+<span class="menu-text">Regression Discontinuity</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../iv/iv.html"> 
+<span class="menu-text">Instrumental Variables</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../soo/soo.html"> 
+<span class="menu-text">Selection on Observables</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../latent/latent.html"> 
 <span class="menu-text">Latent Variable Models</span></a>
-  </li>  
-  <li class="nav-item">
-    <span class="nav-link">
-<span class="menu-text">Regression Models</span>
-    </span>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -161,7 +130,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../causal/ipw.html">Inverse Probability Weighting</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../soo/soo.html">Selection on Observables</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -180,50 +149,44 @@ window.Quarto = {
     <ul class="list-unstyled mt-1">
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../causal/random.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">The Magic of Randomisation</span></a>
+  <a href="../soo/soo.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">Selection on Observables</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../causal/estimators.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Quasi-Random Estimators</span></a>
+  <a href="../soo/estimators.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Estimators for SOO</span></a>
   </div>
 </li>
         <li class="px-0"><hr class="sidebar-divider hi "></li>
         <li class="sidebar-item">
- <span class="menu-text">Instrumental Variables</span>
-  </li>
-        <li class="sidebar-item">
- <span class="menu-text">Regression Discontinuity</span>
-  </li>
-        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../causal/interact.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/interact.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Fully Interacted Estimator</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../causal/ipw.html" class="sidebar-item-text sidebar-link active">
+  <a href="../soo/ipw.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Inverse Probability Weighting</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../causal/distance.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/distance.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Distance Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../causal/pscore.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/pscore.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Propensity Score Matching</span></a>
   </div>
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../causal/genetic.html" class="sidebar-item-text sidebar-link">
+  <a href="../soo/genetic.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">Genetic Matching</span></a>
   </div>
 </li>
@@ -243,7 +206,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Inverse Probability Weighting</h1>
+<h1 class="title">Selection on Observables</h1>
 </div>
 
 
@@ -260,57 +223,53 @@ window.Quarto = {
 </header>
 
 
-<div class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Let us look at this example, with a confounder.</p>
+<p>Our issue in causal inference is that a confounder is causing pre-existing differences:</p>
 <div class="center-graph">
 <div class="cell" data-fig-width="4" data-fig-height="1.1" data-layout-align="default">
 <div class="cell-output-display">
 <div>
 <p></p><figure class="figure"><p></p>
 <div>
-<svg width="384" height="106" viewbox="0.00 0.00 380.31 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
+<svg width="384" height="106" viewbox="0.00 0.00 426.24 117.00" xmlns="http://www.w3.org/2000/svg" xlink="http://www.w3.org/1999/xlink" style="; max-width: none; max-height: none">
 <g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 113)">
 <title>example2</title>
 <!-- D -->
 <g id="node1" class="node">
 <title>D</title>
-<polygon fill="none" stroke="black" points="142.54,-36 -0.18,-36 -0.18,0 142.54,0 142.54,-36"></polygon>
-<text text-anchor="middle" x="71.18" y="-13.8" font-family="Times,serif" font-size="14.00">Receiving Scholarship</text>
+<polygon fill="none" stroke="black" points="165.45,-36 -0.15,-36 -0.15,0 165.45,0 165.45,-36"></polygon>
+<text text-anchor="middle" x="82.65" y="-13.8" font-family="Times,serif" font-size="14.00">Receiving Scholarship (D)</text>
 </g>
 <!-- Y -->
 <g id="node3" class="node">
 <title>Y</title>
-<polygon fill="none" stroke="black" points="372.43,-36 253.93,-36 253.93,0 372.43,0 372.43,-36"></polygon>
-<text text-anchor="middle" x="313.18" y="-13.8" font-family="Times,serif" font-size="14.00">University Grades</text>
+<polygon fill="none" stroke="black" points="418.34,-36 276.96,-36 276.96,0 418.34,0 418.34,-36"></polygon>
+<text text-anchor="middle" x="347.65" y="-13.8" font-family="Times,serif" font-size="14.00">University Grades (Y)</text>
 </g>
 <!-- D&#45;&gt;Y -->
 <g id="edge1" class="edge">
 <title>D-&gt;Y</title>
-<path fill="none" stroke="black" d="M142.48,-18C174.44,-18 211.99,-18 243.72,-18"></path>
-<polygon fill="black" stroke="black" points="243.81,-21.5 253.81,-18 243.81,-14.5 243.81,-21.5"></polygon>
-<text text-anchor="middle" x="198.21" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
+<path fill="none" stroke="black" d="M165.41,-18C197.61,-18 234.4,-18 266.45,-18"></path>
+<polygon fill="black" stroke="black" points="266.68,-21.5 276.68,-18 266.68,-14.5 266.68,-21.5"></polygon>
+<text text-anchor="middle" x="221.18" y="-25.2" font-family="Times,serif" font-size="14.00">Causal Effect</text>
 </g>
 <!-- X -->
 <g id="node2" class="node">
 <title>X</title>
-<polygon fill="none" stroke="black" points="267.93,-109 114.43,-109 114.43,-73 267.93,-73 267.93,-109"></polygon>
-<text text-anchor="middle" x="191.18" y="-86.8" font-family="Times,serif" font-size="14.00">Smartness (Confounder)</text>
+<polygon fill="none" stroke="black" points="296.75,-109 132.55,-109 132.55,-73 296.75,-73 296.75,-109"></polygon>
+<text text-anchor="middle" x="214.65" y="-86.8" font-family="Times,serif" font-size="14.00">Intellegence (Confounder)</text>
 </g>
 <!-- X&#45;&gt;D -->
 <g id="edge2" class="edge">
 <title>X-&gt;D</title>
-<path fill="none" stroke="black" d="M162.44,-72.99C146.38,-63.49 126.17,-51.54 108.86,-41.29"></path>
-<polygon fill="black" stroke="black" points="110.49,-38.19 100.11,-36.11 106.93,-44.22 110.49,-38.19"></polygon>
+<path fill="none" stroke="black" d="M183.03,-72.99C165.12,-63.36 142.53,-51.21 123.31,-40.87"></path>
+<polygon fill="black" stroke="black" points="124.93,-37.77 114.47,-36.11 121.61,-43.93 124.93,-37.77"></polygon>
 </g>
 <!-- X&#45;&gt;Y -->
 <g id="edge3" class="edge">
 <title>X-&gt;Y</title>
-<path fill="none" stroke="black" d="M229.29,-67.82C243.85,-59.35 260.44,-49.69 275,-41.22"></path>
-<polygon fill="black" stroke="black" points="227.29,-64.94 220.4,-72.99 230.81,-70.99 227.29,-64.94"></polygon>
-<polygon fill="black" stroke="black" points="276.89,-44.17 283.77,-36.11 273.37,-38.12 276.89,-44.17"></polygon>
+<path fill="none" stroke="black" d="M255.4,-68.24C271.57,-59.62 290.13,-49.7 306.35,-41.05"></path>
+<polygon fill="black" stroke="black" points="253.68,-65.2 246.51,-72.99 256.98,-71.37 253.68,-65.2"></polygon>
+<polygon fill="black" stroke="black" points="308.42,-43.91 315.59,-36.11 305.12,-37.74 308.42,-43.91"></polygon>
 </g>
 </g>
 </svg>
@@ -320,89 +279,55 @@ window.Quarto = {
 </div>
 </div>
 </div>
-<p>Our treated and control groups might look like:</p>
+<p>By definition, as the confounder <strong>changes</strong>, your likelihood of getting treatment changes. As the confounder <strong>changes</strong>, the outcome value will also change.</p>
+<p>These issues occur when the confounder <strong>changes</strong> in value. So what if we hold the confounders constant? Then, there would be no changes in confounders - so the variation in treatment assignment and outcomes cannot be attributed to the confounder.</p>
+<p>For example, let’s assume that intelligence has two values: smart and dumb. Let us calculate the treatment effect on university grades within each level of intelligence:</p>
+<p><span class="math display">\[
+\begin{align}
+\tau_\text{smart} &amp; = \green{Y_\text{smart}^{(1)}} - \red{Y_\text{smart}^{(0)}}\\
+\tau_\text{dumb} &amp; = \green{Y_\text{dumb}^{(1)}} - \red{Y_\text{dumb}^{(0)}}
+\end{align}
+\]</span></p>
+<p>The confounder is constant here, so no selection bias. Thus, within each category, correlation is equal to causation. Our overall causal effect will be a weighted average of the categories:</p>
+<p><span class="math display">\[
+\tau = \tau_\text{smart} Pr(\text{smart})  \ + \ \tau_\text{dumb} Pr(\text{dumb})
+\]</span></p>
 <div class="small">
+<p>The weights of this weighted average are the probability/frequency of that value of the confounder.</p>
+</div>
+<p>Obviously, most confounders have more than 2 categories, and we often have more confounders. But the same intuition applies.</p>
+<p><span class="math display">\[
+\tau = \sum_X \tau_\text{X} \cdot Pr(X)
+\]</span></p>
+<p><br></p>
+<p>For selection on observables to work, we need to meet 3 assumptions:</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 35%">
+<col style="width: 65%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Treated (Got Scholarship)</span></td>
-<td><span class="smallcaps">Untreated (Did not get scholarship)</span></td>
+<td><span class="smallcaps">Assumption</span></td>
+<td><span class="smallcaps">Description</span></td>
 </tr>
 <tr class="even">
-<td>Smart Students (x4)</td>
-<td>Smart Students (x1)</td>
+<td><mark>Conditional Ignorability</mark></td>
+<td>This means that we must account for <strong>all</strong> possible confounders (cannot miss a single one).</td>
 </tr>
 <tr class="odd">
-<td>Dumb Students (x1)</td>
-<td>Dumb Students (x4)</td>
+<td><mark>Common Support</mark></td>
+<td>This means no one can have a 100% chance of being in treatment or control. They always have a chance to be in either, no matter their confounding values.</td>
+</tr>
+<tr class="even">
+<td><mark>Stable Unit Treatment Value Assumption (SUTVA)</mark></td>
+<td>This means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).</td>
 </tr>
 </tbody>
 </table>
-</div>
-<p>Our two groups have pre-existing differences. However, by emphasising certain individuals, we can make it seem like there are no more imbalances:</p>
-<div class="small">
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Treated (Got Scholarship)</span></td>
-<td><span class="smallcaps">Untreated (Did not get scholarship)</span></td>
-</tr>
-<tr class="even">
-<td>Smart Students (x4)</td>
-<td>Smart Students (emphasise to x4)</td>
-</tr>
-<tr class="odd">
-<td>Dumb Students (emphasise to x4)</td>
-<td>Dumb Students (x4)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="small">
-<p>See how the underrepresented individuals in each group (treated/untreated) were weighted upwards. We can see there is no more pre-existing differences after weighting. Thus, selection bias has been solved.</p>
-</div>
-<p>The weights/emphasis an individual by the inverse of their likelihood to receive treatment. This is estimated as the inverse of the <a href="../causal/pscore.html">propensity score</a>, which is estimated using <strong>all confounders</strong>.</p>
-<div class="small">
-<p>Omission of any confounder will cause inaccurate propensity scores, and inaccurate weights.</p>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Logistic Model for Propensity Scores</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>propensity <span class="ot">&lt;-</span> <span class="fu">feglm</span>(</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  treatment <span class="sc">~</span> cov1 <span class="sc">+</span> cov2,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="st">"binomial"</span>)</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Predice Propensity Scores for All Observations</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>pscore <span class="ot">&lt;-</span> <span class="fu">predict</span>(propensity, <span class="at">type =</span> <span class="st">"response"</span>)</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># inverse of propensity score for weights:</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>df<span class="sc">$</span>ipw <span class="ot">&lt;-</span> <span class="fu">ifelse</span>(df<span class="sc">$</span>treatment <span class="sc">==</span> <span class="dv">1</span>, <span class="dv">1</span><span class="sc">/</span>df<span class="sc">$</span>pscore, <span class="dv">1</span><span class="sc">/</span>(<span class="dv">1</span><span class="sc">-</span>df<span class="sc">$</span>pscore))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<p>Now with the weights, we can estimate the causal effect with a regression:</p>
-<div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(outcome <span class="sc">~</span> treatment, <span class="at">data =</span> df, <span class="at">weights =</span> <span class="sc">~</span>ipw)</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">coeftable</span>(model) <span class="co"># Can also use summary(model)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<div class="sourceCode" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error  t value     Pr(&gt;|t|)</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) 1.275451 0.06118812 20.84474 2.161481e-80</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; treatment   1.782415 0.08907485 20.01031 3.688743e-75</span></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; attr(,"type")</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] "IID"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-</div>
-<div class="small">
-<p>The treatment estimate is our ATE.</p>
-</div>
-<p>If <u>all confounders are included</u> in the propensity score estimation, the estimate will be equal to the <span class="math inline">\(\ate\)</span>.</p>
-<p>Because weighting is dependent on the estimation of propensity scores, it is sensitive to poorly estimated propensity scores with the logistic regression, This tends to happen with smaller sample sizes, so the IPW estimator can be poor in small sample sizes.</p>
+<p><br></p>
+<p>We have a wide choice of estimators that we can use. Use the sidebar or links in the table to access each estimator’s page.</p>
+<p><br></p>
 
 
 

@@ -13,7 +13,7 @@ This repository contains resources on causal inference and social statistics met
 
 -   **Latent variable models**, such as factor analysis, item response theory, and structural equation modelling.
 
--   **Regression Models** (not too much in detail, mostly implementation and interpretation).
+The home page sidebar contains basics on regression, and why correlation is not causation.
 
 ::: small
 This repository isn't meant to teach you these methods (although I do include explanations of these methods). It is primary aimed as a reference when implementing methods. Check out the [additional resources](resources.qmd) for more teaching material.
