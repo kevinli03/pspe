@@ -62,10 +62,11 @@ df = df %>%
 #| class-output: r
 
 model <- feols(
-  outcome ~ var1 + var2 + var3,
+  fml  = outcome ~ var1 + var2 + var3,
   data = df,
-  se = "hetero")
-      # heteroscedasticity robust standard errors
+  se   = "hetero"                      # heteroscedasticity robust standard errors
+)
+
 summary(model)
 ```
 
@@ -97,14 +98,13 @@ $$
 
 ```{r}
 #| message: false
-#| echo: false
+#| warning: false
 #| comment: "#>"
 #| class-output: r
 
-# predict Y for observations in our model
 pred.df <- predict(
-  model,
-  df # replace with df of X values for which to predict Y
+  object  = model,  # regression model object
+  newdata = df      # replace with df of X values for which to predict Y
 )
 
 head(pred.df)

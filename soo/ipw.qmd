@@ -38,7 +38,7 @@ Our treated and control groups might look like:
 
 ::: small
 |                                         |                                                   |
-|-----------------------------------------|---------------------------------------------------|
+|--------------------------------|----------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
 | Smart Students (x4)                     | Smart Students (x1)                               |
 | Dumb Students (x1)                      | Dumb Students (x4)                                |
@@ -50,7 +50,7 @@ Our two groups have pre-existing differences. However, by emphasising certain in
 
 ::: small
 |                                         |                                                   |
-|-----------------------------------------|---------------------------------------------------|
+|--------------------------------|----------------------------------------|
 | [Treated (Got Scholarship)]{.smallcaps} | [Untreated (Did not get scholarship)]{.smallcaps} |
 | Smart Students (x4)                     | Smart Students (emphasise to x4)                  |
 | Dumb Students (emphasise to x4)         | Dumb Students (x4)                                |
@@ -107,9 +107,10 @@ df = df %>%
 
 # Logistic Model for Propensity Scores
 propensity <- femlm(
-  treatment ~ cov1 + cov2,
-  data = df,
-  family = "logit")
+  fml    = treatment ~ cov1 + cov2,  # treat with confounders
+  data   = df,                       # your data
+  family = "logit"                   # specifies to use logistic reg
+)
 
 # Predice Propensity Scores for All Observations
 df$pscore <- predict(propensity, type = "response")
@@ -126,7 +127,12 @@ Now with the weights, we can estimate the causal effect with a regression:
 #| comment: "#>"
 #| class-output: r
 
-model <- feols(outcome ~ treatment, data = df, weights = ~ipw)
+model <- feols(
+  fml     = outcome ~ treatment,  # do not put confounders here
+  data    = df,                   # your data with weights
+  weights = ~ipw                  # use weights in regression
+)
+
 coeftable(model) # Can also use summary(model)
 ```
 

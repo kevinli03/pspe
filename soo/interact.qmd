@@ -72,9 +72,11 @@ df = df %>%
 #| class-output: r
 
 model <- lm_lin(
-  outcome ~ treatment,
-  covariates = ~ cov1 + cov2,
-  data = df)
+  formula    = outcome ~ treatment,  # do not put confounders here
+  covariates = ~ cov1 + cov2,        # confounder vars
+  data       = df                    # your data
+)
+
 fixest::coeftable(model)[,1:4] # Can also use summary(model)
 ```
 

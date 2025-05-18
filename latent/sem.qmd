@@ -76,12 +76,13 @@ formula <- '
 '
 
 model <- sem(
-  formula,
-  data = df,
-  std.ov= TRUE, #standardises the observed variables
-  std.lv= TRUE,
-  missing = "fiml")
-      # this allows use of missing data, but may take longer
+  model   = formula,  # formula from above
+  data    = df,       # your data
+  std.ov  = TRUE,     # standardises the observed variables
+  std.lv  = TRUE,
+  missing = "fiml"    # this allows use of missing data, but may take longer
+)
+      
 coef(model)
     # You can also use summary(model), which gives a more comprehensive output
 ```

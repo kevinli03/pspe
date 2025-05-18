@@ -46,12 +46,13 @@ factor =~ rich + admire + success + respect
 # You can add multiple factors f1, f2, and multiple measurement models together
 
 model <- sem(
-  formula,
-  data = df,
-  std.ov= TRUE, #standardises the observed variables
-  std.lv= TRUE,
-  missing = "fiml")
-      # this allows use of missing data, but may take longer
+  model   = formula,  # fomrula from above
+  data    = df,       # your data
+  std.ov  = TRUE,     # standardises the observed variables
+  std.lv  = TRUE,
+  missing = "fiml"    # this allows use of missing data, but may take longer
+)
+      
 coef(model)
     # You can also use summary(model), which gives a more comprehensive output
 ```

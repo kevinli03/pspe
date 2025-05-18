@@ -70,14 +70,14 @@ df = df %>%
 #| class-output: r
 
 model <- Match(
-  Y = df$outcome,
-  Tr = df$treatment,
-  X = df[,c("cov1","cov2")],
-  M = 1,
-      # number of matches - default is 1 to 1, but we can match more to 1
-  BiasAdjust = TRUE,
-      # modern adjustment - usually good to keep on
-  Weight = 2)
+  Y          = df$outcome,             # outcome var
+  Tr         = df$treatment,           # treatment var
+  X          = df[,c("cov1","cov2")],  # confounder vars
+  M          = 1,                      # number of matches for each treated unit
+  BiasAdjust = TRUE,                   # modern adjustment - don't change
+  Weight     = 2                       # don't change
+)
+
 summary(model)
 ```
 

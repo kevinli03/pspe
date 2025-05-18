@@ -66,9 +66,10 @@ df = df %>%
 
 # Logistic Model for Propensity Scores
 propensity <- femlm(
-  treatment ~ cov1 + cov2,
-  data = df,
-  family = "logit")
+  fml    = treatment ~ cov1 + cov2,  # include all confounders
+  data   = df,                       # your data
+  family = "logit"                   # tell R to use logistic reg
+)
 
 # Predice Propensity Scores for All Observations
 df$pscore <- predict(propensity, type = "response")
@@ -94,19 +95,16 @@ The weights $\b W$ are estimated to make the treated and untreated groups as sim
 
 set.seed(333) #replicability
 gen <- GenMatch(
-  Tr = df$treatment,
-  X = df[,c("cov1","cov2","pscore")],
-      # include all covariates and pscore
-  BalanceMatrix = df[,c("cov1","cov2")],
-      # include all covariates
-  estimand = "ATT",
-  M = 2,
-  replace = TRUE,
-  ties = FALSE,
-  distance.tolerance = 0,
-  print.level = 0,
-  pop.size = 50)
-    # higher pop-size means more accuracy, but also longer (usually 200 is good)
+  Tr            = df$treatment,                   # treatment var
+  X             = df[,c("cov1","cov2","pscore")], # include all confounders and pscore
+  BalanceMatrix = df[,c("cov1","cov2")],          # include all confounders
+  estimand      = "ATT",
+  M             = 2,
+  replace       = TRUE,
+  ties          = FALSE,
+  print.level   = 0,
+  pop.size      = 50                              # 200 is standard. larger is better, takes longer
+)
 ```
 
 Then, matching is done with the units that have the smallest distance:
@@ -117,20 +115,17 @@ Then, matching is done with the units that have the smallest distance:
 #| comment: "#>"
 #| class-output: r
 
-# the setting below should match your choices from GenMatch()
 model <- Match(
-  Y = df$outcome,
-  Tr = df$treatment,
-  X = df[,c("cov1","cov2","pscore")],
-      # include all covariates and pscore
-  estimand = "ATT",
-  M = 2,
-  replace = TRUE,
-  ties = FALSE,
-  distance.tolerance = 0,
-  Weight.matrix = gen$Weight.matrix,
-      # tells R to use genetic matching weight matrix calculated earlier
-  Weight = 3)
+  Y             = df$outcome,                     # outcome var
+  Tr            = df$treatment,                   # treatment var
+  X             = df[,c("cov1","cov2","pscore")], # include all confounders and pscore
+  estimand      = "ATT",
+  M             = 2,
+  replace       = TRUE,
+  ties          = FALSE,
+  Weight.matrix = gen$Weight.matrix,              # weight matrix from GenMatch
+  Weight        = 3
+)
 
 summary(model)
 ```
