@@ -35,15 +35,16 @@ colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "c
 #| fig-height: 3.5
 
 model <- feols(
-  outcome ~ sunab(first.treated, time) + covariate | unit + time,
+  fml  = outcome ~ sunab(first.treated, time) + covariate | unit + time,
   data = df,
-  vcov = ~unit)
+  vcov = ~unit
+)
 
 iplot(
-  model,
-  drop = "[[:digit:]]{2}",
-      # this drops the time periods too far before and after treatment.
-  ref.line = 0)
+  object   = model,             # object from feols
+  drop     = "[[:digit:]]{2}",  # this drops periods too far before/after treatment.
+  ref.line = 0                  # draws line at treatment period
+)
 ```
 
 We can also aggregate the dynamic ATT's into one singular ATT:

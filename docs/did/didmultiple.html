@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Difference-in-Differences Estimators – Causal Inference Resources</title>
+<title>DIDmultiple Estimator – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -101,7 +135,7 @@ ul.task-list li input[type="checkbox"] {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/estimators.html">DiD Estimators</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/didmultiple.html">DiDmultiple Estimator</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -132,7 +166,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/estimators.html" class="sidebar-item-text sidebar-link active">
+  <a href="../did/estimators.html" class="sidebar-item-text sidebar-link">
  <span class="menu-text">DiD Estimators</span></a>
   </div>
 </li>
@@ -169,7 +203,7 @@ ul.task-list li input[type="checkbox"] {
 </li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="../did/didmultiple.html" class="sidebar-item-text sidebar-link">
+  <a href="../did/didmultiple.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">DiDmultiple Estimator</span></a>
   </div>
 </li>
@@ -198,7 +232,8 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Difference-in-Differences Estimators</h1>
+<h1 class="title">DIDmultiple Estimator</h1>
+<p class="subtitle lead">De Chaisemartin and d’Hautlfoeuille (2024)</p>
 </div>
 
 
@@ -215,105 +250,76 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>There are two quantities of interest in all DiD designs, that we aim to estimate:</p>
-<ol type="1">
-<li><p>The <strong>Average Treatment Effect on the Treated (ATT)</strong>: the average effect of the treatment in question, for units that adopted the treatment. This is a one number summary of the effect of the treatment.</p></li>
-<li><p><strong>Dynamic Treatment Effects</strong>: These are ATT estimates, but for every year the treatment takes effect. For example, if treatment starts in 2000, dynamic treatment effects will exist for 2000, 2001, 2002, etc. This helps us see how the treatment evolves over time.</p></li>
-</ol>
-<div class="small">
-<p>Dynamic treatment effects can only be estimated in classical DiD if we have more than 1 pre and post treatment period. Dynamic treatment effects can also be used to test the parallel trends assumption.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(DIDmultiplegtDYN)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 37%">
-<col style="width: 63%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Estimator</th>
-<th>When to Use</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><a href="../did/twfe.html">Two-Way Fixed Effects</a></td>
-<td><p>Classical, Staggered*, Non-Absorbing*</p>
-<div class="small">
-<p>*TWFE is <strong>biased</strong> when dealing with staggered DiD and reversal of treatment, if there is any heterogeneity in treatment effects.</p>
-</div></td>
-</tr>
-<tr class="even">
-<td><p><a href="../did/sunab.html">Interaction-Weighted Estimator</a></p>
-<div class="small">
-<p>Sun and Abraham (2021)</p>
-</div></td>
-<td><p>Staggered</p>
-<div class="small">
-<p>Notes: one of the most popular estimators, especially when dynamic treatment effects are of interest. Quite simple as well.</p>
-</div></td>
-</tr>
-<tr class="odd">
-<td><p><a href="../did/cs.html">Doubly-Robust Estimator</a></p>
-<div class="small">
-<p>Callaway and Sant’Anna (2021)</p>
-</div></td>
-<td><p>Staggered</p>
-<div class="small">
-<p>Notes: Probably the most popular estimator in econometrics. Quite a complex estimator.</p>
-</div></td>
-</tr>
-<tr class="even">
-<td><p><a href="../did/ifect.html">Imputation Estimator</a></p>
-<div class="small">
-<p>Liu, Wang, and Xu (2024)</p>
-</div></td>
-<td><p>Staggered, With Reversal</p>
-<div class="small">
-<p>Notes: Probably the most popular in political science. Can be robust even with violations to parallel trends.</p>
-</div></td>
-</tr>
-<tr class="odd">
-<td><p><a href="../did/match.html">PanelMatch Estimator</a></p>
-<div class="small">
-<p>Imai, Kim, and Wang (2023)</p>
-</div></td>
-<td><p>Staggered, Non-Absorbing</p>
-<div class="small">
-<p>Notes: Can be used in non-DiD panel and repeated cross-section designs.</p>
-</div></td>
-</tr>
-<tr class="even">
-<td><p><a href="../did/didmultiple.html">DIDmultiple Estimator</a></p>
-<div class="small">
-<p>De Chaisemartin and d’Haultfoeuille (2021, 2024)</p>
-</div></td>
-<td><p>Staggered, Classical, <em>and Continuous Treatments</em></p>
-<div class="small">
-<p>Notes: one of the only ones that can accomodate continuous treatment variables.</p>
-</div></td>
-</tr>
-<tr class="odd">
-<td><p><a href="../did/etwfe.html">Extended Two-way Fixed Effects</a></p>
-<div class="small">
-<p>Wooldridge (2021, 2023)</p>
-</div></td>
-<td><p>Staggered, <em>and Non-linear Models</em></p>
-<div class="small">
-<p>Notes: One of the only that can accomodate non-linear models, like logistic, negative binomial, and poisson. Cannot do pre-treatment test for parallel trends.</p>
-</div></td>
-</tr>
-<tr class="even">
-<td><p><a href="../did/did2s.html">2-Stage Difference-in-Differences</a></p>
-<div class="small">
-<p>Gardner (2021)</p>
-</div></td>
-<td><p>Staggered</p>
-<div class="small">
-<p>Notes: the most simple estimator for staggered designs, very similar to TWFE. However, can be less robust.</p>
-</div></td>
-</tr>
-</tbody>
-</table>
+<p>The DIDmultiple estimator developed by de Chaisemartin and d’Hautlfoeuille (2020) is designed for staggered designs and classical designs. Its main selling point is its flexibility - it can deal with multiple treatment levels, including continuous treatment variables. Before starting, we generally want to omit NA’s from our data:</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">na.omit</span>(df)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co"># if your df is large, subset for only the var you will use, then na.omit</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The estimator focuses on <strong>switchers</strong> - these are individuals that experience a change in treatment status during the study period. For each switcher, control groups are identified as units with the same initial treatment status, that did not change their treatment at the time the switcher did.</p>
+<p>Because it focuses on switchers, the estimator is able to adapt to continuous treatments. This is particularly useful for many questions in economics/political science that are not just yes/no treatments, but that have levels to them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">did_multiplegt_dyn</span>(</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">df         =</span> df,         <span class="co"># your data</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">outcome    =</span> <span class="st">"outcome"</span>,  <span class="co"># outcome var</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">group      =</span> <span class="st">"unit"</span>,     <span class="co"># UNIT variable (not cohort)</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">time       =</span> <span class="st">"time"</span>,     <span class="co"># time period var</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">treatment  =</span> <span class="st">"treat"</span>,    <span class="co"># treatment var</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">effects    =</span> <span class="dv">4</span>,          <span class="co"># number of post-treat dynamic effects</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">placebo    =</span> <span class="dv">4</span>,          <span class="co"># number of pre-treat effects</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">graph_off  =</span> <span class="cn">FALSE</span>,      <span class="co"># if you don't want graph, put TRUE</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">continuous =</span> <span class="cn">NULL</span>        <span class="co"># put 1 if it is continuous, can delete arg if not</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="didmultiple_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We can also view the overall ATT and summary below (the ATT is given in the estimate of the section that says “Average cumulative effect per treatment unit”):</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<div class="sourceCode" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ----------------------------------------------------------------------</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;        Estimation of treatment effects: Event-study effects</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ----------------------------------------------------------------------</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate SE      LB CI    UB CI   N   Switchers</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Effect_1     1.15913  1.22235 -1.23663 3.55490 108 55       </span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Effect_2     4.33475  1.30335 1.78023  6.88927 108 55       </span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Effect_3     3.82572  1.50893 0.86827  6.78317 108 55       </span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Effect_4     4.64014  1.28845 2.11483  7.16545 108 55       </span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test of joint nullity of the effects : p-value = 0.0009</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ----------------------------------------------------------------------</span></span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Average cumulative (total) effect per treatment unit</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ----------------------------------------------------------------------</span></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Estimate        SE     LB CI     UB CI         N Switchers </span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   3.48994   1.03907   1.45341   5.52647       432       220 </span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Average number of time periods over which a treatment effect is accumulated: 2.5000</span></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ----------------------------------------------------------------------</span></span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Testing the parallel trends and no anticipation assumptions</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ----------------------------------------------------------------------</span></span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;              Estimate SE      LB CI    UB CI   N   Switchers</span></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Placebo_1    -0.88462 1.41062 -3.64939 1.88015 108 55       </span></span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Placebo_2    0.50413  1.31849 -2.08007 3.08832 108 55       </span></span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Placebo_3    -1.66447 1.38341 -4.37592 1.04697 108 55       </span></span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Placebo_4    -2.01542 1.33739 -4.63666 0.60582 108 55       </span></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Test of joint nullity of the placebos : p-value = 0.2963</span></span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The development of this package was funded by the European Union.</span></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ERC REALLYCREDIBLE - GA N. 101043899</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</div>
+<p>The output also computes a “joint test of nullity” for the placebos. This is basically a test for the parallel trends assumption. If p&gt;0.05 (not significant), then parallel trends is met.</p>
 
 
 

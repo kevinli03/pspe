@@ -1,0 +1,116 @@
+---
+title: "PanelMatch Estimator"
+subtitle: "Imai, Kim, and Wang (2023)"
+---
+
+```{r}
+#| message: false
+#| warning: false
+
+# Packages Needed:
+library(PanelMatch)
+```
+
+The PanelMatch estimator developed by Imai, Kim, and Wang (2023) is designed for staggered DiD and Non-absorbing DiD (treatment reversal), accounting for issues in TWFE. Before we start, we need to clean our data.
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+data(base_did, package = "fixest")
+df <- base_did
+colnames(df) <- c("outcome", "covariate", "unit", "time", "post", "ever.treat")
+df$treat <- df$post*df$ever.treat
+```
+
+```{r}
+#| message: false
+#| warning: false
+
+# we need unit and time var to be integers
+df$unit <- as.integer(df$unit)
+df$time <- as.integer(df$time)
+
+# PanelMatch does not like tidy dataframes, so do this:
+df <- as.data.frame(df)
+
+df.cleaned <- PanelData(
+  panel.data = df,        # your data
+  unit.id    = "unit",    # your unit var (integer only)
+  time.id    = "time",    # your time period var (integer only)
+  treatment  = "treat",   # your treatment var
+  outcome    = "outcome"  # your outcome var
+)
+```
+
+The estimator is based on the potential outcomes framework. For a treated unit, their individual causal effect is.
+
+$$
+\tau_{it} = \pT - \pCred
+$$
+
+Our issue is that we do not observe $\pCred$ for treated units. PanelMatch finds an untreated unit from the same time period, with similar "history" and characteristics, and uses that unit as the missing potential outcome:
+
+$$
+\tau_{it} \approx \pT - \red{Y_{\text{matched individual}, t}^{(0)}}
+$$
+
+How does PanelMatch determine which untreated unit is selected as a match? It depends on 2 things:
+
+1.  The past "history" of the matched individual before time period $t$. This includes their past treatment history, and their past outcome values.
+
+::: small
+The authors consider the history in the "lag" period - which is a set number of periods before the given $t$ (we can choose how many years).
+:::
+
+2.  (optional) if covariates are specified, it will use also consider distance matching on covariates to find a match.
+
+```{r}
+#| message: false
+#| warning: false
+
+match <- PanelMatch(
+  lag               = 3,              # how many periods of history to consider
+  panel.data        = df.cleaned,     # PanelData object
+  lead              = c(0:3),         # how many post-treat dynamic effects
+  covs.formula      = ~ covariate,    # covaraites to include
+  refinement.method = "mahalanobis",  # if no covariates, put "none"
+  qoi               = "att",
+  match.missing     = TRUE
+)
+```
+
+Once we have found the matches, we can now estimate the ATT:
+
+```{r}
+#| message: false
+#| warning: false
+#| comment: "#>"
+#| class-output: r
+
+model <- PanelEstimate(
+  sets       = match,       # PanelMatch object
+  panel.data = df.cleaned,  # PanelData object
+  pooled     = TRUE
+)
+
+summary(model)
+```
+
+The output will be our ATT estimate. We can also estimate dynamic treatment effects for post-treatment periods:
+
+```{r}
+#| message: false
+#| warning: false
+#| comment: "#>"
+#| class-output: r
+
+model <- PanelEstimate(
+  sets       = match,       # PanelMatch object
+  panel.data = df.cleaned,  # PanelData object
+  pooled     = FALSE
+)
+
+summary(model)
+```

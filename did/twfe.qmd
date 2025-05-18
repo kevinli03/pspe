@@ -36,8 +36,10 @@ df$treatment <- df$post*df$ever.treat
 #| class-output: r
 
 model <- feols(
-  outcome ~ treatment + covariate | unit + time,
-  data = df)
+  fml  = outcome ~ treatment + covariate | unit + time,
+  data = df
+)
+
 coeftable(model) # Can also use summary(model)
 ```
 
@@ -66,16 +68,19 @@ df <- df %>%
 #| warning: false
 #| fig-height: 3.5
 
+# rel.time is: time period - initial treatment period of a unit
+# thus, rel.time = 0 is first treatment year. negative is pre-treat.
+
 model <- feols(
-  outcome ~ i(rel.time, -1) + covariate | unit + time,
-      # rel.time is: time period - initial treatment period of a unit
-      # thus, rel.time = 0 is first treatment year. negative is pre-treat.
-  data = df)
+  fml  = outcome ~ i(rel.time, -1) + covariate | unit + time,
+  data = df
+)
 
 iplot(
-  model,
-  drop = "[[:digit:]]{2}", # this limits pre-post period to -9 to 9.
-  ref.line = 0)
+  object   = model,
+  drop     = "[[:digit:]]{2}",  # this limits pre-post period to -9 to 9.
+  ref.line = 0
+)
 ```
 
 ::: small

@@ -31,16 +31,19 @@ colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "c
 #| message: false
 #| warning: false
 
-set.seed(344) # for replication
+set.seed(344)
+
 model <- att_gt(
-  yname = "outcome", tname = "time", idname = "unit",
-  gname = "first.treated",
-  xformla = ~ covariate,
-      # you can delete argument xformla if no covariates
-  control_group = c("nevertreated"), # don't change
-  est_method = 'dr', base_period = 'universal', #don't change
-  allow_unbalanced_panel = T, #don't change
-  data = df)
+  yname                  = "outcome",          # outcome var
+  tname                  = "time",             # time period var
+  idname                 = "unit",             # unit var
+  gname                  = "first.treated",    # first treat year var
+  xformla                = ~ covariate,        # you can delete arg if no covariates
+  est_method             = 'dr',
+  base_period            = 'universal',        # don't change
+  allow_unbalanced_panel = T,
+  data                   = df                  # your data
+)
 ```
 
 Now, we can weight each group-time ATT together based on how frequent each group $g$ is. By properly weighting, we solve the weighting issue of TWFE:
@@ -51,10 +54,12 @@ Now, we can weight each group-time ATT together based on how frequent each group
 #| comment: "#>"
 #| class-output: r
 
-att <- did::aggte(
-  model,
-  type = "simple",
-  na.rm = TRUE)
+att <- aggte(
+  MP    = model,     # model from att_gt
+  type  = "simple",
+  na.rm = TRUE
+)
+
 summary(att)
 ```
 
@@ -69,10 +74,12 @@ We can also see ATT's weighted to show dynamic treatment effects:
 #| message: false
 #| fig-height: 3.5
 
-att_dynamic <- did::aggte(
-  model,
-  type = "dynamic",
-  na.rm = TRUE)
+att_dynamic <- aggte(
+  MP    = model,      # model from att_gt
+  type  = "dynamic",
+  na.rm = TRUE
+)
+
 ggdid(att_dynamic)
 ```
 

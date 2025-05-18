@@ -45,13 +45,14 @@ df$treatment <- df$post*df$ever.treat
 #| class-output: r
 
 model <- did2s(
-  data = df,
-  yname = "outcome",
-  first_stage = ~ covariate | unit + time,
-      # if no covariate, should be ~ 0 | unit + time
-  second_stage = ~ i(treatment), #replace D with your treatment
-  treatment = "treatment",
-  cluster_var = "unit")
+  data         = df,                         # your data
+  yname        = "outcome",                  # outcome var
+  first_stage  = ~ covariate | unit + time,  # if no covariate: ~ 0 | unit + time
+  second_stage = ~ i(treatment),             # replace D with your treatment
+  treatment    = "treatment",                # treatment var
+  cluster_var  = "unit"                      # unit var
+)
+
 coeftable(model) # Can also use summary(model)
 ```
 
@@ -83,21 +84,19 @@ df$rel.time <- replace_na(df$rel.time, 10000)
 #| fig-height: 3.5
 
 model <- did2s(
-  data = df,
-  yname = "outcome",
-  first_stage = ~ covariate | unit + time,
-      # if no covariate, should be ~ 0 | unit + time
-  second_stage = ~ i(rel.time, ref = c(-1, 10000)),
-      # the first number in ref= should always be -1
-      # the second number in ref= should be the value of rel.time for the never-treated
-  treatment = "treatment",
-  cluster_var = "unit")
+  data         = df,                                 # your data
+  yname        = "outcome",                          # outcome var
+  first_stage  = ~ covariate | unit + time,          # if no covariate: ~ 0 | unit + time
+  second_stage = ~ i(rel.time, ref = c(-1, 10000)),  # don't change -1. 10000 change to value for never-treated
+  treatment    = "treatment",                        # treatment var
+  cluster_var  = "unit"                              # unit var
+)
 
 iplot(
-  model,
-  drop = "[[:digit:]]{2}",
-      # this drops the time periods too far before and after treatment.
-  ref.line = 0)
+  object   = model,            # your model from did2s
+  drop     = "[[:digit:]]{2}", # this drops the time periods too far before and after treatment.
+  ref.line = 0                 # adds a dotted line at treatment period
+)
 ```
 
 <br />

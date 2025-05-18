@@ -1,0 +1,62 @@
+---
+title: "DIDmultiple Estimator"
+subtitle: "De Chaisemartin and d'Hautlfoeuille (2024)"
+---
+
+```{r}
+#| message: false
+#| warning: false
+
+# Packages Needed:
+library(DIDmultiplegtDYN)
+```
+
+The DIDmultiple estimator developed by de Chaisemartin and d'Hautlfoeuille (2020) is designed for staggered designs and classical designs. Its main selling point is its flexibility - it can deal with multiple treatment levels, including continuous treatment variables. Before starting, we generally want to omit NA's from our data:
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+
+data(base_did, package = "fixest")
+df <- base_did
+colnames(df) <- c("outcome", "covariate", "unit", "time", "post", "ever.treat")
+df$treat <- df$post*df$ever.treat
+```
+
+```{r}
+df <- na.omit(df)
+# if your df is large, subset for only the var you will use, then na.omit
+```
+
+The estimator focuses on **switchers** - these are individuals that experience a change in treatment status during the study period. For each switcher, control groups are identified as units with the same initial treatment status, that did not change their treatment at the time the switcher did.
+
+Because it focuses on switchers, the estimator is able to adapt to continuous treatments. This is particularly useful for many questions in economics/political science that are not just yes/no treatments, but that have levels to them.
+
+```{r}
+model <- did_multiplegt_dyn(
+  df         = df,         # your data
+  outcome    = "outcome",  # outcome var
+  group      = "unit",     # UNIT variable (not cohort)
+  time       = "time",     # time period var
+  treatment  = "treat",    # treatment var
+  effects    = 4,          # number of post-treat dynamic effects
+  placebo    = 4,          # number of pre-treat effects
+  graph_off  = FALSE,      # if you don't want graph, put TRUE
+  continuous = NULL        # put 1 if it is continuous, can delete arg if not
+)
+```
+
+We can also view the overall ATT and summary below (the ATT is given in the estimate of the section that says "Average cumulative effect per treatment unit"):
+
+```{r}
+#| message: false
+#| warning: false
+#| comment: "#>"
+#| class-output: r
+
+summary(model)
+
+```
+
+The output also computes a "joint test of nullity" for the placebos. This is basically a test for the parallel trends assumption. If p\>0.05 (not significant), then parallel trends is met.

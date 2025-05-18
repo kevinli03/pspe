@@ -50,11 +50,11 @@
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/sunab.html</loc>
-    <lastmod>2025-05-17T17:07:07.324Z</lastmod>
+    <lastmod>2025-05-18T19:39:18.639Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/cs.html</loc>
-    <lastmod>2025-05-17T19:14:49.512Z</lastmod>
+    <lastmod>2025-05-18T19:42:30.948Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/design.html</loc>
@@ -62,7 +62,7 @@
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/estimators.html</loc>
-    <lastmod>2025-05-17T17:33:46.320Z</lastmod>
+    <lastmod>2025-05-18T19:43:48.898Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/did.html</loc>
@@ -70,19 +70,19 @@
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/etwfe.html</loc>
-    <lastmod>2025-05-17T17:11:03.293Z</lastmod>
+    <lastmod>2025-05-18T19:35:28.414Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/twfe.html</loc>
-    <lastmod>2025-05-17T17:30:49.083Z</lastmod>
+    <lastmod>2025-05-18T19:41:05.585Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/did2s.html</loc>
-    <lastmod>2025-05-17T19:11:44.776Z</lastmod>
+    <lastmod>2025-05-18T19:43:02.883Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/did/ifect.html</loc>
-    <lastmod>2025-05-17T17:13:05.079Z</lastmod>
+    <lastmod>2025-05-18T19:39:24.351Z</lastmod>
   </url>
   <url>
     <loc>https://kevinli03.github.io/pspe/rdd/rdd.html</loc>
@@ -127,5 +127,13 @@
   <url>
     <loc>https://kevinli03.github.io/pspe/latent/pca.html</loc>
     <lastmod>2025-05-09T16:39:43.791Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kevinli03.github.io/pspe/did/match.html</loc>
+    <lastmod>2025-05-18T19:41:42.599Z</lastmod>
+  </url>
+  <url>
+    <loc>https://kevinli03.github.io/pspe/did/didmultiple.html</loc>
+    <lastmod>2025-05-18T19:19:04.801Z</lastmod>
   </url>
 </urlset>

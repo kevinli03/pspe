@@ -73,7 +73,9 @@ website:
         - text: "Imputation Estimator"
           href: did/ifect.qmd
         - text: "PanelMatch Estimator"
+          href: did/match.qmd
         - text: "DiDmultiple Estimator"
+          href: did/didmultiple.qmd
         - text: "Extended Two-way Fixed Effects"
           href: did/etwfe.qmd
         - text: "2-stage DiD Estimator"

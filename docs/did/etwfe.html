@@ -225,11 +225,17 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">PanelMatch Estimator</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/match.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PanelMatch Estimator</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">DiDmultiple Estimator</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/didmultiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiDmultiple Estimator</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link active">
@@ -281,11 +287,13 @@ window.Quarto = {
 <p>The ETWFE estimator estimates all possible heterogeneous effects separately (by including a lot of interactions with initial treatment year, year, and covariates), using only valid comparisons, solving the forbidden comparison problem:</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">etwfe</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fml =</span> outcome <span class="sc">~</span> covariate,</span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tvar =</span> time,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gvar =</span> first.treated,</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>unit) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fml    =</span> outcome <span class="sc">~</span> covariate,  <span class="co"># formula</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">tvar   =</span> time,                 <span class="co"># time period var</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">gvar   =</span> first.treated,        <span class="co"># first treat year var</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">data   =</span> df,                   <span class="co"># your data</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov   =</span> <span class="sc">~</span>unit,                <span class="co"># cluster se by unit</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">family =</span> <span class="cn">NULL</span>                  <span class="co"># can change to "logit", "negbin", "poisson"</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>Many coefficients <span class="math inline">\(\blue{\tau_{it}}\)</span> and <span class="math inline">\(\blue{\tau_{itx}}\)</span> are estimated that capture different heterogeneity in treatment effects. These coefficients are manually aggregated together into one ATT using proper weighting based on how frequent each heterogeneous treatment effect occurs in our sample. This solves the weighting problem of TWFE.</p>
 <div class="cell">

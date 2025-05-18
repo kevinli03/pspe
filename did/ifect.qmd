@@ -51,18 +51,17 @@ df$treatment <- as.numeric(df$treatment)
 #| comment: "#>"
 #| class-output: r
 
+set.seed(17)
 
-set.seed(17) #for consistent replication
 model <- fect(
-  formula = outcome ~ treatment,
-      #add covariates after treatment
-  data = df,
-  index = c("unit","time"),
-      #replace unit and time with your unit and time variables
-  method = "ife",
-      #do not change
-  se = TRUE,
-  nboots = 50) #for standard errors. more is more accurate, but takes longer
+  formula = outcome ~ treatment,  # add covariates after treatment
+  data    = df,
+  index   = c("unit","time"),     # unit var and time var
+  method  = "ife",                # do not change
+  se      = TRUE,
+  nboots  = 50                    # more is more accurate se, but takes longer
+) 
+
 print(model)
 ```
 

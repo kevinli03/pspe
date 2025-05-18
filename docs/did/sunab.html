@@ -225,11 +225,17 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
- <span class="menu-text">PanelMatch Estimator</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/match.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">PanelMatch Estimator</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
- <span class="menu-text">DiDmultiple Estimator</span>
-  </li>
+  <div class="sidebar-item-container"> 
+  <a href="../did/didmultiple.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">DiDmultiple Estimator</span></a>
+  </div>
+</li>
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/etwfe.html" class="sidebar-item-text sidebar-link">
@@ -283,15 +289,16 @@ window.Quarto = {
 <p>These coefficients are manually aggregated together into dynamic ATT’s by relative treatment time using proper weighting. This solves the weighting problem with TWFE.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  outcome <span class="sc">~</span> <span class="fu">sunab</span>(first.treated, time) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fml  =</span> outcome <span class="sc">~</span> <span class="fu">sunab</span>(first.treated, time) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>unit)</span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  model,</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop =</span> <span class="st">"[[:digit:]]{2}"</span>,</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>      <span class="co"># this drops the time periods too far before and after treatment.</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>unit</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">object   =</span> model,             <span class="co"># object from feols</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop     =</span> <span class="st">"[[:digit:]]{2}"</span>,  <span class="co"># this drops periods too far before/after treatment.</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>                  <span class="co"># draws line at treatment period</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
