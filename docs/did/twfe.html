@@ -190,7 +190,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">How DiD Works</span></a>
+ <span class="menu-text">Types of DiD Designs</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -219,9 +219,12 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
+ <span class="menu-text">Imputation Estimator</span>
+  </li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Imputation Estimator</span></a>
+ <span class="menu-text">Interactive Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -280,7 +283,8 @@ window.Quarto = {
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The two-way fixed effects estimator is the estimator for classical DiD, and works (albiet poorly) for staggered DiD and non-absorbing DiD:</p>
 <p><span class="math display">\[
@@ -307,21 +311,30 @@ Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov +
 <div class="small">
 <p>The estimate for treatment is the ATT. In this example, it is 4.850645.</p>
 </div>
-<p>For dynamic treatment effects, we can</p>
+<p>For dynamic treatment effects, we will need to create a relative time variable, indicating how the current time period <span class="math inline">\(t\)</span> relates to a unit <span class="math inline">\(i\)</span>’s initial treatment adoption year. Then, we can run the following regression to estimate <span class="math inline">\(\tau_r\)</span> for each relative period <span class="math inline">\(r\)</span>.</p>
+<p><span class="math display">\[
+Y_{it} = \alpha_i + \gamma_t + \sum_{r ≠ -1} 1\{R_{it} = r\} \ \tau_r + \cov + \eps_{it}
+\]</span></p>
+<div class="small">
+<p>Where <span class="math inline">\(R_{it}\)</span> is the relative time variable of unit <span class="math inline">\(i\)</span> at time <span class="math inline">\(t\)</span>. Where <span class="math inline">\(1\{R_{it} = r\}\)</span> is an indicator variable that only equals 1 if <span class="math inline">\(R_{it}\)</span> is equal to <span class="math inline">\(r\)</span>. Essentially, a treatment coefficient <span class="math inline">\(\tau_r\)</span> per relative time period <span class="math inline">\(r\)</span>.</p>
+</div>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rel.time is: time period - initial treatment period of a unit</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co"># thus, rel.time = 0 is first treatment year. negative is pre-treat.</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">fml  =</span> outcome <span class="sc">~</span> <span class="fu">i</span>(rel.time, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
-<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">object   =</span> model,</span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop     =</span> <span class="st">"[[:digit:]]{2}"</span>,  <span class="co"># this limits pre-post period to -9 to 9.</span></span>
-<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span></span>
-<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fml  =</span> outcome <span class="sc">~</span> <span class="fu">i</span>(rel.time, <span class="sc">-</span><span class="dv">1</span>) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data =</span> df</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="fu">ggiplot</span>(</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># required options</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">object   =</span> model,</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop     =</span> <span class="st">"[[:digit:]]{2}"</span>,  <span class="co"># this limits pre-post period to -9 to 9.</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>,                 <span class="co"># adds a line at treatment year</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aesthetic options</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab     =</span> <span class="st">"Time Relative to Treatment"</span>,  <span class="co"># x-axis label</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab     =</span> <span class="st">"Dynamic ATT Estimate"</span>,        <span class="co"># y-axis label</span></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">main     =</span> <span class="st">"Dynamic Treatment Effects"</span>,   <span class="co"># title for plot</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -331,7 +344,7 @@ Y_{it} = \underbrace{\unit + \time}_{\text{fixed effects}} + D_{it}\att + \cov +
 </div>
 </div>
 <div class="small">
-<p>Negative rel.time (pre-treatment) should have 0 significant effects if parallel trends is met. Here, we can see parallel trends is violated. Post rel.time are the dynamic treatment effects over time.</p>
+<p>Pre-treatment (negative relative time) should have 0 significant effects if parallel trends is met. Here, we can see parallel trends is violated. Positive relative times are the dynamic treatment effects over time.</p>
 </div>
 <p>As has been mentioned, TWFE is a poor estimator for staggered DiD or non-absorbing DiD. The reason for this is because of two factors:</p>
 <ol type="1">

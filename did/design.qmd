@@ -1,77 +1,77 @@
 ---
-title: "How Difference-in-Differences Works"
+title: "Types of DiD Designs"
 ---
 
-::: small
-This example is from the iconic DiD study conducted by [Card and Kreuger (1993)](https://www.nber.org/papers/w4509).
-:::
+```{r}
+#| warning: false
+#| message: false
 
-In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:
+# Packages Needed
+library(panelView)
+```
 
-|                                                    |                                                   |
-|------------------------------------|------------------------------------|
-| [Mar 1992 (Before Min. Wage Increase)]{.smallcaps} | [Dec 1992 (After Min. Wage Increase)]{.smallcaps} |
-| $\red{20.44}$                                      | $\green{21.03}$                                   |
+Difference-in-differences designs can vary based on two factors: the **timing** of treatment implementation, and the **absorption** of treatment.
 
-: {tbl-colwidths="\[50,50\]" .bordered}
+The timing of treatment implementation is about when units receive the treatment. There are two types of treatment timing:
 
-::: small
-Red indicates not treated, green indicates treated.
-:::
+|                        |                                                                                                                     |
+|----------------------|-------------------------------------------------|
+| [Non-Staggered]{.mark} | All units who ever receive the treatment, all begin the treatment in the same year.                                 |
+| [Staggered]{.mark}     | Units begin the treatment in different years. For example, some units begin treatment in 2003, others in 2004, etc. |
 
-Our treatment effect after the raise of minimum wage in December 1992 would be:
-
-$$
-\tau_\text{Dec92} = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}}
-$$
-
-We **don't** observe the counterfactual in December 1992 without the minimum wage increase.
+: {tbl-colwidths="\[35,65\]" .bordered}
 
 ::: small
-We cannot use March 1992 because there could have been something that happened between March and December that changes the **trend** in employment (like a recession).
+The non-staggered design is often called the classical design.
 :::
 
-**Difference-in-differences** estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:
+The absorption of treatment is whether or not any unit who receives the treatment later on reverses/loses the treatment.
 
-|                                                              |                                                              |
-|------------------------------------|------------------------------------|
-| [Mar 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} | [Dec 1992 (Pennsylvania, No Min. Wage Increase)]{.smallcaps} |
-| $\red{23.33}$                                                | $\red{21.17}$                                                |
+|                        |                                                                                      |
+|-----------------------|--------------------------------------------------|
+| [Absorbing]{.mark}     | All units who ever receive the treatment, remain treated until the end of the study. |
+| [Non-Absorbing]{.mark} | Some units who receive the treatment will leave/reverse the treatment later.         |
 
-: {tbl-colwidths="\[50,50\]" .bordered}
+: {tbl-colwidths="\[35,65\]" .bordered}
 
 ::: small
-These are employment values in Pennsylvania, where no mininum wage changes occured.
+The research into non-absorbing DiD is quite limited as of now.
 :::
 
-Pennsylvania tells us the **trend** in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn't received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.
+The type of study is important for the estimator we will need. We can determine the type of our study by using the **panelView** package.
 
-|                                                      |                                                                  |
-|-------------------------------|-----------------------------------------|
-| [Mar 92 (NJ, Not Minimum Wage Increase)]{.smallcaps} | [Dec 92 (NJ, Hypothetical No Minimum Wage Increase)]{.smallcaps} |
-| $\red{20.44}$                                        | $\red{\text{March 92} - 2.16}$                                   |
+```{r}
+#| echo: false
 
-: {tbl-colwidths="\[50,50\]" .bordered}
+data(base_did, package = "fixest")
+df <- base_did
+colnames(df) <- c("outcome", "covariate", "unit", "time", "post", "ever.treat")
+df$treatment <- df$post*df$ever.treat
+```
 
-::: small
-The March 1992 value is copied from the first table.
-:::
+```{r}
+#| fig-height: 3
 
-Now, we have an approximation of New Jersey's missing hypothetical outcome, so we can now estimate the causal effect.
+panelview(
+  # required options
+  data    = df,                    # replace with your data
+  formula = outcome ~ treatment,   # replace with outcome and treat var
+  index   = c("unit", "time"),     # replace with unit var and time var
+  gridOff = T,
+  
+  # aesthetic options
+  xlab       = "Time Periods",        # custom x axis label
+  ylab       = "Unit",                # custom y axis label
+  main       = "Treatment Adoption",  # custom title name
+  cex.main   = 11,                    # font size of title
+  cex.lab    = 10,                    # font size of labels
+  cex.axis.x = 8,                     # font size of x axis
+  cex.axis.y = 3,                     # font size of y axis
+  background = "white"                # background color
+)
 
-$$
-\begin{align}
-\tau_\text{Dec92} & = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}} \\
-& = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \left(\red{\text{employment}_\text{Mar92}^{(\text{control})}} - 2.16 \right)
-\end{align}
-$$
+```
 
-<br />
+Above we can see this study is a non-staggered and absorbing design. We can tell this because all the blue (under treatment) begins at the same time period, and no unit that gets treated becomes untreated in a later time period.
 
-This entire idea of using another group's trend to estimate counterfactuals depends on the critical assumption of parallel trends: that we can indeed use Pennsylvania's trend to estimate New Jersey's trend under control.
-
-Parallel trends essentially says that if the treated units had hypothetically not been treated, we should expect them to follow the same trend as the untreated units.
-
-::: small
-We also require the SUTVA assumption since our potential outcomes framework is no longer valid without it. We also require the obvious assumption of no anticipation - basically the treatment is actually taking effect when we are saying it is, and people aren't anticipating and reacting before the actual treatment takes effect.
-:::
+It is quite conventional to include a diagram like the above PanelView during DiD studies to help visualise the treatment adoption over time.

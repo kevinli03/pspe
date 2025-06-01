@@ -9,15 +9,18 @@ subtitle: "Sun and Abraham (2021)"
 
 # Packages Needed:
 library(fixest)
+library(ggfixest)
 ```
 
 The Interaction-Weighted estimator developed by Sun and Abraham (2021) is designed for staggered DiD, accounting for issues in TWFE.
 
-The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$.
+The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable $G_i$. Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $R_{it}$ with $G_i$.
 
-Then, the estimator calculates dynamic ATT's separately for group, using only valid comparisons. This is done by interacting a relative-time variable $R_{it}$ with $G_i$. These interactions will produce many coefficients $\blue{\tau_{it}}$ (in fact, one for each time period for each initial treatment year group). These coefficients capture all the heterogeneity in effects.
+$$
+Y_{it} = \alpha_i + \gamma_t + \underbrace{\sum_{g}\sum_{r ≠ -1} 1\{R_{it} = r\} \cdot 1\{G_{i} = g\} \cdot \tau_{r,g}}_{\text{interactions}} + \cov + \eps_{it}
+$$
 
-These coefficients are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting. This solves the weighting problem with TWFE.
+These interactions will produce many coefficients $\blue{\tau_{r,g}}$. These coefficients capture all the heterogeneity in effects. These coefficients are manually aggregated together into dynamic ATT's by relative treatment time using proper weighting.
 
 ```{r}
 #| echo: false
@@ -32,7 +35,7 @@ colnames(df) <- c("unit", "time", "first.treated", "rel.time", "treat", "te", "c
 ```{r}
 #| warning: false
 #| message: false
-#| fig-height: 3.5
+#| fig-height: 3
 
 model <- feols(
   fml  = outcome ~ sunab(first.treated, time) + covariate | unit + time,
@@ -40,12 +43,22 @@ model <- feols(
   vcov = ~unit
 )
 
-iplot(
-  object   = model,             # object from feols
-  drop     = "[[:digit:]]{2}",  # this drops periods too far before/after treatment.
-  ref.line = 0                  # draws line at treatment period
+ggiplot(
+  # required options
+  object   = model,
+  drop     = "[[:digit:]]{2}",  # this limits pre-post period to -9 to 9.
+  ref.line = 0,                 # adds a line at treatment year
+  
+  # aesthetic options
+  xlab     = "Time Relative to Treatment",  # x-axis label
+  ylab     = "Dynamic ATT Estimate",        # y-axis label
+  main     = "Dynamic Treatment Effects",   # title for plot
 )
 ```
+
+::: small
+We can see parallel trends is met in this plot, as the negative relative time estimates all include 0 in their intervals.
+:::
 
 We can also aggregate the dynamic ATT's into one singular ATT:
 

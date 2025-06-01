@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>How Difference-in-Differences Works – Causal Inference Resources</title>
+<title>Types of DiD Designs – Causal Inference Resources</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -19,6 +19,40 @@ ul.task-list li input[type="checkbox"] {
   width: 0.8em;
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 </style>
 
@@ -51,35 +85,6 @@ ul.task-list li input[type="checkbox"] {
 }</script>
 <script src="mathjax-config.js"></script>
 
-  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
-  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
-
-<script type="text/javascript">
-const typesetMath = (el) => {
-  if (window.MathJax) {
-    // MathJax Typeset
-    window.MathJax.typeset([el]);
-  } else if (window.katex) {
-    // KaTeX Render
-    var mathElements = el.getElementsByClassName("math");
-    var macros = [];
-    for (var i = 0; i < mathElements.length; i++) {
-      var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
-        window.katex.render(texText.data, mathElements[i], {
-          displayMode: mathElements[i].classList.contains('display'),
-          throwOnError: false,
-          macros: macros,
-          fleqn: false
-        });
-      }
-    }
-  }
-}
-window.Quarto = {
-  typesetMath
-};
-</script>
 
 <link rel="stylesheet" href="../styles.css">
 </head>
@@ -130,7 +135,7 @@ window.Quarto = {
       <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
         <i class="bi bi-layout-text-sidebar-reverse"></i>
       </button>
-        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/design.html">How DiD Works</a></li></ol></nav>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../did/design.html">Types of DiD Designs</a></li></ol></nav>
         <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
         </a>
     </div>
@@ -156,7 +161,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/design.html" class="sidebar-item-text sidebar-link active">
- <span class="menu-text">How DiD Works</span></a>
+ <span class="menu-text">Types of DiD Designs</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -185,9 +190,12 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
+ <span class="menu-text">Imputation Estimator</span>
+  </li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Imputation Estimator</span></a>
+ <span class="menu-text">Interactive Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -227,7 +235,7 @@ window.Quarto = {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">How Difference-in-Differences Works</h1>
+<h1 class="title">Types of DiD Designs</h1>
 </div>
 
 
@@ -244,90 +252,80 @@ window.Quarto = {
 </header>
 
 
-<div class="small">
-<p>This example is from the iconic DiD study conducted by <a href="https://www.nber.org/papers/w4509">Card and Kreuger (1993)</a>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(panelView)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<p>In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment We have data from before and after the change:</p>
+<p>Difference-in-differences designs can vary based on two factors: the <strong>timing</strong> of treatment implementation, and the <strong>absorption</strong> of treatment.</p>
+<p>The timing of treatment implementation is about when units receive the treatment. There are two types of treatment timing:</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 35%">
+<col style="width: 65%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Mar 1992 (Before Min. Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 1992 (After Min. Wage Increase)</span></td>
+<td><mark>Non-Staggered</mark></td>
+<td>All units who ever receive the treatment, all begin the treatment in the same year.</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(\red{20.44}\)</span></td>
-<td><span class="math inline">\(\green{21.03}\)</span></td>
+<td><mark>Staggered</mark></td>
+<td>Units begin the treatment in different years. For example, some units begin treatment in 2003, others in 2004, etc.</td>
 </tr>
 </tbody>
 </table>
 <div class="small">
-<p>Red indicates not treated, green indicates treated.</p>
+<p>The non-staggered design is often called the classical design.</p>
 </div>
-<p>Our treatment effect after the raise of minimum wage in December 1992 would be:</p>
-<p><span class="math display">\[
-\tau_\text{Dec92} = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}}
-\]</span></p>
-<p>We <strong>don’t</strong> observe the counterfactual in December 1992 without the minimum wage increase.</p>
-<div class="small">
-<p>We cannot use March 1992 because there could have been something that happened between March and December that changes the <strong>trend</strong> in employment (like a recession).</p>
-</div>
-<p><strong>Difference-in-differences</strong> estimates the hypothetical by looking at another state that did not receive a change in minimum wage during this time - like Pennsylvania:</p>
+<p>The absorption of treatment is whether or not any unit who receives the treatment later on reverses/loses the treatment.</p>
 <table class="table-bordered table">
 <colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
+<col style="width: 35%">
+<col style="width: 65%">
 </colgroup>
 <tbody>
 <tr class="odd">
-<td><span class="smallcaps">Mar 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 1992 (Pennsylvania, No Min. Wage Increase)</span></td>
+<td><mark>Absorbing</mark></td>
+<td>All units who ever receive the treatment, remain treated until the end of the study.</td>
 </tr>
 <tr class="even">
-<td><span class="math inline">\(\red{23.33}\)</span></td>
-<td><span class="math inline">\(\red{21.17}\)</span></td>
+<td><mark>Non-Absorbing</mark></td>
+<td>Some units who receive the treatment will leave/reverse the treatment later.</td>
 </tr>
 </tbody>
 </table>
 <div class="small">
-<p>These are employment values in Pennsylvania, where no mininum wage changes occured.</p>
+<p>The research into non-absorbing DiD is quite limited as of now.</p>
 </div>
-<p>Pennsylvania tells us the <strong>trend</strong> in employment without a change in minimum wage (-2.16). This trend tells us that if New Jersey hadn’t received a minimum wage increase, their employment rate would be the March 1992 level minus 2.16.</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 50%">
-<col style="width: 50%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Mar 92 (NJ, Not Minimum Wage Increase)</span></td>
-<td><span class="smallcaps">Dec 92 (NJ, Hypothetical No Minimum Wage Increase)</span></td>
-</tr>
-<tr class="even">
-<td><span class="math inline">\(\red{20.44}\)</span></td>
-<td><span class="math inline">\(\red{\text{March 92} - 2.16}\)</span></td>
-</tr>
-</tbody>
-</table>
-<div class="small">
-<p>The March 1992 value is copied from the first table.</p>
+<p>The type of study is important for the estimator we will need. We can determine the type of our study by using the <strong>panelView</strong> package.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">panelview</span>(</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># required options</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">data    =</span> df,                    <span class="co"># replace with your data</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">formula =</span> outcome <span class="sc">~</span> treatment,   <span class="co"># replace with outcome and treat var</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">index   =</span> <span class="fu">c</span>(<span class="st">"unit"</span>, <span class="st">"time"</span>),     <span class="co"># replace with unit var and time var</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">gridOff =</span> T,</span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aesthetic options</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab       =</span> <span class="st">"Time Periods"</span>,        <span class="co"># custom x axis label</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab       =</span> <span class="st">"Unit"</span>,                <span class="co"># custom y axis label</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">main       =</span> <span class="st">"Treatment Adoption"</span>,  <span class="co"># custom title name</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.main   =</span> <span class="dv">11</span>,                    <span class="co"># font size of title</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.lab    =</span> <span class="dv">10</span>,                    <span class="co"># font size of labels</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.axis.x =</span> <span class="dv">8</span>,                     <span class="co"># font size of x axis</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">cex.axis.y =</span> <span class="dv">3</span>,                     <span class="co"># font size of y axis</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">background =</span> <span class="st">"white"</span>                <span class="co"># background color</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="design_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
-<p>Now, we have an approximation of New Jersey’s missing hypothetical outcome, so we can now estimate the causal effect.</p>
-<p><span class="math display">\[
-\begin{align}
-\tau_\text{Dec92} &amp; = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \red{\text{employment}_\text{Dec92}^{(\text{control})}} \\
-&amp; = \green{\text{employment}_\text{Dec92}^{(\text{treated})}} - \left(\red{\text{employment}_\text{Mar92}^{(\text{control})}} - 2.16 \right)
-\end{align}
-\]</span></p>
-<p><br></p>
-<p>This entire idea of using another group’s trend to estimate counterfactuals depends on the critical assumption of parallel trends: that we can indeed use Pennsylvania’s trend to estimate New Jersey’s trend under control.</p>
-<p>Parallel trends essentially says that if the treated units had hypothetically not been treated, we should expect them to follow the same trend as the untreated units.</p>
-<div class="small">
-<p>We also require the SUTVA assumption since our potential outcomes framework is no longer valid without it. We also require the obvious assumption of no anticipation - basically the treatment is actually taking effect when we are saying it is, and people aren’t anticipating and reacting before the actual treatment takes effect.</p>
 </div>
+</div>
+<p>Above we can see this study is a non-staggered and absorbing design. We can tell this because all the blue (under treatment) begins at the same time period, and no unit that gets treated becomes untreated in a later time period.</p>
+<p>It is quite conventional to include a diagram like the above PanelView during DiD studies to help visualise the treatment adoption over time.</p>
 
 
 

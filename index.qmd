@@ -5,18 +5,8 @@ subtitle: "Methodology for Political Science and Political Economy (PSPE)"
 
 For my personal website, see <http://kevinli03.github.io>
 
-This repository contains resources on causal inference and social statistics methods, and implementing these methods in R.
+I have moved most my notes to two other repositories:
 
--   **Difference-in-Differences**, including modern advancements from 2021-2025.
+1.  For causal inference notes, see my [Introduction to Causal Inference repository](https://kevinli03.github.io/causal/).
 
--   Other **causal estimators**, such as instrumental variables, regression discontinuity, and more.
-
--   **Latent variable models**, such as factor analysis, item response theory, and structural equation modelling.
-
-The home page sidebar contains basics on regression, and why correlation is not causation.
-
-::: small
-This repository isn't meant to teach you these methods (although I do include explanations of these methods). It is primary aimed as a reference when implementing methods. Check out the [additional resources](resources.qmd) for more teaching material.
-:::
-
-Use the top navigation bar to navigate between different methods. Use the side navigation bar to navigate within a method.
+2.  For R-code on implementation and description of modern difference-in-differences, see my [DiD resources repository](https://kevinli03.github.io/did/).

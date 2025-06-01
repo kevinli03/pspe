@@ -190,7 +190,7 @@ window.Quarto = {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">How DiD Works</span></a>
+ <span class="menu-text">Types of DiD Designs</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -219,9 +219,12 @@ window.Quarto = {
   </div>
 </li>
         <li class="sidebar-item">
+ <span class="menu-text">Imputation Estimator</span>
+  </li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Imputation Estimator</span></a>
+ <span class="menu-text">Interactive Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -281,12 +284,15 @@ window.Quarto = {
 
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Packages Needed:</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fixest)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggfixest)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The Interaction-Weighted estimator developed by Sun and Abraham (2021) is designed for staggered DiD, accounting for issues in TWFE.</p>
-<p>The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable <span class="math inline">\(G_i\)</span>.</p>
-<p>Then, the estimator calculates dynamic ATT’s separately for group, using only valid comparisons. This is done by interacting a relative-time variable <span class="math inline">\(R_{it}\)</span> with <span class="math inline">\(G_i\)</span>. These interactions will produce many coefficients <span class="math inline">\(\blue{\tau_{it}}\)</span> (in fact, one for each time period for each initial treatment year group). These coefficients capture all the heterogeneity in effects.</p>
-<p>These coefficients are manually aggregated together into dynamic ATT’s by relative treatment time using proper weighting. This solves the weighting problem with TWFE.</p>
+<p>The estimator divides all units into groups based on their initial treatment implementation. These groups are encoded into a new categorical variable <span class="math inline">\(G_i\)</span>. Then, the estimator calculates dynamic ATT’s separately for group, using only valid comparisons. This is done by interacting a relative-time variable <span class="math inline">\(R_{it}\)</span> with <span class="math inline">\(G_i\)</span>.</p>
+<p><span class="math display">\[
+Y_{it} = \alpha_i + \gamma_t + \underbrace{\sum_{g}\sum_{r ≠ -1} 1\{R_{it} = r\} \cdot 1\{G_{i} = g\} \cdot \tau_{r,g}}_{\text{interactions}} + \cov + \eps_{it}
+\]</span></p>
+<p>These interactions will produce many coefficients <span class="math inline">\(\blue{\tau_{r,g}}\)</span>. These coefficients capture all the heterogeneity in effects. These coefficients are manually aggregated together into dynamic ATT’s by relative treatment time using proper weighting.</p>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">feols</span>(</span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">fml  =</span> outcome <span class="sc">~</span> <span class="fu">sunab</span>(first.treated, time) <span class="sc">+</span> covariate <span class="sc">|</span> unit <span class="sc">+</span> time,</span>
@@ -294,11 +300,17 @@ window.Quarto = {
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">vcov =</span> <span class="sc">~</span>unit</span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>)</span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">iplot</span>(</span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">object   =</span> model,             <span class="co"># object from feols</span></span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop     =</span> <span class="st">"[[:digit:]]{2}"</span>,  <span class="co"># this drops periods too far before/after treatment.</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>                  <span class="co"># draws line at treatment period</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggiplot</span>(</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>  <span class="co"># required options</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">object   =</span> model,</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">drop     =</span> <span class="st">"[[:digit:]]{2}"</span>,  <span class="co"># this limits pre-post period to -9 to 9.</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ref.line =</span> <span class="dv">0</span>,                 <span class="co"># adds a line at treatment year</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="co"># aesthetic options</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">xlab     =</span> <span class="st">"Time Relative to Treatment"</span>,  <span class="co"># x-axis label</span></span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">ylab     =</span> <span class="st">"Dynamic ATT Estimate"</span>,        <span class="co"># y-axis label</span></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">main     =</span> <span class="st">"Dynamic Treatment Effects"</span>,   <span class="co"># title for plot</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div>
 <figure class="figure">
@@ -306,6 +318,9 @@ window.Quarto = {
 </figure>
 </div>
 </div>
+</div>
+<div class="small">
+<p>We can see parallel trends is met in this plot, as the negative relative time estimates all include 0 in their intervals.</p>
 </div>
 <p>We can also aggregate the dynamic ATT’s into one singular ATT:</p>
 <div class="cell">

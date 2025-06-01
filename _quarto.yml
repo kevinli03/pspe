@@ -14,15 +14,9 @@ website:
         - text: "Home"
           href: index.qmd
         - text: "Difference-in-Differences"
-          href: did/did.qmd
-        - text: "Regression Discontinuity"
-          href: rdd/rdd.qmd
-        - text: "Instrumental Variables"
-          href: iv/iv.qmd
-        - text: "Selection on Observables"
-          href: soo/soo.qmd
-        - text: "Latent Variable Models"
-          href: latent/latent.qmd
+          href: https://kevinli03.github.io/did/
+        - text: "Causal Inference"
+          href: https://kevinli03.github.io/causal/
 
   sidebar:
     - title: "Causal Inference Basics"
@@ -36,19 +30,6 @@ website:
           href: index.qmd
         - text: "Additional Resources"
           href: resources.qmd
-        - text: "---"
-        - text: "Linear Regression"
-          href: linear.qmd
-        - text: "Logistic Regression"
-        - text: "Negative Binomial Regression"
-        - text: "Fixest Tools for Regression"
-        - text: "---"
-        - text: "Basics of Causality"
-          href: frameworks.qmd
-        - text: "Issue of Selection Bias"
-          href: correlation.qmd
-        - text: "Magic of Randomisation"
-          href: random.qmd
 
     - title: "Difference-in-Differences"
       style: floating
@@ -59,7 +40,7 @@ website:
       contents:
         - text: "Difference-in-Differences"
           href: did/did.qmd
-        - text: "How DiD Works"
+        - text: "Types of DiD Designs"
           href: did/design.qmd
         - text: "DiD Estimators"
           href: did/estimators.qmd
@@ -71,6 +52,7 @@ website:
         - text: "Doubly-Robust Estimator"
           href: did/cs.qmd
         - text: "Imputation Estimator"
+        - text: "Interactive Fixed Effects"
           href: did/ifect.qmd
         - text: "PanelMatch Estimator"
           href: did/match.qmd
@@ -166,7 +148,7 @@ format:
   html:
     theme: cosmo
     number-sections: false
-    fontsize: 12pt
+    fontsize: 11.5pt
     mainfont: helvetica
     fontcolor: "#3b4b57"
     linkcolor: "#0969da"

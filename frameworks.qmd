@@ -34,7 +34,7 @@ We generally assume the treatment $D$ is binary.
 Imagine we have two hypothetical parallel worlds that are copies of each other. Both of these worlds are identical except for one aspect: the treatment:
 
 |                                     |                          |                                 |
-|:---------------------------|:-------------------|:------------------------|
+|:------------------------------------|:-------------------------|:--------------------------------|
 | [Parallel World]{.smallcaps}        | [Treatment]{.smallcaps}  | [Potential Outcome]{.smallcaps} |
 | Unit $i$ does not Receive Treatment | $\text{treatment}_i = 0$ | $\T$                            |
 | Unit $i$ Receives Treatment         | $\text{treatment}_i = 1$ | $\Cred$                         |
@@ -56,7 +56,7 @@ Technically, we need another assumption, SUTVA, for this to be true. I will expl
 However, in reality, we do not have two parallel worlds. Thus, by definition, one of the potential outcomes is not observed in our real world - the [counterfactual]{.mark}.
 
 |                                 |                                |                              |
-|:------------------------|:-----------------------|:----------------------|
+|:--------------------------------|:-------------------------------|:-----------------------------|
 | [In the Real World]{.smallcaps} | [Observed Outcome]{.smallcaps} | [Counterfactual]{.smallcaps} |
 | $i$ receives treatment          | $\Y= \T$                       | $\Cred$                      |
 | $i$ did not receive treatment   | $\Y = \Cred$                   | $\T$                         |
@@ -68,7 +68,7 @@ However, in reality, we do not have two parallel worlds. Thus, by definition, on
 The [fundamental problem of causal inference]{.mark} is that in order to calculate our individual treatment effect $\tau$, we need both potential outcomes. Our goal is to estimate causal effects without observing counterfactuals. This is difficult at the individual level, so instead, we focus on average treatment effects for groups:
 
 |                                               |                        |                                                                                               |
-|:-----------------|:---------------|:-------------------------------------|
+|:----------------------------------------------|:-----------------------|:----------------------------------------------------------------------------------------------|
 | [Group Effects]{.smallcaps}                   | [Notation]{.smallcaps} | [Definition]{.smallcaps}                                                                      |
 | Average Treatment Effect (ATE)                | $\tau_\text{ATE}$      | The average treatment effects for all individuals in our study (treated and untreated).       |
 | Average Treatment Effect on the Treated (ATT) | $\tau_\text{ATT}$      | The average treatment effect but only for individuals who receive the treatment in our study. |

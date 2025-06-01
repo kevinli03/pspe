@@ -3,43 +3,121 @@ title: "Difference-in-Differences"
 ---
 
 ::: small
-See Scott Cunningham's [Causal Inference: The Mixtape](https://mixtape.scunning.com/09-difference_in_differences) for a more in depth overview.
+This example is from [Card and Kreuger (1993)](https://www.nber.org/papers/w4509) with modified numbers.
 :::
 
-Difference-in-differences (DiD) is the most popular causal inference method, that has seen a "revolution" in the last few years. The method is designed for:
+In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment. We have data from before (Mar 1992) and after (Dec 1992):
 
-|                            |                                                           |
-|------------------------|-----------------------------------------------|
-| **Panel Data**             | We observe the same units over multiple periods of time.  |
-| **Repeated Cross Section** | We observe different units over multiple periods of time. |
+```{r}
+#| echo: false
+#| warning: false
+#| message: false
 
-: {tbl-colwidths="\[33,67\]" .bordered}
+library(tidyverse)
+library(fixest)
+df.nj <- data.frame(
+  time = c(0, 1),
+  nj = c(20, 24)
+)
+
+df.pa <- data.frame(
+  time = c(0, 1),
+  pa = c(18, 19)
+)
+
+df.pot <- data.frame(
+  time = c(0, 1),
+  nj.pot = c(20, 21)
+)
+
+```
+
+```{r}
+#| fig-height: 2
+#| echo: false
+
+ggplot() +
+  geom_point(aes(x = time, y = nj, color = "col2"), data = df.nj) +
+  geom_line(aes(x = time, y = nj, color = "col2"), data = df.nj) +
+  scale_color_manual(
+    name = "Legend",
+    values = c("col2" = "darkgreen"),
+    labels = c("New Jersey (Treated - Min Wage Increase)")
+  ) +
+  theme_bw() +
+  scale_x_continuous(breaks = c(0, 1), labels = c("Mar 1992","Dec 1992")) +
+  xlab(NULL) + ylab("Employment Rate") +
+  ylim(17, 27)
+
+```
+
+We **cannot** calculate the treatment effect. This is because the actual treatment effect, according to potential outcomes, requires the counterfactual outcome if New Jersey had hypothetically not received the treatment in Dec 1992.
 
 ::: small
-Panel data is usually preferred, but most estimators can accommodate repeated cross section.
+The actual treatment effect would be employment rate in Dec 1992 with min wage increase, minus the employment rate in Dec 1992 without the min wage increase.
 :::
 
-DiD exploits variation in treatment adoption over two dimensions. This typically means variation in treatment adoption between units, and variation of treatment adoption over time. There are three types of DiD designs:
+Of course, we do not observe the hypothetical counterfactual of New Jersey not undergoing the minimum wage increase in Dec 1992. However, what we can do is look at another state that **did not undergo the treatment** (untreated), like Pennsylvania.
 
-|                       |                                                                                                                                                                                                                                   |
-|----------------|--------------------------------------------------------|
-| **Classical DiD**     | When there are two groups of units: the treatment group, and the control group. In the pre-treatment time periods, neither group adopts treatment. In the post-treatment time periods, only the treatment group adopts treatment. |
-| **Staggered DiD**     | When there are multiple treatment groups, who adopt treatment at different time-periods. For example, group A might adopt treatment in year 2000, group B might adopt treatment in year 2010, and group C is a control group.     |
-| **Non-Absorbing DiD** | A staggered (or classical) DiD, but some units who adopt treatment earlier may turn off treatment later (treatment reversal).                                                                                                     |
+```{r}
+#| fig-height: 2
+#| echo: false
 
-: {tbl-colwidths="\[33,67\]" .bordered}
+ggplot() +
+  geom_point(aes(x = time, y = nj, color = "col2"), data = df.nj) +
+  geom_line(aes(x = time, y = nj, color = "col2"), data = df.nj) +
+  geom_point(aes(x = time, y = pa, color = "col1"), data = df.pa) +
+  geom_line(aes(x = time, y = pa, color = "col1"), data = df.pa) +
+  scale_color_manual(
+    name = "Legend",
+    values = c("col1" = "red",
+               "col2" = "darkgreen"),
+    labels = c("Pennsylvania (No Min Wage Increase)", "New Jersey (Min Wage Increase)")
+  ) +
+  theme_bw() +
+  scale_x_continuous(breaks = c(0, 1), labels = c("Mar 1992","Dec 1992")) +
+  xlab(NULL) + ylab("Employment Rate") +
+  ylim(17, 27)
+```
+
+Pennsylvania gives us the **trend** in employment rate if **no minimum wage increase occurred**. We then make an assumption - had New Jersey not undergone a minimum wage increase, it would have followed the same trend in employment rates.
+
+```{r}
+#| fig-height: 2
+#| echo: false
+
+df.att <- data.frame(
+  time = c(1, 1),
+  att = c(23.9, 21.1)
+)
+ggplot() +
+  geom_point(aes(x = time, y = nj.pot, color = "col3"), data = df.pot) +
+  geom_line(aes(x = time, y = nj.pot, color = "col3"), data = df.pot, linetype = 2) +
+  geom_point(aes(x = time, y = nj, color = "col2"), data = df.nj) +
+  geom_line(aes(x = time, y = nj, color = "col2"), data = df.nj) +
+  geom_point(aes(x = time, y = pa, color = "col1"), data = df.pa) +
+  geom_line(aes(x = time, y = pa, color = "col1"), data = df.pa) +
+  geom_line(aes(x = time, y = att, color = "col4"), data = df.att, arrow = arrow(length = unit(0.2, "cm"), ends = "both", type = "closed"), linetype = 3) +
+  scale_color_manual(
+    name = "Legend",
+    values = c("col1" = "red",
+               "col2" = "darkgreen",
+               "col3" = "purple",
+               "col4" = "black"),
+    labels = c("Pennsylvania (Untreated)", "New Jersey (Treated)", "New Jersey (Hypothetical Untreated)", "Treatment Effect")
+  ) +
+  theme_bw() +
+  scale_x_continuous(breaks = c(0, 1), labels = c("Mar 1992","Dec 1992")) +
+  xlab(NULL) + ylab("Employment Rate") +
+  ylim(17, 27)
+```
+
+Now, this allows us to estimate the counterfactual employment rate of New Jersey had no minimum wage increase occurred. This allows us to find the treatment effect.
+
+This entire idea of using another group's trend to estimate the hypothetical depends on the critical assumption of **parallel trends**: that we can indeed use Pennsylvania's trend to estimate New Jersey's hypothetical trend if it were untreated.
+
+Parallel trends essentially says that if the treated units had hypothetically not been treated, we should expect them to follow the same trend as the untreated units.
 
 ::: small
-The choice of estimator will depend on the type of DiD.
+We also need the assumption of SUTVA for difference-in-differences
 :::
-
-All DiD require 3 identification assumptions:
-
-|                                                         |                                                                                                                             |
-|--------------------------|----------------------------------------------|
-| [Assumption]{.smallcaps}                                | [Description]{.smallcaps}                                                                                                   |
-| [Parallel Trends]{.mark}                                | This means that had the treated group not received treatment, they would have followed the same trend as the control group. |
-| [No Anticipation]{.mark}                                | This means that treated units do not respond to treatment prior to the treatment being actually implemented (anticipation). |
-| [Stable Unit Treatment Value Assumption (SUTVA)]{.mark} | This means that if Ava is treated, that does not affect Mia's outcome (and for any other 2 individuals).                    |
-
-: {tbl-colwidths="\[33,67\]" .bordered}

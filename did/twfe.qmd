@@ -8,6 +8,7 @@ title: "Two-Way Fixed Effects Estimator"
 
 # Packages Needed:
 library(fixest)
+library(ggfixest)
 ```
 
 The two-way fixed effects estimator is the estimator for classical DiD, and works (albiet poorly) for staggered DiD and non-absorbing DiD:
@@ -47,7 +48,15 @@ coeftable(model) # Can also use summary(model)
 The estimate for treatment is the ATT. In this example, it is 4.850645.
 :::
 
-For dynamic treatment effects, we can
+For dynamic treatment effects, we will need to create a relative time variable, indicating how the current time period $t$ relates to a unit $i$'s initial treatment adoption year. Then, we can run the following regression to estimate $\tau_r$ for each relative period $r$.
+
+$$
+Y_{it} = \alpha_i + \gamma_t + \sum_{r ≠ -1} 1\{R_{it} = r\} \ \tau_r + \cov + \eps_{it}
+$$
+
+::: small
+Where $R_{it}$ is the relative time variable of unit $i$ at time $t$. Where $1\{R_{it} = r\}$ is an indicator variable that only equals 1 if $R_{it}$ is equal to $r$. Essentially, a treatment coefficient $\tau_r$ per relative time period $r$.
+:::
 
 ```{r}
 #| echo: false
@@ -68,23 +77,27 @@ df <- df %>%
 #| warning: false
 #| fig-height: 3.5
 
-# rel.time is: time period - initial treatment period of a unit
-# thus, rel.time = 0 is first treatment year. negative is pre-treat.
 
 model <- feols(
   fml  = outcome ~ i(rel.time, -1) + covariate | unit + time,
   data = df
 )
 
-iplot(
+ggiplot(
+  # required options
   object   = model,
   drop     = "[[:digit:]]{2}",  # this limits pre-post period to -9 to 9.
-  ref.line = 0
+  ref.line = 0,                 # adds a line at treatment year
+  
+  # aesthetic options
+  xlab     = "Time Relative to Treatment",  # x-axis label
+  ylab     = "Dynamic ATT Estimate",        # y-axis label
+  main     = "Dynamic Treatment Effects",   # title for plot
 )
 ```
 
 ::: small
-Negative rel.time (pre-treatment) should have 0 significant effects if parallel trends is met. Here, we can see parallel trends is violated. Post rel.time are the dynamic treatment effects over time.
+Pre-treatment (negative relative time) should have 0 significant effects if parallel trends is met. Here, we can see parallel trends is violated. Positive relative times are the dynamic treatment effects over time.
 :::
 
 As has been mentioned, TWFE is a poor estimator for staggered DiD or non-absorbing DiD. The reason for this is because of two factors:

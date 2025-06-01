@@ -127,7 +127,7 @@ ul.task-list li input[type="checkbox"] {
         <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/design.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">How DiD Works</span></a>
+ <span class="menu-text">Types of DiD Designs</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -156,9 +156,12 @@ ul.task-list li input[type="checkbox"] {
   </div>
 </li>
         <li class="sidebar-item">
+ <span class="menu-text">Imputation Estimator</span>
+  </li>
+        <li class="sidebar-item">
   <div class="sidebar-item-container"> 
   <a href="../did/ifect.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">Imputation Estimator</span></a>
+ <span class="menu-text">Interactive Fixed Effects</span></a>
   </div>
 </li>
         <li class="sidebar-item">
@@ -216,77 +219,48 @@ ul.task-list li input[type="checkbox"] {
 
 
 <div class="small">
-<p>See Scott Cunningham’s <a href="https://mixtape.scunning.com/09-difference_in_differences">Causal Inference: The Mixtape</a> for a more in depth overview.</p>
+<p>This example is from <a href="https://www.nber.org/papers/w4509">Card and Kreuger (1993)</a> with modified numbers.</p>
 </div>
-<p>Difference-in-differences (DiD) is the most popular causal inference method, that has seen a “revolution” in the last few years. The method is designed for:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 67%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Panel Data</strong></td>
-<td>We observe the same units over multiple periods of time.</td>
-</tr>
-<tr class="even">
-<td><strong>Repeated Cross Section</strong></td>
-<td>We observe different units over multiple periods of time.</td>
-</tr>
-</tbody>
-</table>
+<p>In April 1992, New Jersey increased its minimum wage. We might wonder how that caused changes in employment. We have data from before (Mar 1992) and after (Dec 1992):</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="did_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>We <strong>cannot</strong> calculate the treatment effect. This is because the actual treatment effect, according to potential outcomes, requires the counterfactual outcome if New Jersey had hypothetically not received the treatment in Dec 1992.</p>
 <div class="small">
-<p>Panel data is usually preferred, but most estimators can accommodate repeated cross section.</p>
+<p>The actual treatment effect would be employment rate in Dec 1992 with min wage increase, minus the employment rate in Dec 1992 without the min wage increase.</p>
 </div>
-<p>DiD exploits variation in treatment adoption over two dimensions. This typically means variation in treatment adoption between units, and variation of treatment adoption over time. There are three types of DiD designs:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 67%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><strong>Classical DiD</strong></td>
-<td>When there are two groups of units: the treatment group, and the control group. In the pre-treatment time periods, neither group adopts treatment. In the post-treatment time periods, only the treatment group adopts treatment.</td>
-</tr>
-<tr class="even">
-<td><strong>Staggered DiD</strong></td>
-<td>When there are multiple treatment groups, who adopt treatment at different time-periods. For example, group A might adopt treatment in year 2000, group B might adopt treatment in year 2010, and group C is a control group.</td>
-</tr>
-<tr class="odd">
-<td><strong>Non-Absorbing DiD</strong></td>
-<td>A staggered (or classical) DiD, but some units who adopt treatment earlier may turn off treatment later (treatment reversal).</td>
-</tr>
-</tbody>
-</table>
+<p>Of course, we do not observe the hypothetical counterfactual of New Jersey not undergoing the minimum wage increase in Dec 1992. However, what we can do is look at another state that <strong>did not undergo the treatment</strong> (untreated), like Pennsylvania.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="did_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Pennsylvania gives us the <strong>trend</strong> in employment rate if <strong>no minimum wage increase occurred</strong>. We then make an assumption - had New Jersey not undergone a minimum wage increase, it would have followed the same trend in employment rates.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="did_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Now, this allows us to estimate the counterfactual employment rate of New Jersey had no minimum wage increase occurred. This allows us to find the treatment effect.</p>
+<p>This entire idea of using another group’s trend to estimate the hypothetical depends on the critical assumption of <strong>parallel trends</strong>: that we can indeed use Pennsylvania’s trend to estimate New Jersey’s hypothetical trend if it were untreated.</p>
+<p>Parallel trends essentially says that if the treated units had hypothetically not been treated, we should expect them to follow the same trend as the untreated units.</p>
 <div class="small">
-<p>The choice of estimator will depend on the type of DiD.</p>
+<p>We also need the assumption of SUTVA for difference-in-differences</p>
 </div>
-<p>All DiD require 3 identification assumptions:</p>
-<table class="table-bordered table">
-<colgroup>
-<col style="width: 33%">
-<col style="width: 67%">
-</colgroup>
-<tbody>
-<tr class="odd">
-<td><span class="smallcaps">Assumption</span></td>
-<td><span class="smallcaps">Description</span></td>
-</tr>
-<tr class="even">
-<td><mark>Parallel Trends</mark></td>
-<td>This means that had the treated group not received treatment, they would have followed the same trend as the control group.</td>
-</tr>
-<tr class="odd">
-<td><mark>No Anticipation</mark></td>
-<td>This means that treated units do not respond to treatment prior to the treatment being actually implemented (anticipation).</td>
-</tr>
-<tr class="even">
-<td><mark>Stable Unit Treatment Value Assumption (SUTVA)</mark></td>
-<td>This means that if Ava is treated, that does not affect Mia’s outcome (and for any other 2 individuals).</td>
-</tr>
-</tbody>
-</table>
 
 
 
